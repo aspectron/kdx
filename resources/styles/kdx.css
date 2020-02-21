@@ -1,0 +1,5 @@
+body{
+	height:100vh;overflow:hidden;padding:0px;margin:0px;background-color:transparent;
+	box-sizing: border-box;display:flex;flex-direction: column;
+}
+body>dsn-toolbar{background-color:#DDD;height:25px;padding:0px 10px;}
