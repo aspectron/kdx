@@ -1,0 +1,208 @@
+"use strict";
+
+
+const E = new Emanator(__dirname, {
+    type : 'NODE',
+    guid : 'a1072047-6d98-44d8-9aa5-d9b86c79bd01',
+    group : 'DAGlabs',
+    ident : 'khost',
+    title : 'Khost',
+    banner : 'KHOST',
+    git : 'git@github.com:kaspanet/khost',
+    author : "DAGlabs",
+    url : "http://daglabs.com",
+    archive : true,
+    folder : true,
+    standalone : true,
+})
+
+
+const go = await E.tools.go('go1.13.4');
+const git = await E.tools.git();
+
+
+E.task('kaspad', ['origin'], async (callback) => {
+
+    let dest = path.join(go.SRC,'github.com/kaspanet/');
+    if(E.flags.reset && fs.existsSync(dest))
+        E.emptyDir(dest);
+
+    const repos = ['kaspad','kasparov','txgen','miningsimulator'];
+    for(const repo of repos) {
+        // console.log(`git clone https://github.com/kaspanet/${repo}`);
+        // await git.clone(`https://github.com/kaspanet/${repo}`,dest);
+        console.log(`git clone git@github.com:kaspanet/${repo}`);
+        await git.clone(`git@github.com:kaspanet/${repo}`,dest);
+    }
+
+    E.BIN = path.join(E.appFolder,'bin',E.PLATFORM_ARCH);
+    mkdirp.sync(E.BIN);
+
+    // ---
+
+    let targets = [
+        'kaspad',
+        'kasparov/kasparovd',
+        'kasparov/kasparovsyncd',
+        'miningsimulator',
+        'txgen',
+        ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`)
+    ];
+
+    let rename = {
+    }
+    
+    //let jobs = []
+    let folders = []
+
+    for(let target of targets) {
+        let folder = path.join(dest,target);
+        await go.build(folder);
+        folders.push(folder);
+        //jobs.push(go.build(folder));
+    }
+
+    //await Promise.all(jobs);
+
+    folders.forEach((folder) => {
+        let file = path.basename(folder);
+        let dest = rename[file] || file;
+        file += E.PLATFORM_BINARY_EXTENSION;
+        dest += E.PLATFORM_BINARY_EXTENSION;
+
+        if(!fs.existsSync(path.join(folder,file))) {
+            console.log(`Unable to locate source file: ${path.join(folder,file)}`);
+            console.log(`...giving up`);
+            prcess.exit(1);
+        }
+
+        E.copy(path.join(folder,file),path.join(E.BIN,dest));
+    })
+
+    E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
+})
+
+E.task('mysql', ['origin'], async (callback) => {
+
+    // disabling MySQL for now
+    // return Promise.resolve();
+
+    // ---
+
+    if(E.PLATFORM == 'linux')
+        return Promise.resolve();
+
+    let version = '8.0.18';
+    let macos = 'macos10.14';
+    const mysql = {
+        windows : `mysql-${version}-winx64.zip`,
+        linux : `mysql-${version}-linux-x86_64-minimal.tar.xz`,
+        darwin : `mysql-${version}-${macos}-x86_64.tar.gz`
+    }[E.PLATFORM];
+
+    if(E.flags.nodb || E.flags.nosql || E.flags.nomysql)
+        return Promise.resolve();
+
+    E.utils.resetTTY();
+
+    let file = path.join(E.DEPS,mysql);
+    await E.download(`https://dev.mysql.com/get/Downloads/MySQL-8.0/${mysql}`,file);
+    await E.unzip(file, E.DEPS);//, callback);
+    let basename = path.basename(mysql).replace(/\.(zip|tar|tar.gz|tar.xz)$/,'');
+
+    const targetBinFolder = path.join(E.BIN,basename);
+    if(fs.existsSync(targetBinFolder)) {
+        E.log(`WARNING: previous MySQL deployment found...`.brightRed,);
+        E.log(`         cleaning up existing ${targetBinFolder}...`);
+        await fs.remove(targetBinFolder);
+    }
+    mkdirp.sync(targetBinFolder);
+
+    E.log(`copying ${basename}...`);
+    let folders = ['bin','lib','share'];
+
+    let jobs = folders.map((f) => {
+        if(E.PLATFORM == 'windows')
+            return E.copy(path.join(E.DEPS,basename,f), path.join(targetBinFolder,f));
+        else
+            return E.spawn('cp', ['-r',path.join(E.DEPS,basename,f),path.join(targetBinFolder,f)], { cwd : E.DEPS, stdio: 'inherit' });
+    })
+    await Promise.all(jobs);
+    E.log('done...');
+
+})
+
+// E.task('pgsql', ['origin'], async (callback) => {
+//     const pgsql = {
+//         windows : `http://sbp.enterprisedb.com/getfile.jsp?fileid=12141`,
+//         darwin : `http://sbp.enterprisedb.com/getfile.jsp?fileid=12139`
+//     }[E.PLATFORM];
+//     let file = path.join(E.DEPS,pgsql);
+//     await E.download(`https://dev.mysql.com/get/Downloads/MySQL-8.0/${mysql}`,file);
+//     await E.unzip(file, E.DEPS);//, callback);
+//     callback();
+// })
+
+E.task('remote', ['origin'], async (callback) => {
+
+    let files = E.manifest.files.map((f) => {
+        return E.copy(path.join(E.REPO,f),path.join(E.BUILD,f));
+    })
+    E.log(`copying ${files.length} items...`);
+    await Promise.all(files);
+    // console.log(`done...`);
+})
+
+E.task('mqtt',['origin'], async () => {
+    if(E.PLATFORM == 'windows')
+        return E.copy(path.join(E.REPO,'resources','deps','mosquitto-windows-x64'),path.join(E.BIN,'mosquitto'));
+})
+
+E.task('done', ['kaspad','mysql','remote','mqtt'], async () => {
+
+})
+
+
+E.task('aptitude', null, async (callback) => {
+
+    if(E.PLATFORM != 'linux')
+        return;
+
+// TODO - APT-PACKAGE REQUIREMENTS
+// net-tools
+// wondershaper
+
+})
+
+E.task('docker',null, async () => {
+
+    E.manifest_read();
+
+
+    const rsafile = path.join(os.homedir(),'.ssh','id_rsa');
+    if(!fs.existsSync(rsafile)) {
+        E.log("ERROR - unable to locate".red.bold,rsafile.bold);
+        process.exit(1);
+    } else {
+        const rsa = fs.readFileSync(rsafile);//,'utf8');
+        const relay = ['no-cache'];
+        const args = ['-s','docker','build'].concat(relay.map(k=>E.flags[k]?`--${k}`:null)).filter(v=>v);
+        args.push('--build-arg',`SSH_PRIVATE_KEY=${rsa.toString('hex')}`);
+        args.push('-t',`khost:latest`,'.');
+        const ts0 = Date.now();
+        await E.utils.spawn('sudo', args, { cwd : __dirname, stdio: 'inherit' });
+        await E.utils.spawn('sudo',['docker','tag','khost:latest',`khost:${E.manifest.version}`], { cwd : __dirname, stdio: 'inherit' });
+        console.log('Docker build complete at',new Date());
+        const ts1 = Date.now();
+        console.log('Docker build took'.brightBlue,`${((ts1-ts0)/1000/60).toFixed(1)}`.brightWhite,'minutes'.brightBlue)
+    }
+})    
+
+
+if(E.flags.docker) {
+    E.run(['docker']);
+}
+else if(E.flags['local-binaries']) 
+    E.run(['kaspad','mysql','aptitude']);
+else
+    E.run();
