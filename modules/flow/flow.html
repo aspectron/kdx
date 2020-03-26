@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Account</title>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+	<link rel="stylesheet" type="text/css" href="/resources/extern/fonts/fontawesome/css/all.min.css" />
+	<link rel="stylesheet" type="text/css" href="/node_modules/flow-ux/flow-ux.css" />
+	<script type="importmap">
+		{
+			"imports" : {
+				"lit-html" : "/node_modules/lit-html/lit-html.js",
+				"lit-html/lit-html.js" : "/node_modules/lit-html/lit-html.js",
+				"lit-html/lib/shady-render.js" : "/node_modules/lit-html/lib/shady-render.js",
+				"lit-element" : "/node_modules/lit-element/lit-element.js"
+			}
+		}
+	</script>
+	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+	<!--script type="module" src="/node_modules/flow-ux/src/fa-icon.js"></script-->
+	<script type="module" src="/node_modules/flow-ux/flow-ux.js"></script>
+
+	<!-- include non-module-type jquery -->
+	<script src="/resources/extern/scripts/jquery-3.1.1.normal.js"></script>
+	<!-- install xterm, xterm-addon-fit, xterm-addon-web-links node-modules -->
+	<script type="module" src="/node_modules/flow-ux/src/flow-terminal.js"></script>
+
+	<style>
+
+		body {
+			background: transparent;
+			display:flex;
+			flex-direction:column;
+		}
+
+		@font-face {
+			font-family: 'Hero';
+			font-style: normal;
+			src: url("fonts/hero.woff") format('woff');
+		}
+
+		@font-face {
+			font-family: 'Julius Sans One';
+			font-style: normal;
+			src: url("../../resources/extern/fonts/JuliusSansOne-Regular.ttf") format('truetype');
+		}
+
+		@font-face {
+			font-family: 'Open Sans';
+			font-style: normal;
+			src: url("../../resources/extern/fonts/Open Sans.ttf") format('truetype');
+		}
+
+		h1 { color: blue; }
+
+		body {
+			background-color: white;
+			--flow-theme-primary-color: rgba(0,151,115,1.0);
+			--flow-theme-on-primary-color: white;
+
+			--flow-theme-border-color: rgba(0,151,115,1.0); /*#888;*/
+		}
+
+
+		tab-content::-webkit-scrollbar-track
+		{
+		    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+		    /*border-radius: 14px;*/
+		    /*border-radius: 14px;*/
+		    background-color: #F5F5F5;
+		}
+
+		tab-content::-webkit-scrollbar
+		{
+		    width: 16px;
+		    background-color: #F5F5F5;
+		}
+
+		tab-content::-webkit-scrollbar-thumb
+		{
+		    /*border-radius: 14px;*/
+		    /*border-radius: 2px;*/
+		    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+		    background-color: #888;
+		}
+
+
+
+		#account {
+			-webkit-app-region: drag;
+		}
+
+		mwc-tab-bar {
+			--mdc-theme-primary: rgba(0,151,115,1.0);
+			--mdc-theme-on-primary: white;
+			--mdc-theme-secondary: #feeae6;
+		}
+
+		.hello {
+			--mdc-theme-primary: rgba(0,151,115,1.0);
+			--mdc-theme-on-primary: white;
+		--mdc-theme-secondary: #feeae6;
+
+		/*
+		--mdc-theme-primary: #fcb8ab;
+		--mdc-theme-secondary: #feeae6;
+		--mdc-theme-on-primary: #442b2d;
+		--mdc-theme-on-secondary: #442b2d;*/
+			
+			width: 96px;
+			margin: 24px;
+		}
+
+
+		.tabs {
+			margin-top: 32px;
+			width: 100%;
+			/*height: 32px;*/
+			/*border: 1px solid blue; */
+
+
+
+			/*--flow-tab: {
+				min-width: 200px;
+			};*/
+
+			--flow-tab-min-width : 222px;
+
+		}
+
+		flow-caption-bar {
+			--flow-tab-min-width : 220px;
+			--flow-tab-max-width : 320px;
+
+		}
+
+		tab-content {
+			background-color:white;
+			overflow: auto auto;
+			flex:1;
+		}
+
+		flow-textarea {
+			margin:4px;
+		}
+		tab-content>x-terminal{height:100%;}
+	</style>
+</head>
+<body>
+	<flow-caption-bar icon="fal fa-chart-network" >FLOW</flow-caption-bar>
+
+	<script>
+		// GET FLOW-CAPTION
+		// DYNAMICALLY CREATE ICONS FOR TOOLBAR
+
+		let caption = document.querySelector('flow-caption-bar');
+		caption.tabs = [{
+			title : "X-Terminal",
+			id : "x-terminal"
+		}, {
+			title : "WORK",
+			id : "work",
+			disable : true,
+		},{
+			title : "EMPLOY",
+			id : "employ",
+			disable : true,
+		}, {
+			title : "TRACK",
+			id : "track",
+			disable : true,
+		}, {
+			title : "SETTINGS",
+			id : "settings",
+			disable : true,
+		}, {
+			title : "SANDBOX",
+			id : "sandbox",
+			disable : true,
+		}, {
+			title : "ACCOUNT",
+			id : "account"
+		}];
+
+		caption["active-tab"] = "account";//"x-terminal";
+
+		caption.addEventListener('test', (e)=>{
+			console.log("##### XXXXXXXXXXXXXXXXX ###### test-event", e)
+		})
+
+		//console.log("caption", caption, caption.fire)
+		document.addEventListener("WebComponentsReady", ()=>{
+			//console.log("WebComponentsReady WebComponentsReady WebComponentsReady")
+			caption.fire('test', {testing:true}, {bubbles:true})
+		})
+		
+		
+	</script>
+	<tab-content for="x-terminal">
+		<x-terminal class="x-terminal" background="#000" foreground="#FFF"></x-terminal>
+	</tab-content>
+	<tab-content for="work">WORK</tab-content>
+	<tab-content for="employ">EMPLOY</tab-content>
+	<tab-content for="track">TRACK</tab-content>
+	<tab-content for="settings">SETTINGS</tab-content>
+	<tab-content for="account">
+		ACCOUNT<br/>
+		<style>
+			flow-anchor {
+				width: 32px;
+				height: 32px;
+				border: 1px solid blue;
+			}
+		</style>
+		<flow-circular-shapes id="square">
+			<flow-anchor class="square"></flow-anchor>
+			<flow-anchor class="square"></flow-anchor>
+			<flow-anchor class="square"></flow-anchor>
+			<flow-anchor class="square"></flow-anchor>
+			<flow-anchor class="square"></flow-anchor>
+		</flow-circular-shapes>
+		<hr/>
+		<flow-checkbox-test></flow-checkbox-test>
+		<flow-textarea maxlength="10">hello</flow-textarea>
+		<br/>
+		<mwc-button class="hello" raised onclick="testTrigger();" style="font-size:24px;color:red;">HELLO! WELCOME! CLICK ME TWICE TO ENTER!</mwc-button>
+	</tab-content>
+	<tab-content for="sandbox">
+		SANDBOX<br/>
+		<mwc-button class="hello" raised onclick="testTrigger();">HELLO</mwc-button>
+		<style>
+			.icon{margin:32px;width:17px;display:inline-block;}
+			.tab{height:32px;}
+		</style>
+		<script>
+			true && typeof(nw) != "undefined" && nw.Window && nw.Window.get().showDevTools()
+			let state = true;
+			function testTrigger() {
+
+				state = !state;
+
+				//console.log("TABS:",caption.tabs)
+
+				caption.tabs = caption.tabs.map(t => {
+					t.disable = state ? t.id == 'account' : t.id != 'account';
+					return t;
+				})
+
+				console.log("testTrigger()",caption.tabs)
+
+				/*
+				if(state) {
+					caption.tabs = JSON.stringify([{
+						title : "WORK",
+						id : "work"
+					}, {
+						title : "EMPLOY",
+						id : "employ"
+					}, {
+						title : "TRACK",
+						id : "track"
+					}, {
+						title : "SETTINGS",
+						id : "settings"
+					}, {
+						title : "SANDBOX",
+						id : "sandbox"
+					}]);
+				}
+				else {
+					caption.tabs = JSON.stringify([{
+						title : "ACCOUNT",
+						id : "account"
+					}]);
+
+				}
+				*/
+			}
+		</script>
+		<flow-svg-tab class='tab'></flow-svg-tab>
+		<div id="account">ACCOUNT</div>
+		<flow-test-element mood="Super">WTF! THIS <b>WORKED</b></flow-test-element>
+		<flow-i18n>Hello</flow-i18n>
+		<flow-svg-test class='icon'></flow-svg-test>
+		<flow-tabs class='tabs' active="freelance">
+			<flow-tab id="xfreelance">FREELANCE</flow-tab>
+			<flow-tab id="xemploy">EMPLOY</flow-tab>
+			<flow-tab id="xsettings">SETTINGS</flow-tab>
+			<flow-tab id="xtrack">
+			<b>T</b>RACK</flow-tab>
+		</flow-tabs>
+
+		<i class="fal fa-times-circle"></i>
+		<div class="panel login">
+			<login-dialog></login-dialog>
+		</div>
+		<h1>H1</h1>
+		<!--mwc-tab-bar>
+			<mwc-tab label="one" minWidth></mwc-tab>
+			<mwc-tab label="two" minWidth></mwc-tab>
+			<mwc-tab label="three" minWidth></mwc-tab>
+		</mwc-tab-bar-->
+		[[[<fa-icon class="fal fa-times-circle" size="150"></fa-icon>]]]
+		<!-- <script src="account.js"></script> -->
+	</tab-content>
+</body>
+</html>

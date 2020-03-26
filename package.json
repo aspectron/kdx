@@ -19,7 +19,10 @@
     "micro-fabric": "*",
     "micro-fabric-bin": "*",
     "nuid": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "mkdirp": "*",
+    "mysql": "*",
+    "is-docker": "*"
   },
   "engines": {
     "node": "*",
