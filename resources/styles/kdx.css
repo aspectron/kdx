@@ -1,5 +1,39 @@
-body{
-	height:100vh;overflow:hidden;padding:0px;margin:0px;background-color:transparent;
-	box-sizing: border-box;display:flex;flex-direction: column;
+body{background:transparent;display:flex;flex-direction:column;}
+@font-face {
+	font-family: 'Hero';font-style: normal;
+	src: url("fonts/hero.woff") format('woff');
 }
-body>dsn-toolbar{background-color:#DDD;height:25px;padding:0px 10px;}
+@font-face {
+	font-family:'Julius Sans One';font-style:normal;
+	src: url("../../resources/extern/fonts/JuliusSansOne-Regular.ttf") format('truetype');
+}
+@font-face{
+	font-family: 'Open Sans';font-style: normal;
+	src: url("../../resources/extern/fonts/Open Sans.ttf") format('truetype');
+}
+h1{color:blue;}
+body{
+	background-color: white;
+	--flow-theme-primary-color:rgba(0,151,115,1.0);
+	--flow-theme-on-primary-color:white;
+	--flow-theme-border-color:rgba(0,151,115,1.0);
+}
+tab-content::-webkit-scrollbar-track{
+    -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);background-color:#F5F5F5;
+}
+tab-content::-webkit-scrollbar{width:16px;background-color:#F5F5F5;}
+tab-content::-webkit-scrollbar-thumb{
+    -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);
+    background-color:#888;
+}
+/*
+#account{
+	-webkit-app-region: drag;
+}
+*/
+.tabs{margin-top:32px;width:100%;--flow-tab-min-width:222px;}
+flow-caption-bar{--flow-tab-min-width:220px;--flow-tab-max-width:320px;}
+tab-content{background-color:white;overflow:auto auto;flex:1;padding:10px;}
+flow-textarea{margin:4px;}
+tab-content>x-terminal{height:100%;}
+

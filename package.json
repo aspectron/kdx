@@ -22,7 +22,10 @@
     "underscore": "*",
     "mkdirp": "*",
     "mysql": "*",
-    "is-docker": "*"
+    "is-docker": "*",
+    "xterm": "*",
+    "xterm-addon-fit": "*",
+    "xterm-addon-web-links": "*"
   },
   "engines": {
     "node": "*",
@@ -39,5 +42,5 @@
   "node-remote": [
     "http://localhost"
   ],
-  "chromium-args": "--disable-gpu-compositing --force-cpu-draw --enable-logging --disable-pinch"
+  "chromium-args": "--disable-gpu-compositing --force-cpu-draw --enable-logging --disable-pinch --enable-experimental-web-platform-features"
 }

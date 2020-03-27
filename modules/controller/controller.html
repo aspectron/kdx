@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Account</title>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+	<link rel="stylesheet" type="text/css" href="/resources/extern/fonts/fontawesome/css/all.min.css" />
+	<link rel="stylesheet" type="text/css" href="/node_modules/flow-ux/flow-ux.css" />
+	<link rel="stylesheet" type="text/css" href="/resources/styles/kdx.css">
+	<script type="importmap">
+		{
+			"imports" : {
+				"lit-html" : "/node_modules/lit-html/lit-html.js",
+				"lit-html/lit-html.js" : "/node_modules/lit-html/lit-html.js",
+				"lit-html/lib/shady-render.js" : "/node_modules/lit-html/lib/shady-render.js",
+				"lit-element" : "/node_modules/lit-element/lit-element.js",
+				"lit-html/directives/if-defined.js":"/node_modules/lit-html/directives/if-defined.js"
+			}
+		}
+	</script>
+	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+	<!--script type="module" src="/node_modules/flow-ux/src/fa-icon.js"></script-->
+	<script type="module" src="/node_modules/flow-ux/flow-ux.js"></script>
+
+	<!-- include non-module-type jquery -->
+	<script src="/resources/extern/scripts/jquery-3.1.1.normal.js"></script>
+	<!-- install xterm, xterm-addon-fit, xterm-addon-web-links node-modules -->
+	<script type="module" src="/node_modules/flow-ux/src/flow-terminal.js"></script>
+
+</head>
+<body>
+	<flow-caption-bar icon="fal fa-chart-network" >FLOW</flow-caption-bar>
+	<tab-content for="home">
+		<flow-checkbox-test></flow-checkbox-test>
+		<flow-textarea maxlength="10">hello</flow-textarea>
+	</tab-content>
+	<tab-content for="settings">
+		<flow-form-control>Advanced: <flow-checkbox-test id="settings-advanced" slot="input"></flow-checkbox-test></flow-form-control>
+	</tab-content>
+	<!--tab-content for="x-terminal">
+		<x-terminal class="x-terminal" background="#000" foreground="#FFF"></x-terminal>
+	</tab-content-->
+	<script type="module" src="/modules/controller/ui-controller.js"></script>
+</body>
+</html>

@@ -12,15 +12,15 @@ const os = require('os');
 // const NUID = require('nuid');
 
 /**
-* Class FlowBaseline
+* Class KDXApp
 * @example
-* const app = new FlowBaseline({
+* const app = new KDXApp({
 *	appFolder: __dirname,
 *	ident: 'flow-baseline',
 * });
 * app.main();
 */
-class FlowBaseline {
+class KDXApp {
 	/**
 	* @param {Object} [options]
 	*/
@@ -38,7 +38,7 @@ class FlowBaseline {
 	main() {
 		return new Promise((resolve, reject) => {
 			console.log('FlowBaseline - init()'.yellow);
-			nw.Window.open('modules/flow/flow.html', {
+			nw.Window.open('modules/controller/controller.html', {
 				new_instance: true,
 				id: 'kdx',
 				title: 'KaspaDX',
@@ -83,7 +83,7 @@ class FlowBaseline {
 /**
 *
 */
-const app = new FlowBaseline({
+const app = new KDXApp({
 	appFolder: __dirname,
 	ident: 'flow-baseline',
 });
@@ -91,6 +91,3 @@ const app = new FlowBaseline({
 (async ()=>{
 	await app.main();
 })();
-
-process.on('exit', ()=>{
-});
