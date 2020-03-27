@@ -1,27 +1,64 @@
 true && typeof(nw) != "undefined" && nw.Window && nw.Window.get().showDevTools()
-let caption = document.querySelector('flow-caption-bar');
-caption.tabs = [{
-	title : "Home",
-	id : "home"
-},{
-	title : "Settings",
-	id : "settings"
-},{
-	title : "RPC",
-	id : "rpc",
-	disable:true
-}];
+class UIController{
+	constructor(){
+		this.init();
+	}
+	init(){
+		this.initCaption();
+		this.initSettings();
+	}
+	initCaption(){
+		let caption = document.querySelector('flow-caption-bar');
+		this.caption = caption;
+		caption.tabs = [{
+			title : "Home",
+			id : "home"
+		},{
+			title : "Settings",
+			id : "settings"
+		},{
+			title : "RPC",
+			id : "rpc",
+			disable:true
+		}];
 
-caption["active-tab"] = "settings";
+		caption["active-tab"] = "settings";
+	}
+	initSettings(){
+		let scriptHolder = document.querySelector('#settings-script');
+		let advancedEl = document.querySelector('#settings-advanced');
+		advancedEl.addEventListener('changed', (e)=>{
+			//console.log("advancedEl", e.detail.checked)
+			//caption.tabs[2].disable = !e.detail.checked;
+			//caption.tabs = caption.tabs.slice(0);
+			//caption.requestTabsUpdate();
+			let advanced = e.detail.checked;
+			this.caption.set("tabs.2.disable", !advanced)
+			scriptHolder.classList.toggle("active", advanced)
+		})
+		this.scriptEditor = ace.edit(scriptHolder.querySelector(".script-box"), {
+			mode : 'ace/mode/javascript',
+			selectionStyle : 'text'
+		});
+		this.scriptEditor.setTheme("ace/theme/chrome");
+		this.scriptEditor.session.setUseWrapMode(false);
+		this.scriptEditor.session.on('change', (delta) => {
+			console.log("scriptEditorChange",delta);
 
-let settingsAdvanced = document.querySelector('#settings-advanced');
-settingsAdvanced.addEventListener('changed', (e)=>{
-	//console.log("settingsAdvanced", e.detail.checked)
-	//caption.tabs[2].disable = !e.detail.checked;
-	//caption.tabs = caption.tabs.slice(0);
-	//caption.requestTabsUpdate();
-	caption.set("tabs.2.disable", !e.detail.checked)
-})
+			if(this.disableScriptUpdates)
+				return;
+
+			let script = this.scriptEditor.session.getValue();
+			this.onScriptValueChange(script);
+
+		});
+	}
+	onScriptValueChange(){
+
+	}
+}
+
+const uiController = new UIController();
 
 /*
 caption.addEventListener('test', (e)=>{
