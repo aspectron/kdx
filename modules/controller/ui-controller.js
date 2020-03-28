@@ -14,6 +14,9 @@ class UIController{
 			title : "Home",
 			id : "home"
 		},{
+			title: "Data Folder",
+			id:"data-folder"
+		},{
 			title : "Settings",
 			id : "settings"
 		},{
@@ -43,17 +46,17 @@ class UIController{
 		this.scriptEditor.setTheme("ace/theme/chrome");
 		this.scriptEditor.session.setUseWrapMode(false);
 		this.scriptEditor.session.on('change', (delta) => {
-			console.log("scriptEditorChange",delta);
+			//console.log("scriptEditorChange",delta);
 
 			if(this.disableScriptUpdates)
 				return;
 
 			let script = this.scriptEditor.session.getValue();
-			this.onScriptValueChange(script);
+			this.onConfigValueChange(script);
 
 		});
 	}
-	onScriptValueChange(){
+	onConfigValueChange(config){
 
 	}
 }

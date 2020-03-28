@@ -39,6 +39,9 @@ flow-form-control{
 	/*background-color:#f2f2f2;*/
 	padding:10px;
 }
+flow-form-control [slot="info"]{
+	font-family: 'Open Sans';
+}
 flow-form-control h4[slot="info"].title{margin-bottom:10px;}
 .tabs{margin-top:32px;width:100%;--flow-tab-min-width:222px;}
 flow-caption-bar{--flow-tab-min-width:220px;--flow-tab-max-width:320px;}
@@ -48,10 +51,7 @@ tab-content>x-terminal{height:100%;}
 #settings-script{display:none;}
 #settings-script.active{display:flex;}
 .settings-script{display:flex;height:400px;flex-direction:column;}
-
-.settings-script .script-box{
-	flex:1;background-color: #fbfbfb;
-}
+.settings-script .script-box{flex:1;background-color: #fbfbfb;}
 .settings-script .tools{
 	flex:1;display:flex;justify-content:flex-end;
 	align-items: flex-start;padding:5px 0px;
