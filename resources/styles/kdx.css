@@ -35,13 +35,25 @@ tab-content::-webkit-scrollbar-thumb{
 	-webkit-app-region: drag;
 }
 */
+flow-form-control{
+	/*background-color:#f2f2f2;*/
+	padding:10px;
+}
+flow-form-control h4[slot="info"].title{margin-bottom:10px;}
 .tabs{margin-top:32px;width:100%;--flow-tab-min-width:222px;}
 flow-caption-bar{--flow-tab-min-width:220px;--flow-tab-max-width:320px;}
 tab-content{background-color:white;overflow:auto auto;flex:1;padding:10px;display:none}
 flow-textarea{margin:4px;}
 tab-content>x-terminal{height:100%;}
-.settings-script{display:none;height:200px;margin:20px 0px 10px;}
-.settings-script.active{display:flex;flex-direction:column;}
-.settings-script .script-box{height:100px;flex:1;}
-.settings-script .tools{display:flex;justify-content:flex-end;padding: 5px 0px;}
+#settings-script{display:none;}
+#settings-script.active{display:flex;}
+.settings-script{display:flex;height:400px;flex-direction:column;}
+
+.settings-script .script-box{
+	flex:1;background-color: #fbfbfb;
+}
+.settings-script .tools{
+	flex:1;display:flex;justify-content:flex-end;
+	align-items: flex-start;padding:5px 0px;
+}
 

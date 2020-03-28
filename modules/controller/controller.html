@@ -35,17 +35,25 @@
 
 </head>
 <body>
-	<flow-caption-bar icon="fal fa-chart-network" >FLOW</flow-caption-bar>
+	<flow-caption-bar icon="fal fa-chart-network">KDX</flow-caption-bar>
 	<tab-content for="home">
-		<flow-checkbox-test></flow-checkbox-test>
+		<flow-checkbox-styled></flow-checkbox-styled>
 		<flow-textarea maxlength="10">hello</flow-textarea>
 	</tab-content>
 	<tab-content for="settings">
-		<flow-form-control>Advanced: <flow-checkbox-test id="settings-advanced" slot="input"></flow-checkbox-test></flow-form-control>
-		<div id="settings-script" class="settings-script">
-			<div class="script-box"></div>
-			<div class="tools"><flow-btn>Apply</flow-btn></div>
-		</div>
+		<flow-form-control>
+			Turn ON/OFF advanced settings options
+			<flow-checkbox id="settings-advanced" slot="input">Advanced</flow-checkbox>
+			<h4 slot="info" class="title">Where does it come from?</h4>
+			<p slot="info">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+		</flow-form-control>
+		<flow-form-control id="settings-script" icon="light-address-card">
+			Module Configuration
+			<div slot="input" class="settings-script">
+				<div class="script-box"></div>
+				<div class="tools"><flow-btn>Apply</flow-btn></div>
+			</div>
+		</flow-form-control>
 	</tab-content>
 	<tab-content for="rpc">
 		<x-terminal class="x-terminal" background="#000" foreground="#FFF"></x-terminal>
