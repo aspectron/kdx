@@ -12,7 +12,7 @@ body{
 	--flow-tab-font-size:1.5rem;
 	/*
 	--flow-caption-bar-font-family:'Julius Sans One';
-	--flow-checkbox-primary-color:var(--flow-primary-color);
+	--flow-checkbox-color:var(--flow-primary-color);
 	*/
 }
 @font-face {
