@@ -2,12 +2,18 @@ body{
 	background:white;display:flex;flex-direction:column;
 	font-family:'Julius Sans One';
 	font-weight:bold;
-	--flow-theme-font-family:'Julius Sans One';
-	--flow-theme-font-weight:bold;
-	--flow-theme-primary-color:rgba(0,151,115,1.0);
-	--flow-theme-on-primary-color:white;
-	--flow-theme-border-color:rgba(0,151,115,1.0);
-	--flow-theme-border-hover-color:rgba(2, 97, 74, 1);
+	--flow-font-family:'Julius Sans One';
+	
+	--flow-font-weight:bold;
+	--flow-primary-color:rgba(0,151,115,1.0);
+	--flow-on-primary-color:white;
+	--flow-border-color:rgba(0,151,115,1.0);
+	--flow-border-hover-color:rgba(2, 97, 74, 1);
+	--flow-tab-font-size:1.5rem;
+	/*
+	--flow-caption-bar-font-family:'Julius Sans One';
+	--flow-checkbox-primary-color:var(--flow-primary-color);
+	*/
 }
 @font-face {
 	font-family: 'Hero';font-style: normal;
@@ -43,8 +49,8 @@ flow-form-control [slot="info"]{
 	font-family: 'Open Sans';
 }
 flow-form-control h4[slot="info"].title{margin-bottom:10px;}
-.tabs{margin-top:32px;width:100%;--flow-tab-min-width:222px;}
-flow-caption-bar{--flow-tab-min-width:220px;--flow-tab-max-width:320px;}
+.tabs{margin-top:32px;width:100%;}
+flow-caption-bar{/*--flow-tab-min-width:220px;--flow-tab-max-width:320px;*/}
 tab-content{background-color:white;overflow:auto auto;flex:1;padding:10px;display:none}
 flow-textarea{margin:4px;}
 tab-content>x-terminal{height:100%;}

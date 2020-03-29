@@ -36,7 +36,7 @@ class UIController{
 			//caption.tabs = caption.tabs.slice(0);
 			//caption.requestTabsUpdate();
 			let advanced = e.detail.checked;
-			this.caption.set("tabs.2.disable", !advanced)
+			this.caption.set("tabs.3.disable", !advanced)
 			scriptHolder.classList.toggle("active", advanced)
 		})
 		this.scriptEditor = ace.edit(scriptHolder.querySelector(".script-box"), {
