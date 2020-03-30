@@ -1,4 +1,20 @@
 true && typeof(nw) != "undefined" && nw.Window && nw.Window.get().showDevTools()
+const rpc = new RPC();
+window.rpc = rpc;
+
+/*
+rpc.on("config", (msg, from)=>{
+	console.log("got config:", msg, 'from:'+from)
+})
+
+//rpc.dispatchTo("main", "init", {text:"send me config"});
+//rpc.dispatch("init", {text:"send me config"});
+rpc.dispatch("get-config", (error, config)=>{
+	console.log("get-config:error, config", error, config)
+})
+*/
+
+
 class UIController{
 	constructor(){
 		this.init();
@@ -39,25 +55,45 @@ class UIController{
 			this.caption.set("tabs.3.disable", !advanced)
 			scriptHolder.classList.toggle("active", advanced)
 		})
-		this.scriptEditor = ace.edit(scriptHolder.querySelector(".script-box"), {
+		this.configEditor = ace.edit(scriptHolder.querySelector(".script-box"), {
 			mode : 'ace/mode/javascript',
 			selectionStyle : 'text'
 		});
-		this.scriptEditor.setTheme("ace/theme/chrome");
-		this.scriptEditor.session.setUseWrapMode(false);
-		this.scriptEditor.session.on('change', (delta) => {
+		this.configEditor.setTheme("ace/theme/chrome");
+		this.configEditor.session.setUseWrapMode(false);
+		this.configEditor.session.on('change', (delta) => {
 			//console.log("scriptEditorChange",delta);
 
-			if(this.disableScriptUpdates)
-				return;
+			//if(this.disableConfigUpdates)
+			//	return;
 
-			let script = this.scriptEditor.session.getValue();
-			this.onConfigValueChange(script);
+			//let script = this.configEditor.session.getValue();
+			//this.onConfigValueChange(script);
 
 		});
+		rpc.dispatch("get-config", (error, config)=>{
+			console.log("get-config:error, config", error, config)
+			if(config){
+				this.disableConfigUpdates = true;
+				this.configEditor.session.setValue(JSON.stringify(config, null, "\t"));
+				this.disableConfigUpdates = false;
+			}
+		})
+		$("flow-btn.save-config").on("click", ()=>{
+			let config = this.configEditor.session.getValue();
+			this.saveConfig(config);
+		})
 	}
-	onConfigValueChange(config){
-
+	saveConfig(config){
+		console.log("saveConfig:config", config)
+		try{
+			config = JSON.parse(config);
+		}catch(e){
+			return
+		}
+		rpc.dispatch("set-config", {config}, ()=>{
+			//
+		})
 	}
 }
 

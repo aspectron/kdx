@@ -1,10 +1,28 @@
-if (0) {
+if (1) {
 	typeof(chrome) != 'undefined' && chrome.developerPrivate.openDevTools({
 		renderViewId: -1,
 		renderProcessId: -1,
 		extensionId: chrome.runtime.id,
 	});
 }
+
+const {RPC} = require("./resources/rpc.js");
+const rpc = new RPC({
+	skipMsgFilter:true,
+	uid: "main",
+	useBcast:true
+});
+
+rpc.on("msg", (msg)=>{
+	console.log("rpc:msg", msg)
+})
+
+/*
+rpc.on("init", (msg, from, to)=>{
+	console.log("init:", msg, from, to)
+	rpc.dispatchTo(from, "config", {option:1})
+})
+*/
 
 const fs = require('fs-extra');
 const path = require('path');
@@ -29,6 +47,38 @@ class KDXApp {
 		* @type {Object}
 		*/
 		this.options = options;
+		this.initConfig();
+		this.initRPC();
+	}
+
+	initRPC(){
+		rpc.on("get-config", (args, callback)=>{
+			console.log("get-config:args", args)
+			callback(null, this.config)
+		})
+		rpc.on("set-config", (args, callback)=>{
+			console.log("set-config:args", args)
+			this.setConfig(args.config);
+			callback(null, {success:true})
+		})
+	}
+
+	initConfig(){
+		this.config = {};
+		this.configFile = path.join(__dirname, "config.json");
+		if(!fs.existsSync(this.configFile))
+			this.setConfig(this.config);
+		else
+			this.config = this.getConfig();
+	}
+
+	setConfig(config){
+		if(typeof config == 'object')
+			config = JSON.stringify(config, null, "\t")
+		fs.writeFileSync(this.configFile, config);
+	}
+	getConfig(defaults = {}){
+		return fs.readJSONSync(this.configFile, {throws:false}) || defaults;
 	}
 
 	/**
