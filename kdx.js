@@ -1,4 +1,4 @@
-if (1) {
+if (0) {
 	typeof(chrome) != 'undefined' && chrome.developerPrivate.openDevTools({
 		renderViewId: -1,
 		renderProcessId: -1,
@@ -6,7 +6,13 @@ if (1) {
 	});
 }
 
+const Controller = require("./modules/controller/controller.js");
 const {RPC} = require("./resources/rpc.js");
+const fs = require('fs-extra');
+const path = require('path');
+const os = require('os');
+
+
 const rpc = new RPC({
 	skipMsgFilter:true,
 	uid: "main",
@@ -23,11 +29,6 @@ rpc.on("init", (msg, from, to)=>{
 	rpc.dispatchTo(from, "config", {option:1})
 })
 */
-
-const fs = require('fs-extra');
-const path = require('path');
-const os = require('os');
-// const NUID = require('nuid');
 
 /**
 * Class KDXApp
@@ -49,36 +50,7 @@ class KDXApp {
 		this.options = options;
 		this.initConfig();
 		this.initRPC();
-	}
-
-	initRPC(){
-		rpc.on("get-config", (args, callback)=>{
-			console.log("get-config:args", args)
-			callback(null, this.config)
-		})
-		rpc.on("set-config", (args, callback)=>{
-			console.log("set-config:args", args)
-			this.setConfig(args.config);
-			callback(null, {success:true})
-		})
-	}
-
-	initConfig(){
-		this.config = {};
-		this.configFile = path.join(__dirname, "config.json");
-		if(!fs.existsSync(this.configFile))
-			this.setConfig(this.config);
-		else
-			this.config = this.getConfig();
-	}
-
-	setConfig(config){
-		if(typeof config == 'object')
-			config = JSON.stringify(config, null, "\t")
-		fs.writeFileSync(this.configFile, config);
-	}
-	getConfig(defaults = {}){
-		return fs.readJSONSync(this.configFile, {throws:false}) || defaults;
+		this.initController();
 	}
 
 	/**
@@ -127,6 +99,72 @@ class KDXApp {
 	log(...args) {
 		args.unshift('TT:');
 		console.log(args);
+	}
+
+	initController(){
+		this.controller = new Controller();
+		this.startDaemons({
+			'kaspad:kd0':1
+		});
+	}
+
+	startDaemons(daemons={}){
+		this.daemons = daemons;
+		this.controller.manager.start(daemons);
+	}
+
+	restartDaemons(){
+		this.controller.manager.stop();
+		dpc(()=>{
+			this.controller.manager.start(daemons);
+		}, 1000);
+	}
+
+	/**
+	* initlize RPC hooks
+	*/
+	initRPC(){
+		rpc.on("get-config", (args, callback)=>{
+			console.log("get-config:args", args)
+			callback(null, this.config)
+		})
+		rpc.on("set-config", (args, callback)=>{
+			console.log("set-config:args", args)
+			this.setConfig(args.config);
+			callback(null, {success:true})
+			this.restartDaemons();
+		})
+	}
+
+	/**
+	* initlize config object
+	*/
+	initConfig(){
+		this.config = {};
+		this.configFile = path.join(__dirname, "config.json");
+		if(!fs.existsSync(this.configFile))
+			this.setConfig(this.config);
+		else
+			this.config = this.getConfig();
+	}
+
+	/**
+	* save config
+	* @param {Object} config JSON config
+	*/
+	setConfig(config){
+		if(typeof config == 'object')
+			config = JSON.stringify(config, null, "\t")
+		fs.writeFileSync(this.configFile, config);
+	}
+
+	/**
+	* read config file and return config as JSON object
+	* @param {Object} [defaults={}] default config object
+	* @return {Object} config as JSON
+	*/
+	getConfig(defaults = {}){
+		return fs.readJSONSync(this.configFile, {throws:false}) || defaults;
 	}
 }
 
