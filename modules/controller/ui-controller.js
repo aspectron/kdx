@@ -1,27 +1,17 @@
-true && typeof(nw) != "undefined" && nw.Window && nw.Window.get().showDevTools()
-const rpc = new RPC();
-window.rpc = rpc;
-
-/*
-rpc.on("config", (msg, from)=>{
-	console.log("got config:", msg, 'from:'+from)
-})
-
-//rpc.dispatchTo("main", "init", {text:"send me config"});
-//rpc.dispatch("init", {text:"send me config"});
-rpc.dispatch("get-config", (error, config)=>{
-	console.log("get-config:error, config", error, config)
-})
-*/
-
+true && nw.Window.get().showDevTools();
+const app = nw.Window.get().app;
+const os = require("os");
 
 class UIController{
 	constructor(){
 		this.init();
 	}
 	init(){
+		this.taskTabs = {};
+		this.taskTerminals = {};
 		this.initCaption();
 		this.initSettings();
+		this.initTaskUI();
 	}
 	initCaption(){
 		let caption = document.querySelector('flow-caption-bar');
@@ -71,33 +61,96 @@ class UIController{
 			//this.onConfigValueChange(script);
 
 		});
-		rpc.dispatch("get-config", (error, config)=>{
-			console.log("get-config:error, config", error, config)
-			if(config){
-				this.disableConfigUpdates = true;
-				this.configEditor.session.setValue(JSON.stringify(config, null, "\t"));
-				this.disableConfigUpdates = false;
-			}
-		})
+		let config = app.getConfig({})
+		this.disableConfigUpdates = true;
+		this.configEditor.session.setValue(JSON.stringify(config, null, "\t"));
+		this.disableConfigUpdates = false;
 		$("flow-btn.save-config").on("click", ()=>{
 			let config = this.configEditor.session.getValue();
 			this.saveConfig(config);
 		})
 	}
+	initTaskUI(){
+		app.on("task-start", (daemon)=>{
+			console.log("init-task:task", daemon.task)
+			this.initTaskTab(daemon.task)
+		});
+		app.on("task-exit", (daemon)=>{
+			console.log("task-exit", daemon.task)
+			this.removeTaskTab(daemon.task)
+		})
+		app.on("task-data", (daemon, data)=>{
+			//console.log("task-data", daemon.task, data)
+			let terminal = this.taskTerminals[daemon.task.key];
+			if(!terminal)
+				return
+			data.map(d=>{
+				//console.log("data-line", d.trim())
+				terminal.write(d.trim());
+			});
+		})
+	}
+	initTaskTab(task){
+		const {key, name} = task;
+		const {caption} = this;
+		let tab = caption.tabs.find(t=>t.id == key);
+		//console.log("tab", tab, key, name)
+		if(tab)
+			return
+		let lastValue = caption.cloneValue(caption.tabs);
+		caption.tabs.push({
+			title : name,
+			id:key
+		});
+		this.taskTabs[key] = document.querySelector(`tab-content[for="${key}"]`);
+		if(!this.taskTabs[key]){
+			const template = document.createElement('template');
+			template.innerHTML = `<tab-content for="${key}">
+					<flow-terminal noinput class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
+				</tab-content>`
+			let tabContent = template.content.firstChild;
+			this.taskTabs[key] = tabContent;
+			this.taskTerminals[key] = tabContent.querySelector("flow-terminal");
+			document.body.appendChild(tabContent);
+		}
+		
+
+		caption.requestUpdate('tabs', lastValue)
+	}
+	removeTaskTab(task){
+		const {key, name} = task;
+		const {caption} = this;
+		let newTabs = caption.tabs.filter(t=>t.id != key);
+		//console.log("lastValue", caption.tabs.slice(0), newTabs.slice(0))
+		let tabContent = this.taskTabs[key];
+		if(tabContent)
+			document.body.removeChild(tabContent);
+
+		if(newTabs.length == caption.tabs.length)
+			return;
+		let lastValue = caption.cloneValue(caption.tabs);
+
+		caption.tabs = newTabs;
+
+		caption.requestUpdate('tabs', lastValue)
+	}
 	saveConfig(config){
-		console.log("saveConfig:config", config)
+		//console.log("saveConfig:config", config)
 		try{
 			config = JSON.parse(config);
 		}catch(e){
 			return
 		}
-		rpc.dispatch("set-config", {config}, ()=>{
-			//
-		})
+		app.setConfig(config);
+		app.restartDaemons();
 	}
 }
 
 const uiController = new UIController();
+app.uiController = uiController;
+app.emit("ui-init");
+
+window.xxxxUiController = uiController;
 
 /*
 caption.addEventListener('test', (e)=>{
