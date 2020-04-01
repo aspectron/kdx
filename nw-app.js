@@ -22,6 +22,8 @@ class NWApp extends App{
 	* @return {Promise}
 	*/
 	main() {
+		if(!this.dataFolder)
+			return Promise.resolve();
 		return new Promise((resolve, reject) => {
 			console.log('ControllerModule - init()'.bold);
 			nw.Window.open('modules/controller/controller.html', {
@@ -41,6 +43,27 @@ class NWApp extends App{
 				resolve();
 			});
 		});
+	}
+
+	initDataFolder(){
+		let msg = super.initDataFolder();
+		if(msg){
+			console.error(msg.red)
+			nw.Window.open('modules/initialize/initialize.html', {
+				//new_instance: true,
+				id: 'initialize',
+				title: 'KaspaDX',
+				width: 1027,
+				height: 768,
+				resizable: true,
+				frame: true,
+				transparent: false,
+				show: true,
+				// http://docs.nwjs.io/en/latest/References/Manifest%20Format/#window-subfields
+			}, (win, b) => {
+				win.app = this;
+			});
+		}
 	}
 }
 

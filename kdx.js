@@ -5,8 +5,6 @@ if (isNw)
 else
 	App = require("./node-app.js").NodeApp;
 
-
-
 /**
 *
 */

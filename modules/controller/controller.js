@@ -2,7 +2,7 @@ true && nw.Window.get().showDevTools();
 const app = nw.Window.get().app;
 const os = require("os");
 
-class UIController{
+class Controller{
 	constructor(){
 		this.init();
 	}
@@ -20,15 +20,13 @@ class UIController{
 			title : "Home",
 			id : "home"
 		},{
-			title: "Data Folder",
-			id:"data-folder"
-		},{
 			title : "Settings",
 			id : "settings"
 		},{
 			title : "RPC",
 			id : "rpc",
-			disable:true
+			disable:true,
+			section: 'advance'
 		}];
 
 		caption["active-tab"] = "settings";
@@ -42,7 +40,8 @@ class UIController{
 			//caption.tabs = caption.tabs.slice(0);
 			//caption.requestTabsUpdate();
 			let advanced = e.detail.checked;
-			this.caption.set("tabs.3.disable", !advanced)
+			let index = this.caption.tabs.findIndex(t=>t.section == 'advance');
+			this.caption.set(`tabs.${index}.disable`, !advanced)
 			scriptHolder.classList.toggle("active", advanced)
 		})
 		this.configEditor = ace.edit(scriptHolder.querySelector(".script-box"), {
@@ -92,6 +91,8 @@ class UIController{
 	}
 	initTaskTab(task){
 		const {key, name} = task;
+		if(key.indexOf("simulator")===0)
+			return;
 		const {caption} = this;
 		let tab = caption.tabs.find(t=>t.id == key);
 		//console.log("tab", tab, key, name)
@@ -99,7 +100,7 @@ class UIController{
 			return
 		let lastValue = caption.cloneValue(caption.tabs);
 		caption.tabs.push({
-			title : name,
+			title:name,
 			id:key
 		});
 		this.taskTabs[key] = document.querySelector(`tab-content[for="${key}"]`);
@@ -146,11 +147,11 @@ class UIController{
 	}
 }
 
-const uiController = new UIController();
+const uiController = new Controller();
 app.uiController = uiController;
 app.emit("ui-init");
 
-window.xxxxUiController = uiController;
+window.xxxxController = uiController;
 
 /*
 caption.addEventListener('test', (e)=>{

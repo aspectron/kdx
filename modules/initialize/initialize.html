@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>KDX: Configuration</title>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+	<link rel="stylesheet" type="text/css" href="/resources/extern/fonts/fontawesome/css/all.min.css" />
+	<link rel="stylesheet" type="text/css" href="/node_modules/flow-ux/flow-ux.css" />
+	<link rel="stylesheet" type="text/css" href="/resources/styles/kdx.css">
+	<script type="importmap">
+		{
+			"imports" : {
+				"lit-html" : "/node_modules/lit-html/lit-html.js",
+				"lit-html/lit-html.js" : "/node_modules/lit-html/lit-html.js",
+				"lit-html/lib/shady-render.js" : "/node_modules/lit-html/lib/shady-render.js",
+				"lit-element" : "/node_modules/lit-element/lit-element.js",
+				"lit-html/directives/if-defined.js":"/node_modules/lit-html/directives/if-defined.js",
+				"lit-html/directives/repeat.js": "/node_modules/lit-html/directives/repeat.js"
+			}
+		}
+	</script>
+	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+	<script type="text/javascript" src="/resources/extern/ace/src/ace.js" charset="utf-8"></script>	
+	<script type="text/javascript" src="/resources/extern/ace/src/mode-html.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/resources/extern/ace/src/mode-javascript.js" charset="utf-8"></script>
+
+	<!--script type="module" src="/node_modules/flow-ux/src/fa-icon.js"></script-->
+	<script type="module" src="/node_modules/flow-ux/flow-ux.js"></script>
+
+	<!-- include non-module-type jquery -->
+	<script src="/resources/extern/scripts/jquery-3.1.1.normal.js"></script>
+	<!-- install xterm, xterm-addon-fit, xterm-addon-web-links node-modules -->
+	<script type="module" src="/node_modules/flow-ux/src/flow-terminal.js"></script>
+	<script type="text/javascript" src="/resources/rpc.js"></script>
+
+</head>
+<body>
+	<h2>Configuration:</h2>
+	<flow-form-control>
+		Data Folder:
+		<input id="data-folder-input" slot="input" type="file" nwdirectory>
+		<h4 slot="info" class="title">Where does it come from?</h4>
+		<p slot="info">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+	</flow-form-control>
+	<script type="module" src="/modules/initialize/initialize.js"></script>
+</body>
+</html>

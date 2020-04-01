@@ -18,14 +18,21 @@ class App extends EventEmitter{
 		super();
 		this.options = options;
 		this.appFolder = options.appFolder;
-		this.flags = {};//TODO get args from command line
+		let args;
+		if (options.isNw){
+			args = nw.App.fullArgv;
+		}else{
+			args = process.argv.slice(2);
+		}
+		this.flags = utils.args(args);
+		this.initConfig();
 		this.init();
 	}
 	init(){
+		if(!this.dataFolder)
+			return
 		const KaspaProcessManager = require(path.join(this.appFolder, "lib/manager.js"));
 		this.manager = new KaspaProcessManager(this);
-		this.dataFolder = this.manager.dataFolder;
-		this.initConfig();
 	}
 
 	getBinaryFolder(){
@@ -36,12 +43,43 @@ class App extends EventEmitter{
 	* initlize config object
 	*/
 	initConfig(){
+		this.configFolder = path.join(os.homedir(),'.kdx');
+		fs.ensureDirSync(this.configFolder);
 		this.config = {};
-		this.configFile = path.join(this.dataFolder, "config.json");
-		if(!fs.existsSync(this.configFile))
+		this.configFile = path.join(this.configFolder, "config.json");
+		if(!fs.existsSync(this.configFile)){
+			this.config = fs.readJSONSync(path.join(this.appFolder, "default-config.json"), {throws:false}) || {}
 			this.setConfig(this.config);
-		else
+		}else{
 			this.config = this.getConfig();
+		}
+
+		this.initDataFolder();
+	}
+	initDataFolder(){
+		if(typeof this.config.dataDir == 'undefined' && !this.flags.init){
+			return `Please start app with --init=/path/to/data/dir [or] --init=~/.kdx [or] --init=<default>`;
+		}else if(this.flags.init){
+			if(this.flags.init != '<default>')
+				this.config.dataDir = this.flags.init;
+		}
+
+		//this.config.dataDir = '~/.kdx';
+		if(this.config.dataDir){
+			let dataDir = this.config.dataDir.replace('~', os.homedir());
+			if(!path.isAbsolute(dataDir))
+				return `config.dataDir (${this.config.dataDir}) is not a absolute path.`;
+			this.dataFolder = dataDir;
+		}else{
+			this.dataFolder = this.configFolder;
+			this.config.dataDir = '';
+		}
+
+		if(this.flags.init)
+			this.setConfig(this.config);
+
+		console.log("this.dataFolder", this.dataFolder)
+		fs.ensureDirSync(this.dataFolder);
 	}
 
 	/**
@@ -65,17 +103,23 @@ class App extends EventEmitter{
 	}
 
 	initDaemons(){
+		if(!this.manager)
+			return false;
 		let daemons = this.config.daemons || {};
 		console.log("initDaemons", daemons)
 		this.startDaemons(daemons);
 	}
 
 	startDaemons(daemons={}){
+		if(!this.manager)
+			return false;
 		this.daemons = daemons;
 		this.manager.start(daemons);
 	}
 
 	async restartDaemons(){
+		if(!this.manager)
+			return false;
 		try{
 			await this.manager.stop();
 			console.log("initDaemons....")
@@ -84,6 +128,9 @@ class App extends EventEmitter{
 			});
 		}catch(e){
 			console.log("restartDaemons:error", e)
+			dpc(1000, ()=>{
+				this.initDaemons();
+			});
 		}
 	}
 

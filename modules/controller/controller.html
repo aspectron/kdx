@@ -42,9 +42,6 @@
 		<flow-checkbox-styled></flow-checkbox-styled>
 		<flow-textarea maxlength="10">hello</flow-textarea>
 	</tab-content>
-	<tab-content for="data-folder">
-		<h1>Data Folder</h1>
-	</tab-content>
 	<tab-content for="settings">
 		<flow-form-control>
 			Turn ON/OFF advanced settings options
@@ -59,10 +56,33 @@
 				<div class="tools"><flow-btn class="save-config">Apply</flow-btn></div>
 			</div>
 		</flow-form-control>
+		<flow-tabs>
+			<flow-tab id="data-folder">Data Folder</flow-tab>
+			<flow-tab id="sub-section2">Section 2</flow-tab>
+		</flow-tabs>
+		<tab-content for="data-folder">
+			<h2>Data Folder</h2>
+			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
+			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
+			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
+			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
+			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
+			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
+			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
+			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
+			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
+			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
+			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
+			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
+		</tab-content>
+		<tab-content for="sub-section2">
+			<h2>Sub Section 2</h2>
+			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
+		</tab-content>
 	</tab-content>
 	<tab-content for="rpc">
 		<flow-terminal class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
 	</tab-content>
-	<script type="module" src="/modules/controller/ui-controller.js"></script>
+	<script type="module" src="/modules/controller/controller.js"></script>
 </body>
 </html>

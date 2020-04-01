@@ -1,0 +1,42 @@
+{
+	"daemons":{
+		"kaspad:kd0" : {
+			"args":{
+				"rpclisten" : "0.0.0.0:16210",
+				"listen": "0.0.0.0:16211",
+				"profile": 7000
+			}
+		},
+		"kaspad:kd1" : {
+			"args":{
+				"rpclisten":"0.0.0.0:16310",
+				"listen": "0.0.0.0:16311",
+				"profile": 7001,
+				"connect": "0.0.0.0:16211"
+			}
+		},
+		"simulator:sim0" : {
+			"peers":["127.0.0.1:16310"]
+		},
+		"mysql:db0" : {
+			"port": 18787
+		},
+
+		"__mqtt:mq0" : {
+			"port": 18787
+		},
+		"kasparovsyncd:kvsd0" : {
+			"args":{
+				"rpcserver":"localhost:16310",
+				"dbaddress":"localhost:18787"
+			}
+		},
+		"kasparovd:kvd0" : {
+			"args":{
+				"listen":"localhost:1234",
+				"rpcserver":"localhost:16310",
+				"dbaddress":"localhost:18787"
+			}
+		}
+	}
+}
