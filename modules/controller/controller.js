@@ -62,11 +62,11 @@ class Controller{
 		});
 		let config = app.getConfig({})
 		this.disableConfigUpdates = true;
-		this.configEditor.session.setValue(JSON.stringify(config, null, "\t"));
+		this.configEditor.session.setValue(JSON.stringify(app.getModulesConfig(), null, "\t"));
 		this.disableConfigUpdates = false;
 		$("flow-btn.save-config").on("click", ()=>{
 			let config = this.configEditor.session.getValue();
-			this.saveConfig(config);
+			this.saveModulesConfig(config);
 		})
 
 		let $folderInput = $("#data-folder-input");
@@ -156,14 +156,14 @@ class Controller{
 
 		caption.requestUpdate('tabs', lastValue)
 	}
-	saveConfig(config){
-		//console.log("saveConfig:config", config)
+	saveModulesConfig(config){
+		//console.log("saveModulesConfig:config", config)
 		try{
 			config = JSON.parse(config);
 		}catch(e){
 			return
 		}
-		app.setConfig(config);
+		app.saveModulesConfig(config);
 		app.restartDaemons();
 	}
 }

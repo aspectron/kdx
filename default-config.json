@@ -1,5 +1,5 @@
 {
-	"daemons":{
+	"modules":{
 		"kaspad:kd0" : {
 			"args":{
 				"rpclisten" : "0.0.0.0:16210",

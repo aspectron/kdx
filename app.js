@@ -52,6 +52,11 @@ class App extends EventEmitter{
 			this.setConfig(this.config);
 		}else{
 			this.config = this.getConfig();
+			if(this.config.daemons && !this.config.modules){
+				this.config.modules = this.config.daemons;
+				delete this.config.daemons;
+				this.setConfig(this.config);
+			}
 		}
 
 		this.initDataFolder();
@@ -98,6 +103,15 @@ class App extends EventEmitter{
 		this.config = this.getConfig();
 	}
 
+	getModulesConfig(defaults={}){
+		return this.config.modules || {};
+	}
+
+	saveModulesConfig(modules = {}){
+		this.config.modules = modules;
+		this.setConfig(this.config);
+	}
+
 	/**
 	* read config file and return config as JSON object
 	* @param {Object} [defaults={}] default config object
@@ -110,9 +124,9 @@ class App extends EventEmitter{
 	initDaemons(){
 		if(!this.manager)
 			return false;
-		let daemons = this.config.daemons || {};
-		console.log("initDaemons", daemons)
-		this.startDaemons(daemons);
+		let modules = this.getModulesConfig();
+		console.log("initDaemons", modules)
+		this.startDaemons(modules);
 	}
 
 	startDaemons(daemons={}){
