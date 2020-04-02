@@ -68,6 +68,27 @@ class Controller{
 			let config = this.configEditor.session.getValue();
 			this.saveConfig(config);
 		})
+
+		let $folderInput = $("#data-folder-input");
+		let folderInput = $folderInput[0];
+		let originalValue = config.dataDir || app.configFolder;
+		folderInput.value = originalValue;
+		$(".reset-data-dir").on("click", e=>{
+			folderInput.setValue(originalValue);
+		});
+		$(".apply-data-dir").on("click", e=>{
+			app.setDataDir(folderInput.value, 2500);
+		});
+		$(".use-default-data-dir").on("click", e=>{
+			folderInput.setValue(app.configFolder);
+		});
+		$folderInput.on("change", (e)=>{
+			let value = folderInput.value;
+			console.log(originalValue, value);
+			$('.data-folder-input-tools').toggleClass("active", value!=originalValue);
+			$(".apply-data-dir").attr('disabled', value?null:true);
+			$('.use-default-data-dir')[0].disabled = value==app.configFolder;
+		});
 	}
 	initTaskUI(){
 		app.on("task-start", (daemon)=>{
@@ -150,6 +171,12 @@ class Controller{
 const uiController = new Controller();
 app.uiController = uiController;
 app.emit("ui-init");
+app.on("disable-ui", (args)=>{
+	$('body').addClass("disable");
+})
+app.on("enable-ui", (args)=>{
+	$('body').removeClass("disable");
+})
 
 window.xxxxController = uiController;
 

@@ -82,6 +82,11 @@ class App extends EventEmitter{
 		fs.ensureDirSync(this.dataFolder);
 	}
 
+	setDataDir(dataDir){
+		this.config.dataDir = dataDir;
+		this.setConfig(this.config);
+	}
+
 	/**
 	* save config
 	* @param {Object} config JSON config

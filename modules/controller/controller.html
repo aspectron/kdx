@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Account</title>
+	<title>KDX</title>
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
 	<link rel="stylesheet" type="text/css" href="/resources/extern/fonts/fontawesome/css/all.min.css" />
@@ -37,7 +37,6 @@
 </head>
 <body>
 	<flow-caption-bar icon="fal fa-chart-network">KDX</flow-caption-bar>
-		<!--flow-tabs><flow-tab>abc</flow-tab></flow-tabs-->
 	<tab-content for="home">
 		<flow-checkbox-styled></flow-checkbox-styled>
 		<flow-textarea maxlength="10">hello</flow-textarea>
@@ -56,29 +55,18 @@
 				<div class="tools"><flow-btn class="save-config">Apply</flow-btn></div>
 			</div>
 		</flow-form-control>
-		<flow-tabs>
-			<flow-tab id="data-folder">Data Folder</flow-tab>
-			<flow-tab id="sub-section2">Section 2</flow-tab>
-		</flow-tabs>
-		<tab-content for="data-folder">
-			<h2>Data Folder</h2>
-			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
-			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
-			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
-			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
-			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
-			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
-			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
-			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
-			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
-			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
-			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
-			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
-		</tab-content>
-		<tab-content for="sub-section2">
-			<h2>Sub Section 2</h2>
-			<br />1<br />2<br />3<br />5<br />6<br />7<br />8
-		</tab-content>
+		<flow-form-control>
+			Data Folder:
+			<flow-folder-input slot="input" id="data-folder-input"></flow-folder-input>
+			<div slot="input" class="slot-block data-folder-input-tools">
+				<flow-btn class="reset-data-dir">Reset</flow-btn>
+				<flow-btn class="use-default-data-dir">Default</flow-btn>
+				<flow-btn class="apply-data-dir" primary>Apply</flow-btn>
+			</div>
+			
+			<h4 slot="info" class="title">Where does it come from?</h4>
+			<p slot="info">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+		</flow-form-control>
 	</tab-content>
 	<tab-content for="rpc">
 		<flow-terminal class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>

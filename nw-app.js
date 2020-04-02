@@ -65,6 +65,16 @@ class NWApp extends App{
 			});
 		}
 	}
+
+	setDataDir(dataDir, restartDelay = 0){
+		super.setDataDir(dataDir);
+		this.emit("disable-ui", {CODE:'DATA-DIR'})
+		dpc(restartDelay, ()=>this.reload());
+	}
+
+	reload(){
+		chrome.runtime.reload();
+	}
 }
 
 module.exports = {NWApp};

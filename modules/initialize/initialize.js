@@ -8,13 +8,25 @@ class Initializer{
 	}
 	init(){
 		let config = app.getConfig({})
-        var chooser = $("#data-folder-input");
-        chooser.change(function(evt) {
-          console.log($(this).val());
-        });
-        //chooser.trigger('click'); 
-		$("flow-btn.save-config").on("click", ()=>{
+		let $folderInput = $("#data-folder-input");
+		let folderInput = $folderInput[0];
+		let originalValue = config.dataDir || app.configFolder;
+		folderInput.value = originalValue;
+		$folderInput.on("change", (e)=>{
+			console.log(e.detail.value, folderInput.value);
+		});
 
+		$("flow-btn.reset-data-dir").on("click", ()=>{
+			folderInput.setValue(originalValue);
+		}) 
+		$("flow-btn.save-config").on("click", ()=>{
+			let value = folderInput.value;
+			if(!value)
+				return
+
+			if(value==originalValue)
+				value = '';
+			app.setDataDir(value);
 		})
 	}
 	saveConfig(config){

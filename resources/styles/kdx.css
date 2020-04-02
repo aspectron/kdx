@@ -13,7 +13,7 @@ body{
 	/*
 	--flow-caption-bar-font-family:'Julius Sans One';
 	--flow-checkbox-color:var(--flow-primary-color);
-	*/
+	*/	
 }
 @font-face {
 	font-family: 'Hero';font-style: normal;
@@ -58,4 +58,16 @@ tab-content>x-terminal{height:100%;}
 	display:flex;justify-content:flex-end;
 	align-items: flex-start;padding:5px 0px;
 }
+.slot-block{margin:5px 0px; text-align:right;}
+#data-folder-input{width:100%;}
+.data-folder-input-tools:not(.active){display:none}
+body:after{
+	opacity:0;content:"";
+	position:fixed;z-index:-1;
+	left:0px;right:0px;
+	top:0px;bottom:0px;
+	background-color:rgba(255,255,255, 0.7);
+	transition:opacity 0.5s ease;
+}
+body.disable:after{z-index:100000;opacity:1;}
 
