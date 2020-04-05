@@ -178,7 +178,8 @@ E.task('pgsql', ['origin'], async (callback) => {
     // --pgsql-full-distro adds 425 Mb to the final distribution :/
     if(E.flags['pgsql-full-distro'])
         folders.push('pgadmin 4', 'stackbuilder', 'symbols', 'include', 'doc');
-        const jobs = folders.map((f) => {
+    
+    const jobs = folders.map((f) => {
         if(E.PLATFORM == 'windows') {
             return E.copy(path.join(archiveFolder,'pgsql',f), path.join(targetBinFolder,f));
         }
