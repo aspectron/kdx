@@ -3,23 +3,24 @@
 
 const E = new Emanator(__dirname, {
     type : 'NODE',
-    guid : 'a1072047-6d98-44d8-9aa5-d9b86c79bd01',
-    group : 'DAGlabs',
-    ident : 'khost',
-    title : 'Khost',
-    banner : 'KHOST',
-    git : 'git@github.com:kaspanet/khost',
-    author : "DAGlabs",
+    guid : 'a1072045-6d98-44d8-9aa5-d9b86c79bd01',
+    group : 'Kaspa',
+    ident : 'kdx',
+    title : 'KDX',
+    banner : 'KDX',
+    git : 'git@github.com:aspectron/kdx',
+    author : "ASPECTRON Inc.",
     url : "http://daglabs.com",
     archive : true,
     folder : true,
     standalone : true,
 })
 
-
 const go = await E.tools.go('go1.13.4');
 const git = await E.tools.git();
 
+E.BIN = path.join(E.appFolder,'bin',E.PLATFORM_ARCH);
+mkdirp.sync(E.BIN);
 
 E.task('kaspad', ['origin'], async (callback) => {
 
@@ -35,8 +36,6 @@ E.task('kaspad', ['origin'], async (callback) => {
         await git.clone(`git@github.com:kaspanet/${repo}`,dest);
     }
 
-    E.BIN = path.join(E.appFolder,'bin',E.PLATFORM_ARCH);
-    mkdirp.sync(E.BIN);
 
     // ---
 
@@ -92,6 +91,9 @@ E.task('mysql', ['origin'], async (callback) => {
     if(E.PLATFORM == 'linux')
         return Promise.resolve();
 
+    if(E.flags.nodb || E.flags.nosql || E.flags.nomysql)
+        return Promise.resolve();
+
     let version = '8.0.18';
     let macos = 'macos10.14';
     const mysql = {
@@ -100,8 +102,6 @@ E.task('mysql', ['origin'], async (callback) => {
         darwin : `mysql-${version}-${macos}-x86_64.tar.gz`
     }[E.PLATFORM];
 
-    if(E.flags.nodb || E.flags.nosql || E.flags.nomysql)
-        return Promise.resolve();
 
     E.utils.resetTTY();
 
@@ -132,16 +132,62 @@ E.task('mysql', ['origin'], async (callback) => {
 
 })
 
-// E.task('pgsql', ['origin'], async (callback) => {
-//     const pgsql = {
-//         windows : `http://sbp.enterprisedb.com/getfile.jsp?fileid=12141`,
-//         darwin : `http://sbp.enterprisedb.com/getfile.jsp?fileid=12139`
-//     }[E.PLATFORM];
-//     let file = path.join(E.DEPS,pgsql);
-//     await E.download(`https://dev.mysql.com/get/Downloads/MySQL-8.0/${mysql}`,file);
-//     await E.unzip(file, E.DEPS);//, callback);
-//     callback();
-// })
+E.task('pgsql', ['origin'], async (callback) => {
+
+    if(E.PLATFORM == 'linux')
+        return Promise.resolve();
+
+    if(E.flags.nodb || E.flags.nosql || E.flags.nopgsql)
+        return Promise.resolve();
+
+    const pgsql = {
+        windows : { 
+            url : 'http://sbp.enterprisedb.com/getfile.jsp?fileid=12454', 
+            file : `postgresql-12.2-2-windows-x64-binaries.zip` 
+        },
+        darwin : { 
+            url : 'https://sbp.enterprisedb.com/getfile.jsp?fileid=12475', 
+            file : `postgresql-12.2-3-osx-binaries.zip` 
+        }
+    }[E.PLATFORM];
+    // `postgresql-12.2-3-osx-binaries.zip`.match(/^\w+-(\d).(\d)-(\d)/)
+    const [, major, minor, release_] = pgsql.file.match(/^\w+-(\d+).(\d+)-(\d+)/);
+    const version = `${major}.${minor}.${release_}`;
+
+    E.utils.resetTTY();
+
+    const file = path.join(E.DEPS,pgsql.file);
+    const basename = path.basename(pgsql.file).replace(/\.(zip|tar|tar.gz|tar.xz)$/,'');
+    const archiveFolder = path.join(E.DEPS, basename);
+    if(!fs.existsSync(file) || !fs.existsSync(path.join(archiveFolder,'pgsql'))) {
+        await E.download(pgsql.url,file);
+        await E.unzip(file, archiveFolder);
+    }
+
+    const targetBinFolder = path.join(E.BIN,basename);
+    if(fs.existsSync(targetBinFolder)) {
+        E.log(`WARNING: previous pgSQL deployment found...`.brightRed,);
+        E.log(`         cleaning up existing ${targetBinFolder}...`);
+        await fs.remove(targetBinFolder);
+    }
+    mkdirp.sync(targetBinFolder);
+
+    E.log(`copying ${basename}...`);
+    let folders = ['bin','lib','share'];
+
+    // --pgsql-full-distro adds 425 Mb to the final distribution :/
+    if(E.flags['pgsql-full-distro'])
+        folders.push('pgadmin 4', 'stackbuilder', 'symbols', 'include', 'doc');
+        const jobs = folders.map((f) => {
+        if(E.PLATFORM == 'windows') {
+            return E.copy(path.join(archiveFolder,'pgsql',f), path.join(targetBinFolder,f));
+        }
+        else
+            return E.spawn('cp', ['-r',path.join(archiveFolder,'pgsql',f),path.join(targetBinFolder,f)], { cwd : E.DEPS, stdio: 'inherit' });
+    })
+    await Promise.all(jobs);
+    E.log('done...');
+})
 
 E.task('remote', ['origin'], async (callback) => {
 
@@ -158,7 +204,7 @@ E.task('mqtt',['origin'], async () => {
         return E.copy(path.join(E.REPO,'resources','deps','mosquitto-windows-x64'),path.join(E.BIN,'mosquitto'));
 })
 
-E.task('done', ['kaspad','mysql','remote','mqtt'], async () => {
+E.task('done', ['kaspad','pgsql','remote','mqtt'], async () => {
 
 })
 
@@ -202,7 +248,9 @@ E.task('docker',null, async () => {
 if(E.flags.docker) {
     E.run(['docker']);
 }
+else if(E.flags['pgsql']) 
+    E.run(['pgsql']);
 else if(E.flags['local-binaries']) 
-    E.run(['kaspad','mysql','aptitude']);
+    E.run(['kaspad','pgsql','aptitude']);
 else
     E.run();
