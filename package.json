@@ -22,6 +22,7 @@
     "underscore": "*",
     "mkdirp": "*",
     "mysql": "*",
+    "pg": "*",
     "is-docker": "*",
     "xterm": "*",
     "xterm-addon-fit": "*",
