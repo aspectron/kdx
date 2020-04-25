@@ -145,7 +145,7 @@ class Controller{
 		let newTabs = caption.tabs.filter(t=>t.id != key);
 		//console.log("lastValue", caption.tabs.slice(0), newTabs.slice(0))
 		let tabContent = this.taskTabs[key];
-		if(tabContent)
+		if(tabContent && tabContent.parentNode)
 			document.body.removeChild(tabContent);
 
 		if(newTabs.length == caption.tabs.length)
