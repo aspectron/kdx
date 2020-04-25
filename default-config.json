@@ -18,7 +18,7 @@
 		"simulator:sim0" : {
 			"peers":["127.0.0.1:16310"]
 		},
-		"mysql:db0" : {
+		"pgsql:db0" : {
 			"port": 18787
 		},
 

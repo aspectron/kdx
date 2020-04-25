@@ -118,7 +118,10 @@ class App extends EventEmitter{
 	* @return {Object} config as JSON
 	*/
 	getConfig(defaults = {}){
-		return fs.readJSONSync(this.configFile, {throws:false}) || defaults;
+
+		let text = fs.readFileSync(this.configFile, 'utf-8');
+		return eval(`(${text})`);
+		// return fs.readJSONSync(this.configFile, {throws:false}) || defaults;
 	}
 
 	initDaemons(){
