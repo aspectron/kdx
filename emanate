@@ -184,7 +184,7 @@ E.task('pgsql', ['origin'], async (callback) => {
             return E.copy(path.join(archiveFolder,'pgsql',f), path.join(targetBinFolder,f));
         }
         else
-            return E.spawn('cp', ['-r',path.join(archiveFolder,'pgsql',f),path.join(targetBinFolder,f)], { cwd : E.DEPS, stdio: 'inherit' });
+            return E.spawn('cp', ['-R',path.join(archiveFolder,'pgsql',f),path.join(targetBinFolder,f)], { cwd : E.DEPS, stdio: 'inherit' });
     })
     await Promise.all(jobs);
     E.log('done...');
