@@ -191,8 +191,7 @@ E.task('pgsql', ['origin'], async (callback) => {
 })
 
 E.task('remote', ['origin'], async (callback) => {
-
-    let files = E.manifest.files.map((f) => {
+    let files = (E.manifest.files||[]).map(f=>{
         return E.copy(path.join(E.REPO,f),path.join(E.BUILD,f));
     })
     E.log(`copying ${files.length} items...`);
