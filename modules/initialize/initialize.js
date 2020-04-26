@@ -1,5 +1,6 @@
 true && nw.Window.get().showDevTools();
-const app = nw.Window.get().app;
+//const app = nw.Window.get().app;
+const app = global.app;
 const os = require("os");
 
 class Initializer{
