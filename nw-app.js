@@ -15,6 +15,8 @@ class NWApp extends App{
 		this.on("ui-init", ()=>{
 			this.initDaemons();
 		})
+
+		global.app = this;
 	}
 
 	/**
@@ -39,7 +41,8 @@ class NWApp extends App{
 				// http://docs.nwjs.io/en/latest/References/Manifest%20Format/#window-subfields
 			}, (win, b) => {
 				console.log("win", win)
-				win.app = this;
+				// win.app = this;
+				// global.abcapp = "123";
 				resolve();
 			});
 		});
@@ -61,7 +64,8 @@ class NWApp extends App{
 				show: true,
 				// http://docs.nwjs.io/en/latest/References/Manifest%20Format/#window-subfields
 			}, (win, b) => {
-				win.app = this;
+				//win.app = this;
+				//global.abcapp = "456";
 			});
 		}
 	}
