@@ -1,6 +1,10 @@
 true && nw.Window.get().showDevTools();
-const app = nw.Window.get().app;
+// const app = nw.Window.get().app;
 const os = require("os");
+
+const app = global.app;
+//console.log("INIT global.abcapp",global.app);
+//console.log("current app is",app);
 
 class Controller{
 	constructor(){
