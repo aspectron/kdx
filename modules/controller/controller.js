@@ -185,9 +185,16 @@ class Controller{
 		this.taskTabs[key] = document.querySelector(`tab-content[for="${key}"]`);
 		if(!this.taskTabs[key]){
 			const template = document.createElement('template');
-			template.innerHTML = `<tab-content for="${key}">
-					<flow-terminal noinput class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
-				</tab-content>`
+			template.innerHTML = 
+			`<tab-content for="${key}" data-active-display="flex" class="advance">
+				<flow-terminal noinput class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
+				<div class="tools">
+					<flow-btn data-action="RUN">RUN</flow-btn>
+					<flow-btn data-action="STOP">STOP</flow-btn>
+					<flow-btn data-action="RESTART">RESTART</flow-btn>
+					<flow-btn data-action="PURGE-DATA">PURGE DATA</flow-btn>
+				</div>
+			</tab-content>`
 			let tabContent = template.content.firstChild;
 			this.taskTabs[key] = tabContent;
 			this.taskTerminals[key] = tabContent.querySelector("flow-terminal");

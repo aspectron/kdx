@@ -63,6 +63,17 @@ tab-content>x-terminal{height:100%;}
 .settings-script{display:flex;height:400px;flex-direction:column;}
 .settings-script .script-box{flex:1;}
 body:not(.flow-theme-dark) .settings-script .script-box{background-color:#fbfbfb;}
+.tools{
+	display:flex;justify-content:flex-end;
+	align-items:center;padding:5px 0px;
+}
+.tools>flow-btn{margin-left:5px;}
+tab-content.advance{
+	flex-direction:column;
+}
+tab-content.advance>flow-terminal{
+	flex:1;
+}
 .settings-script .tools{
 	display:flex;justify-content:flex-end;
 	align-items: flex-start;padding:5px 0px;
