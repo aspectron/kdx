@@ -13,6 +13,7 @@ class NWApp extends App{
 	constructor(...args){
 		super(...args)
 		this.initRPC();
+		//global.app = this;
 	}
 
 	/**
