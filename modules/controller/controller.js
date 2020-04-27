@@ -16,13 +16,19 @@ class Controller{
 		this.initCaption();
 		this.initSettings();
 		this.initTaskUI();
+		const win = nw.Window.get();
+		win.on("close", ()=>{
+			app.stopDaemons();
+			win.close(true)
+		})
 	}
 	initCaption(){
 		let caption = document.querySelector('flow-caption-bar');
 		this.caption = caption;
 		caption.tabs = [{
 			title : "Home",
-			id : "home"
+			id : "home",
+			cls:"home"
 		},{
 			title : "Settings",
 			id : "settings"
@@ -44,9 +50,14 @@ class Controller{
 			//caption.tabs = caption.tabs.slice(0);
 			//caption.requestTabsUpdate();
 			let advanced = e.detail.checked;
-			let index = this.caption.tabs.findIndex(t=>t.section == 'advance');
-			this.caption.set(`tabs.${index}.disable`, !advanced)
+			let index = this.caption.tabs.forEach((t, index)=>{
+				if(t.section == 'advance'){
+					this.caption.set(`tabs.${index}.disable`, !advanced)
+				}
+			});
+			
 			scriptHolder.classList.toggle("active", advanced)
+			document.body.classList.toggle("advance-ui", advanced)
 		})
 		this.configEditor = ace.edit(scriptHolder.querySelector(".script-box"), {
 			mode : 'ace/mode/javascript',
@@ -115,19 +126,27 @@ class Controller{
 		})
 	}
 	initTaskTab(task){
+		const advanced = document.querySelector('#settings-advanced').checked;
 		const {key, name} = task;
 		if(key.indexOf("simulator")===0)
 			return;
 		const {caption} = this;
 		let tab = caption.tabs.find(t=>t.id == key);
 		//console.log("tab", tab, key, name)
-		if(tab)
-			return
+		
 		let lastValue = caption.cloneValue(caption.tabs);
-		caption.tabs.push({
-			title:name,
-			id:key
-		});
+		if(tab){
+			tab.disable = !advanced;
+			console.log("tab.disable", tab)
+		}else{
+			caption.tabs.push({
+				title:name,
+				id:key,
+				section:'advance',
+				disable:!advanced
+			});
+		}
+		
 		this.taskTabs[key] = document.querySelector(`tab-content[for="${key}"]`);
 		if(!this.taskTabs[key]){
 			const template = document.createElement('template');

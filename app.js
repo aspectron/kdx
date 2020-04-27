@@ -140,6 +140,19 @@ class App extends EventEmitter{
 		this.manager.start(daemons);
 	}
 
+	async stopDaemons(){
+		if(!this.manager)
+			return false;
+		try{
+			await this.manager.stop();
+		}catch(e){
+			console.log("manager.stop:error", e)
+			return false;
+		}
+
+		return true;
+	}
+
 	async restartDaemons(){
 		if(!this.manager)
 			return false;
