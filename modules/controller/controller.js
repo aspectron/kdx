@@ -11,6 +11,7 @@ class Controller{
 		this.init();
 	}
 	init(){
+		this.initTheme();
 		this.taskTabs = {};
 		this.taskTerminals = {};
 		this.initCaption();
@@ -20,7 +21,30 @@ class Controller{
 		win.on("close", ()=>{
 			app.stopDaemons();
 			win.close(true)
+		});
+		document.body.classList.remove("ui-loading");
+	}
+	initTheme(){
+		let theme = app.getConfig().theme || 'light';
+		this.setTheme(theme);
+	}
+	setTheme(theme){
+		this.theme = theme;
+		app.setTheme(theme);
+		document.body.classList.forEach(c=>{
+			if(c.indexOf('flow-theme') === 0 && c!='flow-theme'+theme){
+				document.body.classList.remove(c);
+			}
 		})
+
+		document.body.classList.add("flow-theme-"+theme)
+
+		if(this.configEditor){
+			if(this.theme == 'dark')
+				this.configEditor.setTheme("ace/theme/tomorrow_night_eighties");
+			else
+				this.configEditor.setTheme("ace/theme/chrome");
+		}
 	}
 	initCaption(){
 		let caption = document.querySelector('flow-caption-bar');
@@ -42,6 +66,7 @@ class Controller{
 		caption["active-tab"] = "settings";
 	}
 	initSettings(){
+		let themeInput = document.querySelector("#settings-dark-theme");
 		let scriptHolder = document.querySelector('#settings-script');
 		let advancedEl = document.querySelector('#settings-advanced');
 		advancedEl.addEventListener('changed', (e)=>{
@@ -63,7 +88,11 @@ class Controller{
 			mode : 'ace/mode/javascript',
 			selectionStyle : 'text'
 		});
-		this.configEditor.setTheme("ace/theme/chrome");
+		if(this.theme == 'dark')
+			this.configEditor.setTheme("ace/theme/tomorrow_night_eighties");
+		else
+			this.configEditor.setTheme("ace/theme/chrome");
+		
 		this.configEditor.session.setUseWrapMode(false);
 		this.configEditor.session.on('change', (delta) => {
 			//console.log("scriptEditorChange",delta);
@@ -104,6 +133,12 @@ class Controller{
 			$(".apply-data-dir").attr('disabled', value?null:true);
 			$('.use-default-data-dir')[0].disabled = value==app.configFolder;
 		});
+
+		themeInput.addEventListener('changed', (e)=>{
+			let theme = e.detail.checked ? 'dark' : 'light';
+			this.setTheme(theme);
+		});
+		themeInput.checked = config.theme == 'dark';
 	}
 	initTaskUI(){
 		app.on("task-start", (daemon)=>{

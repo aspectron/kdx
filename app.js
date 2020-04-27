@@ -93,6 +93,11 @@ class App extends EventEmitter{
 		this.setConfig(this.config);
 	}
 
+	setTheme(theme){
+		this.config.theme = theme;
+		this.setConfig(this.config);
+	}
+
 	/**
 	* save config
 	* @param {Object} config JSON config
