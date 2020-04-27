@@ -267,7 +267,7 @@ class Controller{
 		if(!action || !$tabContent.length)
 			return
 
-		this.post("daemon-action", {action, key});
+		console.log("onToolsClick:TODO", action, key)
 	}
 
 	async initDaemons(daemons){
