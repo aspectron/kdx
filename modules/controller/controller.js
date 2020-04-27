@@ -1,36 +1,77 @@
 true && nw.Window.get().showDevTools();
-// const app = nw.Window.get().app;
 const os = require("os");
+const {RPC} = require("./../../resources/rpc.js");
+const Manager = require("./../../lib/manager.js");
 
-const app = global.app;
-//console.log("INIT global.abcapp",global.app);
-//console.log("current app is",app);
 
 class Controller{
 	constructor(){
 		this.init();
 	}
-	init(){
+	
+	async init(){
+		this.initRPC();
+		await this.initManager();
 		this.initTheme();
 		this.taskTabs = {};
 		this.taskTerminals = {};
 		this.initCaption();
-		this.initSettings();
-		this.initTaskUI();
+		await this.initSettings();
 		const win = nw.Window.get();
 		win.on("close", ()=>{
-			app.stopDaemons();
+			this.stopDaemons();
 			win.close(true)
 		});
 		document.body.classList.remove("ui-loading");
 	}
-	initTheme(){
-		let theme = app.getConfig().theme || 'light';
+	initRPC(){
+		let rpc = new RPC({
+
+		});
+
+		this.rpc = rpc;
+
+		rpc.on("disable-ui", (args)=>{
+			$('body').addClass("disable");
+		});
+		rpc.on("enable-ui", (args)=>{
+			$('body').removeClass("disable");
+		});
+	}
+	async initManager(){
+		this.initData = await this.get("get-init-data");
+		let {dataFolder, appFolder} = this.initData;
+		let manager = new Manager(dataFolder, appFolder);
+		this.manager = manager;
+		manager.on("task-start", (daemon)=>{
+			console.log("init-task:task", daemon.task)
+			this.initTaskTab(daemon.task)
+		});
+		manager.on("task-exit", (daemon)=>{
+			console.log("task-exit", daemon.task)
+			this.removeTaskTab(daemon.task)
+		})
+		manager.on("task-data", (daemon, data)=>{
+			//console.log("task-data", daemon.task, data)
+			let terminal = this.taskTerminals[daemon.task.key];
+			if(!terminal)
+				return
+			data.map(d=>{
+				//console.log("data-line", d.trim())
+				terminal.write(d.trim());
+			});
+		});
+
+		this.initDaemons();
+	}
+	async initTheme(){
+		let theme = (await this.get("get-config")).theme || 'light';
 		this.setTheme(theme);
 	}
+	
 	setTheme(theme){
 		this.theme = theme;
-		app.setTheme(theme);
+		this.post("set-theme", {theme});
 		document.body.classList.forEach(c=>{
 			if(c.indexOf('flow-theme') === 0 && c!='flow-theme'+theme){
 				document.body.classList.remove(c);
@@ -65,7 +106,7 @@ class Controller{
 
 		caption["active-tab"] = "settings";
 	}
-	initSettings(){
+	async initSettings(){
 		let themeInput = document.querySelector("#settings-dark-theme");
 		let scriptHolder = document.querySelector('#settings-script');
 		let advancedEl = document.querySelector('#settings-advanced');
@@ -104,9 +145,9 @@ class Controller{
 			//this.onConfigValueChange(script);
 
 		});
-		let config = app.getConfig({})
+		let {config, configFolder, modules} = this.initData;
 		this.disableConfigUpdates = true;
-		this.configEditor.session.setValue(JSON.stringify(app.getModulesConfig(), null, "\t"));
+		this.configEditor.session.setValue(JSON.stringify(modules, null, "\t"));
 		this.disableConfigUpdates = false;
 		$("flow-btn.save-config").on("click", ()=>{
 			let config = this.configEditor.session.getValue();
@@ -115,23 +156,23 @@ class Controller{
 
 		let $folderInput = $("#data-folder-input");
 		let folderInput = $folderInput[0];
-		let originalValue = config.dataDir || app.configFolder;
+		let originalValue = config.dataDir || configFolder;
 		folderInput.value = originalValue;
 		$(".reset-data-dir").on("click", e=>{
 			folderInput.setValue(originalValue);
 		});
 		$(".apply-data-dir").on("click", e=>{
-			app.setDataDir(folderInput.value, 2500);
+			this.post("set-data-dir", {dataDir:folderInput.value});
 		});
 		$(".use-default-data-dir").on("click", e=>{
-			folderInput.setValue(app.configFolder);
+			folderInput.setValue(configFolder);
 		});
 		$folderInput.on("change", (e)=>{
 			let value = folderInput.value;
 			console.log(originalValue, value);
 			$('.data-folder-input-tools').toggleClass("active", value!=originalValue);
 			$(".apply-data-dir").attr('disabled', value?null:true);
-			$('.use-default-data-dir')[0].disabled = value==app.configFolder;
+			$('.use-default-data-dir')[0].disabled = value==configFolder;
 		});
 
 		themeInput.addEventListener('changed', (e)=>{
@@ -139,26 +180,6 @@ class Controller{
 			this.setTheme(theme);
 		});
 		themeInput.checked = config.theme == 'dark';
-	}
-	initTaskUI(){
-		app.on("task-start", (daemon)=>{
-			console.log("init-task:task", daemon.task)
-			this.initTaskTab(daemon.task)
-		});
-		app.on("task-exit", (daemon)=>{
-			console.log("task-exit", daemon.task)
-			this.removeTaskTab(daemon.task)
-		})
-		app.on("task-data", (daemon, data)=>{
-			//console.log("task-data", daemon.task, data)
-			let terminal = this.taskTerminals[daemon.task.key];
-			if(!terminal)
-				return
-			data.map(d=>{
-				//console.log("data-line", d.trim())
-				terminal.write(d.trim());
-			});
-		})
 	}
 	initTaskTab(task){
 		const advanced = document.querySelector('#settings-advanced').checked;
@@ -192,10 +213,13 @@ class Controller{
 					<flow-btn data-action="RUN">RUN</flow-btn>
 					<flow-btn data-action="STOP">STOP</flow-btn>
 					<flow-btn data-action="RESTART">RESTART</flow-btn>
-					<flow-btn data-action="PURGE-DATA">PURGE DATA</flow-btn>
+					<flow-btn data-action="PURGE_DATA">PURGE DATA</flow-btn>
 				</div>
 			</tab-content>`
 			let tabContent = template.content.firstChild;
+			tabContent.querySelector(".tools").addEventListener('click', e=>{
+				this.onToolsClick(e);
+			});
 			this.taskTabs[key] = tabContent;
 			this.taskTerminals[key] = tabContent.querySelector("flow-terminal");
 			document.body.appendChild(tabContent);
@@ -221,38 +245,86 @@ class Controller{
 
 		caption.requestUpdate('tabs', lastValue)
 	}
-	saveModulesConfig(config){
+	async saveModulesConfig(config){
 		//console.log("saveModulesConfig:config", config)
 		try{
 			config = JSON.parse(config);
 		}catch(e){
 			return
 		}
-		app.saveModulesConfig(config);
-		app.restartDaemons();
+		let {config:daemons} = await this.get("set-modules-config", {config});
+
+		console.log("updatedConfig", daemons)
+		if(daemons)
+			this.restartDaemons(daemons);
+
+	}
+	onToolsClick(e){
+		let $target = $(e.target).closest("[data-action]");
+		let $tabContent = $target.closest("tab-content");
+		let key = ($tabContent.attr("for")+"").replace(/\-/g, ":");
+		let action = $target.attr("data-action");
+		if(!action || !$tabContent.length)
+			return
+
+		this.post("daemon-action", {action, key});
+	}
+
+	async initDaemons(daemons){
+		if(!daemons){
+			let {config} = await this.get("get-modules-config");
+			if(!config)
+				return "Could Not load modules."
+			daemons = config;
+		}
+		console.log("initDaemons", daemons)
+		this.manager.start(daemons);
+	}
+
+	async restartDaemons(daemons){
+		try{
+			await this.manager.stop();
+			console.log("initDaemons....")
+			dpc(1000, ()=>{
+				this.initDaemons(daemons);
+			});
+		}catch(e){
+			console.log("restartDaemons:error", e)
+			dpc(1000, ()=>{
+				this.initDaemons(daemons);
+			});
+		}
+	}
+
+	async stopDaemons(){
+		try{
+			await this.manager.stop();
+		}catch(e){
+			console.log("manager.stop:error", e)
+			return false;
+		}
+
+		return true;
+	}
+
+	post(subject, data){
+		this.rpc.dispatch(subject, data)
+	}
+
+	get(subject, data){
+		return new Promise((resolve, reject)=>{
+			this.rpc.dispatch(subject, data, (err, result)=>{
+				if(err)
+					return resolve(err)
+
+				resolve(result);
+			})
+		})
 	}
 }
 
 const uiController = new Controller();
-app.uiController = uiController;
-app.emit("ui-init");
-app.on("disable-ui", (args)=>{
-	$('body').addClass("disable");
-})
-app.on("enable-ui", (args)=>{
-	$('body').removeClass("disable");
-})
+
 
 window.xxxxController = uiController;
 
-/*
-caption.addEventListener('test', (e)=>{
-	console.log("##### XXXXXXXXXXXXXXXXX ###### test-event", e)
-})
-
-//console.log("caption", caption, caption.fire)
-document.addEventListener("WebComponentsReady", ()=>{
-	//console.log("WebComponentsReady WebComponentsReady WebComponentsReady")
-	caption.fire('test', {testing:true}, {bubbles:true})
-})
-*/

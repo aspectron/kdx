@@ -27,13 +27,6 @@ class App extends EventEmitter{
 		}
 		this.flags = utils.args(args);
 		this.initConfig();
-		this.init();
-	}
-	init(){
-		if(!this.dataFolder)
-			return
-		const KaspaProcessManager = require(path.join(this.appFolder, "lib/manager.js"));
-		this.manager = new KaspaProcessManager(this);
 	}
 
 	getBinaryFolder(){
@@ -124,55 +117,9 @@ class App extends EventEmitter{
 	* @return {Object} config as JSON
 	*/
 	getConfig(defaults = {}){
-
 		let text = fs.readFileSync(this.configFile, 'utf-8');
 		return eval(`(${text})`);
 		// return fs.readJSONSync(this.configFile, {throws:false}) || defaults;
-	}
-
-	initDaemons(){
-		if(!this.manager)
-			return false;
-		let modules = this.getModulesConfig();
-		console.log("initDaemons", modules)
-		this.startDaemons(modules);
-	}
-
-	startDaemons(daemons={}){
-		if(!this.manager)
-			return false;
-		this.daemons = daemons;
-		this.manager.start(daemons);
-	}
-
-	async stopDaemons(){
-		if(!this.manager)
-			return false;
-		try{
-			await this.manager.stop();
-		}catch(e){
-			console.log("manager.stop:error", e)
-			return false;
-		}
-
-		return true;
-	}
-
-	async restartDaemons(){
-		if(!this.manager)
-			return false;
-		try{
-			await this.manager.stop();
-			console.log("initDaemons....")
-			dpc(1000, ()=>{
-				this.initDaemons();
-			});
-		}catch(e){
-			console.log("restartDaemons:error", e)
-			dpc(1000, ()=>{
-				this.initDaemons();
-			});
-		}
 	}
 
 	/**

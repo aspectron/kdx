@@ -65,7 +65,7 @@ class RPC {
 
 		channel.onmessage = msg=>{
 			//console.log('received message in channel rpc')
-			console.log(msg)
+			//console.log(msg)
 			this._processRemoteMsg(msg.data);
 		}
 
@@ -76,7 +76,7 @@ class RPC {
 
 	send(to, subject, data, reqId){
 		let msg = {subject, data, reqId, to, from:this.uid};
-		console.log("sending:msg", msg)
+		//console.log("sending:msg", msg)
 		this._send(msg)
 	}
 

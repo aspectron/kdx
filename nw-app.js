@@ -1,22 +1,18 @@
 const {App} = require("./app.js");
+const {RPC} = require("./resources/rpc.js");
 
-chrome.developerPrivate.openDevTools({
+
+false && chrome.developerPrivate.openDevTools({
 	renderViewId: -1,
 	renderProcessId: -1,
 	extensionId: chrome.runtime.id,
 });
 
 class NWApp extends App{
-	/**
-	* @param {Object} [options={}]
-	*/
-	constructor(options={}) {
-		super(options);
-		this.on("ui-init", ()=>{
-			this.initDaemons();
-		})
 
-		global.app = this;
+	constructor(...args){
+		super(...args)
+		this.initRPC();
 	}
 
 	/**
@@ -70,9 +66,59 @@ class NWApp extends App{
 		}
 	}
 
+	initRPC(){
+		let rpc = new RPC({});
+		this.rpc = rpc;
+
+		rpc.on("get-config", (args, callback)=>{
+			console.log("get-config:args", args)
+			callback(null, this.config)
+		});
+		rpc.on("set-config", (args)=>{
+			let {config} = args;
+			if(!config || !config.modules)
+				return
+			this.setConfig(config);
+		});
+
+		rpc.on("get-init-data", (args, callback)=>{
+			console.log("get-init-data: args", args)
+			let {config, configFolder, appFolder, dataFolder} = this;
+			let {modules} = config;
+			callback(null, {config, configFolder, modules, appFolder, dataFolder})
+		});
+
+		rpc.on("set-theme", (args)=>{
+			let {theme} = args;
+			if(!theme)
+				return
+			this.setTheme(theme);
+		});
+
+		rpc.on("set-data-dir", (args)=>{
+			let {dataDir, restartDelay} = args;
+			if(!dataDir)
+				return
+			this.setDataDir(dataDir, restartDelay||2000);
+		});
+
+		rpc.on("set-modules-config", (args, callback)=>{
+			let {config} = args;
+			if(!config)
+				return callback({error:"Invalid Config"})
+			this.saveModulesConfig(config);
+			callback(null, {config:this.getModulesConfig()})
+		});
+
+		rpc.on("get-modules-config", (args, callback)=>{
+			callback(null, {config:this.getModulesConfig()})
+		});
+		
+	}
+
 	setDataDir(dataDir, restartDelay = 0){
 		super.setDataDir(dataDir);
-		this.emit("disable-ui", {CODE:'DATA-DIR'})
+		this.rpc.dispatch("disable-ui", {CODE:'DATA-DIR'})
 		dpc(restartDelay, ()=>this.reload());
 	}
 
