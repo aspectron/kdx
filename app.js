@@ -1,7 +1,8 @@
 const os = require('os');
 const fs = require('fs-extra');
 const path = require('path');
-const { utils } = require('micro-fabric');
+const utils = require('./lib/utils');
+const colors = require('colors');
 const EventEmitter = require("events");
 
 global.dpc = (delay, fn)=>{
