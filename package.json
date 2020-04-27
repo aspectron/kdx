@@ -9,18 +9,12 @@
     "node-version": "10.0.0"
   },
   "dependencies": {
-    "@material/mwc-button": "*",
-    "@material/mwc-tab": "*",
-    "@material/mwc-tab-bar": "*",
     "@webcomponents/webcomponentsjs": "*",
     "colors": "^1.4.0",
     "fs-extra": "*",
-    "iris-icons": "*",
     "is-docker": "*",
     "lit-element": "*",
     "mkdirp": "*",
-    "mysql": "*",
-    "nuid": "*",
     "pg": "*",
     "underscore": "*",
     "xterm": "*",
