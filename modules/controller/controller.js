@@ -22,12 +22,13 @@ class Controller{
 			this.stopDaemons();
 			win.close(true)
 		});
-		document.body.classList.remove("ui-loading");
+		this.setUiLoading(false);		
+	}
+	setUiLoading(loading){
+		document.body.classList.toggle("ui-loading", loading);
 	}
 	initRPC(){
-		let rpc = new RPC({
-
-		});
+		let rpc = new RPC({});
 
 		this.rpc = rpc;
 
@@ -62,7 +63,16 @@ class Controller{
 			});
 		});
 
-		this.initDaemons();
+		if(global.daemonsStarted){
+			let {config:daemons} = await this.get("get-modules-config");
+			if(!daemons)
+				return "Could Not load modules."
+			console.log("restartDaemons", daemons)
+			this.restartDaemons(daemons);
+		}else{
+			global.daemonsStarted = true;
+			this.initDaemons();
+		}
 	}
 	async initTheme(){
 		let theme = (await this.get("get-config")).theme || 'light';
@@ -106,6 +116,15 @@ class Controller{
 			disable:true,
 			section: 'advance'
 		}];
+
+		/*
+		for(let i=0; i<15; i++){
+			caption.tabs.push({
+				title: 'Tab '+i,
+				id:'tab-'+i
+			})
+		}
+		*/
 
 		caption["active-tab"] = "settings";
 	}
@@ -280,6 +299,7 @@ class Controller{
 				return "Could Not load modules."
 			daemons = config;
 		}
+			
 		console.log("initDaemons", daemons)
 		this.manager.start(daemons);
 	}
@@ -326,8 +346,6 @@ class Controller{
 	}
 }
 
-const uiController = new Controller();
-
-
-window.xxxxController = uiController;
+let uiCtl = new Controller();
+window.xxxxuiCtl = uiCtl;
 
