@@ -62,6 +62,15 @@ tab-content>x-terminal{height:100%;}
 #settings-script.active{display:flex;}
 .settings-script{display:flex;height:400px;flex-direction:column;}
 .settings-script .script-box{flex:1;}
+
+body {
+	--flow-primary-color: rgba(0, 128, 116, 1);
+}
+
+body.flow-theme-dark {
+	--flow-primary-color: rgba(0, 128, 116, 1);
+}
+
 body:not(.flow-theme-dark) .settings-script .script-box{background-color:#fbfbfb;}
 .tools{
 	display:flex;justify-content:flex-end;
