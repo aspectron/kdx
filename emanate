@@ -10,7 +10,7 @@ const E = new Emanator(__dirname, {
     banner : 'KDX',
     git : 'git@github.com:aspectron/kdx',
     author : "ASPECTRON Inc.",
-    url : "http://daglabs.com",
+    url : "http://aspectron.com",
     archive : true,
     folder : true,
     standalone : true,
@@ -28,7 +28,11 @@ E.task('kaspad', ['origin'], async (callback) => {
     if(E.flags.reset && fs.existsSync(dest))
         E.emptyDir(dest);
 
-    const repos = ['kaspad','kasparov','txgen','miningsimulator'];
+    const repos = ['kaspad','kasparov'];
+    if(E.flags['with-extras']) {
+        targets = [...targets, 'miningsimulator', 'txgen'];
+    }
+    
     for(const repo of repos) {
         // console.log(`git clone https://github.com/kaspanet/${repo}`);
         // await git.clone(`https://github.com/kaspanet/${repo}`,dest);
@@ -43,10 +47,17 @@ E.task('kaspad', ['origin'], async (callback) => {
         'kaspad',
         'kasparov/kasparovd',
         'kasparov/kasparovsyncd',
-        'miningsimulator',
-        'txgen',
-        ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`)
     ];
+
+    if(E.flags['with-extras']) {
+        targets = [
+            ...targets,
+            'miningsimulator',
+            'txgen',
+            ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`)
+        ];
+    }
+
 
     let rename = {
     }
