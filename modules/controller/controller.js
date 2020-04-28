@@ -113,6 +113,15 @@ class Controller{
 			section: 'advance'
 		}];
 
+		/*
+		for(let i=0; i<15; i++){
+			caption.tabs.push({
+				title: 'Tab '+i,
+				id:'tab-'+i
+			})
+		}
+		*/
+
 		caption["active-tab"] = "settings";
 	}
 	async initSettings(){
