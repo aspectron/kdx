@@ -32,7 +32,7 @@ class NWApp extends App{
 				width: 1027,
 				height: 768,
 				resizable: true,
-				frame: true,
+				frame: false,
 				transparent: false,
 				show: true,
 				// http://docs.nwjs.io/en/latest/References/Manifest%20Format/#window-subfields
