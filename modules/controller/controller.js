@@ -1,8 +1,8 @@
 true && nw.Window.get().showDevTools();
 const os = require("os");
+const pkg = require("../../package");
 const {RPC} = require("./../../resources/rpc.js");
 const Manager = require("./../../lib/manager.js");
-
 
 class Controller{
 	constructor(){
@@ -90,6 +90,9 @@ class Controller{
 	initCaption(){
 		let caption = document.querySelector('flow-caption-bar');
 		this.caption = caption;
+
+		caption.version = pkg.version;
+
 		caption.tabs = [{
 			title : "Home",
 			id : "home",
