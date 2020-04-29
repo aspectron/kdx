@@ -1,13 +1,23 @@
 {
   "name": "kdx",
   "description": "Kaspa Desktop eXperience",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "main": "kdx.js",
-  "gulp-config": {
-    "nwjs-version": "0.32.0",
-    "node-version": "10.0.0"
-  },
+  "files":[
+    "kdx.js",
+    "node-app.js",
+    "nw-app.js",
+    "app.js",
+    "README.md",
+    "lib",
+    "modules",
+    "resources/extern",
+    "resources/images",
+    "resources/styles",
+    "resources/tpl",
+    "resources/rpc.js"
+  ],
   "dependencies": {
     "@webcomponents/webcomponentsjs": "*",
     "colors": "^1.4.0",
