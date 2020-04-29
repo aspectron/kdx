@@ -46,7 +46,13 @@ class Controller{
 	async initManager(){
 		this.initData = await this.get("get-init-data");
 		let {dataFolder, appFolder} = this.initData;
-		let manager = new Manager(this, dataFolder, appFolder);
+		let manager = global.manager || new Manager(this, dataFolder, appFolder);
+		if(global.manager){
+			manager.controller = this;
+			manager.dataFolder = dataFolder;
+			manager.appFolder = appFolder;
+		}
+
 		this.manager = manager;
 		manager.on("task-info", async (daemon)=>{
 			if(!daemon.renderModuleInfo)
@@ -77,16 +83,17 @@ class Controller{
 			});
 		});
 
-		if(global.daemonsStarted){
+		if(global.manager){
 			let {config:daemons} = await this.get("get-modules-config");
 			if(!daemons)
 				return "Could Not load modules."
 			console.log("restartDaemons", daemons)
 			this.restartDaemons(daemons);
 		}else{
-			global.daemonsStarted = true;
 			this.initDaemons();
 		}
+
+		global.manager = manager;
 	}
 	async initTheme(){
 		let theme = (await this.get("get-config")).theme || 'light';
@@ -237,7 +244,7 @@ class Controller{
 				section:'advance',
 				disable:!advanced,
 				render:()=>{
-					console.log("renderTab:",task);
+					//console.log("renderTab:",task);
 
 					if(task?.impl?.renderTab)
 						return task.impl.renderTab(html);
@@ -372,7 +379,6 @@ class Controller{
 	}
 
 	redraw() {
-		console.log("requesting update...");
 		this?.caption?.requestUpdate();
 	}
 
@@ -385,7 +391,8 @@ class Controller{
 		render(repeat(list, ([k])=>k, ([k, info])=>info), this._infoTable);
 	}
 }
-
+console.log("global.manager::::", global.manager)
 let uiCtl = new Controller();
+
 window.xxxxuiCtl = uiCtl;
 
