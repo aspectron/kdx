@@ -20,6 +20,7 @@
   ],
   "dependencies": {
     "@webcomponents/webcomponentsjs": "*",
+    "bs58": "^4.0.1",
     "colors": "^1.4.0",
     "fs-extra": "*",
     "is-docker": "*",
