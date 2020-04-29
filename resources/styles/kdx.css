@@ -76,10 +76,12 @@ body:not(.flow-theme-dark) .settings-script .script-box{background-color:#fbfbfb
 	align-items:center;padding:5px 0px;
 }
 .tools>flow-btn{margin-left:5px;}
-tab-content.advance{
+tab-content.advance,
+tab-content.vertical-flex{
 	flex-direction:column;
 }
-tab-content.advance>flow-terminal{
+tab-content.advance>flow-terminal,
+tab-content.vertical-flex>flow-terminal{
 	flex:1;
 }
 .settings-script .tools{

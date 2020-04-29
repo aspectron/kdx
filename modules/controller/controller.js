@@ -4,6 +4,7 @@ const os = require("os");
 const pkg = require("../../package");
 const {RPC} = require("./../../resources/rpc.js");
 const Manager = require("./../../lib/manager.js");
+const Build = require("./../../lib/build.js");
 
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
@@ -26,6 +27,7 @@ class Controller{
 			this.stopDaemons();
 			win.close(true)
 		});
+		this.initBuild();
 		this.setUiLoading(false);		
 	}
 	setUiLoading(loading){
@@ -136,6 +138,11 @@ class Controller{
 			id : "rpc",
 			disable:true,
 			section: 'advance'
+		},{
+			title : "BUILD",
+			id : "build",
+			disable:true,
+			section: 'advance'
 		}];
 
 		/*
@@ -148,6 +155,14 @@ class Controller{
 		*/
 
 		caption["active"] = "home";
+	}
+	initBuild(){
+		this.buildTerminal = document.querySelector(".build-terminal");
+		this.build = new Build();
+		this.build.on("terminal-data", (data)=>{
+			console.log("data", data)
+			this.buildTerminal.write(data.trim());
+		})
 	}
 	async initSettings(){
 		let themeInput = document.querySelector("#settings-dark-theme");
