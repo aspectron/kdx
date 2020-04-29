@@ -98,8 +98,16 @@ class Controller{
 		global.manager = manager;
 	}
 	async initTheme(){
-		let theme = (await this.get("get-config")).theme || 'light';
-		this.setTheme(theme);
+		let {theme, darkTerminal} = await this.get("get-config");
+		this.setTheme(theme || 'light');
+		this.setDarkTerminal(!!darkTerminal);
+	}
+
+	setDarkTerminal(darkTerminal){
+		this.darkTerminal = darkTerminal;
+		this.post("set-dark-terminal", {darkTerminal});
+		document.body.classList.toggle("black-terminal", darkTerminal)
+		document.body.dispatchEvent(new CustomEvent("flow-theme-changed"));
 	}
 	
 	setTheme(theme){
@@ -119,6 +127,8 @@ class Controller{
 			else
 				this.configEditor.setTheme("ace/theme/chrome");
 		}
+
+		document.body.dispatchEvent(new CustomEvent("flow-theme-changed"));
 	}
 	initCaption(){
 		let caption = document.querySelector('flow-caption-bar');
@@ -166,6 +176,7 @@ class Controller{
 	}
 	async initSettings(){
 		let themeInput = document.querySelector("#settings-dark-theme");
+		let drakTermInput = document.querySelector("#settings-dark-terminal");
 		let scriptHolder = document.querySelector('#settings-script');
 		let advancedEl = document.querySelector('#settings-advanced');
 		advancedEl.addEventListener('changed', (e)=>{
@@ -237,7 +248,11 @@ class Controller{
 			let theme = e.detail.checked ? 'dark' : 'light';
 			this.setTheme(theme);
 		});
+		drakTermInput.addEventListener('changed', (e)=>{
+			this.setDarkTerminal(e.detail.checked);
+		});
 		themeInput.checked = config.theme == 'dark';
+		drakTermInput.checked = !!config.darkTerminal;
 	}
 	initTaskTab(task){
 		const advanced = document.querySelector('#settings-advanced').checked;
@@ -277,8 +292,8 @@ class Controller{
 		if(!this.taskTabs[key]){
 			const template = document.createElement('template');
 			template.innerHTML = 
-			`<tab-content for="${key}" data-active-display="flex" class="advance">
-				<flow-terminal noinput class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
+			`<tab-content for="${key}" data-active-display="flex" class="advance term">
+				<flow-terminal noinput class="x-terminal" background="transparent" foreground="transparent"></flow-terminal>
 				<div class="tools">
 					<flow-btn data-action="RUN">RUN</flow-btn>
 					<flow-btn data-action="STOP">STOP</flow-btn>
