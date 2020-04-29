@@ -98,8 +98,16 @@ class Controller{
 		global.manager = manager;
 	}
 	async initTheme(){
-		let theme = (await this.get("get-config")).theme || 'light';
-		this.setTheme(theme);
+		let {theme, darkTerminal} = await this.get("get-config");
+		this.setTheme(theme || 'light');
+		this.setDarkTerminal(!!darkTerminal);
+	}
+
+	setDarkTerminal(darkTerminal){
+		this.darkTerminal = darkTerminal;
+		this.post("set-dark-terminal", {darkTerminal});
+		document.body.classList.toggle("black-terminal", darkTerminal)
+		document.body.dispatchEvent(new CustomEvent("flow-theme-changed"));
 	}
 	
 	setTheme(theme){
@@ -120,8 +128,7 @@ class Controller{
 				this.configEditor.setTheme("ace/theme/chrome");
 		}
 
-		let ce = new CustomEvent("flow-theme-changed", {detail: {theme}})
-		document.body.dispatchEvent(ce);
+		document.body.dispatchEvent(new CustomEvent("flow-theme-changed"));
 	}
 	initCaption(){
 		let caption = document.querySelector('flow-caption-bar');
@@ -169,6 +176,7 @@ class Controller{
 	}
 	async initSettings(){
 		let themeInput = document.querySelector("#settings-dark-theme");
+		let drakTermInput = document.querySelector("#settings-dark-terminal");
 		let scriptHolder = document.querySelector('#settings-script');
 		let advancedEl = document.querySelector('#settings-advanced');
 		advancedEl.addEventListener('changed', (e)=>{
@@ -240,7 +248,11 @@ class Controller{
 			let theme = e.detail.checked ? 'dark' : 'light';
 			this.setTheme(theme);
 		});
+		drakTermInput.addEventListener('changed', (e)=>{
+			this.setDarkTerminal(e.detail.checked);
+		});
 		themeInput.checked = config.theme == 'dark';
+		drakTermInput.checked = !!config.darkTerminal;
 	}
 	initTaskTab(task){
 		const advanced = document.querySelector('#settings-advanced').checked;

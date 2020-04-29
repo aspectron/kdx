@@ -95,6 +95,12 @@ class NWApp extends App{
 				return
 			this.setTheme(theme);
 		});
+		rpc.on("set-dark-terminal", (args)=>{
+			let {darkTerminal} = args;
+			if(!darkTerminal)
+				return
+			this.setDarkTerminal(darkTerminal);
+		});
 
 		rpc.on("set-data-dir", (args)=>{
 			let {dataDir, restartDelay} = args;

@@ -91,6 +91,11 @@ class App extends EventEmitter{
 		this.setConfig(this.config);
 	}
 
+	setDarkTerminal(darkTerminal){
+		this.config.darkTerminal = !!darkTerminal;
+		this.setConfig(this.config);
+	}
+
 	/**
 	* save config
 	* @param {Object} config JSON config

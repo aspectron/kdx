@@ -79,15 +79,26 @@ body:not(.flow-theme-dark) .settings-script .script-box{background-color:#fbfbfb
 body{
 	--flow-background-color:#FFFFFF;
 	--flow-foreground-color:#232323;
+	--flow-terminal-bg-color:#CCCCCC;
+	--flow-terminal-color:#555;
+	--flow-terminal-cursor:#000000;
 }
 body.flow-theme-dark{
 	--flow-background-color:#232323;
 	--flow-foreground-color:#FFFFFF;
+	--flow-terminal-bg-color:#232323;
+	--flow-terminal-color:#b1b1b1;
+	--flow-terminal-cursor:#b1b1b1;
 }
-tab-content.term .x-terminal{
-	background-color:var(--flow-background-color);
-	color:var(--flow-foreground-color);
+body.black-terminal{
+	--flow-terminal-bg-color:#000000;
+	--flow-terminal-color:#FFFFFF;
+	--flow-terminal-cursor:#FFFFFF;
 }
+/*tab-content.term .x-terminal{
+	background-color:var(--flow-terminal-bg-color);
+	color:var(--flow-terminal-color);
+}*/
 .tools{
 	display:flex;justify-content:flex-end;
 	align-items:center;padding:5px 0px;

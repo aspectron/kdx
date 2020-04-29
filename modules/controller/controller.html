@@ -120,7 +120,10 @@
 		</flow-form-control>
 		<flow-form-control icon="light-palette">
 			User Interface Color Theme
-			<flow-checkbox id="settings-dark-theme" slot="input">Dark Theme</flow-checkbox>
+			<flow-checkbox id="settings-dark-theme" class="block"
+				slot="input">Dark Theme</flow-checkbox>
+			<flow-checkbox id="settings-dark-terminal" class="block"
+				slot="input">Dark Terminals</flow-checkbox>
 		</flow-form-control>
 		<flow-form-control icon="light-tools">
 			Turn ON/OFF advanced settings and process control
@@ -142,7 +145,7 @@
 		<flow-terminal class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
 	</tab-content>
 	<tab-content for="build" data-active-display="flex" class="advance term">
-		<flow-terminal noinput class="x-terminal build-terminal"
+		<flow-terminal class="x-terminal build-terminal"
 			background="#000" foreground="#FFF"></flow-terminal>
 		<!--div class="tools">
 			<flow-btn data-action="RUN">RUN</flow-btn>
