@@ -2,7 +2,7 @@
 
 
 const E = new Emanator(__dirname, {
-    type : 'NWJS',
+    type : 'NODE+NWJS+SDK',
     guid : 'a1072045-6d98-44d8-9aa5-d9b86c79bd01',
     group : 'Kaspa',
     ident : 'kdx',
