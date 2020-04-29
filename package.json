@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "main": "kdx.js",
-  "files":[
+  "files": [
     "kdx.js",
     "node-app.js",
     "nw-app.js",
@@ -27,6 +27,7 @@
     "mkdirp": "*",
     "pg": "*",
     "underscore": "*",
+    "ws": "^7.2.5",
     "xterm": "*",
     "xterm-addon-fit": "*",
     "xterm-addon-web-links": "*"
