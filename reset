@@ -1,4 +1,5 @@
 #! bin/bash
 ps -W | grep nw
 ps -W | grep nw | awk '{print $1}' | xargs kill -f 
+ps -W | grep postgres | awk '{print $1}' | xargs kill -f 
 ps -W | grep nwjsapp | awk '{print $1}' | xargs kill -f 
