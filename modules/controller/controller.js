@@ -4,6 +4,8 @@ const pkg = require("../../package");
 const {RPC} = require("./../../resources/rpc.js");
 const Manager = require("./../../lib/manager.js");
 
+import {html} from 'lit-html';
+
 class Controller{
 	constructor(){
 		this.init();
@@ -42,7 +44,7 @@ class Controller{
 	async initManager(){
 		this.initData = await this.get("get-init-data");
 		let {dataFolder, appFolder} = this.initData;
-		let manager = new Manager(dataFolder, appFolder);
+		let manager = new Manager(this, dataFolder, appFolder);
 		this.manager = manager;
 		manager.on("task-start", (daemon)=>{
 			console.log("init-task:task", daemon.task)
@@ -104,11 +106,11 @@ class Controller{
 		caption.version = pkg.version;
 
 		caption.tabs = [{
-			title : "Home",
+			title : "Home".toUpperCase(),
 			id : "home",
 			cls:"home"
 		},{
-			title : "Settings",
+			title : "Settings".toUpperCase(),
 			id : "settings"
 		},{
 			title : "RPC",
@@ -221,7 +223,20 @@ class Controller{
 				title:name,
 				id:key,
 				section:'advance',
-				disable:!advanced
+				disable:!advanced,
+				render:()=>{
+					console.log("renderTab:",task);
+
+					if(task?.impl?.renderTab)
+						return task.impl.renderTab(html);
+
+					//return html`${name}`;
+					return html`
+						<div style="display:flex;flex-direction:row;">
+							<div style="font-size:18px;">${task.type}</div>
+							<div style="font-size:10px; margin-top:8px;">${task.id}</div>
+						</div>`;
+				}
 			});
 		}
 		
@@ -343,6 +358,11 @@ class Controller{
 				resolve(result);
 			})
 		})
+	}
+
+	redraw() {
+		console.log("requesting update...");
+		this?.caption?.requestUpdate();
 	}
 }
 
