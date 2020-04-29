@@ -1,9 +1,9 @@
 if(typeof dpc == 'undefined'){
 	var dpc = (delay, fn)=>{
 		if(typeof delay == 'function'){
-			setTimeout(delay, fn||0);
+			return setTimeout(delay, fn||0);
 		}else{
-			setTimeout(fn, delay||0);
+			return setTimeout(fn, delay||0);
 		}
 	}
 }

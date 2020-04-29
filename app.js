@@ -10,7 +10,7 @@ global.dpc = (delay, fn)=>{
 		fn = delay;
 		delay = fn || 0;
 	}
-	setTimeout(fn, delay);
+	return setTimeout(fn, delay);
 }
 
 
