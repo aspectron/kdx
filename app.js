@@ -1,5 +1,7 @@
 const os = require('os');
 const fs = require('fs-extra');
+const crypto = require('crypto');
+const bs58 = require('bs58');
 const path = require('path');
 const utils = require('./lib/utils');
 const colors = require('colors');
@@ -33,6 +35,15 @@ class App extends EventEmitter{
 		return path.join(this.appFolder, 'bin', utils.platform);
 	}
 
+	randomBytes() {
+		let bytes = crypto.randomBytes(32);
+		let text = bs58.encode(bytes).split('');
+		while(/\d/.test(text[0]))
+			text.shift();
+		text = text.join('');
+		return text;
+	}
+
 	/**
 	* initlize config object
 	*/
@@ -41,8 +52,15 @@ class App extends EventEmitter{
 		fs.ensureDirSync(this.configFolder);
 		this.config = {};
 		this.configFile = path.join(this.configFolder, "config.json");
-		if(!fs.existsSync(this.configFile)){
-			this.config = fs.readJSONSync(path.join(this.appFolder, "default-config.json"), {throws:false}) || {}
+		if(!fs.existsSync(this.configFile) || this.flags['reset-config']){
+			this.config = fs.readJSONSync(path.join(this.appFolder, "default-config.json"), {throws:false}) || {};
+			Object.entries(this.config.modules).forEach(([k,v]) => {
+				const type = k.split(':').shift();
+				if(type == 'kaspad') {
+					v.args.rpcuser = this.randomBytes();
+					v.args.rpcpass = this.randomBytes();
+				}
+			})
 			this.setConfig(this.config);
 		}else{
 			this.config = this.getConfig();
@@ -59,7 +77,7 @@ class App extends EventEmitter{
 		if(typeof this.config.dataDir == 'undefined' && !this.flags.init){
 			return `Please start app with --init=/path/to/data/dir [or] --init=~/.kdx [or] --init=<default>`;
 		}else if(this.flags.init){
-			if(this.flags.init != '<default>')
+			if(this.flags.init != '<default>' && this.flags.init != '.')
 				this.config.dataDir = this.flags.init;
 		}
 
