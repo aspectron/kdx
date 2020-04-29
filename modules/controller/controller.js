@@ -4,7 +4,8 @@ const pkg = require("../../package");
 const {RPC} = require("./../../resources/rpc.js");
 const Manager = require("./../../lib/manager.js");
 
-import {html} from 'lit-html';
+import {html, render} from 'lit-html';
+import {repeat} from 'lit-html/directives/repeat.js';
 
 class Controller{
 	constructor(){
@@ -13,8 +14,8 @@ class Controller{
 	
 	async init(){
 		this.initRPC();
-		await this.initManager();
 		this.initTheme();
+		await this.initManager();
 		this.taskTabs = {};
 		this.taskTerminals = {};
 		this.initCaption();
@@ -46,13 +47,23 @@ class Controller{
 		let {dataFolder, appFolder} = this.initData;
 		let manager = new Manager(this, dataFolder, appFolder);
 		this.manager = manager;
+		manager.on("task-info", async (daemon)=>{
+			if(!daemon.renderModuleInfo)
+				return
+
+			let {task} = daemon;
+
+			let info = await daemon.renderModuleInfo(html);
+			this.renderModuleInfo(task, info)
+		})
 		manager.on("task-start", (daemon)=>{
 			console.log("init-task:task", daemon.task)
-			this.initTaskTab(daemon.task)
+			this.initTaskTab(daemon.task);
+
 		});
 		manager.on("task-exit", (daemon)=>{
 			console.log("task-exit", daemon.task)
-			this.removeTaskTab(daemon.task)
+			this.removeTaskTab(daemon.task);
 		})
 		manager.on("task-data", (daemon, data)=>{
 			//console.log("task-data", daemon.task, data)
@@ -128,7 +139,7 @@ class Controller{
 		}
 		*/
 
-		caption["active-tab"] = "settings";
+		caption["active"] = "home";
 	}
 	async initSettings(){
 		let themeInput = document.querySelector("#settings-dark-theme");
@@ -230,7 +241,6 @@ class Controller{
 					if(task?.impl?.renderTab)
 						return task.impl.renderTab(html);
 
-					//return html`${name}`;
 					return html`
 						<div style="display:flex;flex-direction:row;">
 							<div style="font-size:18px;">${task.type}</div>
@@ -294,8 +304,8 @@ class Controller{
 		console.log("updatedConfig", daemons)
 		if(daemons)
 			this.restartDaemons(daemons);
-
 	}
+
 	onToolsClick(e){
 		let $target = $(e.target).closest("[data-action]");
 		let $tabContent = $target.closest("tab-content");
@@ -363,6 +373,15 @@ class Controller{
 	redraw() {
 		console.log("requesting update...");
 		this?.caption?.requestUpdate();
+	}
+
+	renderModuleInfo(task, info){
+		this._infoTable = this._infoTable || document.querySelector("#process-info-table");
+		this._taskInfo = this._taskInfo || {};
+		
+		this._taskInfo[task.key] = info;
+		let list = Object.entries(this._taskInfo);
+		render(repeat(list, ([k])=>k, ([k, info])=>info), this._infoTable);
 	}
 }
 
