@@ -1,4 +1,5 @@
-true && nw.Window.get().showDevTools();
+(window.navigator.plugins.namedItem('Native Client') !== null) 
+	&& nw.Window.get().showDevTools();
 const os = require("os");
 const pkg = require("../../package");
 const {RPC} = require("./../../resources/rpc.js");
