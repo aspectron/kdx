@@ -2,7 +2,7 @@
 
 
 const E = new Emanator(__dirname, {
-    type : 'NODE',
+    type : 'NWJS',
     guid : 'a1072045-6d98-44d8-9aa5-d9b86c79bd01',
     group : 'Kaspa',
     ident : 'kdx',
@@ -14,13 +14,20 @@ const E = new Emanator(__dirname, {
     archive : true,
     folder : true,
     standalone : true,
+    nwjs : { version : '0.45.4' },
+    resources : 'resources/setup'
+
 })
 
 const go = await E.tools.go('go1.13.4');
 const git = await E.tools.git();
+const gcc = await E.tools.gcc();
 
-E.BIN = path.join(E.appFolder,'bin',E.PLATFORM_ARCH);
-mkdirp.sync(E.BIN);
+
+// E.BIN = path.join(E.appFolder,'bin',E.PLATFORM_ARCH);
+// mkdirp.sync(E.BIN);
+
+//mkdirp.sync(path.join(E.appFolder,'setup'));
 
 E.task('kaspad', ['origin'], async (callback) => {
 
@@ -28,18 +35,25 @@ E.task('kaspad', ['origin'], async (callback) => {
     if(E.flags.reset && fs.existsSync(dest))
         E.emptyDir(dest);
 
-    const repos = ['kaspad','kasparov'];
-    if(E.flags['with-extras']) {
-        targets = [...targets, 'miningsimulator', 'txgen'];
+    const branch = E.flags['branch'] || 'master';
+
+    const repos = { };
+    repos.kaspa = ['kaspad','kasparov'];
+
+    for(const repo of repos.kaspa) {
+        
+        console.log(`git clone git@github.com:kaspanet/${repo}`);
+        await git.clone(`git@github.com:kaspanet/${repo}`,dest, {branch});
     }
     
-    for(const repo of repos) {
-        // console.log(`git clone https://github.com/kaspanet/${repo}`);
-        // await git.clone(`https://github.com/kaspanet/${repo}`,dest);
-        console.log(`git clone git@github.com:kaspanet/${repo}`);
-        await git.clone(`git@github.com:kaspanet/${repo}`,dest);
+    if(E.flags['with-extras']) {
+        repos.extras = ['miningsimulator', 'txgen'];
+        for(const repo of repos.extras) {
+            console.log(`git clone git@github.com:kaspanet/${repo}`);
+            await git.clone(`git@github.com:kaspanet/${repo}`,dest);
+        }
     }
-
+        
 
     // ---
 
@@ -92,7 +106,7 @@ E.task('kaspad', ['origin'], async (callback) => {
     E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
 })
 
-E.task('mysql', ['origin'], async (callback) => {
+0 && E.task('mysql', ['origin'], async (callback) => {
 
     // disabling MySQL for now
     // return Promise.resolve();
@@ -144,7 +158,7 @@ E.task('mysql', ['origin'], async (callback) => {
 })
 
 E.task('pgsql', ['origin'], async (callback) => {
-
+console.log("PGSQL",E.BIN)
     if(E.PLATFORM == 'linux')
         return Promise.resolve();
 
@@ -215,7 +229,7 @@ E.task('mqtt',['origin'], async () => {
         return E.copy(path.join(E.REPO,'resources','deps','mosquitto-windows-x64'),path.join(E.BIN,'mosquitto'));
 })
 
-E.task('done', ['kaspad','pgsql','remote','mqtt'], async () => {
+E.task('done', ['pgsql','kaspad','remote','mqtt'], async () => {
 
 })
 
@@ -232,6 +246,8 @@ E.task('aptitude', null, async (callback) => {
 })
 
 E.task('docker',null, async () => {
+    if(E.PLATFORM != 'linux')
+        return;
 
     E.manifest_read();
 
@@ -261,7 +277,13 @@ if(E.flags.docker) {
 }
 else if(E.flags['pgsql']) 
     E.run(['pgsql']);
-else if(E.flags['local-binaries']) 
+else if(E.flags['local-binaries']) {
+
+    E.BIN = path.join(E.appFolder,'bin',E.PLATFORM_ARCH);
+    mkdirp.sync(E.BIN);
+    
+
     E.run(['kaspad','pgsql','aptitude']);
+}
 else
     E.run();
