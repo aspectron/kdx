@@ -56,7 +56,7 @@ class App extends EventEmitter{
 			this.config = fs.readJSONSync(path.join(this.appFolder, "default-config.json"), {throws:false}) || {};
 			Object.entries(this.config.modules).forEach(([k,v]) => {
 				const type = k.split(':').shift();
-				if(type == 'kaspad') {
+				if(['kaspad','kasparovd','kasparovsyncd'].includes(type)) {
 					v.args.rpcuser = this.randomBytes();
 					v.args.rpcpass = this.randomBytes();
 				}
