@@ -43,20 +43,25 @@ tab-content::-webkit-scrollbar-thumb{
     -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);
     background-color:#888;
 }
-flow-form-control{
+flow-form-control,
+flow-expandable{
 	/*background-color:#f2f2f2;*/
 	padding:10px;
 }
-flow-form-control [slot="info"]{
+flow-form-control [slot="info"],
+flow-expandable [slot="info"]{
 	font-family: 'Open Sans';
 }
-flow-form-control h4[slot="info"].title{margin-bottom:10px;}
+flow-form-control h4[slot="info"].title,
+flow-expandable h4[slot="info"].title{margin-bottom:10px;}
+/*flow-expandable:not([opened]) [slot="info"]{display:none;}*/
 .tabs{margin-top:32px;width:100%;}
 flow-tabs flow-tab{margin-left: -20px;margin-right: -20px;}
 flow-caption-bar{/*--flow-tab-min-width:220px;--flow-tab-max-width:320px;*/}
 tab-content{overflow:auto auto;flex:1;padding:10px;display:none;z-index:15;}
 flow-textarea{margin:4px;}
 tab-content>x-terminal{height:100%;}
+.license p{margin:5px 0px;}
 #settings-script{display:none;}
 #settings-script.active{display:flex;}
 .settings-script{display:flex;height:400px;flex-direction:column;}
