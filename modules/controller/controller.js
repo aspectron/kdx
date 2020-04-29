@@ -119,6 +119,9 @@ class Controller{
 			else
 				this.configEditor.setTheme("ace/theme/chrome");
 		}
+
+		let ce = new CustomEvent("flow-theme-changed", {detail: {theme}})
+		document.body.dispatchEvent(ce);
 	}
 	initCaption(){
 		let caption = document.querySelector('flow-caption-bar');
@@ -277,8 +280,8 @@ class Controller{
 		if(!this.taskTabs[key]){
 			const template = document.createElement('template');
 			template.innerHTML = 
-			`<tab-content for="${key}" data-active-display="flex" class="advance">
-				<flow-terminal noinput class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
+			`<tab-content for="${key}" data-active-display="flex" class="advance term">
+				<flow-terminal noinput class="x-terminal" background="transparent" foreground="transparent"></flow-terminal>
 				<div class="tools">
 					<flow-btn data-action="RUN">RUN</flow-btn>
 					<flow-btn data-action="STOP">STOP</flow-btn>
