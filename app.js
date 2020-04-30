@@ -109,8 +109,12 @@ class App extends EventEmitter{
 		this.setConfig(this.config);
 	}
 
-	setDarkTerminal(darkTerminal){
-		this.config.darkTerminal = !!darkTerminal;
+	setInvertTerminals(invertTerminals){
+		this.config.invertTerminals = !!invertTerminals;
+		this.setConfig(this.config);
+	}
+	setRunInBG(runInBG){
+		this.config.runInBG = !!runInBG;
 		this.setConfig(this.config);
 	}
 

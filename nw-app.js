@@ -95,11 +95,18 @@ class NWApp extends App{
 				return
 			this.setTheme(theme);
 		});
-		rpc.on("set-dark-terminal", (args)=>{
-			let {darkTerminal} = args;
-			if(!darkTerminal)
+		rpc.on("set-invert-terminals", (args)=>{
+			let {invertTerminals} = args;
+			if(invertTerminals == undefined)
 				return
-			this.setDarkTerminal(darkTerminal);
+			this.setInvertTerminals(invertTerminals);
+		});
+
+		rpc.on("set-run-in-bg", (args)=>{
+			let {runInBG} = args;
+			if(runInBG == undefined)
+				return
+			this.setRunInBG(runInBG);
 		});
 
 		rpc.on("set-data-dir", (args)=>{
