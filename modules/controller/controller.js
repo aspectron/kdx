@@ -11,11 +11,12 @@ import {repeat} from 'lit-html/directives/repeat.js';
 
 class Controller{
 	constructor(){
-		this.initTrayMenu();
 		this.init();
 	}
 	
 	async init(){
+		this.initWin();
+		this.initTrayMenu();
 		this.initRPC();
 		this.initTheme();
 		await this.initManager();
@@ -23,13 +24,6 @@ class Controller{
 		this.taskTerminals = {};
 		this.initCaption();
 		await this.initSettings();
-		const win = nw.Window.get();
-		win.on("close", ()=>{
-			this.stopDaemons();
-			this.tray.remove();
-			this.tray = null;
-			win.close(true)
-		});
 		this.initBuild();
 		this.setUiLoading(false);		
 	}
@@ -111,6 +105,10 @@ class Controller{
 		this.post("set-invert-terminals", {invertTerminals});
 		document.body.classList.toggle("invert-terminals", invertTerminals)
 		document.body.dispatchEvent(new CustomEvent("flow-theme-changed"));
+	}
+	setRunInBG(runInBG){
+		this.runInBG = !!runInBG;
+		this.post("set-run-in-bg", {runInBG});
 	}
 	setTheme(theme){
 		this.theme = theme;
@@ -273,6 +271,16 @@ class Controller{
 			type : 'separator'
 		}));
 
+		this.showMenu = new nw.MenuItem({ 
+			label : 'Show',
+			enabled: false,
+			click : () => {
+				this.showWin();
+			}
+		})
+
+		menu.append(this.showMenu);
+
 		menu.append(new nw.MenuItem({ 
 			label : 'Exit',
 			click : () => {
@@ -284,11 +292,14 @@ class Controller{
 	}
 
 	async initSettings(){
-		let themeInput = document.querySelector("#settings-dark-theme");
-		let invertTermInput = document.querySelector("#settings-invert-terminal");
-		let scriptHolder = document.querySelector('#settings-script');
-		let advancedEl = document.querySelector('#settings-advanced');
-		advancedEl.addEventListener('changed', (e)=>{
+		const doc = document;
+		const qS = doc.querySelector.bind(doc);
+		let themeInput = qS("#settings-dark-theme");
+		let invertTermInput = qS("#settings-invert-terminal");
+		let runInBGInput = qS("#settings-run-in-bg");
+		let scriptHolder = qS('#settings-script');
+		let advancedInput = qS('#settings-advanced');
+		advancedInput.addEventListener('changed', (e)=>{
 			let advanced = e.detail.checked;
 			let index = this.caption.tabs.forEach((t, index)=>{
 				if(t.section == 'advance'){
@@ -299,9 +310,9 @@ class Controller{
 			localStorage.advancedUI = advanced?1:0;
 			
 			scriptHolder.classList.toggle("active", advanced)
-			document.body.classList.toggle("advance-ui", advanced)
+			doc.body.classList.toggle("advance-ui", advanced)
 		});
-		advancedEl.setChecked(localStorage.advancedUI==1);
+		advancedInput.setChecked(localStorage.advancedUI==1);
 		this.configEditor = ace.edit(scriptHolder.querySelector(".script-box"), {
 			mode : 'ace/mode/javascript',
 			selectionStyle : 'text'
@@ -313,14 +324,7 @@ class Controller{
 		
 		this.configEditor.session.setUseWrapMode(false);
 		this.configEditor.session.on('change', (delta) => {
-			//console.log("scriptEditorChange",delta);
-
-			//if(this.disableConfigUpdates)
-			//	return;
-
 			//let script = this.configEditor.session.getValue();
-			//this.onConfigValueChange(script);
-
 		});
 		let {config, configFolder, modules} = this.initData;
 		this.disableConfigUpdates = true;
@@ -359,8 +363,14 @@ class Controller{
 		invertTermInput.addEventListener('changed', (e)=>{
 			this.setInvertTerminals(e.detail.checked);
 		});
+		runInBGInput.addEventListener('changed', (e)=>{
+			this.setRunInBG(e.detail.checked);
+		});
+
 		themeInput.checked = config.theme == 'dark';
 		invertTermInput.checked = !!config.invertTerminals;
+		runInBGInput.checked = !!config.runInBG;
+		this.runInBG = runInBGInput.checked;
 	}
 	initTaskTab(task){
 		const advanced = document.querySelector('#settings-advanced').checked;
@@ -487,6 +497,8 @@ class Controller{
 		}
 	}
 	async stopDaemons(){
+		if(!this.manager)
+			return true;
 		try{
 			await this.manager.stop();
 		}catch(e){
@@ -521,23 +533,66 @@ class Controller{
 		render(repeat(list, ([k])=>k, ([k, info])=>info), this._infoTable);
 	}
 	exit(){
+		this.runInBG = false;
 		window.onbeforeunload();
 		window.close();
+	}
+	initWin(){
+		const win = nw.Window.get();
+		this.win = win;
+		const minimize = win.minimize.bind(win);
+		win.minimize = ()=>{
+			if(this.runInBG){
+				this.hideWin();
+				return
+			}
+
+			minimize();
+		}
+
+		win.on("close", ()=>{
+			window.onbeforeunload();
+			win.close(true)
+		});
+
+		win.on("minimize", ()=>{
+			if(this.showMenu)
+				this.showMenu.enabled = true;
+		})
+
+		nw.App.on("reopen", ()=>{
+			this.showWin();
+		})
+
+		window.onbeforeunload = ()=>{
+			if(this.runInBG){
+				this.hideWin();
+				return
+			}
+			this.stopDaemons();
+			if(this.tray){
+				this.tray.remove();
+				this.tray = null;
+			}
+		}
+	}
+	hideWin(){
+		if(this.showMenu)
+			this.showMenu.enabled = true;
+		this.win.hide();
+	}
+	showWin(){
+		if(this.showMenu)
+			this.showMenu.enabled = false;
+		this.win.show();
 	}
 	isDevMode() {
 	    return (window.navigator.plugins.namedItem('Native Client') !== null);
 	}
 }
+
 console.log("global.manager::::", global.manager)
 let uiCtl = new Controller();
-
-window.onbeforeunload = ()=>{
-	uiCtl.stopDaemons();
-	if(uiCtl.tray){
-		uiCtl.tray.remove();
-		uiCtl.tray = null;
-	}
-}
 
 window.xxxxuiCtl = uiCtl;
 

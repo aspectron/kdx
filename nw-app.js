@@ -97,9 +97,16 @@ class NWApp extends App{
 		});
 		rpc.on("set-invert-terminals", (args)=>{
 			let {invertTerminals} = args;
-			if(!invertTerminals)
+			if(invertTerminals == undefined)
 				return
 			this.setInvertTerminals(invertTerminals);
+		});
+
+		rpc.on("set-run-in-bg", (args)=>{
+			let {runInBG} = args;
+			if(runInBG == undefined)
+				return
+			this.setRunInBG(runInBG);
 		});
 
 		rpc.on("set-data-dir", (args)=>{

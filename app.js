@@ -113,6 +113,10 @@ class App extends EventEmitter{
 		this.config.invertTerminals = !!invertTerminals;
 		this.setConfig(this.config);
 	}
+	setRunInBG(runInBG){
+		this.config.runInBG = !!runInBG;
+		this.setConfig(this.config);
+	}
 
 	/**
 	* save config
