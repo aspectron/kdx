@@ -63,7 +63,8 @@ class Controller{
 			let {task} = daemon;
 
 			let info = await daemon.renderModuleInfo(html);
-			this.renderModuleInfo(task, info)
+			let section = html`<div class="task-info">${info}</div>`;
+			this.renderModuleInfo(task, section);
 		})
 		manager.on("task-start", (daemon)=>{
 			console.log("init-task:task", daemon.task)
