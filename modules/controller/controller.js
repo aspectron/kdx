@@ -99,15 +99,15 @@ class Controller{
 		global.manager = manager;
 	}
 	async initTheme(){
-		let {theme, darkTerminal} = await this.get("get-config");
+		let {theme, invertTerminals} = await this.get("get-config");
 		this.setTheme(theme || 'light');
-		this.setDarkTerminal(!!darkTerminal);
+		this.setInvertTerminals(!!invertTerminals);
 	}
 
-	setDarkTerminal(darkTerminal){
-		this.darkTerminal = darkTerminal;
-		this.post("set-dark-terminal", {darkTerminal});
-		document.body.classList.toggle("black-terminal", darkTerminal)
+	setInvertTerminals(invertTerminals){
+		this.invertTerminals = invertTerminals;
+		this.post("set-invert-terminals", {invertTerminals});
+		document.body.classList.toggle("invert-terminals", invertTerminals)
 		document.body.dispatchEvent(new CustomEvent("flow-theme-changed"));
 	}
 	
@@ -171,30 +171,29 @@ class Controller{
 		this.buildTerminal = document.querySelector(".build-terminal");
 		this.build = new Build();
 		this.build.on("terminal-data", (data)=>{
-			console.log("data", data)
+			console.log("terminal-data", data)
 			this.buildTerminal.write(data.trim());
 		})
 	}
 	async initSettings(){
 		let themeInput = document.querySelector("#settings-dark-theme");
-		let drakTermInput = document.querySelector("#settings-dark-terminal");
+		let invertTermInput = document.querySelector("#settings-invert-terminal");
 		let scriptHolder = document.querySelector('#settings-script');
 		let advancedEl = document.querySelector('#settings-advanced');
 		advancedEl.addEventListener('changed', (e)=>{
-			//console.log("advancedEl", e.detail.checked)
-			//caption.tabs[2].disable = !e.detail.checked;
-			//caption.tabs = caption.tabs.slice(0);
-			//caption.requestTabsUpdate();
 			let advanced = e.detail.checked;
 			let index = this.caption.tabs.forEach((t, index)=>{
 				if(t.section == 'advance'){
 					this.caption.set(`tabs.${index}.disable`, !advanced)
 				}
 			});
+
+			localStorage.advancedUI = advanced?1:0;
 			
 			scriptHolder.classList.toggle("active", advanced)
 			document.body.classList.toggle("advance-ui", advanced)
-		})
+		});
+		advancedEl.setChecked(localStorage.advancedUI==1);
 		this.configEditor = ace.edit(scriptHolder.querySelector(".script-box"), {
 			mode : 'ace/mode/javascript',
 			selectionStyle : 'text'
@@ -249,11 +248,11 @@ class Controller{
 			let theme = e.detail.checked ? 'dark' : 'light';
 			this.setTheme(theme);
 		});
-		drakTermInput.addEventListener('changed', (e)=>{
-			this.setDarkTerminal(e.detail.checked);
+		invertTermInput.addEventListener('changed', (e)=>{
+			this.setInvertTerminals(e.detail.checked);
 		});
 		themeInput.checked = config.theme == 'dark';
-		drakTermInput.checked = !!config.darkTerminal;
+		invertTermInput.checked = !!config.invertTerminals;
 	}
 	initTaskTab(task){
 		const advanced = document.querySelector('#settings-advanced').checked;

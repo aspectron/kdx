@@ -106,7 +106,7 @@ body.flow-theme-dark{
 	--flow-terminal-color:#fff;
 	--flow-terminal-cursor:#ccc;
 }
-body.black-terminal{
+body.invert-terminals{
 	--flow-terminal-bg-color:#000000;
 	--flow-terminal-color:#FFFFFF;
 	--flow-terminal-cursor:#FFFFFF;
@@ -166,4 +166,8 @@ body.disable:after{z-index:100000;opacity:1;}
 .task-info .task .version i{
 	font-size:0.75rem;font-style:normal;font-family:Consolas;
 }
+.task-info .kaspad{font-family:Consolas;font-size:0.75rem;}
+.task-info .task .sub.suffix{font-size:0.83rem;}
+
+body:not(.advance-ui) .advance-tool{display:none}
 
