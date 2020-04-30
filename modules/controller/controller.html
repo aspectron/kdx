@@ -47,7 +47,7 @@
 		-->
 		<flow-form-control icon="light-database">
 			Processes
-			<div id='process-info-table' class="task-info">
+			<div id='process-info-table' class="task-info-container">
 			<!--div class="task">
 				<div class="col-1"><span class="type">KASPAD</span> <span class="version">v4545</span></div>
 				<div class="col-2"><span class="id">KD0</span></div>
@@ -61,10 +61,14 @@
 		<div id='license-info'>
 
 			<flow-expandable>
-				<div slot="title">KDX</div>
-				Copyright (c) 2020 Kaspa Developers
-				All Righgts Reserved.
+				<div slot="title">DEVELOPER INFORMATION</div>
+				
 				<flow-shell-link href="http://microsoft.com">hello-world!</flow-shell-link>
+
+
+				https://docs.kas.pa/kaspa/try-kaspa/kasparov-api-server/api/methods
+				https://docs.kas.pa/kaspa/try-kaspa/kasparov-api-server/api/mqtt-topics
+				
 				<!--h4 slot="info" class="title">Data Folder</h4>
 				<p slot="info">
 					Data Folder location is used for storage by all KDX modules. 
@@ -72,10 +76,14 @@
 					This location also contains process log files.
 				</p-->
 			</flow-expandable>
+			<flow-form-control icon="light-copyright">
+				KDX & Kaspa Copyright (c) 2020 Kaspa Developers<br/>
+				All Rights Reserved.<br/>
+			</flow-form-control>
 			<flow-expandable no-info class="license">
-
 				
 				<div slot="title">LICENSE INFORMATION</div>
+
 
 				<p>Kaspa License: MIT
 				Copyright (c) Kaspa Developers</p>
