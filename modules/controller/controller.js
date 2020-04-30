@@ -79,10 +79,10 @@ class Controller{
 			let terminal = this.taskTerminals[daemon.task.key];
 			if(!terminal)
 				return
-			data.map(d=>{
+			//data.map(d=>{
 				//console.log("data-line", d.trim())
-				terminal.write(d.trim());
-			});
+				terminal.term.write(data.toString('utf8').replace(/\n/g,'\r\n')); //(d.trim());
+			//});
 		});
 
 		if(global.manager){
