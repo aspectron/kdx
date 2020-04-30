@@ -30,12 +30,12 @@ class Controller{
 				</div>
 				<flow-checkbox class="input" name="delete">Delete</flow-checkbox>
 				<div>
-					<flow-folder-input class="input"></flow-folder-input>
+					<flow-folder-input class="input" name="folder"></flow-folder-input>
 				</div>
 				`
 			let modal = 1;
 			let {btn,values} = await FlowDialog.show(
-					"Enter Values", body, modal, 'dialog-cls', btns)
+					{title:"Enter Values", body, modal, cls:'dialog-cls', btns})
 			console.log("btn", btn, values)
 		})
 		this.init();
@@ -578,7 +578,8 @@ class Controller{
 		}
 
 		win.on("close", ()=>{
-			window.onbeforeunload();
+			if(window.onbeforeunload() === false)
+				return
 			win.close(true)
 		});
 
@@ -594,7 +595,7 @@ class Controller{
 		window.onbeforeunload = ()=>{
 			if(this.runInBG){
 				this.hideWin();
-				return
+				return false
 			}
 			this.stopDaemons();
 			if(this.tray){
