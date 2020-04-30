@@ -8,9 +8,36 @@ const Build = require("./../../lib/build.js");
 
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
+import {FlowDialog} from '/node_modules/flow-ux/flow-ux.js';
 
 class Controller{
 	constructor(){
+		this.setUiLoading(false);
+		$('.alert-btn-text').on("click", async ()=>{
+			let btns = ["Info:info", {text:"Warning", cls:"warning"}, {text:"Success", cls:'success'}, {text:"Danger", cls:"danger"}]
+			let {btn, values} = await FlowDialog.alert("Title", "Hello", 1, '', btns)
+			console.log("btn", btn, values)
+		})
+
+		$('.prompt-btn-text').on("click", async ()=>{
+			let btns = ["Cancel", "Save:success"];
+			let body = html`
+				<div>
+					<textarea cols="5" rows="3" name="desc"></textarea>
+				</div>
+				<div>
+					<input class="input" value="Testing" name="text">
+				</div>
+				<flow-checkbox class="input" name="delete">Delete</flow-checkbox>
+				<div>
+					<flow-folder-input class="input"></flow-folder-input>
+				</div>
+				`
+			let modal = 1;
+			let {btn,values} = await FlowDialog.show(
+					"Enter Values", body, modal, 'dialog-cls', btns)
+			console.log("btn", btn, values)
+		})
 		this.init();
 	}
 	
