@@ -11,6 +11,7 @@ import {repeat} from 'lit-html/directives/repeat.js';
 
 class Controller{
 	constructor(){
+		this.initTrayMenu();
 		this.init();
 	}
 	
@@ -25,6 +26,8 @@ class Controller{
 		const win = nw.Window.get();
 		win.on("close", ()=>{
 			this.stopDaemons();
+			this.tray.remove();
+			this.tray = null;
 			win.close(true)
 		});
 		this.initBuild();
@@ -78,7 +81,7 @@ class Controller{
 		manager.on("task-data", (daemon, data)=>{
 			//console.log("task-data", daemon.task, data)
 			let terminal = this.taskTerminals[daemon.task.key];
-			if(!terminal)
+			if(!terminal || !terminal.term)
 				return
 			//data.map(d=>{
 				//console.log("data-line", d.trim())
@@ -103,14 +106,12 @@ class Controller{
 		this.setTheme(theme || 'light');
 		this.setInvertTerminals(!!invertTerminals);
 	}
-
 	setInvertTerminals(invertTerminals){
 		this.invertTerminals = invertTerminals;
 		this.post("set-invert-terminals", {invertTerminals});
 		document.body.classList.toggle("invert-terminals", invertTerminals)
 		document.body.dispatchEvent(new CustomEvent("flow-theme-changed"));
 	}
-	
 	setTheme(theme){
 		this.theme = theme;
 		this.post("set-theme", {theme});
@@ -175,6 +176,113 @@ class Controller{
 			this.buildTerminal.write(data.trim());
 		})
 	}
+	initTrayMenu() {
+		let tray = new nw.Tray({
+			icon: 'resources/images/tray-icon.png',
+			alticon:'resources/images/tray-icon.png',
+			iconsAreTemplates: false
+		});
+
+		this.tray = tray;
+
+		if(os.platform != 'darwin')
+			tray.title = 'KDX';
+
+		let debugMenu = new nw.Menu();
+		let debugItems = {
+			'Data' : 'DATA.debug',
+			'Main' : () => {
+				chrome.developerPrivate.openDevTools({ 
+					renderViewId: -1, 
+					renderProcessId: -1, 
+					extensionId: chrome.runtime.id 
+				})
+			}
+		};
+
+		Object.entries(debugItems).forEach(([k,v]) => {
+			debugMenu.append(new nw.MenuItem({
+				label: k,
+				click : () => {
+					if(typeof(v) == 'string'){
+						//this.rpc.publish(v)
+						return
+					}
+
+					if(typeof(v) == 'function')
+						v();
+				}
+			}))
+		})
+
+
+		let infoMenu = new nw.Menu();
+		let infoItems = {
+			'GPU' : 'chrome://gpu',
+			'Flags' : 'chrome://flags',
+			'Media' : 'chrome://media-internals',
+		};
+		this.userWindows = {};
+		Object.entries(infoItems).forEach(([k,v]) => {
+			infoMenu.append(new nw.MenuItem({
+				label: k,
+				click : () => {
+			   		nw.Window.open(v, {
+			   			id : v,
+			   			title : k,
+			   			position : "center",
+			   			resizable : true,
+			   			show_in_taskbar : true,
+			   			show : true,
+			   			width : 1024,
+			   			height : 1024
+			   		}, (win) => {
+			   			this.userWindows[v] = win;
+			   			win.data = { host : this }
+			   			win.on('close', () => {
+			   			 	console.log(`Closing ${k} window...`)
+			   			 	win.close(true);
+			   			 	delete this.userWindows[v];
+			   			})
+			   		})
+
+			   		let win = this.userWindows[v];
+			   		if(win) {
+			   			delete this.userWindows[v];
+		   			 	console.log(`Closing ${k} window...`)
+			   			win.close(true);
+			   		}
+				}
+			}))
+		})
+
+		let menu = new nw.Menu();
+		menu.append(new nw.MenuItem({ 
+			label : 'Info',
+			submenu : infoMenu
+		}));
+
+		if(this.isDevMode()) {
+			menu.append(new nw.MenuItem({ 
+				label : 'Debug',
+				submenu : debugMenu
+			}));
+		}
+
+		menu.append(new nw.MenuItem({ 
+			type : 'separator'
+		}));
+
+		menu.append(new nw.MenuItem({ 
+			label : 'Exit',
+			click : () => {
+				this.exit();
+			}
+		}));
+
+		tray.menu = menu;
+	}
+
 	async initSettings(){
 		let themeInput = document.querySelector("#settings-dark-theme");
 		let invertTermInput = document.querySelector("#settings-invert-terminal");
@@ -343,7 +451,6 @@ class Controller{
 		if(daemons)
 			this.restartDaemons(daemons);
 	}
-
 	onToolsClick(e){
 		let $target = $(e.target).closest("[data-action]");
 		let $tabContent = $target.closest("tab-content");
@@ -354,7 +461,6 @@ class Controller{
 
 		console.log("onToolsClick:TODO", action, key)
 	}
-
 	async initDaemons(daemons){
 		if(!daemons){
 			let {config} = await this.get("get-modules-config");
@@ -366,7 +472,6 @@ class Controller{
 		console.log("initDaemons", daemons)
 		this.manager.start(daemons);
 	}
-
 	async restartDaemons(daemons){
 		try{
 			await this.manager.stop();
@@ -381,7 +486,6 @@ class Controller{
 			});
 		}
 	}
-
 	async stopDaemons(){
 		try{
 			await this.manager.stop();
@@ -392,11 +496,9 @@ class Controller{
 
 		return true;
 	}
-
 	post(subject, data){
 		this.rpc.dispatch(subject, data)
 	}
-
 	get(subject, data){
 		return new Promise((resolve, reject)=>{
 			this.rpc.dispatch(subject, data, (err, result)=>{
@@ -407,11 +509,9 @@ class Controller{
 			})
 		})
 	}
-
 	redraw() {
 		this?.caption?.requestUpdate();
 	}
-
 	renderModuleInfo(task, info){
 		this._infoTable = this._infoTable || document.querySelector("#process-info-table");
 		this._taskInfo = this._taskInfo || {};
@@ -420,9 +520,24 @@ class Controller{
 		let list = Object.entries(this._taskInfo);
 		render(repeat(list, ([k])=>k, ([k, info])=>info), this._infoTable);
 	}
+	exit(){
+		window.onbeforeunload();
+		window.close();
+	}
+	isDevMode() {
+	    return (window.navigator.plugins.namedItem('Native Client') !== null);
+	}
 }
 console.log("global.manager::::", global.manager)
 let uiCtl = new Controller();
+
+window.onbeforeunload = ()=>{
+	uiCtl.stopDaemons();
+	if(uiCtl.tray){
+		uiCtl.tray.remove();
+		uiCtl.tray = null;
+	}
+}
 
 window.xxxxuiCtl = uiCtl;
 
