@@ -147,12 +147,12 @@ class Controller{
 			title : "RPC",
 			id : "rpc",
 			disable:true,
-			section: 'advance'
+			section: 'advanced'
 		},{
 			title : "BUILD",
 			id : "build",
 			disable:true,
-			section: 'advance'
+			section: 'advanced'
 		}];
 
 		/*
@@ -302,7 +302,7 @@ class Controller{
 		advancedInput.addEventListener('changed', (e)=>{
 			let advanced = e.detail.checked;
 			let index = this.caption.tabs.forEach((t, index)=>{
-				if(t.section == 'advance'){
+				if(t.section == 'advanced'){
 					this.caption.set(`tabs.${index}.disable`, !advanced)
 				}
 			});
@@ -310,7 +310,7 @@ class Controller{
 			localStorage.advancedUI = advanced?1:0;
 			
 			scriptHolder.classList.toggle("active", advanced)
-			doc.body.classList.toggle("advance-ui", advanced)
+			doc.body.classList.toggle("advanced-ui", advanced)
 		});
 		advancedInput.setChecked(localStorage.advancedUI==1);
 		this.configEditor = ace.edit(scriptHolder.querySelector(".script-box"), {
@@ -389,7 +389,7 @@ class Controller{
 			caption.tabs.push({
 				title:name,
 				id:key,
-				section:'advance',
+				section:'advanced',
 				disable:!advanced,
 				render:()=>{
 					//console.log("renderTab:",task);
@@ -410,7 +410,7 @@ class Controller{
 		if(!this.taskTabs[key]){
 			const template = document.createElement('template');
 			template.innerHTML = 
-			`<tab-content for="${key}" data-active-display="flex" class="advance term">
+			`<tab-content for="${key}" data-active-display="flex" class="advanced term">
 				<flow-terminal noinput class="x-terminal" background="transparent" foreground="transparent"></flow-terminal>
 				<div class="tools">
 					<flow-btn data-action="RUN">RUN</flow-btn>
