@@ -3,7 +3,7 @@
 
 const E = new Emanator(__dirname, {
     type : 'NODE+NWJS+SDK',
-    guid : 'a1072045-6d98-44d8-9aa5-d9b86c79bd01',
+    guid : 'c1072045-6d98-44d8-9aa5-e9be6c79bd01',
     group : 'Kaspa',
     ident : 'kdx',
     title : 'KDX',
@@ -16,7 +16,6 @@ const E = new Emanator(__dirname, {
     standalone : true,
     nwjs : { version : '0.45.4' },
     resources : 'resources/setup'
-
 })
 
 const go = await E.tools.go('go1.13.4');
