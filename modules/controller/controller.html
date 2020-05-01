@@ -46,7 +46,7 @@
 		<flow-textarea maxlength="10">hello</flow-textarea>
 		-->
 		<flow-form-control icon="light-database">
-			Processes
+			Services
 			<div id='process-info-table' class="task-info-container">
 			<!--div class="task">
 				<div class="col-1"><span class="type">KASPAD</span> <span class="version">v4545</span></div>
@@ -66,9 +66,11 @@
 				<flow-shell-link href="http://microsoft.com">hello-world!</flow-shell-link>
 
 
-				https://docs.kas.pa/kaspa/try-kaspa/kasparov-api-server/api/methods
-				https://docs.kas.pa/kaspa/try-kaspa/kasparov-api-server/api/mqtt-topics
-				
+				<ul>
+					<li><flow-shell-link href="https://docs.kas.pa/kaspa/try-kaspa/kasparov-api-server/">KASPAROV API SERVER</flow-shell-link></li>
+					<li><flow-shell-link href="https://docs.kas.pa/kaspa/try-kaspa/kasparov-api-server/">KASPAROV API SERVER</flow-shell-link></li>
+					<li><flow-shell-link href="https://docs.kas.pa/kaspa/try-kaspa/kasparov-api-server/">KASPAROV API SERVER</flow-shell-link></li>
+				</ul>
 				<!--h4 slot="info" class="title">Data Folder</h4>
 				<p slot="info">
 					Data Folder location is used for storage by all KDX modules. 
@@ -80,30 +82,33 @@
 				KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br/>
 				All Rights Reserved.<br/>
 			</flow-form-control>
-			<flow-expandable no-info class="license">
+			<flow-expandable no-info class="license-info" >
 				
 				<div slot="title">LICENSE INFORMATION</div>
 
+				<div style="xfont-family:'Open Sans'; font-weight:bold;font-size: 0.85rem;">
 
-				<p>Kaspa License: MIT
-				Copyright (c) Kaspa Developers</p>
+					<div id="license-text"></div>
 
-				<p>PostgreSQL License: PostreSQL
-				Portions Copyright © 1996-2020, The PostgreSQL Global Development Group
-				Portions Copyright © 1994, The Regents of the University of California</p>
+				</div>
 
-				<p>Mosquitto License: EDL-V10 EPL-V10
-				Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.</p>
+				<script>
+					list = [
+						['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
+						['PostgreSQL','PostreSQL',`Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br/>Portions Copyright © 1994, The Regents of the University of California`],
+						['Mosquitto','EDL-V10 EPL-V10',`Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.`],
+						['Flow-ux','MIT',`Copyright (c) ASPECTRON Inc.`],
+						['NWJS','MIT',`Copyright (c) 2015 四月橘林`],
+						['Chromium','BSD', `Copyright (c) The Chromium Authors.`]
 
-				<p>Flow-ux License: MIT
-				Copyright (c) ASPECTRON Inc.</p>
-
-				<p>NWJS License: MIT
-				Copyright (c) 2015 四月橘林</p>
-
-				<p>Chromium License: BSD
-				Copyright (c) The Chromium Authors.</p>
-
+						// ['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
+						// ['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
+					];
+					document.getElementById('license-text').innerHTML = list.map((t) => {
+						let [name, license, copy] = t;
+						return `<project><name>${name}</name> <span class='license'>LICENSE:</span><license>${license}</license><br/><copyright>${copy}</copyright></project>`;
+					}).join('');
+				</script>
 
 			</flow-expandable>
 			
@@ -132,26 +137,40 @@
 			User Interface Color Theme
 			<flow-checkbox id="settings-dark-theme" class="block"
 				slot="input">Dark Theme</flow-checkbox><br/>
-			<flow-checkbox id="settings-invert-terminal" class="block advance-tool"
+			<flow-checkbox id="settings-invert-terminal" class="block advanced-tool"
 				slot="input">Invert Terminals</flow-checkbox>
-			<flow-checkbox id="settings-run-in-bg" class="block advance-tool"
-				slot="input">Run in Background</flow-checkbox>
 		</flow-form-control>
 		<flow-form-control icon="light-tools">
 			Turn ON/OFF advanced settings and process control
 			<flow-checkbox id="settings-advanced" slot="input">Advanced</flow-checkbox>
 			<h4 slot="info" class="title">Advanced mode</h4>
 			<p slot="info">
-				Advanced mode allows you to manually configure, interact with and monitor KDX modules.
+				Advanced mode allows you to manually configure, interact with and monitor KDX services.
 			</p>
 		</flow-form-control>
+		<flow-form-control icon="light-palette" class="advanced-tool">
+			Service Control
+			<flow-checkbox id="settings-run-in-bg" class="block advanced-tool"
+				slot="input">Run in Background</flow-checkbox>
+				<h4 slot="info" class="title">Background Execution</h4>
+				<p slot="info">
+					When enabled, KDX runs itself and it's services hidden in the background
+					and becomes accessible via the the menu bar (OSX &amp; Linux) or system tray menu (on Windows).
+				</p>
+			</flow-form-control>
 		<flow-form-control id="settings-script" icon="light-tasks">
 			Module Configuration
 			<div slot="input" class="settings-script">
 				<div class="script-box"></div>
 				<div class="tools"><flow-btn class="save-config">Apply</flow-btn></div>
 			</div>
-		</flow-form-control>
+			<h4 slot="info" class="title">Service Configuration</h4>
+			<p slot="info">
+				Configuration editor allows you to customize KDX environment. KDX configuration is represented in JSON
+				by a list of application/service configuration objects. Each service configuration object is used 
+				to start the corresponding service.
+			</p>
+	</flow-form-control>
 	</tab-content>
 	<tab-content for="rpc" data-active-display="flex" class="vertical-flex term">
 		<flow-terminal class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
