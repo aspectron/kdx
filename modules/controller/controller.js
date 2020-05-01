@@ -4,7 +4,6 @@ const os = require("os");
 const pkg = require("../../package");
 const {RPC} = require("./../../resources/rpc.js");
 const Manager = require("./../../lib/manager.js");
-const Build = require("./../../lib/build.js");
 
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
@@ -26,7 +25,6 @@ class Controller{
 		this.taskTerminals = {};
 		this.initCaption();
 		await this.initSettings();
-		this.initBuild();
 		this.setUiLoading(false);		
 	}
 	setUiLoading(loading){
@@ -150,35 +148,13 @@ class Controller{
 			title : "Settings".toUpperCase(),
 			id : "settings"
 		},{
-			title : "RPC",
-			id : "rpc",
-			disable:true,
-			section: 'advanced'
-		},{
-			title : "BUILD",
-			id : "build",
+			title : "Console",
+			id : "console",
 			disable:true,
 			section: 'advanced'
 		}];
 
-		/*
-		for(let i=0; i<15; i++){
-			caption.tabs.push({
-				title: 'Tab '+i,
-				id:'tab-'+i
-			})
-		}
-		*/
-
 		caption["active"] = "home";
-	}
-	initBuild(){
-		this.buildTerminal = document.querySelector(".build-terminal");
-		this.build = new Build();
-		this.build.on("terminal-data", (data)=>{
-			console.log("terminal-data", data)
-			this.buildTerminal.write(data.trim());
-		})
 	}
 	initTrayMenu() {
 		let tray = new nw.Tray({
