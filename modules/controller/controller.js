@@ -4,7 +4,6 @@ const os = require("os");
 const pkg = require("../../package");
 const {RPC} = require("./../../resources/rpc.js");
 const Manager = require("./../../lib/manager.js");
-const Build = require("./../../lib/build.js");
 
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
@@ -26,11 +25,13 @@ class Controller{
 		this.taskTerminals = {};
 		this.initCaption();
 		await this.initSettings();
-		this.initBuild();
 		this.setUiLoading(false);		
 	}
 	setUiLoading(loading){
 		document.body.classList.toggle("ui-loading", loading);
+	}
+	setUiDisabled(disabled){
+		document.body.classList.toggle("disable", disabled);
 	}
 	initRPC(){
 		let rpc = new RPC({});
@@ -38,10 +39,10 @@ class Controller{
 		this.rpc = rpc;
 
 		rpc.on("disable-ui", (args)=>{
-			$('body').addClass("disable");
+			this.setUiDisabled(true)
 		});
 		rpc.on("enable-ui", (args)=>{
-			$('body').removeClass("disable");
+			this.setUiDisabled(false)
 		});
 	}
 	async initManager(){
@@ -135,6 +136,7 @@ class Controller{
 	initCaption(){
 		let caption = document.querySelector('flow-caption-bar');
 		this.caption = caption;
+		this.caption.close = this.closeWin;
 
 		caption.version = pkg.version;
 
@@ -146,35 +148,13 @@ class Controller{
 			title : "Settings".toUpperCase(),
 			id : "settings"
 		},{
-			title : "RPC",
-			id : "rpc",
-			disable:true,
-			section: 'advanced'
-		},{
-			title : "BUILD",
-			id : "build",
+			title : "Console",
+			id : "console",
 			disable:true,
 			section: 'advanced'
 		}];
 
-		/*
-		for(let i=0; i<15; i++){
-			caption.tabs.push({
-				title: 'Tab '+i,
-				id:'tab-'+i
-			})
-		}
-		*/
-
 		caption["active"] = "home";
-	}
-	initBuild(){
-		this.buildTerminal = document.querySelector(".build-terminal");
-		this.build = new Build();
-		this.build.on("terminal-data", (data)=>{
-			console.log("terminal-data", data)
-			this.buildTerminal.write(data.trim());
-		})
 	}
 	initTrayMenu() {
 		let tray = new nw.Tray({
@@ -538,8 +518,7 @@ class Controller{
 	}
 	exit(){
 		this.runInBG = false;
-		window.onbeforeunload();
-		window.close();
+		this.closeWin(true);
 	}
 	initWin(){
 		const win = nw.Window.get();
@@ -554,11 +533,28 @@ class Controller{
 			minimize();
 		}
 
-		win.on("close", ()=>{
-			if(window.onbeforeunload() === false)
+		this.closeWin = async(isExit)=>{
+			console.log("%c######## closeWin called ######", 'color:red')
+			if(isExit !== true && !this.runInBG){
+				let {btn} = await FlowDialog.show({
+					title:"Closing window",
+					body:"Are you sure?",
+					btns:['Cancel', 'Close:primary']
+				});
+				if(btn != 'close')
+					return
+			}
+			if(!this.onbeforeunload())
 				return
-			win.close(true)
-		});
+
+			//this.setUiDisabled(true);
+			dpc(500, ()=>{
+				window.onbeforeunload = null;
+				win.close(true);
+			})
+		}
+
+		win.on("close", ()=>this.closeWin());
 
 		win.on("minimize", ()=>{
 			if(this.showMenu)
@@ -569,19 +565,25 @@ class Controller{
 			this.showWin();
 		})
 
-		window.onbeforeunload = ()=>{
+		this.onbeforeunload = ()=>{
 			if(this.runInBG){
 				this.hideWin();
 				return false
 			}
+
 			this.stopDaemons();
 			if(this.tray){
 				this.tray.remove();
 				this.tray = null;
 			}
+
+			return true;
 		}
+
+		//window.onbeforeunload = this.onbeforeunload
 	}
 	hideWin(){
+		//window.onbeforeunload = null;
 		if(this.showMenu)
 			this.showMenu.enabled = true;
 		this.win.hide();
@@ -590,6 +592,7 @@ class Controller{
 		if(this.showMenu)
 			this.showMenu.enabled = false;
 		this.win.show();
+		//window.onbeforeunload = this.onbeforeunload
 	}
 	isDevMode() {
 	    return (window.navigator.plugins.namedItem('Native Client') !== null);
