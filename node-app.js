@@ -11,7 +11,7 @@ class NodeApp extends App{
 			return Promise.resolve();
 
 		const KaspaProcessManager = require(path.join(this.appFolder, "lib/manager.js"));
-		this.manager = new KaspaProcessManager(this.dataFolder, this.appFolder);
+		this.manager = new KaspaProcessManager(null, this.dataFolder, this.appFolder);
 
 		return new Promise((resolve, reject) => {
 			this.initDaemons();
