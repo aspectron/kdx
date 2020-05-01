@@ -240,52 +240,54 @@ class Controller{
 			}))
 		})
 
-
-		let infoMenu = new nw.Menu();
-		let infoItems = {
-			'GPU' : 'chrome://gpu',
-			'Flags' : 'chrome://flags',
-			'Media' : 'chrome://media-internals',
-		};
-		this.userWindows = {};
-		Object.entries(infoItems).forEach(([k,v]) => {
-			infoMenu.append(new nw.MenuItem({
-				label: k,
-				click : () => {
-			   		nw.Window.open(v, {
-			   			id : v,
-			   			title : k,
-			   			position : "center",
-			   			resizable : true,
-			   			show_in_taskbar : true,
-			   			show : true,
-			   			width : 1024,
-			   			height : 1024
-			   		}, (win) => {
-			   			this.userWindows[v] = win;
-			   			win.data = { host : this }
-			   			win.on('close', () => {
-			   			 	console.log(`Closing ${k} window...`)
-			   			 	win.close(true);
-			   			 	delete this.userWindows[v];
-			   			})
-			   		})
-
-			   		let win = this.userWindows[v];
-			   		if(win) {
-			   			delete this.userWindows[v];
-		   			 	console.log(`Closing ${k} window...`)
-			   			win.close(true);
-			   		}
-				}
-			}))
-		})
-
 		let menu = new nw.Menu();
-		menu.append(new nw.MenuItem({ 
-			label : 'Info',
-			submenu : infoMenu
-		}));
+
+		if(0) {
+			let infoMenu = new nw.Menu();
+			let infoItems = {
+				'GPU' : 'chrome://gpu',
+				'Flags' : 'chrome://flags',
+				'Media' : 'chrome://media-internals',
+			};
+			this.userWindows = {};
+			Object.entries(infoItems).forEach(([k,v]) => {
+				infoMenu.append(new nw.MenuItem({
+					label: k,
+					click : () => {
+						nw.Window.open(v, {
+							id : v,
+							title : k,
+							position : "center",
+							resizable : true,
+							show_in_taskbar : true,
+							show : true,
+							width : 1024,
+							height : 1024
+						}, (win) => {
+							this.userWindows[v] = win;
+							win.data = { host : this }
+							win.on('close', () => {
+								console.log(`Closing ${k} window...`)
+								win.close(true);
+								delete this.userWindows[v];
+							})
+						})
+
+						let win = this.userWindows[v];
+						if(win) {
+							delete this.userWindows[v];
+							console.log(`Closing ${k} window...`)
+							win.close(true);
+						}
+					}
+				}))
+			})
+
+			menu.append(new nw.MenuItem({ 
+				label : 'Info',
+				submenu : infoMenu
+			}));
+		}
 
 		if(this.isDevMode()) {
 			menu.append(new nw.MenuItem({ 
