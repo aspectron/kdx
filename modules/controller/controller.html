@@ -30,13 +30,13 @@
 
 	<!--script type="module" src="/node_modules/flow-ux/src/fa-icon.js"></script-->
 	<script type="module" src="/node_modules/flow-ux/flow-ux.js"></script>
+	<script type="module" src="./test-ui.js"></script>
 
 	<!-- include non-module-type jquery -->
 	<script src="/resources/extern/scripts/jquery-3.1.1.normal.js"></script>
 	<!-- install xterm, xterm-addon-fit, xterm-addon-web-links node-modules -->
 	<script type="module" src="/node_modules/flow-ux/src/flow-terminal.js"></script>
 	<script type="text/javascript" src="/resources/rpc.js"></script>
-
 </head>
 <body class="ui-loading">
 	<flow-caption-bar logo="/resources/images/k-subtract.svg" xicon="fal fa-chart-network">KDX</flow-caption-bar>
@@ -45,8 +45,7 @@
 		<flow-checkbox-styled></flow-checkbox-styled>
 		<flow-textarea maxlength="10">hello</flow-textarea>
 		-->
-		<flow-btn class="alert-btn-text">Alert</flow-btn>
-		<flow-btn class="prompt-btn-text">Prompt</flow-btn>
+		<div id="test-ui"></div>
 		<flow-form-control icon="light-database">
 			Services
 			<div id='process-info-table' class="task-info-container">
