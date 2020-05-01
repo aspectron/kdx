@@ -4,6 +4,7 @@ const os = require("os");
 const pkg = require("../../package");
 const {RPC} = require("./../../resources/rpc.js");
 const Manager = require("./../../lib/manager.js");
+const Console = require("./../../lib/console.js")
 
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
@@ -21,6 +22,7 @@ class Controller{
 		this.initRPC();
 		this.initTheme();
 		await this.initManager();
+		await this.initConsole();
 		this.taskTabs = {};
 		this.taskTerminals = {};
 		this.initCaption();
@@ -97,6 +99,10 @@ class Controller{
 		}
 
 		global.manager = manager;
+	}
+	async initConsole() {
+		this.console = new Console(this, document.getElementById('kdx-console'));
+		return Promise.resolve();
 	}
 	async initTheme(){
 		let {theme, invertTerminals} = await this.get("get-config");
