@@ -54,11 +54,13 @@ class App extends EventEmitter{
 		this.configFile = path.join(this.configFolder, "config.json");
 		if(!fs.existsSync(this.configFile) || this.flags['reset-config']){
 			this.config = fs.readJSONSync(path.join(this.appFolder, "default-config.json"), {throws:false}) || {};
+			let rpcuser = this.randomBytes();
+			let rpcpass = this.randomBytes();
 			Object.entries(this.config.modules).forEach(([k,v]) => {
 				const type = k.split(':').shift();
 				if(['kaspad','kasparovd','kasparovsyncd'].includes(type)) {
-					v.args.rpcuser = this.randomBytes();
-					v.args.rpcpass = this.randomBytes();
+					v.args.rpcuser = rpcuser;
+					v.args.rpcpass = rpcpass;
 				}
 			})
 			this.setConfig(this.config);
