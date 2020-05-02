@@ -121,6 +121,8 @@ class Controller{
 	}
 	setTheme(theme){
 		this.theme = theme;
+		if(this.caption)
+			this.caption.logo = `/resources/images/kaspa-logo-${theme}-bg.png`
 		this.post("set-theme", {theme});
 		document.body.classList.forEach(c=>{
 			if(c.indexOf('flow-theme') === 0 && c!='flow-theme'+theme){
@@ -143,6 +145,7 @@ class Controller{
 		let caption = document.querySelector('flow-caption-bar');
 		this.caption = caption;
 		this.caption.close = this.closeWin;
+		this.caption.logo = `/resources/images/kaspa-logo-${this.theme}-bg.png`
 
 		caption.version = pkg.version;
 
