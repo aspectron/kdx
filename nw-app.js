@@ -1,4 +1,5 @@
 const {App} = require("./app.js");
+const fs = require("fs");
 const {RPC} = require("./resources/rpc.js");
 
 
@@ -83,7 +84,7 @@ class NWApp extends App{
 		});
 
 		rpc.on("get-init-data", (args, callback)=>{
-			console.log("get-init-data: args", args)
+			console.log("get-init-data: args")
 			let {config, configFolder, appFolder, dataFolder} = this;
 			let {modules} = config;
 			callback(null, {config, configFolder, modules, appFolder, dataFolder})
@@ -109,11 +110,25 @@ class NWApp extends App{
 			this.setRunInBG(runInBG);
 		});
 
-		rpc.on("set-data-dir", (args)=>{
+		rpc.on("set-data-dir", (args, callback)=>{
 			let {dataDir, restartDelay} = args;
-			if(!dataDir)
+			//return callback({error: "Invalid directory"});
+			if(dataDir === ""){
+				this.setDataDir(dataDir, restartDelay||2000);
 				return
-			this.setDataDir(dataDir, restartDelay||2000);
+			}
+			if(dataDir == undefined || !fs.existsSync(dataDir))
+				return callback({error: "Invalid directory"})
+			fs.stat(dataDir, (err, stats)=>{
+				if(err)
+					return callback(err);
+				if(!stats.isDirectory())
+					return callback({error: "Invalid directory"});
+
+				this.setDataDir(dataDir, restartDelay||2000);
+			})
+			
+			
 		});
 
 		rpc.on("set-modules-config", (args, callback)=>{

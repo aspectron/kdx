@@ -21,14 +21,18 @@ class Initializer{
 		$("flow-btn.reset-data-dir").on("click", ()=>{
 			folderInput.setValue(originalValue);
 		}) 
-		$("flow-btn.save-config").on("click", ()=>{
+		$("flow-btn.save-config").on("click", async()=>{
 			let value = folderInput.value;
 			if(!value)
 				return
 
 			if(value==originalValue)
 				value = '';
-			this.post("set-data-dir", {dataDir:value});
+			this.setUiDisabled(true);
+			let err = await this.get("set-data-dir", {dataDir:value});
+			FlowDialog.show("Error", err.error || err)
+			console.log("err:", err)
+			this.setUiDisabled(false);
 		})
 	}
 	initRPC(){
@@ -51,6 +55,9 @@ class Initializer{
 			return
 		}
 		this.post("set-config", {config});
+	}
+	setUiDisabled(disabled){
+		document.body.classList.toggle("disable", disabled);
 	}
 	post(subject, data){
 		this.rpc.dispatch(subject, data)

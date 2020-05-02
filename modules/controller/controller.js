@@ -332,8 +332,11 @@ class Controller{
 		$(".reset-data-dir").on("click", e=>{
 			folderInput.setValue(originalValue);
 		});
-		$(".apply-data-dir").on("click", e=>{
-			this.post("set-data-dir", {dataDir:folderInput.value});
+		$(".apply-data-dir").on("click", async(e)=>{
+			this.setUiDisabled(true);
+			let err = await this.get("set-data-dir", {dataDir:folderInput.value});
+			console.log("err:", err)
+			this.setUiDisabled(false);
 		});
 		$(".use-default-data-dir").on("click", e=>{
 			folderInput.setValue(configFolder);
