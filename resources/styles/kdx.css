@@ -1,3 +1,4 @@
+*{margin:0px;padding:0px;}
 body{
 	background:white;display:flex;flex-direction:column;
 	font-family:'Julius Sans One';
