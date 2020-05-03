@@ -1,0 +1,24 @@
+{
+  "name": "kdx-builder",
+  "description": "KDX builder",
+  "version": "1.0.0",
+  "private": false,
+  "main": "build.js",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "mkdirp": "*",
+    "request": "*",
+    "request-promise": "*",
+    "request-progress": "*",
+    "extract-zip": "*",
+    "fs-extra": "*",
+    "ansi-escapes": "*"
+  },
+  "engines": {
+    "node": "*",
+    "npm": "*"
+  },
+  "scripts": {
+    "start": "nw ."
+  }
+}
