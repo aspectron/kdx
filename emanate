@@ -11,9 +11,10 @@ const E = new Emanator(__dirname, {
     git : 'git@github.com:aspectron/kdx',
     author : "ASPECTRON Inc.",
     url : "http://aspectron.com",
-    archive : true,
+    archive : false,
     folder : true,
     standalone : true,
+    DMG: true,
     nwjs : { version : '0.45.4' },
     resources : 'resources/setup'
 })
@@ -29,6 +30,8 @@ const gcc = await E.tools.gcc();
 //mkdirp.sync(path.join(E.appFolder,'setup'));
 
 E.task('kaspad', ['origin'], async (callback) => {
+
+    //return true;
 
     let dest = path.join(go.SRC,'github.com/kaspanet/');
     if(E.flags.reset && fs.existsSync(dest))
@@ -149,7 +152,7 @@ E.task('kaspad', ['origin'], async (callback) => {
         if(E.PLATFORM == 'windows')
             return E.copy(path.join(E.DEPS,basename,f), path.join(targetBinFolder,f));
         else
-            return E.spawn('cp', ['-r',path.join(E.DEPS,basename,f),path.join(targetBinFolder,f)], { cwd : E.DEPS, stdio: 'inherit' });
+            return E.spawn('cp', ['-R',path.join(E.DEPS,basename,f),path.join(targetBinFolder,f)], { cwd : E.DEPS, stdio: 'inherit' });
     })
     await Promise.all(jobs);
     E.log('done...');
@@ -157,7 +160,7 @@ E.task('kaspad', ['origin'], async (callback) => {
 })
 
 E.task('pgsql', ['origin'], async (callback) => {
-console.log("PGSQL",E.BIN)
+    console.log("PGSQL",E.BIN)
     if(E.PLATFORM == 'linux')
         return Promise.resolve();
 
@@ -216,7 +219,7 @@ console.log("PGSQL",E.BIN)
 
 E.task('remote', ['origin'], async (callback) => {
     let files = (E.manifest.files||[]).map(f=>{
-        return E.copy(path.join(E.REPO,f),path.join(E.BUILD,f));
+        return E.copy(path.join(E.REPO,f), path.join(E.BUILD, f));
     })
     E.log(`copying ${files.length} items...`);
     await Promise.all(files);
