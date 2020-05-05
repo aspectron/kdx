@@ -223,7 +223,7 @@ E.task('pgsql', ['origin'], async (callback) => {
     [ 'postgres', 'pg_ctl', 'psql', 'initdb' ].forEach((f) => {
         let name = `KDX pgSQL ${f}`;
         let file = path.join(basename, 'bin', f+E.PLATFORM_BINARY_EXTENSION);
-        this.registerFirewallRule({ name, file, binary : true });
+        E.registerFirewallRule({ name, file, binary : true });
     })
 
     E.log('done...');

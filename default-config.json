@@ -23,7 +23,7 @@
 		},
 
 		"__mqtt:mq0" : {
-			"port": 18787
+			"port": 1833
 		},
 		"kasparovsyncd:kvsd0" : {
 			"args":{
