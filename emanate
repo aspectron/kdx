@@ -219,6 +219,13 @@ E.task('pgsql', ['origin'], async (callback) => {
             return E.spawn('cp', ['-R',path.join(archiveFolder,'pgsql',f),path.join(targetBinFolder,f)], { cwd : E.DEPS, stdio: 'inherit' });
     })
     await Promise.all(jobs);
+
+    [ 'postgres', 'pg_ctl', 'psql', 'initdb' ].forEach((f) => {
+        let name = `KDX pgSQL ${f}`;
+        let file = path.join(basename, 'bin', f+E.PLATFORM_BINARY_EXTENSION);
+        this.registerFirewallRule({ name, file, binary : true });
+    })
+
     E.log('done...');
 })
 
@@ -232,8 +239,10 @@ E.task('remote', ['origin'], async (callback) => {
 })
 
 E.task('mqtt',['origin'], async () => {
-    if(E.PLATFORM == 'windows')
+    if(E.PLATFORM == 'windows') {
+        this.registerFirewallRule({ name : 'KDX MQTT', file : 'mosquitto/mosquitto.exe', binary : true });
         return E.copy(path.join(E.REPO,'resources','deps','mosquitto-windows-x64'),path.join(E.BIN,'mosquitto'));
+    }
 })
 
 E.task('done', ['pgsql','kaspad','remote','mqtt'], async () => {
