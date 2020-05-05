@@ -15,6 +15,7 @@
     "resources/extern",
     "resources/images",
     "resources/styles",
+    "resources/setup",
     "resources/tpl",
     "resources/rpc.js"
   ],
