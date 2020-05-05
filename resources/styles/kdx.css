@@ -186,7 +186,7 @@ body.disable:after{z-index:100000;opacity:1;}
     /*box-shadow: 3px 3px 0px 0px var(--flow-primary-color);*/
 }
 .task-info .task{display:flex;padding:2px;}
-.task-info .task:not([running]){color:#800;}
+.task-info .task:not([running]){color:#c00;}
 .task-info .task .col-1{flex:1;margin-right:20px;}
 .task-info .task:not([version]) .version{display:none}
 .task-info .task .version,
