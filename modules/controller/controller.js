@@ -549,11 +549,11 @@ class Controller{
 			console.log("%c######## closeWin called ######", 'color:red')
 			if(isExit !== true && !this.runInBG){
 				let {btn} = await FlowDialog.show({
-					title:"Closing window",
+					title:"Exit KDX",
 					body:"Are you sure?",
-					btns:['Cancel', 'Close:primary']
+					btns:['Cancel', 'Exit:primary']
 				});
-				if(btn != 'close')
+				if(btn != 'exit')
 					return
 			}
 			if(!this.onbeforeunload())
