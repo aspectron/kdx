@@ -32,6 +32,9 @@ const gcc = await E.tools.gcc();
 E.task('kaspad', ['origin'], async (callback) => {
 
     //return true;
+    if(E.PLATFORM == 'windows') {
+        process.env.PATH = ['C:\\TDM-GCC-64\\bin', ...process.env.PATH.split(';')].join(';');
+    }
 
     let dest = path.join(go.SRC,'github.com/kaspanet/');
     if(E.flags.reset && fs.existsSync(dest))
@@ -92,6 +95,7 @@ E.task('kaspad', ['origin'], async (callback) => {
 
     folders.forEach((folder) => {
         let file = path.basename(folder);
+        let name = `${E.title} ${file}`;
         let dest = rename[file] || file;
         file += E.PLATFORM_BINARY_EXTENSION;
         dest += E.PLATFORM_BINARY_EXTENSION;
@@ -103,6 +107,7 @@ E.task('kaspad', ['origin'], async (callback) => {
         }
 
         E.copy(path.join(folder,file),path.join(E.BIN,dest));
+        E.registerFirewallRule({ name, file : dest, binary : true });
     })
 
     E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
