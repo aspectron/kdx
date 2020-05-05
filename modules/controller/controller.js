@@ -566,7 +566,8 @@ class Controller{
 }
 
 console.log("global.manager::::", global.manager)
-let uiCtl = new Controller();
-
-window.xxxxuiCtl = uiCtl;
+window.addEventListener("WebComponentsReady", ()=>{
+	let uiCtl = new Controller();
+	window.xxxxuiCtl = uiCtl;
+})
 
