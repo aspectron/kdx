@@ -204,3 +204,8 @@ project name { display: inline-block; min-width: 92px; }
 project license {  display: inline-block; }
 project copyright {  display: inline-block; font-size: 12.5px; } 
 project > * { padding: 2px; }
+
+#kaspa-resources ul li {
+	font-size: 12px;
+	padding: 2px;
+}
