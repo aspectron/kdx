@@ -2,9 +2,9 @@
 	&& nw.Window.get().showDevTools();
 const os = require("os");
 const pkg = require("../../package");
-const {RPC} = require("./../../resources/rpc.js");
-const Manager = require("./../../lib/manager.js");
-const Console = require("./../../lib/console.js")
+const {FlowRPC} = require("flow-ux/flow-rpc");
+const Manager = require("../../lib/manager.js");
+const Console = require("../../lib/console.js")
 
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
@@ -39,8 +39,7 @@ class Controller{
 		document.body.classList.toggle("disable", disabled);
 	}
 	initRPC(){
-		let rpc = new RPC({});
-
+		let rpc = new FlowRPC({bcastChannel:'kdx'});
 		this.rpc = rpc;
 
 		rpc.on("disable-ui", (args)=>{
@@ -57,6 +56,7 @@ class Controller{
 			this.post("set-i18n-entries", {entries})
 		});
 		let {entries} = await this.get("get-i18n-entries");
+		//console.log("entries", entries)
 		//let ce = new CustomEvent("flow-i18n-entries", {detail:{entries}})
 		//window.dispatchEvent(ce)
 		i18n.setActiveLanguages(['en', 'ru', 'pu', 'hi']);
@@ -481,6 +481,7 @@ class Controller{
 	get(subject, data){
 		return new Promise((resolve, reject)=>{
 			this.rpc.dispatch(subject, data, (err, result)=>{
+				console.log("subject:err, result", subject, err, result)
 				if(err)
 					return resolve(err)
 

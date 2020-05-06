@@ -1,4 +1,4 @@
-const {App} = require("./app.js");
+const App = require("./app");
 const path = require("path");
 
 class NodeApp extends App{
@@ -19,10 +19,12 @@ class NodeApp extends App{
 		})
 	}
 
-	initDataFolder(){
-		let msg = super.initDataFolder();
-		if(msg)
-			console.error(msg.red)
+	/**
+	* initlizing data folder error handler
+	*/
+	dataDirInitError(){
+		console.error(`Please start app with --init=/path/to/data/dir [or] --init=~/.kdx [or] --init=<default>`);
+		this.exit();
 	}
 
 	initDaemons(){
@@ -63,4 +65,4 @@ class NodeApp extends App{
 	}
 }
 
-module.exports = {NodeApp};
+module.exports = NodeApp;

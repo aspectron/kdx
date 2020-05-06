@@ -1,7 +1,6 @@
-const {App} = require("./app.js");
+const App = require("./app.js");
 const fs = require("fs");
 const path = require("path");
-const {RPC} = require("./resources/rpc.js");
 
 
 false && chrome.developerPrivate.openDevTools({
@@ -14,8 +13,6 @@ class NWApp extends App{
 
 	constructor(...args){
 		super(...args)
-		this.initRPC();
-		//global.app = this;
 	}
 
 	/**
@@ -38,67 +35,37 @@ class NWApp extends App{
 				transparent: false,
 				show: true,
 				// http://docs.nwjs.io/en/latest/References/Manifest%20Format/#window-subfields
-			}, (win, b) => {
+			}, (win) => {
 				console.log("win", win)
-				// win.app = this;
-				// global.abcapp = "123";
 				resolve();
 			});
 		});
 	}
 
-	initDataFolder(){
-		let msg = super.initDataFolder();
-		if(msg){
-			console.error(msg.red)
-			nw.Window.open('modules/initialize/initialize.html', {
-				//new_instance: true,
-				id: 'initialize',
-				title: 'KaspaDX',
-				width: 1027,
-				height: 768,
-				resizable: true,
-				frame: true,
-				transparent: false,
-				show: true,
-				// http://docs.nwjs.io/en/latest/References/Manifest%20Format/#window-subfields
-			}, (win, b) => {
-				//win.app = this;
-				//global.abcapp = "456";
-			});
-		}else{
-			this.i18nDataFile = path.join(this.appFolder, 'i18n.data');
-		}
+	/**
+	* initlizing data folder error handler
+	*/
+	dataDirInitError(){
+		console.error(`Please start app with --init=/path/to/data/dir [or] --init=~/.kdx [or] --init=<default>`.red);
+		nw.Window.open('modules/initialize/initialize.html', {
+			//new_instance: true,
+			id: 'initialize',
+			title: 'KaspaDX',
+			width: 1027,
+			height: 768,
+			resizable: true,
+			frame: true,
+			transparent: false,
+			show: true,
+			// http://docs.nwjs.io/en/latest/References/Manifest%20Format/#window-subfields
+		}, (win) => {
+
+		});
 	}
 
 	initRPC(){
-		let rpc = new RPC({});
-		this.rpc = rpc;
-
-		rpc.on("get-config", (args, callback)=>{
-			console.log("get-config:args", args)
-			callback(null, this.config)
-		});
-		rpc.on("set-config", (args)=>{
-			let {config} = args;
-			if(!config || !config.modules)
-				return
-			this.setConfig(config);
-		});
-
-		rpc.on("get-init-data", (args, callback)=>{
-			console.log("get-init-data: args")
-			let {config, configFolder, appFolder, dataFolder} = this;
-			let {modules} = config;
-			callback(null, {config, configFolder, modules, appFolder, dataFolder})
-		});
-
-		rpc.on("set-theme", (args)=>{
-			let {theme} = args;
-			if(!theme)
-				return
-			this.setTheme(theme);
-		});
+		super.initRPC();
+		let rpc = this.rpc;
 		rpc.on("set-invert-terminals", (args)=>{
 			let {invertTerminals} = args;
 			if(invertTerminals == undefined)
@@ -113,25 +80,6 @@ class NWApp extends App{
 			this.setRunInBG(runInBG);
 		});
 
-		rpc.on("set-data-dir", (args, callback)=>{
-			let {dataDir, restartDelay} = args;
-			//return callback({error: "Invalid directory"});
-			if(dataDir === ""){
-				this.setDataDir(dataDir, restartDelay||2000);
-				return
-			}
-			if(dataDir == undefined || !fs.existsSync(dataDir))
-				return callback({error: "Invalid directory"})
-			fs.stat(dataDir, (err, stats)=>{
-				if(err)
-					return callback(err);
-				if(!stats.isDirectory())
-					return callback({error: "Invalid directory"});
-
-				this.setDataDir(dataDir, restartDelay||2000);
-			})
-		});
-
 		rpc.on("set-modules-config", (args, callback)=>{
 			let {config} = args;
 			if(!config)
@@ -143,40 +91,7 @@ class NWApp extends App{
 		rpc.on("get-modules-config", (args, callback)=>{
 			callback(null, {config:this.getModulesConfig()})
 		});
-
-		rpc.on("set-i18n-entries", (args, callback)=>{
-			let {entries} = args;
-			if(!entries)
-				return callback({error:"Invalid entries"});
-			this.saveI18nEntries(entries);
-		})
-
-		rpc.on("get-i18n-entries", (args, callback)=>{
-			let entries = this.getI18nEntries();
-			console.log("get-i18n-entries", entries)
-			callback(null, {entries});
-		})
 		
-	}
-
-	getI18nEntries(){
-		if(!fs.existsSync(this.i18nDataFile))
-			return [];
-
-		let data = (fs.readFileSync(this.i18nDataFile)+"").trim();
-		if(!data.length)
-			return [];
-		try{
-			data = JSON.parse(data);
-		}catch(e){
-			return [];
-		}
-
-		return data || [];
-	}
-
-	saveI18nEntries(entries){
-		fs.writeFileSync(this.i18nDataFile, JSON.stringify(entries, null, "\t"))
 	}
 
 	setDataDir(dataDir, restartDelay = 0){
@@ -184,10 +99,6 @@ class NWApp extends App{
 		this.rpc.dispatch("disable-ui", {CODE:'DATA-DIR'})
 		dpc(restartDelay, ()=>this.reload());
 	}
-
-	reload(){
-		chrome.runtime.reload();
-	}
 }
 
-module.exports = {NWApp};
+module.exports = NWApp
