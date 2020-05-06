@@ -123,6 +123,7 @@ body{
 	--flow-terminal-bg-color:#fff;
 	--flow-terminal-color:#000;
 	--flow-terminal-cursor:#555;
+	--flow-terminal-selection:rgba(100, 100, 100, 0.5);
 }
 body.flow-theme-dark{
 	--flow-background-color:#232323;
@@ -130,11 +131,13 @@ body.flow-theme-dark{
 	--flow-terminal-bg-color:#232323;
 	--flow-terminal-color:#fff;
 	--flow-terminal-cursor:#ccc;
+	--flow-terminal-selection:rgba(100, 100, 100, 0.5);
 }
 body.invert-terminals{
 	--flow-terminal-bg-color:#000000;
 	--flow-terminal-color:#FFFFFF;
 	--flow-terminal-cursor:#FFFFFF;
+	--flow-terminal-selection:rgba(100, 100, 100, 0.5);
 }
 /*tab-content.term .x-terminal{
 	background-color:var(--flow-terminal-bg-color);
