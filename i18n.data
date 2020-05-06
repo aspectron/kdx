@@ -1,0 +1,159 @@
+[
+	{
+		"en": "Hello",
+		"ru": "Ð-Ð´Ñ€Ð°Ð²ÑÑ‚Ð²ÑƒÐ¹Ñ‚Ðµ",
+		"pu": "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
+		"hi": "नमस्ते!"
+	},
+	{
+		"en": "DEVELOPER INFORMATION",
+		"ru": "ИНФОРМАЦИЯ ДЛЯ РАЗРАБОТЧИКОВ",
+		"hi": "डेवलपर की जानकारी",
+		"pu": "ਡਿਵੈਲਪਰ ਜਾਣਕਾਰੀ"
+	},
+	{
+		"en": "LICENSE INFORMATION"
+	},
+	{
+		"en": "\n\t\t\t\tData Folder location is used for storage by all KDX modules. \n\t\t\t\tIn default configuration this includes Kaspad blockchain data and Kasparov API database.\n\t\t\t\tThis location also contains process log files.\n\t\t\t"
+	},
+	{
+		"en": "\n\t\t\t\tAdvanced mode allows you to manually configure, interact with and monitor KDX services.\n\t\t\t"
+	},
+	{
+		"en": "\n\t\t\t\t\tWhen enabled, KDX runs itself and it's services hidden in the background\n\t\t\t\t\tand becomes accessible via the the menu bar (OSX &amp; Linux) or system tray menu (on Windows).\n\t\t\t\t"
+	},
+	{
+		"en": "\n\t\t\t\tConfiguration editor allows you to customize KDX environment. KDX configuration is represented in JSON\n\t\t\t\tby a list of application/service configuration objects. Each service configuration object is used \n\t\t\t\tto start the corresponding service.\n\t\t\t"
+	},
+	{
+		"en": "<!---->Select Folder<!---->"
+	},
+	{
+		"en": "<i>test</i> <b>hello</b>",
+		"hi": "<i>परीक्षण</i> <b>नमस्ते!</b>"
+	},
+	{
+		"en": "Services",
+		"ru": "Сервисы",
+		"hi": "सेवाएं",
+		"pu": "ਸੇਵਾਵਾਂ"
+	},
+	{
+		"en": "KASPA OVERVIEW"
+	},
+	{
+		"en": "KASPAROV API SERVER"
+	},
+	{
+		"en": "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br>\n\t\t\t\tAll Rights Reserved."
+	},
+	{
+		"en": "Kaspa"
+	},
+	{
+		"en": "LICENSE"
+	},
+	{
+		"en": "Copyright (c) 2020 Kaspa Developers"
+	},
+	{
+		"en": "PostgreSQL"
+	},
+	{
+		"en": "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California"
+	},
+	{
+		"en": "Mosquitto"
+	},
+	{
+		"en": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors."
+	},
+	{
+		"en": "Flow-ux"
+	},
+	{
+		"en": "Copyright (c) ASPECTRON Inc."
+	},
+	{
+		"en": "NWJS"
+	},
+	{
+		"en": "Copyright (c) 2015 四月橘林"
+	},
+	{
+		"en": "Chromium"
+	},
+	{
+		"en": "Copyright (c) The Chromium Authors."
+	},
+	{
+		"en": "Data Folder"
+	},
+	{
+		"en": "MIT"
+	},
+	{
+		"en": "PostreSQL"
+	},
+	{
+		"en": "EDL-V10 EPL-V10"
+	},
+	{
+		"en": "BSD"
+	},
+	{
+		"en": "Reset"
+	},
+	{
+		"en": "Default"
+	},
+	{
+		"en": "Apply"
+	},
+	{
+		"en": "User Interface Color Theme"
+	},
+	{
+		"en": "Dark Theme"
+	},
+	{
+		"en": "Invert Terminals"
+	},
+	{
+		"en": "Turn ON/OFF advanced settings and process control"
+	},
+	{
+		"en": "Advanced"
+	},
+	{
+		"en": "Advanced mode"
+	},
+	{
+		"en": "Service Control"
+	},
+	{
+		"en": "Run in Background"
+	},
+	{
+		"en": "Background Execution"
+	},
+	{
+		"en": "Service Configuration"
+	},
+	{
+		"en": "<!----><!---->"
+	},
+	{
+		"en": "xxx"
+	},
+	{
+		"en": "<!---->HOME<!---->"
+	},
+	{
+		"en": "<!---->SETTINGS<!---->"
+	},
+	{
+		"en": "<!---->Console<!---->"
+	}
+]

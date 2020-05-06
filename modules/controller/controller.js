@@ -8,7 +8,9 @@ const Console = require("./../../lib/console.js")
 
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
-import {FlowDialog} from '/node_modules/flow-ux/flow-ux.js';
+import {FlowDialog, i18n} from '/node_modules/flow-ux/flow-ux.js';
+window.testI18n = (testing)=>i18n.setTesting(!!testing);
+
 
 class Controller{
 	constructor(){
@@ -20,6 +22,7 @@ class Controller{
 		this.initWin();
 		this.initTrayMenu();
 		this.initRPC();
+		this.initI18n();
 		this.initTheme();
 		await this.initManager();
 		await this.initConsole();
@@ -27,7 +30,7 @@ class Controller{
 		this.taskTerminals = {};
 		this.initCaption();
 		await this.initSettings();
-		this.setUiLoading(false);		
+		this.setUiLoading(false);
 	}
 	setUiLoading(loading){
 		document.body.classList.toggle("ui-loading", loading);
@@ -46,6 +49,20 @@ class Controller{
 		rpc.on("enable-ui", (args)=>{
 			this.setUiDisabled(false)
 		});
+	}
+	async initI18n(){
+		window.addEventListener("flow-i18n-entries-changed", e=>{
+			let {entries} = e.detail;
+			console.log("entries", entries)
+			this.post("set-i18n-entries", {entries})
+		});
+		let {entries} = await this.get("get-i18n-entries");
+		//let ce = new CustomEvent("flow-i18n-entries", {detail:{entries}})
+		//window.dispatchEvent(ce)
+		i18n.setActiveLanguages(['en', 'ru', 'pu', 'hi']);
+		i18n.setEntries(entries);
+		this.post("set-i18n-entries", {entries:i18n.getEntries()})
+		//i18n.setTesting(true);
 	}
 	async initManager(){
 		this.initData = await this.get("get-init-data");
@@ -152,7 +169,7 @@ class Controller{
 		caption.tabs = [{
 			title : "Home".toUpperCase(),
 			id : "home",
-			cls:"home"
+			cls: "home"
 		},{
 			title : "Settings".toUpperCase(),
 			id : "settings"
@@ -349,7 +366,7 @@ class Controller{
 
 					return html`
 						<div style="display:flex;flex-direction:row;">
-							<div style="font-size:18px;">${task.type}</div>
+							<div style="font-size:18px;"><flow-i18n>${task.type}</flow-i18n></div>
 							<div style="font-size:10px; margin-top:8px;">${task.id}</div>
 						</div>`;
 				}
