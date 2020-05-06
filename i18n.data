@@ -6,10 +6,7 @@
 		"hi": "नमस्ते!"
 	},
 	{
-		"en": "DEVELOPER INFORMATION",
-		"ru": "ИНФОРМАЦИЯ ДЛЯ РАЗРАБОТЧИКОВ",
-		"hi": "डेवलपर की जानकारी",
-		"pu": "ਡਿਵੈਲਪਰ ਜਾਣਕਾਰੀ"
+		"en": "KASPA RESOURCES"
 	},
 	{
 		"en": "LICENSE INFORMATION"
@@ -28,6 +25,12 @@
 	},
 	{
 		"en": "<!---->Select Folder<!---->"
+	},
+	{
+		"en": "DEVELOPER INFORMATION",
+		"ru": "ИНФОРМАЦИЯ ДЛЯ РАЗРАБОТЧИКОВ",
+		"hi": "डेवलपर की जानकारी",
+		"pu": "ਡਿਵੈਲਪਰ ਜਾਣਕਾਰੀ"
 	},
 	{
 		"en": "<i>test</i> <b>hello</b>",
