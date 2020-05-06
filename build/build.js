@@ -223,6 +223,7 @@ Where <flags> are:
                 'kaspad',
                 'kasparov/kasparovd',
                 'kasparov/kasparovsyncd',
+                'kasparov/kasparovd/examples/wallet',
             ];
         
             if(this.args['with-extras']) {
