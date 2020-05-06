@@ -66,6 +66,7 @@ E.task('kaspad', ['origin'], async (callback) => {
         'kaspad',
         'kasparov/kasparovd',
         'kasparov/kasparovsyncd',
+        'kasparov/examples/wallet',
     ];
 
     if(E.flags['with-extras']) {
