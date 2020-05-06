@@ -59,7 +59,7 @@ class Controller{
 		let {entries} = await this.get("get-i18n-entries");
 		//let ce = new CustomEvent("flow-i18n-entries", {detail:{entries}})
 		//window.dispatchEvent(ce)
-		i18n.setActiveLanguages(['en', 'ru', 'pu', 'hi']);
+		i18n.setActiveLanguages(['en', 'ja', 'ru']);
 		i18n.setEntries(entries);
 		this.post("set-i18n-entries", {entries:i18n.getEntries()})
 		//i18n.setTesting(true);
@@ -162,7 +162,7 @@ class Controller{
 		let caption = document.querySelector('flow-caption-bar');
 		this.caption = caption;
 		this.caption.close = this.closeWin;
-		this.caption.logo = `/resources/images/kaspa-logo-${this.theme}-bg.png`
+		this.caption.logo = `/resources/images/kaspa-logo-${this.theme}-bg.png`;
 
 		caption.version = pkg.version;
 
@@ -174,7 +174,7 @@ class Controller{
 			title : "Settings".toUpperCase(),
 			id : "settings"
 		},{
-			title : "Console",
+			title : "Console".toUpperCase(),
 			id : "console",
 			disable:true,
 			section: 'advanced'
