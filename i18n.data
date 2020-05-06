@@ -1,287 +1,297 @@
 [
 	{
 		"en": "Hello",
-		"hi": "नमस्ते!",
+		"ja": "",
 		"ru": "Ð-Ð´Ñ€Ð°Ð²ÑÑ‚Ð²ÑƒÐ¹Ñ‚Ðµ"
 	},
 	{
 		"en": "KASPA RESOURCES",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "LICENSE INFORMATION",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "\n\t\t\t\tData Folder location is used for storage by all KDX modules. \n\t\t\t\tIn default configuration this includes Kaspad blockchain data and Kasparov API database.\n\t\t\t\tThis location also contains process log files.\n\t\t\t",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "\n\t\t\t\tAdvanced mode allows you to manually configure, interact with and monitor KDX services.\n\t\t\t",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "\n\t\t\t\t\tWhen enabled, KDX runs itself and it's services hidden in the background\n\t\t\t\t\tand becomes accessible via the the menu bar (OSX &amp; Linux) or system tray menu (on Windows).\n\t\t\t\t",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "\n\t\t\t\tConfiguration editor allows you to customize KDX environment. KDX configuration is represented in JSON\n\t\t\t\tby a list of application/service configuration objects. Each service configuration object is used \n\t\t\t\tto start the corresponding service.\n\t\t\t",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "<!---->Select Folder<!---->",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "DEVELOPER INFORMATION",
-		"hi": "डेवलपर की जानकारी",
+		"ja": "",
 		"ru": "ИНФОРМАЦИЯ ДЛЯ РАЗРАБОТЧИКОВ"
 	},
 	{
 		"en": "<i>test</i> <b>hello</b>",
-		"hi": "<i>परीक्षण</i> <b>नमस्ते!</b>",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Services",
-		"hi": "सेवाएं",
+		"ja": "",
 		"ru": "Сервисы"
 	},
 	{
 		"en": "KASPA OVERVIEW",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "KASPAROV API SERVER",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br>\n\t\t\t\tAll Rights Reserved.",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Kaspa",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "LICENSE",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Copyright (c) 2020 Kaspa Developers",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "PostgreSQL",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Mosquitto",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Flow-ux",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Copyright (c) ASPECTRON Inc.",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "NWJS",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Copyright (c) 2015 四月橘林",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Chromium",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Copyright (c) The Chromium Authors.",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Data Folder",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "MIT",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "PostreSQL",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "EDL-V10 EPL-V10",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "BSD",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Reset",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Default",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Apply",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "User Interface Color Theme",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Dark Theme",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Invert Terminals",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Turn ON/OFF advanced settings and process control",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Advanced",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Advanced mode",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Service Control",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Run in Background",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Background Execution",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "Service Configuration",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "<!----><!---->",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "xxx",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "<!---->HOME<!---->",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "<!---->SETTINGS<!---->",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "<!---->Console<!---->",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "<!---->kd0<!---->",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "<!---->kd1<!---->",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "<!---->kvsd0<!---->",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "<!---->kvd0<!---->",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "<!---->kaspad<!---->",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "<!---->kasparovsyncd<!---->",
-		"hi": "",
+		"ja": "",
 		"ru": ""
 	},
 	{
 		"en": "<!---->kasparovd<!---->",
-		"hi": "",
+		"ja": "",
+		"ru": ""
+	},
+	{
+		"en": "<!---->db0<!---->",
+		"ja": "",
+		"ru": ""
+	},
+	{
+		"en": "<!---->dagviz<!---->",
+		"ja": "",
 		"ru": ""
 	}
 ]
