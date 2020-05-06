@@ -1,5 +1,6 @@
 const {App} = require("./app.js");
 const fs = require("fs");
+const path = require("path");
 const {RPC} = require("./resources/rpc.js");
 
 
@@ -65,6 +66,8 @@ class NWApp extends App{
 				//win.app = this;
 				//global.abcapp = "456";
 			});
+		}else{
+			this.i18nDataFile = path.join(this.appFolder, 'i18n.data');
 		}
 	}
 
@@ -127,8 +130,6 @@ class NWApp extends App{
 
 				this.setDataDir(dataDir, restartDelay||2000);
 			})
-			
-			
 		});
 
 		rpc.on("set-modules-config", (args, callback)=>{
@@ -142,7 +143,40 @@ class NWApp extends App{
 		rpc.on("get-modules-config", (args, callback)=>{
 			callback(null, {config:this.getModulesConfig()})
 		});
+
+		rpc.on("set-i18n-entries", (args, callback)=>{
+			let {entries} = args;
+			if(!entries)
+				return callback({error:"Invalid entries"});
+			this.saveI18nEntries(entries);
+		})
+
+		rpc.on("get-i18n-entries", (args, callback)=>{
+			let entries = this.getI18nEntries();
+			console.log("get-i18n-entries", entries)
+			callback(null, {entries});
+		})
 		
+	}
+
+	getI18nEntries(){
+		if(!fs.existsSync(this.i18nDataFile))
+			return [];
+
+		let data = (fs.readFileSync(this.i18nDataFile)+"").trim();
+		if(!data.length)
+			return [];
+		try{
+			data = JSON.parse(data);
+		}catch(e){
+			return [];
+		}
+
+		return data || [];
+	}
+
+	saveI18nEntries(entries){
+		fs.writeFileSync(this.i18nDataFile, JSON.stringify(entries, null, "\t"))
 	}
 
 	setDataDir(dataDir, restartDelay = 0){
