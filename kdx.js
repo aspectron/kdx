@@ -1,9 +1,9 @@
 const isNw = typeof nw != 'undefined';
 let App;
 if (isNw)
-	App = require("./nw-app.js").NWApp;
+	App = require("./nw-app");
 else
-	App = require("./node-app.js").NodeApp;
+	App = require("./node-app");
 
 /**
 *

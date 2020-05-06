@@ -17,7 +17,8 @@
     "resources/styles",
     "resources/setup",
     "resources/tpl",
-    "resources/rpc.js"
+    "resources/rpc.js",
+    "i18n.data"
   ],
   "dependencies": {
     "@webcomponents/webcomponentsjs": "*",

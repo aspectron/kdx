@@ -2,7 +2,7 @@
 
 
 const E = new Emanator(__dirname, {
-    type : 'NODE+NWJS+SDK',
+    type : 'NWJS+SDK',
     guid : 'c1072045-6d98-44d8-9aa5-e9be6c79bd01',
     group : 'Kaspa',
     ident : 'kdx',
@@ -11,9 +11,10 @@ const E = new Emanator(__dirname, {
     git : 'git@github.com:aspectron/kdx',
     author : "ASPECTRON Inc.",
     url : "http://aspectron.com",
-    archive : false,
+    archive : true,
     folder : true,
     standalone : true,
+    production: true,
     DMG: true,
     nwjs : { version : '0.45.4' },
     resources : 'resources/setup'

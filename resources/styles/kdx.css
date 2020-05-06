@@ -6,8 +6,9 @@ body{
 	--flow-font-family:'Julius Sans One';
 	
 	--flow-font-weight:bold;
-	--flow-primary-color:rgba(0,151,115,1.0);
-	--flow-border-color:rgba(0,151,115,1.0);
+	--flow-primary-color:rgba(0, 128, 116, 1);
+	/*--flow-primary-color:rgba(0,151,115,1.0);*/
+	--flow-border-color:rgba(0, 128, 116, 1);
 	--flow-border-hover-color:rgba(2, 97, 74, 1);
 	--flow-tab-font-size:1.5rem;
 	/*
@@ -110,9 +111,6 @@ tab-content>x-terminal{height:100%;}
 .settings-script{display:flex;height:400px;flex-direction:column;}
 .settings-script .script-box{flex:1;}
 
-body {
-	--flow-primary-color: rgba(0, 128, 116, 1);
-}
 
 body.flow-theme-dark {
 	--flow-primary-color: rgba(0, 128, 116, 1);
@@ -147,6 +145,7 @@ body.invert-terminals{
 	align-items:center;padding:5px 0px;
 }
 .tools>flow-btn{margin-left:5px;}
+tab-content{background-color:var(--flow-background-color);}
 tab-content.advanced,
 tab-content.vertical-flex{
 	flex-direction:column;
