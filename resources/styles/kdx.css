@@ -145,6 +145,7 @@ body.invert-terminals{
 	align-items:center;padding:5px 0px;
 }
 .tools>flow-btn{margin-left:5px;}
+tab-content{background-color:var(--flow-background-color);}
 tab-content.advanced,
 tab-content.vertical-flex{
 	flex-direction:column;
