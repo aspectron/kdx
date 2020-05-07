@@ -22,9 +22,10 @@
   ],
   "dependencies": {
     "@webcomponents/webcomponentsjs": "*",
-    "flow-ux": "*",
     "bs58": "^4.0.1",
     "colors": "^1.4.0",
+    "du": "^1.0.0",
+    "flow-ux": "*",
     "fs-extra": "*",
     "is-docker": "*",
     "lit-element": "*",
