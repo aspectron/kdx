@@ -242,7 +242,7 @@ E.task('remote', ['origin'], async (callback) => {
 
 E.task('mqtt',['origin'], async () => {
     if(E.PLATFORM == 'windows') {
-        this.registerFirewallRule({ name : 'KDX MQTT', file : 'mosquitto/mosquitto.exe', binary : true });
+        E.registerFirewallRule({ name : 'KDX MQTT', file : 'mosquitto/mosquitto.exe', binary : true });
         return E.copy(path.join(E.REPO,'resources','deps','mosquitto-windows-x64'),path.join(E.BIN,'mosquitto'));
     }
 })
