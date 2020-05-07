@@ -8,13 +8,16 @@ const Console = require("../../lib/console.js")
 
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
-import {FlowDialog, i18n} from '/node_modules/flow-ux/flow-ux.js';
+import {FlowDialog, i18n, getLocalSetting, setLocalSetting, T} from '/node_modules/flow-ux/flow-ux.js';
 window.testI18n = (testing)=>i18n.setTesting(!!testing);
+window.getLocalSetting = getLocalSetting;
+window.setLocalSetting = setLocalSetting;
 
 
 class Controller{
 	constructor(){
 		testDialogs();
+		this.debug = getLocalSetting('debug-ctx')==1;
 		this.init();
 	}
 	
@@ -366,7 +369,7 @@ class Controller{
 					//console.log("renderTab:",task);
 
 					if(task?.impl?.renderTab)
-						return task.impl.renderTab(html);
+						return task.impl.renderTab(html, T);
 
 					return html`
 						<div style="display:flex;flex-direction:row;">
@@ -485,7 +488,7 @@ class Controller{
 	get(subject, data){
 		return new Promise((resolve, reject)=>{
 			this.rpc.dispatch(subject, data, (err, result)=>{
-				console.log("subject:err, result", subject, err, result)
+				this.debug && console.log("subject:err, result", subject, err, result)
 				if(err)
 					return resolve(err)
 
