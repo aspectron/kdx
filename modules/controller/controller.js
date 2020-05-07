@@ -284,7 +284,11 @@ class Controller{
 		if(this.theme == 'dark')
 			this.configEditor.setTheme("ace/theme/tomorrow_night_eighties");
 		else
-			this.configEditor.setTheme("ace/theme/chrome");
+			this.configEditor.setTheme("ace/theme/dawn");
+		this.configEditor.setOptions({
+			fontSize: "14px",
+			fontFamily: "Source Code Pro"
+		});
 		
 		this.configEditor.session.setUseWrapMode(false);
 		this.configEditor.session.on('change', (delta) => {
