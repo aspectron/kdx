@@ -26,9 +26,13 @@
 	<script type="text/javascript" src="/resources/extern/ace/src/mode-javascript.js" charset="utf-8"></script>
 	<script type="text/javascript">
 		var flowConfig = {
-			iconsPath:'/resources/extern/fonts/fontawesome/sprites/light.svg',
-			icons:{
-				'language':'/node_modules/flow-ux/resources/images/icons.svg#language'
+			theme:{
+				iconPath:'/resources/extern/fonts/fontawesome/sprites/',
+				iconFile:'light',
+				icons:{
+					language:'icons:language',
+
+				}
 			}
 		}
 	</script>
@@ -54,7 +58,7 @@
 		<flow-textarea maxlength="10">hello</flow-textarea>
 		-->
 		<div id="test-ui"></div>
-		<flow-form-control icon="light-database" no-info>
+		<flow-form-control icon="fal:database" no-info>
 			<flow-i18n>Services</flow-i18n>
 			<div id='process-info-table' class="task-info-container">
 			<!--div class="task">
@@ -86,7 +90,7 @@
 			</flow-expandable>
 		</div>
 		<div id='license-info'>
-			<flow-form-control icon="light-copyright">
+			<flow-form-control icon="fal:copyright">
 				<flow-i18n>KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br/>
 				All Rights Reserved.</flow-i18n><br/>
 			</flow-form-control>
@@ -125,7 +129,7 @@
 
 	</tab-content>
 	<tab-content for="settings">
-		<flow-form-control icon="light-database">
+		<flow-form-control icon="fal:database">
 			<flow-i18n>Data Folder</flow-i18n>
 			<flow-folder-input slot="input" id="data-folder-input"></flow-folder-input>
 			<div slot="input" class="slot-block data-folder-input-tools">
@@ -141,14 +145,14 @@
 				This location also contains process log files.
 			</p>
 		</flow-form-control>
-		<flow-form-control icon="light-palette">
+		<flow-form-control icon="fal:palette">
 			<flow-i18n>User Interface Color Theme</flow-i18n>
 			<flow-checkbox id="settings-dark-theme" class="block"
 				slot="input"><flow-i18n>Dark Theme</flow-i18n></flow-checkbox><br/>
 			<flow-checkbox id="settings-invert-terminal" class="block advanced-tool"
 				slot="input"><flow-i18n>Invert Terminals</flow-i18n></flow-checkbox>
 		</flow-form-control>
-		<flow-form-control icon="light-tools">
+		<flow-form-control icon="fal:tools">
 			<flow-i18n>Turn ON/OFF advanced settings and process control</flow-i18n>
 			<flow-checkbox id="settings-advanced" slot="input">
 			<flow-i18n>Advanced</flow-i18n>
@@ -158,7 +162,7 @@
 				Advanced mode allows you to manually configure, interact with and monitor KDX services.
 			</p>
 		</flow-form-control>
-		<flow-form-control icon="light-cog" class="advanced-tool">
+		<flow-form-control icon="fal:cog" class="advanced-tool">
 			<flow-i18n>Service Control</flow-i18n>
 			<flow-checkbox id="settings-run-in-bg" class="block advanced-tool"
 				slot="input"><flow-i18n>Run in Background</flow-i18n></flow-checkbox>
@@ -168,7 +172,7 @@
 					and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).
 				</p>
 			</flow-form-control>
-		<flow-form-control id="settings-script" icon="light-tasks">
+		<flow-form-control id="settings-script" icon="fal:tasks">
 			<flow-i18n>Service Configuration</flow-i18n>
 			<div slot="input" class="settings-script">
 				<div class="script-box"></div>

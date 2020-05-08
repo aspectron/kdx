@@ -11,8 +11,8 @@ false && chrome.developerPrivate.openDevTools({
 
 class NWApp extends App{
 
-	constructor(...args){
-		super(...args)
+	constructor(options){
+		super(options)
 	}
 
 	/**
@@ -63,8 +63,8 @@ class NWApp extends App{
 		});
 	}
 
-	initRPC(){
-		super.initRPC();
+	initRPCHooks(){
+		super.initRPCHooks();
 		let rpc = this.rpc;
 		rpc.on("set-invert-terminals", (args)=>{
 			let {invertTerminals} = args;
@@ -91,11 +91,30 @@ class NWApp extends App{
 		rpc.on("get-modules-config", (args, callback)=>{
 			callback(null, {config:this.getModulesConfig()})
 		});
+
+		rpc.on("set-app-data-dir", async (args, callback)=>{
+			let {dataDir, restartDelay} = args;
+			//return callback({error: "Invalid directory"});
+			if(dataDir === ""){
+				await this.setDataDir(dataDir, restartDelay||2000);
+				return
+			}
+			if(dataDir == undefined || !fs.existsSync(dataDir))
+				return callback({error: "Invalid directory"})
+			fs.stat(dataDir, async(err, stats)=>{
+				if(err)
+					return callback(err);
+				if(!stats.isDirectory())
+					return callback({error: "Invalid directory"});
+
+				await this.setDataDir(dataDir, restartDelay||2000);
+			})
+		});
 		
 	}
 
-	setDataDir(dataDir, restartDelay = 0){
-		super.setDataDir(dataDir);
+	async setDataDir(dataDir, restartDelay = 0){
+		await super.setDataDir(dataDir);
 		this.rpc.dispatch("disable-ui", {CODE:'DATA-DIR'})
 		dpc(restartDelay, ()=>this.reload());
 	}

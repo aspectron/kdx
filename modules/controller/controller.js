@@ -56,19 +56,19 @@ class Controller{
 		window.addEventListener("flow-i18n-entries-changed", e=>{
 			let {entries} = e.detail;
 			console.log("entries", entries)
-			this.post("set-i18n-entries", {entries})
+			this.post("set-app-i18n-entries", {entries})
 		});
-		let {entries} = await this.get("get-i18n-entries");
+		let {entries} = await this.get("get-app-i18n-entries");
 		//console.log("entries", entries)
 		//let ce = new CustomEvent("flow-i18n-entries", {detail:{entries}})
 		//window.dispatchEvent(ce)
 		i18n.setActiveLanguages(['en', 'ja', 'ru']);
 		i18n.setEntries(entries);
-		this.post("set-i18n-entries", {entries:i18n.getEntries()})
+		this.post("set-app-i18n-entries", {entries:i18n.getEntries()})
 		//i18n.setTesting(true);
 	}
 	async initManager(){
-		this.initData = await this.get("get-init-data");
+		this.initData = await this.get("get-app-data");
 		let {dataFolder, appFolder} = this.initData;
 		let manager = global.manager || new Manager(this, dataFolder, appFolder);
 		if(global.manager){
@@ -125,7 +125,7 @@ class Controller{
 		return Promise.resolve();
 	}
 	async initTheme(){
-		let {theme, invertTerminals} = await this.get("get-config");
+		let {theme, invertTerminals} = await this.get("get-app-config");
 		this.setTheme(theme || 'light');
 		this.setInvertTerminals(!!invertTerminals);
 	}
@@ -143,7 +143,7 @@ class Controller{
 		this.theme = theme;
 		if(this.caption)
 			this.caption.logo = `/resources/images/kaspa-logo-${theme}-bg.png`
-		this.post("set-theme", {theme});
+		this.post("set-app-theme", {theme});
 		document.body.classList.forEach(c=>{
 			if(c.indexOf('flow-theme') === 0 && c!='flow-theme'+theme){
 				document.body.classList.remove(c);
@@ -315,7 +315,7 @@ class Controller{
 		});
 		$(".apply-data-dir").on("click", async(e)=>{
 			this.setUiDisabled(true);
-			let err = await this.get("set-data-dir", {dataDir:folderInput.value});
+			let err = await this.get("set-app-data-dir", {dataDir:folderInput.value});
 			console.log("err:", err)
 			this.setUiDisabled(false);
 		});

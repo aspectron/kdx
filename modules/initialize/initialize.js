@@ -8,8 +8,9 @@ class Initializer{
 	}
 	async init(){
 		this.initRPC();
-		this.initData = await this.get("get-init-data");
-		let {configFolder, config} = this.initData;
+		this.appData = await this.get("get-app-data");
+		console.log("this.appData", this.appData)
+		let {configFolder, config} = this.appData;
 		let $folderInput = $("#data-folder-input");
 		let folderInput = $folderInput[0];
 		let originalValue = config.dataDir || configFolder;
@@ -29,7 +30,7 @@ class Initializer{
 			if(value==originalValue)
 				value = '';
 			this.setUiDisabled(true);
-			let err = await this.get("set-data-dir", {dataDir:value});
+			let err = await this.get("set-app-data-dir", {dataDir:value});
 			FlowDialog.show("Error", err.error || err)
 			console.log("err:", err)
 			this.setUiDisabled(false);
@@ -54,7 +55,7 @@ class Initializer{
 		}catch(e){
 			return
 		}
-		this.post("set-config", {config});
+		this.post("set-app-config", {config});
 	}
 	setUiDisabled(disabled){
 		document.body.classList.toggle("disable", disabled);

@@ -10,10 +10,5 @@ else
 */
 const app = new App({
 	appFolder: __dirname,
-	ident: 'kdx',
-	isNw
+	ident: 'kdx'
 });
-
-(async ()=>{
-	await app.main();
-})();
