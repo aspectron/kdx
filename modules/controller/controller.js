@@ -197,47 +197,7 @@ class Controller{
 		if(os.platform != 'darwin')
 			tray.title = 'KDX';
 
-		let debugMenu = new nw.Menu();
-		let debugItems = {
-			'Data' : 'DATA.debug',
-			'Main' : () => {
-				chrome.developerPrivate.openDevTools({ 
-					renderViewId: -1, 
-					renderProcessId: -1, 
-					extensionId: chrome.runtime.id 
-				})
-			}
-		};
-
-		Object.entries(debugItems).forEach(([k,v]) => {
-			debugMenu.append(new nw.MenuItem({
-				label: k,
-				click : () => {
-					if(typeof(v) == 'string'){
-						//this.rpc.publish(v)
-						return
-					}
-
-					if(typeof(v) == 'function')
-						v();
-				}
-			}))
-		})
-
 		let menu = new nw.Menu();
-
-		if(this.isDevMode()) {
-			menu.append(new nw.MenuItem({ 
-				label : 'Debug',
-				submenu : debugMenu
-			}));
-			
-			menu.append(new nw.MenuItem({ 
-				type : 'separator'
-			}));
-		}
-
-
 		this.showMenu = new nw.MenuItem({ 
 			label : 'Show',
 			enabled: false,
@@ -245,9 +205,7 @@ class Controller{
 				this.showWin();
 			}
 		})
-
 		menu.append(this.showMenu);
-
 		menu.append(new nw.MenuItem({ 
 			label : 'Exit',
 			click : () => {
@@ -528,7 +486,7 @@ class Controller{
 			console.log("%c######## closeWin called ######", 'color:red')
 			if(isExit !== true && !this.runInBG){
 				let {btn} = await FlowDialog.show({
-					title:"Exit KDX",
+					title:"EXIT KDX",
 					body:"Are you sure?",
 					btns:['Cancel', 'Exit:primary']
 				});
