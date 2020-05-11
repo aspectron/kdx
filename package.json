@@ -21,10 +21,10 @@
     "i18n.data"
   ],
   "dependencies": {
-    "@aspectron/flow-app": "file:../flow-app",
-    "@aspectron/flow-ux": "file:../flow-ux",
-    "@aspectron/flow-rpc": "git+https://github.com/aspectron/flow-rpc",
-    "@aspectron/flow-utils": "file:../flow-utils",
+    "@aspectron/flow-app": "latest",
+    "@aspectron/flow-ux": "latest",
+    "@aspectron/flow-rpc": "latest",
+    "@aspectron/flow-utils": "latest",
     "@webcomponents/webcomponentsjs": "*",
     "bs58": "^4.0.1",
     "colors": "^1.4.0",
