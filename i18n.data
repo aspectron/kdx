@@ -1,12 +1,12 @@
 [
 	{
 		"en": "Hello",
-		"ja": "",
+		"ja": "こんにちは",
 		"ru": "Ð-Ð´Ñ€Ð°Ð²ÑÑ‚Ð²ÑƒÐ¹Ñ‚Ðµ"
 	},
 	{
 		"en": "KASPA RESOURCES",
-		"ja": "カスパのリソース",
+		"ja": "カスパ・リソース",
 		"ru": ""
 	},
 	{
@@ -21,17 +21,22 @@
 	},
 	{
 		"en": "Advanced mode allows you to manually configure, interact with and monitor KDX services.",
-		"ja": "詳細モードでは、KDXサービスを手動で構成、操作、および監視できます。",
+		"ja": "アドバンスドモードでは、KDXサービスを手動で設定、操作、および監視できます。",
 		"ru": ""
 	},
 	{
 		"en": "When enabled, KDX runs itself and it's services hidden in the background and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).",
-		"ja": "KDXを有効にすると、KDX自体が実行され、サービスはバックグラウンドで非表示になり、メニューバー（OSXおよびLinux）またはシステムトレイメニュー（Windows）からアクセスできるようになります。",
+		"ja": "KDXを有効にするとKDXは自動で起動しサービスはバックグラウンドで非表示となり実行され、メニューバー（OSXおよびLinux）またはシステムトレイメニュー（Windows）からアクセスできるようになります。",
 		"ru": ""
 	},
 	{
 		"en": "Configuration editor allows you to customize KDX environment. KDX configuration is represented in JSON by a list of application/service configuration objects. Each service configuration object is used to start the corresponding service.",
-		"ja": "構成エディターを使用すると、KDX環境をカスタマイズできます。 KDX構成は、アプリケーション/サービス構成オブジェクトのリストによってJSONで表されます。 各サービス構成オブジェクトは、対応するサービスを開始するために使用されます。",
+		"ja": "設定エディターを使用すると、KDX環境をカスタマイズできます。 KDXの設定は、アプリケーション/サービス構成オブジェクトのリストによってJSONで表示されます。各サービス設定は、それぞれに対応するサービスを開始するために使用されます。",
+		"ru": ""
+	},
+	{
+		"en": "<!---->Select Folder<!---->",
+		"ja": "<!---->フォルダーを選択<!---->",
 		"ru": ""
 	},
 	{
@@ -46,7 +51,7 @@
 	},
 	{
 		"en": "GitHub",
-		"ja": "",
+		"ja": "Github",
 		"ru": ""
 	},
 	{
@@ -56,12 +61,12 @@
 	},
 	{
 		"en": "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
-		"ja": "",
+		"ja": "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
 		"ru": ""
 	},
 	{
 		"en": "Kaspa",
-		"ja": "",
+		"ja": "Kaspa",
 		"ru": ""
 	},
 	{
@@ -71,77 +76,77 @@
 	},
 	{
 		"en": "MIT",
-		"ja": "",
+		"ja": "MIT",
 		"ru": ""
 	},
 	{
 		"en": "Copyright (c) 2020 Kaspa Developers",
-		"ja": "",
+		"ja": "Copyright (c) 2020 Kaspa Developers",
 		"ru": ""
 	},
 	{
 		"en": "PostgreSQL",
-		"ja": "",
+		"ja": "PostgreSQL",
 		"ru": ""
 	},
 	{
 		"en": "PostreSQL",
-		"ja": "",
+		"ja": "PostreSQL",
 		"ru": ""
 	},
 	{
-		"en": "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
-		"ja": "",
+		"en": "Ｐｏｒｔｉｏｎｓ Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
+		"ja": "Ｐｏｒｔｉｏｎｓ Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
 		"ru": ""
 	},
 	{
 		"en": "Mosquitto",
-		"ja": "",
+		"ja": "Mosquitto",
 		"ru": ""
 	},
 	{
 		"en": "EDL-V10 EPL-V10",
-		"ja": "",
+		"ja": "EDL-V10 EPL-V10",
 		"ru": ""
 	},
 	{
 		"en": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
-		"ja": "",
+		"ja": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
 		"ru": ""
 	},
 	{
 		"en": "Flow-ux",
-		"ja": "",
+		"ja": "Flow-ux",
 		"ru": ""
 	},
 	{
 		"en": "Copyright (c) ASPECTRON Inc.",
-		"ja": "",
+		"ja": "Copyright (c) ASPECTRON Inc.",
 		"ru": ""
 	},
 	{
 		"en": "NWJS",
-		"ja": "",
+		"ja": "NWJS",
 		"ru": ""
 	},
 	{
 		"en": "Copyright (c) 2015 四月橘林",
-		"ja": "",
+		"ja": "Copyright (c) 2015 四月橘林",
 		"ru": ""
 	},
 	{
 		"en": "Chromium",
-		"ja": "",
+		"ja": "Chromium",
 		"ru": ""
 	},
 	{
 		"en": "BSD",
-		"ja": "",
+		"ja": "BSD",
 		"ru": ""
 	},
 	{
 		"en": "Copyright (c) The Chromium Authors.",
-		"ja": "",
+		"ja": "Copyright (c) The Chromium Authors.",
 		"ru": ""
 	},
 	{
@@ -171,7 +176,7 @@
 	},
 	{
 		"en": "Dark Theme",
-		"ja": "暗いテーマ",
+		"ja": "ダーク",
 		"ru": ""
 	},
 	{
@@ -191,7 +196,7 @@
 	},
 	{
 		"en": "Advanced mode",
-		"ja": "アドバンストモード",
+		"ja": "アドバンスドモード",
 		"ru": ""
 	},
 	{
@@ -211,42 +216,77 @@
 	},
 	{
 		"en": "Service Configuration",
-		"ja": "サービス構成",
+		"ja": "サービス設定",
 		"ru": ""
 	},
 	{
-		"en": "Select Folder",
-		"ja": "フォルダーを選択",
+		"en": "<!---->kd0<!---->",
+		"ja": "<!---->kd0<!---->",
 		"ru": ""
 	},
 	{
-		"en": "HOME",
-		"ja": "概要",
+		"en": "<!---->kd1<!---->",
+		"ja": "<!---->kd1<!---->",
 		"ru": ""
 	},
 	{
-		"en": "SETTINGS",
-		"ja": "設定",
+		"en": "<!---->db0<!---->",
+		"ja": "<!---->db0<!---->",
 		"ru": ""
 	},
 	{
-		"en": "CONSOLE",
-		"ja": "コンソール",
+		"en": "<!---->kvsd0<!---->",
+		"ja": "<!---->kvsd0<!---->",
 		"ru": ""
 	},
 	{
-		"en": "kaspad",
-		"ja": "",
+		"en": "<!---->kvd0<!---->",
+		"ja": "<!---->kvd0<!---->",
 		"ru": ""
 	},
 	{
-		"en": "kd0",
-		"ja": "",
+		"en": "<!---->dagviz<!---->",
+		"ja": "<!---->dagviz<!---->",
 		"ru": ""
 	},
 	{
-		"en": "kd1",
-		"ja": "",
+		"en": "<!---->HOME<!---->",
+		"ja": "<!---->ホーム<!---->",
+		"ru": ""
+	},
+	{
+		"en": "<!---->SETTINGS<!---->",
+		"ja": "<!---->設定<!---->",
+		"ru": ""
+	},
+	{
+		"en": "<!---->CONSOLE<!---->",
+		"ja": "<!---->コンソール<!---->",
+		"ru": ""
+	},
+	{
+		"en": "<!---->kaspad<!---->",
+		"ja": "<!---->kaspad<!---->",
+		"ru": ""
+	},
+	{
+		"en": "<!---->pgsql<!---->",
+		"ja": "<!---->pgsql<!---->",
+		"ru": ""
+	},
+	{
+		"en": "<!---->kasparovsyncd<!---->",
+		"ja": "<!---->kasparovsyncd<!---->",
+		"ru": ""
+	},
+	{
+		"en": "<!---->kasparovd<!---->",
+		"ja": "<!---->kasparovd<!---->",
+		"ru": ""
+	},
+	{
+		"en": "<!---->app<!---->",
+		"ja": "<!---->app<!---->",
 		"ru": ""
 	}
 ]
