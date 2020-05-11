@@ -1,5 +1,5 @@
 true && nw.Window.get().showDevTools();
-const {FlowRPC} = require("flow-utils");
+const FlowRPC = require("@aspectron/flow-rpc");
 const os = require("os");
 
 class Initializer{

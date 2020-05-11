@@ -21,12 +21,11 @@
     "i18n.data"
   ],
   "dependencies": {
-    "@webcomponents/webcomponentsjs": "*",
+    "@aspectron/flow-app": "*",
+    "@aspectron/flow-ux": "*",
     "bs58": "^4.0.1",
     "colors": "^1.4.0",
     "du": "^1.0.0",
-    "flow-ux": "*",
-    "flow-utils": "git+https://github.com/aspectron/flow-utils.git",
     "fs-extra": "*",
     "is-docker": "*",
     "lit-element": "*",

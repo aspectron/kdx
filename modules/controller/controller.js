@@ -2,7 +2,7 @@
 	&& nw.Window.get().showDevTools();
 const os = require("os");
 const pkg = require("../../package");
-const {FlowRPC} = require("flow-utils");
+const FlowRPC = require("@aspectron/flow-rpc");
 const Manager = require("../../lib/manager.js");
 const Console = require("../../lib/console.js")
 
