@@ -8,7 +8,7 @@ const Console = require("../../lib/console.js")
 
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
-import {FlowDialog, i18n, getLocalSetting, setLocalSetting, T} from '/node_modules/flow-ux/flow-ux.js';
+import {FlowDialog, i18n, getLocalSetting, setLocalSetting, T} from '/node_modules/@aspectron/flow-ux/flow-ux.js';
 window.testI18n = (testing)=>i18n.setTesting(!!testing);
 window.getLocalSetting = getLocalSetting;
 window.setLocalSetting = setLocalSetting;
