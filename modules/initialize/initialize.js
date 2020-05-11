@@ -1,5 +1,5 @@
 true && nw.Window.get().showDevTools();
-const {RPC} = require("./../../resources/rpc.js");
+const FlowRPC = require("@aspectron/flow-rpc");
 const os = require("os");
 
 class Initializer{
@@ -37,7 +37,7 @@ class Initializer{
 		})
 	}
 	initRPC(){
-		let rpc = new RPC({});
+		let rpc = new FlowRPC({bcastChannel:'kdx'});
 
 		this.rpc = rpc;
 

@@ -1,4 +1,4 @@
-const FlowApp = require('flow-ux/flow-app');
+const FlowApp = require('@aspectron/flow-app');
 const crypto = require('crypto');
 const bs58 = require('bs58');
 const colors = require('colors');
