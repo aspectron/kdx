@@ -488,8 +488,19 @@ class Controller{
 				let {btn} = await FlowDialog.show({
 					title:"EXIT KDX",
 					body:"Are you sure?",
-					btns:['Cancel', 'Exit:primary']
+					btns:['Cancel', 'Exit:warning',
+					{
+						value : 'background',
+						text : html`<span style="font-size:13.3px;">Leave in the Background</style>`,
+						cls : 'primary'						
+					}]
 				});
+				if(btn == 'background') {
+					this.setRunInBG(true);
+					this.hideWin();
+					return
+				}
+				else
 				if(btn != 'exit')
 					return
 			}
