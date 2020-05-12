@@ -16,7 +16,7 @@ window.setLocalSetting = setLocalSetting;
 
 class Controller{
 	constructor(){
-		testDialogs();
+		//testDialogs();
 		this.debug = getLocalSetting('debug-ctx')==1;
 		this.init();
 	}
