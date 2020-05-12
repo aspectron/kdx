@@ -7,7 +7,7 @@ let testDialogs = ()=>{
 	)
 	$('.alert-btn-text').on("click", async ()=>{
 		let btns = ["Info:info", {text:"Warning", cls:"warning"}, {text:"Success", cls:'success'}, {text:"Danger", cls:"danger"}]
-		let {btn, values} = await FlowDialog.alert("Title", "Hello", 1, '', btns)
+		let {btn, values} = await FlowDialog.alert("Title", "Hello", '', btns)
 		console.log("btn", btn, values)
 	})
 
@@ -51,7 +51,7 @@ let testDialogs = ()=>{
 			`
 		let modal = 1;
 		let {btn,values} = await FlowDialog.show({
-			title:"Enter Values", body, modal, cls:'dialog-cls', btns
+			title:"Enter Values", body, cls:'dialog-cls', btns, modal
 		})
 		console.log("btn", btn, values)
 	})
