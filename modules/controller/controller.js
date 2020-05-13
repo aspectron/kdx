@@ -62,7 +62,7 @@ class Controller{
 		//console.log("entries", entries)
 		//let ce = new CustomEvent("flow-i18n-entries", {detail:{entries}})
 		//window.dispatchEvent(ce)
-		i18n.setActiveLanguages(['en', 'ja', 'ru']);
+		i18n.setActiveLanguages(['en', 'ja']);
 		i18n.setEntries(entries);
 		this.post("set-app-i18n-entries", {entries:i18n.getEntries()})
 		//i18n.setTesting(true);
@@ -344,17 +344,17 @@ class Controller{
 			template.innerHTML = 
 			`<tab-content for="${key}" data-active-display="flex" class="advanced term">
 				<flow-terminal noinput class="x-terminal" background="transparent" foreground="transparent"></flow-terminal>
-				<div class="tools">
+				<!-- div class="tools">
 					<flow-btn data-action="RUN">RUN</flow-btn>
 					<flow-btn data-action="STOP">STOP</flow-btn>
 					<flow-btn data-action="RESTART">RESTART</flow-btn>
 					<flow-btn data-action="PURGE_DATA">PURGE DATA</flow-btn>
-				</div>
+				</div -->
 			</tab-content>`
 			let tabContent = template.content.firstChild;
-			tabContent.querySelector(".tools").addEventListener('click', e=>{
-				this.onToolsClick(e);
-			});
+			// tabContent.querySelector(".tools").addEventListener('click', e=>{
+			// 	this.onToolsClick(e);
+			// });
 			this.taskTabs[key] = tabContent;
 			this.taskTerminals[key] = tabContent.querySelector("flow-terminal");
 			document.body.appendChild(tabContent);
