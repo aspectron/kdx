@@ -22,9 +22,9 @@
   ],
   "dependencies": {
     "@aspectron/flow-app": "latest",
-    "@aspectron/flow-ux": "latest",
     "@aspectron/flow-rpc": "latest",
     "@aspectron/flow-utils": "latest",
+    "@aspectron/flow-ux": "0.0.14",
     "@webcomponents/webcomponentsjs": "*",
     "bs58": "^4.0.1",
     "colors": "^1.4.0",
