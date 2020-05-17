@@ -1,23 +1,36 @@
 *{margin:0px;padding:0px;}
 body{
 	background:white;display:flex;flex-direction:column;
-	font-family:'Julius Sans One';
-	font-weight:bold;
-	--flow-font-family:'Julius Sans One';
+
+
+	font-family:'Exo 2';
+	font-weight:normal;
+	--flow-font-family:'Exo 2';
+	--flow-font-weight:normal;
+	font-size: 18px;
 	
-	--flow-font-weight:bold;
-	--flow-primary-color:rgba(0, 128, 116, 1);
-	/*--flow-primary-color:rgba(0,151,115,1.0);*/
-	--flow-border-color:rgba(0, 128, 116, 1);
+	--flow-primary-color:rgba(0, 150, 136, 1);
+	--flow-border-color:rgb(0, 133, 119);
 	--flow-border-hover-color:rgba(2, 97, 74, 1);
 	--flow-tab-font-size:1.5rem;
-	/*
-	--flow-caption-bar-font-family:'Julius Sans One';
-	--flow-checkbox-color:var(--flow-primary-color);
-	*/
+	--flow-link-color:rgba(0, 150, 136, 1);
+    --flow-link-hover-color:rgba(0,121,85,1.0);
+	--flow-data-field-caption: #000;
+    --flow-data-field-caption-shawod: rgba(0,151,115,1.0);
+
 	opacity:1;
 	transition:opacity 0.5s ease;
 }
+
+body.flow-theme-dark{
+	--flow-data-field-caption: #fff;
+    --flow-data-field-caption-shawod: rgba(0,151,115,1.0);
+}
+
+*[caption] {
+	text-transform: uppercase;
+}
+
 body.ui-loading{
 	opacity:0;
 }
@@ -112,9 +125,6 @@ tab-content>x-terminal{height:100%;}
 .settings-script .script-box{flex:1;}
 
 
-body.flow-theme-dark {
-	--flow-primary-color: rgba(0, 128, 116, 1);
-}
 
 body:not(.flow-theme-dark) .settings-script .script-box{background-color:#fbfbfb;}
 body{
@@ -208,6 +218,6 @@ project copyright {  display: inline-block; font-size: 12.5px; }
 project > * { padding: 2px; }
 
 #kaspa-resources ul li {
-	font-size: 13.3px;
+	font-size: 18px;
 	padding: 6px;
 }
