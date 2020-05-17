@@ -46,7 +46,7 @@ class NWApp extends App{
 	* initlizing data folder error handler
 	*/
 	dataDirInitError(){
-		console.error(`Please start app with --init=/path/to/data/dir [or] --init=~/.kdx [or] --init=<default>`.red);
+		console.error(`Please start app with --init=/path/to/data/dir or --init for default (~/.kdx/data)`.red);
 		nw.Window.open('modules/initialize/initialize.html', {
 			//new_instance: true,
 			id: 'initialize',

@@ -23,7 +23,7 @@ class NodeApp extends App{
 	* initlizing data folder error handler
 	*/
 	dataDirInitError(){
-		console.error(`Please start app with --init=/path/to/data/dir [or] --init=~/.kdx [or] --init=<default>`.red);
+		console.error(`Please start app with --init=/path/to/data/dir or --init for default (~/.kdx/data)`.red);
 		this.exit();
 	}
 

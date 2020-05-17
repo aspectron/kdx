@@ -27,11 +27,11 @@ class App extends FlowApp{
 	* initlize data folder
 	*/
 	async initDataFolder(){
-		if(typeof this.config.dataDir == 'undefined' && !this.flags.init)
+		if(typeof this.config.dataDir == 'undefined' && !('init' in flags)) // this.flags.init)
 			return this.dataDirInitError();
 
 		let {init} = this.flags;
-		if(init && init != '<default>' && init != '.')
+		if(init && init != '.')
 			this.config.dataDir = init;
 
 		if(this.config.dataDir){
@@ -56,7 +56,7 @@ class App extends FlowApp{
 	* initlizing data folder error handler
 	*/
 	dataDirInitError(){
-		console.log(`Please start app with --init=/path/to/data/dir [or] --init=~/.flow-app [or] --init=<default>`);
+		console.log(`Please start app with --init=/path/to/data/dir or --init for default (~/.kdx/data)`);
 		this.exit();
 	}
 
@@ -68,7 +68,7 @@ class App extends FlowApp{
 	* @return {String} default path to data folder 
 	*/
 	getDefaultDataFolderPath(){
-		return this.getConfigFolderPath();
+		return path.join(this.getConfigFolderPath(),'data');
 	}
 
 	/**
