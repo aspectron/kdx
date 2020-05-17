@@ -210,8 +210,8 @@ body.disable:after{z-index:100000;opacity:1;}
 
 body:not(.advanced-ui) .advanced-tool{display:none}
 
-project { xfont-family: "Open Sans"; text-transform:uppercase; font-size: 13px; font-weight: bold; display: block; margin: 8px 0px; line-height:1.2;}
-project .license {  display: inline-block; font-size: 10px; font-weight: bold; xcolor: var(--flow-primary-color) }
+project { xfont-family: "Open Sans"; text-transform:uppercase; font-size: 16px; font-weight: normal; display: block; margin: 8px 0px; line-height:1.2;}
+project .license {  display: inline-block; font-size: 14px; font-weight: normal; xcolor: var(--flow-primary-color) }
 project name { display: inline-block; min-width: 92px; }
 project license {  display: inline-block; }
 project copyright {  display: inline-block; font-size: 12.5px; } 
