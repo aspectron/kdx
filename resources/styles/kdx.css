@@ -42,10 +42,6 @@ body.ui-loading{
 	opacity:0;
 }
 @font-face {
-	font-family: 'Hero';font-style: normal;
-	src: url("fonts/hero.woff") format('woff');
-}
-@font-face {
 	font-family:'Julius Sans One';font-style:normal;
 	src: url("../../resources/extern/fonts/JuliusSansOne-Regular.ttf") format('truetype');
 }
