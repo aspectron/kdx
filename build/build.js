@@ -23,12 +23,13 @@ class Build {
         if(this.args.folder)
             this.FOLDER = this.args.folder;
         else
-            this.FOLDER = path.join(os.homedir(),'.kdx-build');
+            this.FOLDER = path.join(os.homedir(),'.kdx','build');
         //this.FOLDER = path.join(__dirname,this.args['folder'] || '.build');
         this.CACHE = path.join(this.FOLDER,'cache');
         this.TOOLS = path.join(this.FOLDER,'tools');
         this.BUILD = path.join(this.FOLDER,'build');
-        [this.CACHE,this.TOOLS,this.BUILD].forEach(f=>mkdirp.sync(f));
+        this.BIN = path.join(os.homedir(),'.kdx','bin',this.PLATFORM_ARCH);
+        [this.CACHE,this.TOOLS,this.BUILD,this.BIN].forEach(f=>mkdirp.sync(f));
 
         if(this.PLATFORM == 'windows')
             this.addToPath('c:/tdm-gcc-64/bin');
@@ -165,7 +166,6 @@ Where <flags> are:
                     await this.extract(file,folder);
                     console.log("extraction done...");
                     fs.renameSync(path.join(folder,'go'),path.join(this.TOOLS,GO_VERSION));
-                    
 
                     let go = (await this.exec(this.GOBIN,['version'])).split('\n').shift();
                     this.log(go);
@@ -191,7 +191,9 @@ Where <flags> are:
             this.log('Syncing repos...');
 
             this.TOOLS = path.join(this.FOLDER,'tools');
-            this.BIN = path.join(__dirname,`../bin/${this.PLATFORM_ARCH}/`);
+            // this has migrated to ~/.kdx/bin 
+            // this.BIN = path.join(__dirname,`../bin/${this.PLATFORM_ARCH}/`);
+            //
             this.BUILD = path.join(this.FOLDER,'build');
             this.GOPATH = path.join(this.BUILD,'go');
             this.GOSRC = path.join(this.GOPATH,'src');
