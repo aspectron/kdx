@@ -16,13 +16,20 @@ body{
 	--flow-link-color:rgba(0, 150, 136, 1);
     --flow-link-hover-color:rgba(0,121,85,1.0);
 	--flow-data-field-caption: #000;
-    --flow-data-field-caption-shawod: rgba(0,151,115,1.0);
+    --flow-data-field-caption-shadow: rgba(0,151,115,1.0);
 
 	opacity:1;
 	transition:opacity 0.5s ease;
+
+	--flow-link-color:  rgba(0,150,136,1);
+	--flow-link-hover-color:  rgb(0, 105, 95);
+
 }
 
 body.flow-theme-dark{
+	--flow-primary-color:  rgba(0,150,136,1);
+	--flow-border-color:  rgba(0,150,136,1);
+
 	--flow-data-field-caption: #fff;
     --flow-data-field-caption-shawod: rgba(0,151,115,1.0);
 }
