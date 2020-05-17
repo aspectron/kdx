@@ -289,19 +289,24 @@ E.task('docker',null, async () => {
     }
 })    
 
+if(E.flags['local-binaries']) {
+    E.BIN = path.join(E.appFolder,'bin',E.PLATFORM_ARCH);
+    mkdirp.sync(E.BIN);
+}
+
 
 if(E.flags.docker) {
     E.run(['docker']);
 }
 else if(E.flags['pgsql']) 
     E.run(['pgsql']);
+else if(E.flags['mqtt']) 
+    E.run(['mqtt']);
 else if(E.flags['local-binaries']) {
 
-    E.BIN = path.join(E.appFolder,'bin',E.PLATFORM_ARCH);
-    mkdirp.sync(E.BIN);
     
 
-    E.run(['kaspad','pgsql','aptitude']);
+    E.run(['kaspad','pgsql', 'mqtt', 'aptitude']);
 }
 else
     E.run();
