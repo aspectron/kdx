@@ -57,7 +57,7 @@
 		-->
 		<div id="test-ui"></div>
 		<flow-form-control icon="fal:database" no-help>
-			<flow-i18n>Services</flow-i18n>
+			<flow-i18n caption>Services</flow-i18n>
 			<div id='process-info-table' class="task-info-container">
 			<!--div class="task">
 				<div class="col-1"><span class="type">KASPAD</span> <span class="version">v4545</span></div>
@@ -72,7 +72,7 @@
 		<div id='kaspa-resources'>
 
 			<flow-expandable>
-				<div slot="title" is="i18n-div">KASPA RESOURCES</div>
+				<div slot="title" is="i18n-div" caption>KASPA RESOURCES</div>
 				
 				<ul style="font-size: 12px;">
 					<li><flow-shell-link href="https://docs.kas.pa/kaspa/about-kaspa/get-started"><flow-i18n>Documentation</flow-i18n></flow-shell-link></li>
@@ -94,7 +94,7 @@
 			</flow-form-control>
 			<flow-expandable no-info class="license-info" >
 				
-				<div slot="title" is="i18n-div">LICENSE INFORMATION</div>
+				<div slot="title" is="i18n-div" caption>LICENSE INFORMATION</div>
 
 				<div style="xfont-family:'Open Sans'; font-weight:bold;font-size: 0.85rem;">
 
@@ -128,7 +128,7 @@
 	</tab-content>
 	<tab-content for="settings">
 		<flow-form-control icon="fal:database">
-			<flow-i18n>Data Folder</flow-i18n>
+			<flow-i18n caption>Data Folder</flow-i18n>
 			<flow-folder-input slot="input" id="data-folder-input"></flow-folder-input>
 			<div slot="input" class="slot-block data-folder-input-tools">
 				<flow-btn class="reset-data-dir"><flow-i18n>Reset</flow-i18n></flow-btn>
@@ -144,14 +144,14 @@
 			</p>
 		</flow-form-control>
 		<flow-form-control icon="fal:palette">
-			<flow-i18n>User Interface Color Theme</flow-i18n>
+			<flow-i18n caption>User Interface Color Theme</flow-i18n>
 			<flow-checkbox id="settings-dark-theme" class="block"
 				slot="input"><flow-i18n>Dark Theme</flow-i18n></flow-checkbox><br/>
 			<flow-checkbox id="settings-invert-terminal" class="block advanced-tool"
 				slot="input"><flow-i18n>Invert Terminal Color</flow-i18n></flow-checkbox>
 		</flow-form-control>
 		<flow-form-control icon="fal:tools">
-			<flow-i18n>Turn ON/OFF advanced settings and process control</flow-i18n>
+			<flow-i18n caption>Turn ON/OFF advanced settings and process control</flow-i18n>
 			<flow-checkbox id="settings-advanced" slot="input">
 			<flow-i18n>Advanced</flow-i18n>
 			</flow-checkbox>
@@ -161,7 +161,7 @@
 			</p>
 		</flow-form-control>
 		<flow-form-control icon="fal:cog" class="advanced-tool">
-			<flow-i18n>Service Control</flow-i18n>
+			<flow-i18n caption>Service Control</flow-i18n>
 			<flow-checkbox id="settings-run-in-bg" class="block advanced-tool"
 				slot="input"><flow-i18n>Run in Background</flow-i18n></flow-checkbox>
 				<h4 slot="info" class="title"><flow-i18n>Background Execution</flow-i18n></h4>
@@ -171,7 +171,7 @@
 				</p>
 			</flow-form-control>
 		<flow-form-control id="settings-script" icon="fal:tasks">
-			<flow-i18n>Service Configuration</flow-i18n>
+			<flow-i18n caption>Service Configuration</flow-i18n>
 			<div slot="input" class="settings-script">
 				<div class="script-box"></div>
 				<div class="tools">
