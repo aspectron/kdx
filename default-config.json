@@ -1,6 +1,7 @@
 {
 	"modules":{
 		"kaspad:kd0" : {
+			"reset-peers" : false,
 			"args":{
 				"rpclisten" : "0.0.0.0:16210",
 				"listen": "0.0.0.0:16211",
@@ -8,6 +9,7 @@
 			}
 		},
 		"kaspad:kd1" : {
+			"reset-peers" : false,
 			"args":{
 				"rpclisten":"0.0.0.0:16310",
 				"listen": "0.0.0.0:16311",
@@ -16,6 +18,7 @@
 			}
 		},
 		"simulator:sim0" : {
+			"blockdelay" : 2000,
 			"peers":["127.0.0.1:16210"]
 		},
 		"pgsql:db0" : {
