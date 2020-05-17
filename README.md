@@ -48,3 +48,14 @@ The branch for each repository can be overriden using `--branch-<repo-name>=<bra
 emanate --branch=v0.4.0-dev --branch-kaspad=v0.3.0-dev
 emanate --branch-miningsimulator=v0.1.2-dev
 ```
+
+**NOTE:** KDX `build` command in KDX console operates in the same manner and accepts `--branch...` arguments.
+
+## KDX Console
+
+KDX Console provides following functionality:
+- Upgrading kasparov using `migrate` command
+- `start` and `stop` controls stack runtime
+- Kaspad RPC command execution
+- Use of test wallet app (KDX auto-configures kasparov address)
+- Rebuilding Kaspa software stack from within the console
