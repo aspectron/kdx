@@ -404,7 +404,10 @@ Where <flags> are:
 			let dest = path.join(folder,target);
 
             if(this.args[`${repo}-branch`])
-				branch = this.args[`${repo}-branch`];
+                branch = this.args[`${repo}-branch`];
+            else
+            if(this.args[`branch-${repo}`])
+                branch = this.args[`branch-${repo}`];
 			branch = branch || 'master';
 
 			if(this.args['--no-ssh'] || this.args['--http'] || this.args['--https']) {
