@@ -21,9 +21,8 @@ KDX is built using [NWJS](https://nwjs.io) and is compatible Windows, Linux and 
 
 - [Node.js 14.0.0+](https://nodejs.org/)
 
-### Building KDX
-
-**NOTE:** KDX build includes latest Kaspa binaries built from Git master branches. To build from specific branches, you can use `--branch...` flags (see below).
+**NOTE:** KDX build process builds and includes latest Kaspa binaries from Git master branches. 
+To build from specific branches, you can use `--branch...` flags (see below).
 
 #### Generating KDX installers
 ```
@@ -31,21 +30,21 @@ npm install emanator@latest
 git clone git@github.com:aspectron/kdx
 cd kdx
 # run emanate with one or multiple flags below
-#  --portable   will create a portable zipped application
-#  --innosetup  will generate Windows setup execitable
-#  --dmg        will generate a DMG image for Mac OS X
-#  --all        will generate all OS compatible packages
+#  --portable   create a portable zipped application
+#  --innosetup  generate Windows setup execitable
+#  --dmg        generate a DMG image for Mac OS X
+#  --all        generate all OS compatible packages
 emanate [--portable | --innosetup | --dmg | --all]
 ```
 
-#### Building from Git branches
+#### Building from Kaspa Git branches
 
-`--branch` argument specifies common branch name for kaspad and kasparov, for example:
+`--branch` argument specifies common branch name for kaspa and kasparov, for example:
 ```
 emanate --branch=v0.4.0-dev 
 ```
-The branch for each repository can be overriden using `--branch-<repo-name>` arguments as follows:
+The branch for each repository can be overriden using `--branch-<repo-name>=<branch-name>` arguments as follows:
 ```
-emanate --branch=v0.4.0-dev --kaspad-branch=v0.3.0-dev
-emanate --miningsimulator-branch=v0.1.2-dev
+emanate --branch=v0.4.0-dev --branch-kaspad=v0.3.0-dev
+emanate --branch-miningsimulator=v0.1.2-dev
 ```
