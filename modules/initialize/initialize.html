@@ -52,16 +52,20 @@
 			value="~/.kdx/data"></flow-folder-input>
 		<div slot="input" class="slot-block">
 			<flow-btn class="reset-data-dir">Reset</flow-btn>
-		</div>
-		
-		<h4 slot="info" class="title">Where does it come from?</h4>
-		<p slot="info">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-	</flow-form-control>
-	<flow-form-control icon="-">
-		<div slot="input" class="tools">
 			<flow-btn class="save-config" primary>Save</flow-btn>
 		</div>
+		
+		<h4 slot="info" class="title"><flow-i18n>Data Folder</flow-i18n></h4>
+			<p slot="info" is="i18n-p">
+				Data Folder location is used for storage by all KDX modules. 
+				In default configuration this includes Kaspad blockchain data and Kasparov API database.
+				This location also contains process log files.
+			</p>
 	</flow-form-control>
+	<!-- flow-form-control icon="-">
+		<div slot="input" class="tools">
+		</div>
+	</flow-form-control -->
 
 	<script type="module" src="/modules/initialize/initialize.js"></script>
 </body>

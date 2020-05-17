@@ -307,7 +307,6 @@ class Controller{
 	initTaskTab(task){
 		const advanced = document.querySelector('#settings-advanced').checked;
 		const {key, name} = task;
-
 		const {caption} = this;
 		let tab = caption.tabs.find(t=>t.id == key);
 		//console.log("tab", tab, key, name)
