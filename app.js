@@ -120,6 +120,11 @@ class App extends FlowApp{
 		this.setConfig(this.config);
 	}
 
+	setBuildType(build) {
+		this.config.build = build;
+		this.setConfig(this.config);
+	}
+
 	getModulesConfig(defaults={}){
 		return this.config.modules || {};
 	}

@@ -80,6 +80,13 @@ class NWApp extends App{
 			this.setRunInBG(runInBG);
 		});
 
+		rpc.on("set-build-type", (args)=>{
+			let {build} = args;
+			if(build == undefined)
+				return
+			this.setBuildType(build);
+		});
+
 		rpc.on("set-modules-config", (args, callback)=>{
 			let {config} = args;
 			if(!config)

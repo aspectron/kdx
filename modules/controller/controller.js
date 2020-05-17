@@ -139,6 +139,10 @@ class Controller{
 		this.runInBG = !!runInBG;
 		this.post("set-run-in-bg", {runInBG});
 	}
+	setBuildType(build){
+		this.buildType = build;
+		this.post("set-build-type", {build});
+	}
 	setTheme(theme){
 		this.theme = theme;
 		if(this.caption)
@@ -303,6 +307,7 @@ class Controller{
 		invertTermInput.checked = !!config.invertTerminals;
 		runInBGInput.checked = !!config.runInBG;
 		this.runInBG = runInBGInput.checked;
+		this.buildType = config.build || 'generic';
 	}
 	initTaskTab(task){
 		const advanced = document.querySelector('#settings-advanced').checked;
