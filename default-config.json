@@ -16,25 +16,25 @@
 			}
 		},
 		"simulator:sim0" : {
-			"peers":["127.0.0.1:16310"]
+			"peers":["127.0.0.1:16210"]
 		},
 		"pgsql:db0" : {
 			"port": 18787
 		},
 
-		"__mqtt:mq0" : {
-			"port": 1833
+		"mqtt:mq0" : {
+			"port": 11833
 		},
 		"kasparovsyncd:kvsd0" : {
 			"args":{
-				"rpcserver":"localhost:16310",
+				"rpcserver":"localhost:16210",
 				"dbaddress":"localhost:18787"
 			}
 		},
 		"kasparovd:kvd0" : {
 			"args":{
 				"listen":"localhost:1234",
-				"rpcserver":"localhost:16310",
+				"rpcserver":"localhost:16210",
 				"dbaddress":"localhost:18787"
 			}
 		}
