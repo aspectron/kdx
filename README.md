@@ -51,6 +51,82 @@ emanate --branch-miningsimulator=v0.1.2-dev
 
 **NOTE:** KDX `build` command in KDX console operates in the same manner and accepts `--branch...` arguments.
 
+## KDX Process Manager
+
+### Configuration
+
+KDX runtime configuration is declared using a JSON object.  KDX supports a number of built-in process types (all components of the Kaspa software stack) as well as external applications.
+
+Each instance of the process is declared using it's **type** (for example: `kaspad`) and a unique **identifier** (`kd0`).  Most process configuration objects support `args` property that allows
+passing arguments or configuration options directly to the process executable.  Depending on the process type, the configuration is passed via command line arguments (kasparov*) or configuration file (kaspad).
+
+Supported process types:
+- `kaspad` - Kaspa full node
+- `kasparovd` - Kasparov API Server
+- `kasparovsyncd` - Kasparov Sync Server
+- `mqtt` - Mosquitto MQTT Broker
+- `pgsql` - PostgreSQL Database
+- `simulator` - `miningsimulator` application
+- `app` - External application/plugin
+
+**NOTE:** For Kaspa, to specify multiple connection endpoints, you must use an array of addresses as follows: ` "args" : { "connect" : [ "peer-addr-port-a", "peer-addr-port-b", ...] }`
+
+#### Default Configuration File
+```js
+{
+	"kaspad:kd0": {
+		"args": {
+			"rpclisten": "0.0.0.0:16210",
+			"listen": "0.0.0.0:16211",
+			"profile": 7000,
+			"rpcuser": "user",
+			"rpcpass": "pass"
+		}
+	},
+	"kaspad:kd1": {
+		"args": {
+			"rpclisten": "0.0.0.0:16310",
+			"listen": "0.0.0.0:16311",
+			"profile": 7001,
+			"connect": "0.0.0.0:16211",
+			"rpcuser": "user",
+			"rpcpass": "pass"
+		}
+	},
+	"simulator:sim0": {
+        "blockdelay" : 2000,
+		"peers": [ "127.0.0.1:16310" ]
+	},
+	"pgsql:db0": {
+		"port": 18787
+	},
+	"mqtt:mq0": {
+		"port": 18792
+	},
+	"kasparovsyncd:kvsd0": {
+		"args": {
+			"rpcserver": "localhost:16310",
+			"dbaddress": "localhost:18787"
+		}
+	},
+	"kasparovd:kvd0": {
+		"args": {
+			"listen": "localhost:11224",
+			"rpcserver": "localhost:16310",
+			"dbaddress": "localhost:18787"
+		}
+	}
+}
+```
+
+### Data Storage
+
+KDX stores it's configuration file as `~/.kdx/config.json`.  Each configured process data is stored in `<datadir>/<process-type>-<process-identifier>` where `datadir` is a user-configurable location.  The default `datadir` location is `~/.kdx/data/`.  For example, `kaspad` process with identifier `kd0` will be stored in `~/.kdx/data/kaspad-kd0/` and it's logs in `~/.kdx/data/kaspad-kd0/logs/kaspad.log`
+
+### Kaspa Binaries
+
+KDX can run Kaspa from 2 locations - an integrated `bin` folder that is included with KDX redistributables and `~/.kdx/bin` folder that is created during the Kaspa build process. 
+
 ## KDX Console
 
 KDX Console provides following functionality:
@@ -59,3 +135,51 @@ KDX Console provides following functionality:
 - Kaspad RPC command execution
 - Use of test wallet app (KDX auto-configures kasparov address)
 - Rebuilding Kaspa software stack from within the console
+
+### Using Kaspad RPC
+
+Kaspad RPC can be accessed via KDX Console using the process identifier. For example:
+```
+$ kd0 help
+$ kd0 getinfo
+```
+Note that RPC methods are case insensitive.
+
+To supply RPC call arguments, you must supply and array of JSON-compliant values (numbers, double-quote-enclosed strings and 'true'/'false').  For example:
+```
+$ kd0 getblock "000000b22ce2fcea335cbaf5bc5e4911b0d4d43c1421415846509fc77ec643a7"
+{
+  "hash": "000000b22ce2fcea335cbaf5bc5e4911b0d4d43c1421415846509fc77ec643a7",
+  "confirmations": 83,
+  "size": 673,
+  "blueScore": 46241,
+  ...
+}
+```
+
+### Building Kaspa from KDX
+
+WARNING - these are experimental features that may not function correctly on all operating systems (but should be compatible with most).
+
+To build latest Kaspad binaries, switch to KDX console and run `build`:
+```
+$ build
+...
+```
+
+This will produce a `local` build in `~/.kdx/bin` and switch KDX into `local` build mode.  
+
+Build type can be `generic` (included with KDX redistributables) or `local` (build produced as a result of running KDX build process)
+
+You can check and switch build type using the `set` command:
+```
+$ set
+
+build type is 'local'
+
+use 'set <key> <value>' to change settings
+$ set build generic
+setting build type to 'generic'
+```
+
+**NOTE:** `build` command accepts same `--branch...` series of flags as the emanator build process described above.
