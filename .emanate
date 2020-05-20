@@ -1,5 +1,6 @@
 "use strict";
 
+const KASPA_DEFAULT_BRANCH = 'v0.4.0-dev';
 
 const E = new Emanator(__dirname, {
     type : 'NWJS+SDK',
@@ -41,7 +42,7 @@ E.task('kaspad', ['origin'], async (callback) => {
     if(E.flags.reset && fs.existsSync(dest))
         E.emptyDir(dest);
 
-    const branch = E.flags['branch'] || 'master';
+    const branch = E.flags['branch'] || KASPA_DEFAULT_BRANCH || 'master';
 
     const repos = { };
     repos.kaspa = ['kaspad','kasparov'];
@@ -60,7 +61,6 @@ E.task('kaspad', ['origin'], async (callback) => {
         }
     }
         
-
     // ---
 
     let targets = [
@@ -78,7 +78,6 @@ E.task('kaspad', ['origin'], async (callback) => {
             ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`)
         ];
     }
-
 
     let rename = {
     }
@@ -263,33 +262,8 @@ E.task('aptitude', null, async (callback) => {
 
 })
 
-E.task('docker',null, async () => {
-    if(E.PLATFORM != 'linux')
-        return;
 
-    E.manifest_read();
-
-
-    const rsafile = path.join(os.homedir(),'.ssh','id_rsa');
-    if(!fs.existsSync(rsafile)) {
-        E.log("ERROR - unable to locate".red.bold,rsafile.bold);
-        process.exit(1);
-    } else {
-        const rsa = fs.readFileSync(rsafile);//,'utf8');
-        const relay = ['no-cache'];
-        const args = ['-s','docker','build'].concat(relay.map(k=>E.flags[k]?`--${k}`:null)).filter(v=>v);
-        args.push('--build-arg',`SSH_PRIVATE_KEY=${rsa.toString('hex')}`);
-        args.push('-t',`khost:latest`,'.');
-        const ts0 = Date.now();
-        await E.utils.spawn('sudo', args, { cwd : __dirname, stdio: 'inherit' });
-        await E.utils.spawn('sudo',['docker','tag','khost:latest',`khost:${E.manifest.version}`], { cwd : __dirname, stdio: 'inherit' });
-        console.log('Docker build complete at',new Date());
-        const ts1 = Date.now();
-        console.log('Docker build took'.brightBlue,`${((ts1-ts0)/1000/60).toFixed(1)}`.brightWhite,'minutes'.brightBlue)
-    }
-})    
-
-if(E.flags['local-binaries']) {
+if(E.flags['local-binaries'] || E.flags['pgsql'] || E.flags['mqtt'] || E.flags['kaspa']) {
     E.BIN = path.join(E.appFolder,'bin',E.PLATFORM_ARCH);
     mkdirp.sync(E.BIN);
 }
@@ -302,6 +276,8 @@ else if(E.flags['pgsql'])
     E.run(['pgsql']);
 else if(E.flags['mqtt']) 
     E.run(['mqtt']);
+else if(E.flags['kaspa']) 
+    E.run(['kaspad']);
 else if(E.flags['local-binaries']) {
 
     
