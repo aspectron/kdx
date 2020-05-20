@@ -224,3 +224,7 @@ project > * { padding: 2px; }
 	font-size: 18px;
 	padding: 6px;
 }
+
+.application {
+	margin: 14px 0px 0px 8px;
+}

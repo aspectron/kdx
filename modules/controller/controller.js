@@ -1,6 +1,7 @@
 (window.navigator.plugins.namedItem('Native Client') !== null) 
 	&& nw.Window.get().showDevTools();
 const os = require("os");
+const fs = require("fs");
 const pkg = require("../../package");
 const FlowRPC = require("@aspectron/flow-rpc");
 const Manager = require("../../lib/manager.js");
@@ -222,7 +223,7 @@ class Controller{
 
 	async initSettings(){
 		const doc = document;
-		const qS = doc.querySelector.bind(doc);
+		const qS = this.qS = doc.querySelector.bind(doc);
 		let themeInput = qS("#settings-dark-theme");
 		let invertTermInput = qS("#settings-invert-terminal");
 		let runInBGInput = qS("#settings-run-in-bg");
@@ -391,11 +392,11 @@ class Controller{
 			return
 		}
 		let {config:daemons} = await this.get("set-modules-config", {config});
-
 		console.log("updatedConfig", daemons)
 		if(daemons)
 			this.restartDaemons(daemons);
 	}
+
 	onToolsClick(e){
 		let $target = $(e.target).closest("[data-action]");
 		let $tabContent = $target.closest("tab-content");
@@ -406,18 +407,34 @@ class Controller{
 
 		console.log("onToolsClick:TODO", action, key)
 	}
+
+	async getModuleConfig() {
+		let {config} = await this.get("get-modules-config");
+		return config && config.daemons;
+	}
+
 	async initDaemons(daemons){
 		if(!daemons){
 			let {config} = await this.get("get-modules-config");
 			if(!config)
 				return "Could Not load modules."
 			daemons = config;
-		}
 			
+		}
+		
+		this.showApps(daemons);
+		
 		console.log("initDaemons", daemons)
 		this.manager.start(daemons);
 	}
 	async restartDaemons(daemons){
+
+		if(!daemons) {
+			let {config} = await this.get("get-modules-config");
+			daemons = config.daemons;
+			console.log("restartDaemons - module config:", daemons);
+		}
+
 		try{
 			await this.manager.stop();
 			console.log("initDaemons....")
@@ -559,6 +576,30 @@ class Controller{
 	}
 	isDevMode() {
 	    return (window.navigator.plugins.namedItem('Native Client') !== null);
+	}
+	showApps(daemons) {
+
+		return;
+		
+		const { qS } = this;
+		let apps = qS("#applications");
+
+		const apps = Object.entries(daemons).map(([ident,v]) => {
+			if(/^app:/i.test(ident) && !v.disable) {
+				return { ident, ...v };
+			} else
+				return null;
+		}).filter(v=>v).map((app) => {
+			
+			let pkgFile = path.join(app.folder,'package.json');
+			let pkg = { name : app.folder, descr }
+			// fstat.readFileSync(app.folder)
+			
+			return `
+			
+			`;
+		})
+
 	}
 }
 
