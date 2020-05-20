@@ -107,6 +107,9 @@ Supported process types:
 		"args": {
 			"rpcserver": "localhost:16310",
 			"dbaddress": "localhost:18787"
+			"mqttaddress": "localhost:18792",
+			"mqttuser" : "user",
+			"mqttpass" : "pass"
 		}
 	},
 	"kasparovd:kvd0": {
