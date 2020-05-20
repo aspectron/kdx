@@ -27,7 +27,7 @@ class App extends FlowApp{
 	* initlize data folder
 	*/
 	async initDataFolder(){
-		if(typeof this.config.dataDir == 'undefined' && !('init' in flags)) // this.flags.init)
+		if(typeof this.config.dataDir == 'undefined' && !('init' in this.flags)) // this.flags.init)
 			return this.dataDirInitError();
 
 		let {init} = this.flags;
