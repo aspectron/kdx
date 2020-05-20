@@ -2,6 +2,7 @@
 	&& nw.Window.get().showDevTools();
 const os = require("os");
 const fs = require("fs");
+const path = require("path");
 const pkg = require("../../package");
 const FlowRPC = require("@aspectron/flow-rpc");
 const Manager = require("../../lib/manager.js");
@@ -579,26 +580,44 @@ class Controller{
 	}
 	showApps(daemons) {
 
-		return;
-		
 		const { qS } = this;
-		let apps = qS("#applications");
+		let appList = qS("#application-list");
 
-		const apps = Object.entries(daemons).map(([ident,v]) => {
+		let entries = Object.entries(daemons).map(([ident,v]) => {
 			if(/^app:/i.test(ident) && !v.disable) {
 				return { ident, ...v };
 			} else
 				return null;
 		}).filter(v=>v).map((app) => {
-			
+			let [,name] = app.ident.split(':');
+			name = name || '???';
 			let pkgFile = path.join(app.folder,'package.json');
-			let pkg = { name : app.folder, descr }
-			// fstat.readFileSync(app.folder)
+			let pkg = { name, description : app.folder };
+			if(fs.existsSync(pkgFile)) {
+				try {
+					pkg = JSON.parse(fs.readFileSync(pkgFile,'utf8'));
+				} catch(ex) {
+					console.log(ex);
+				}
+			}
+			console.log("processing app:",app,pkg,pkgFile);
+
+			let uid = Math.round(Math.random()*0xffffff).toString(16);
 			
 			return `
-			
+				<flow-window-link
+					url="${app.location}"
+					id="${app.ident.replace(/\W/g,'-')}-${uid}"
+					title="${pkg.name}"
+					width="1024"
+					height="768"
+					resizable
+					frame				
+				>${pkg.description}</flow-window-link>
 			`;
-		})
+		});
+
+		appList.innerHTML = entries.join('');
 
 	}
 }
