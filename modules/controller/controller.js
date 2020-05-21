@@ -530,8 +530,16 @@ class Controller{
 
 			//this.setUiDisabled(true);
 			dpc(500, ()=>{
+
 				window.onbeforeunload = null;
 				win.close(true);
+
+				if(window.flow && window.flow['flow-window-link'].windows) {
+					window.flow['flow-window-link'].windows.forEach((win)=>{
+						try { win.close(); } catch(ex) {}
+					});
+				}
+
 			})
 		}
 
@@ -613,7 +621,7 @@ class Controller{
 					height="768"
 					resizable
 					frame				
-				>${pkg.description}</flow-window-link>
+				>${`${pkg.name.toUpperCase()} - ${pkg.description}`}</flow-window-link>
 			`;
 		});
 
