@@ -611,14 +611,15 @@ class Controller{
 			console.log("processing app:",app,pkg,pkgFile);
 
 			let uid = Math.round(Math.random()*0xffffff).toString(16);
-			
+			const width = app.width || 1024;
+			const height = app.height || 768;
 			return `
 				<flow-window-link
 					url="${app.location}"
 					id="${app.ident.replace(/\W/g,'-')}-${uid}"
 					title="${pkg.name}"
-					width="1024"
-					height="768"
+					width="${width}"
+					height="${height}"
 					resizable
 					frame				
 				>${`${pkg.name.toUpperCase()} - ${pkg.description}`}</flow-window-link>
