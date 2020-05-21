@@ -17,28 +17,35 @@
 				"connect": "0.0.0.0:16211"
 			}
 		},
-		"simulator:sim0" : {
-			"blockdelay" : 2000,
-			"peers":["127.0.0.1:16210"]
-		},
 		"pgsql:db0" : {
 			"port": 18787
 		},
 
 		"mqtt:mq0" : {
-			"port": 11833
+			"port": 18792
 		},
-		"kasparovsyncd:kvsd0" : {
+		"kasparovd:kvd0" : {
 			"args":{
+				"listen":"localhost:11224",
 				"rpcserver":"localhost:16210",
 				"dbaddress":"localhost:18787"
 			}
 		},
-		"kasparovd:kvd0" : {
+		"kasparovsyncd:kvsd0" : {
 			"args":{
-				"listen":"localhost:1234",
 				"rpcserver":"localhost:16210",
-				"dbaddress":"localhost:18787"
+				"dbaddress":"localhost:18787",
+				"mqttaddress": "localhost:18792",
+				"mqttuser" : "user",
+				"mqttpass" : "pass"
+				}
+		},
+		"kaspaminer:km0" : {
+			"args":{
+				"testnet" : null,
+				"rpcserver":"localhost:16210",
+				"block-delay" : 2000,
+				"mine-when-not-synced" : null
 			}
 		}
 	}
