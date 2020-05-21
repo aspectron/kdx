@@ -11,6 +11,7 @@ const request = require('request');
 const colors = require('colors');
 const ansi = require('ansi-escapes');
 
+const GO_VERSION_DEFAULT = 'go1.14.2';
 
 class Build {
     constructor() {
@@ -141,8 +142,8 @@ Where <flags> are:
                 this.log(gcc);
             }
 
+            const GO_VERSION = this.args.go || GO_VERSION_DEFAULT;
             try {
-                const GO_VERSION = this.args.go || 'go1.14.2';
                 if(this.PLATFORM == 'windows')
                     this.GOBIN = path.join(this.TOOLS,GO_VERSION,'bin','go'+this.PLATFORM_BINARY_EXTENSION);
                 else
@@ -157,7 +158,7 @@ Where <flags> are:
 
                     //const folder = this.TOO//path.join(this.TOOLS,
                     let url = `https://dl.google.com/go/${GO_VERSION}.${this.PLATFORM}-amd64.${ARCHIVE_EXTENSION}`;
-                    let file = path.join(this.CACHE,`${version}.${ARCHIVE_EXTENSION}`);
+                    let file = path.join(this.CACHE,`${GO_VERSION}.${ARCHIVE_EXTENSION}`);
                     let folder = path.join(this.CACHE,`go/${GO_VERSION}`);
                     mkdirp.sync(folder);
                     //this.log(`downloading: ${file}`);
@@ -225,15 +226,15 @@ Where <flags> are:
                 'kaspad',
                 'kasparov/kasparovd',
                 'kasparov/kasparovsyncd',
-                'kasparov/kasparovd/examples/wallet',
+                'kasparov/examples/wallet',
+                ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`)
             ];
         
             if(this.args['with-extras']) {
                 targets = [
                     ...targets,
-                    'miningsimulator',
-                    'txgen',
-                    ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`)
+                    // 'miningsimulator',
+                    'txgen',                    
                 ];
             }
         
