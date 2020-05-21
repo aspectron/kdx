@@ -32,6 +32,10 @@ const npm = await E.tools.npm();
 
 //mkdirp.sync(path.join(E.appFolder,'setup'));
 
+if(E.flags.full || E.flags.all) {
+    E.flags['with-dagviz'] = true;
+}
+
 E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
 
     const config = {
@@ -39,12 +43,11 @@ E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
             "disable": false,
             "folder": "c:/dev/daglabs/dagviz",
             "location": "http://localhost:8689",
+            "width" : 1600, 
+            "height" : 680,
             "args": [
-                "node",
-                "dagviz",
-                "--kdx",
-                "--no-auth",
-                "--port=8689",
+                "node", "dagviz",
+                "--kdx","--no-auth", "--port=8689",
                 "--kasparov=http://localhost:11224",
                 "--mqtt-address=mqtt://localhost:18792"
             ]
