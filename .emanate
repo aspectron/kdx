@@ -24,6 +24,7 @@ const E = new Emanator(__dirname, {
 const go = await E.tools.go('go1.13.4');
 const git = await E.tools.git();
 const gcc = await E.tools.gcc();
+const npm = await E.tools.npm();
 
 
 // E.BIN = path.join(E.appFolder,'bin',E.PLATFORM_ARCH);
@@ -31,7 +32,44 @@ const gcc = await E.tools.gcc();
 
 //mkdirp.sync(path.join(E.appFolder,'setup'));
 
-E.task('kaspad', ['origin'], async (callback) => {
+E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
+
+    const config = {
+        "app:dagviz": {
+            "disable": false,
+            "folder": "c:/dev/daglabs/dagviz",
+            "location": "http://localhost:8689",
+            "args": [
+                "node",
+                "dagviz",
+                "--kdx",
+                "--no-auth",
+                "--port=8689",
+                "--kasparov=http://localhost:11224",
+                "--mqtt-address=mqtt://localhost:18792"
+            ]
+        }
+    };
+
+    const dest = path.join(E.BUILD,'apps')
+    await git.clone('git@github.com:kaspanet/dagviz', dest, { branch : E.flags['dagviz-branch'] || 'master' });
+    await npm.install({ cwd : path.join(dest,'dagviz')});
+
+    const defaultConfigFile = path.join(E.BUILD,'default-config.json');
+    if(!fs.existsSync) {
+        E.log(`fatal - unable to locate: ${defaultConfigFile}`);
+        process.exit(1);
+    }
+
+    let dc = JSON.parse(fs.readFileSync(defaultConfigFile,'utf8'));
+    Object.assign(dc.modules, config);
+    fs.writeFileSync(defaultConfigFile,JSON.stringify(dc));
+
+    // TODO - REWRITE DEFAULT CONFIG FILE TO INCLUDE DAGVIZ CONFIGURATION
+});
+
+
+E.task('kaspad', ['origin'], async () => {
 
     //return true;
     if(E.PLATFORM == 'windows') {
@@ -43,7 +81,9 @@ E.task('kaspad', ['origin'], async (callback) => {
         E.emptyDir(dest);
 
     const branch = E.flags['branch'] || KASPA_DEFAULT_BRANCH || 'master';
-
+    
+    console.log('branch:',branch);
+    
     const repos = { };
     repos.kaspa = ['kaspad','kasparov'];
 
@@ -68,30 +108,32 @@ E.task('kaspad', ['origin'], async (callback) => {
         'kasparov/kasparovd',
         'kasparov/kasparovsyncd',
         'kasparov/examples/wallet',
+        ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`),
     ];
 
     if(E.flags['with-extras']) {
         targets = [
             ...targets,
-            'miningsimulator',
+            // 'miningsimulator',
             'txgen',
-            ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`)
         ];
     }
 
     let rename = {
     }
-    
+    console.log('Starting target processing...')
     //let jobs = []
     let folders = []
 
     for(let target of targets) {
         let folder = path.join(dest,target);
+        console.log('builing',folder);
         await go.build(folder);
+        console.log('done',folder);
         folders.push(folder);
         //jobs.push(go.build(folder));
     }
-
+console.log('done - 1');
     //await Promise.all(jobs);
 
     folders.forEach((folder) => {
@@ -114,7 +156,7 @@ E.task('kaspad', ['origin'], async (callback) => {
     E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
 })
 
-0 && E.task('mysql', ['origin'], async (callback) => {
+0 && E.task('mysql', ['origin'], async () => {
 
     // disabling MySQL for now
     // return Promise.resolve();
@@ -140,7 +182,7 @@ E.task('kaspad', ['origin'], async (callback) => {
 
     let file = path.join(E.DEPS,mysql);
     await E.download(`https://dev.mysql.com/get/Downloads/MySQL-8.0/${mysql}`,file);
-    await E.unzip(file, E.DEPS);//, callback);
+    await E.unzip(file, E.DEPS);//, );
     let basename = path.basename(mysql).replace(/\.(zip|tar|tar.gz|tar.xz)$/,'');
 
     const targetBinFolder = path.join(E.BIN,basename);
@@ -165,7 +207,7 @@ E.task('kaspad', ['origin'], async (callback) => {
 
 })
 
-E.task('pgsql', ['origin'], async (callback) => {
+E.task('pgsql', ['origin'], async () => {
     console.log("PGSQL",E.BIN)
     if(E.PLATFORM == 'linux')
         return Promise.resolve();
@@ -230,7 +272,7 @@ E.task('pgsql', ['origin'], async (callback) => {
     E.log('done...');
 })
 
-E.task('remote', ['origin'], async (callback) => {
+E.task('remote', ['origin'], async () => {
     let files = (E.manifest.files||[]).map(f=>{
         return E.copy(path.join(E.REPO,f), path.join(E.BUILD, f));
     })
@@ -251,7 +293,7 @@ E.task('done', ['pgsql','kaspad','remote','mqtt'], async () => {
 })
 
 
-E.task('aptitude', null, async (callback) => {
+E.task('aptitude', null, async () => {
 
     if(E.PLATFORM != 'linux')
         return;
