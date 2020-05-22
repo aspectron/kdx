@@ -21,7 +21,7 @@ const E = new Emanator(__dirname, {
     resources : 'resources/setup'
 })
 
-const go = await E.tools.go('go1.13.4');
+const go = await E.tools.go('go1.14.3');
 const git = await E.tools.git();
 const gcc = await E.tools.gcc();
 
@@ -104,7 +104,7 @@ E.task('kaspad', ['origin'], async (callback) => {
         if(!fs.existsSync(path.join(folder,file))) {
             console.log(`Unable to locate source file: ${path.join(folder,file)}`);
             console.log(`...giving up`);
-            prcess.exit(1);
+            process.exit(1);
         }
 
         E.copy(path.join(folder,file),path.join(E.BIN,dest));
