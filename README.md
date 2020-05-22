@@ -37,7 +37,20 @@ cd kdx
 emanate [--portable | --innosetup | --dmg | --all]
 ```
 
-#### Building from Kaspa Git branches
+#### Running KDX from development environment
+
+
+In addition to Node.js, please download and install [Latest NWJS SDK https://nwjs.io](https://nwjs.io/) - make sure that `nw` executable is available in the system PATH and that you can run `nw` from command line.
+
+```
+npm install emanator@latest
+git clone git@github.com:aspectron/kdx
+cd kdx
+emanate --local-binaries
+nw .
+```
+
+#### Building installers from specific Kaspa Git branches
 
 `--branch` argument specifies common branch name for kaspa and kasparov, for example:
 ```
@@ -50,6 +63,9 @@ emanate --branch-miningsimulator=v0.1.2-dev
 ```
 
 **NOTE:** KDX `build` command in KDX console operates in the same manner and accepts `--branch...` arguments.
+
+
+
 
 ## KDX Process Manager
 
@@ -160,7 +176,7 @@ $ kd0 getblock "000000b22ce2fcea335cbaf5bc5e4911b0d4d43c1421415846509fc77ec643a7
 }
 ```
 
-### Building Kaspa from KDX
+### Building Kaspa in KDX Console
 
 WARNING - these are experimental features that may not function correctly on all operating systems (but should be compatible with most).
 
