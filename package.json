@@ -18,7 +18,8 @@
     "resources/setup",
     "resources/tpl",
     "resources/rpc.js",
-    "i18n.data"
+    "i18n.data",
+    "default-config.json"
   ],
   "dependencies": {
     "@aspectron/flow-app": "latest",

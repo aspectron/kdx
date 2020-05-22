@@ -1,14 +1,32 @@
 const App = require("./app");
 const path = require("path");
+const fse = require("fs-extra");
+const os = require("os");
+const utils = require("./lib/utils");
 
 class NodeApp extends App{
 	constructor(options={}){
 		super(options);
+		this.args = utils.args();
 	}
 
-	main() {
+	async main() {
 		if(!this.dataFolder)
 			return Promise.resolve();
+
+		if(this.args.purge) {
+			try {
+				console.log('purging'.brightMagenta,this.dataFolder.brightWhite);
+				await fse.remove(this.dataFolder);
+				await fse.remove(path.join(os.homedir(),'.kdx'));
+				console.log('done'.brightGreen);
+				process.exit(0);
+			} catch(err) {
+				console.log(err.toString().brightRed);
+				process.exit(0);
+			}
+			return;
+		}
 
 		const KaspaProcessManager = require(path.join(this.appFolder, "lib/manager.js"));
 		this.manager = new KaspaProcessManager(null, this.dataFolder, this.appFolder);

@@ -102,7 +102,7 @@ class App extends FlowApp{
 		let rpcpass = this.randomBytes();
 		Object.entries(config.modules).forEach(([k,v]) => {
 			const type = k.split(':').shift();
-			if(['kaspad','kasparovd','kasparovsyncd'].includes(type)) {
+			if(['kaspad','kasparovd','kasparovsyncd','kaspaminer'].includes(type)) {
 				v.args.rpcuser = rpcuser;
 				v.args.rpcpass = rpcpass;
 			}
