@@ -24,6 +24,8 @@ body{
 	--flow-link-color:  rgba(0,150,136,1);
 	--flow-link-hover-color:  rgb(0, 105, 95);
 
+	--flow-data-field-graph-fill:  rgb(0, 105, 95, 0.15);
+	--flow-data-field-graph-stroke:  rgb(0, 105, 95, 0.5);
 }
 
 body.flow-theme-dark{
@@ -193,6 +195,11 @@ body.disable:after{z-index:100000;opacity:1;}
 
 .task-info{
 	width:fit-content;
+	
+	/*display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	*/
 	/*border:1px solid var(--flow-primary-color);*/
 	cursor:default;
 	font-size:.9rem;
