@@ -231,7 +231,7 @@ class Controller{
 		let scriptHolder = qS('#settings-script');
 		let advancedInput = qS('#settings-advanced');
 		advancedInput.addEventListener('changed', (e)=>{
-			let advanced = e.detail.checked;
+			let advanced = this.advanced = e.detail.checked;
 			let index = this.caption.tabs.forEach((t, index)=>{
 				if(t.section == 'advanced'){
 					this.caption.set(`tabs.${index}.disable`, !advanced)
