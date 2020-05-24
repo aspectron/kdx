@@ -226,6 +226,7 @@ class Controller{
 	async initSettings(){
 		const doc = document;
 		const qS = this.qS = doc.querySelector.bind(doc);
+		const qSA = this.qSA = doc.querySelectorAll.bind(doc);
 		let themeInput = qS("#settings-dark-theme");
 		let invertTermInput = qS("#settings-invert-terminal");
 		let runInBGInput = qS("#settings-run-in-bg");
