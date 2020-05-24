@@ -25,7 +25,9 @@ body{
 	--flow-link-hover-color:  rgb(0, 105, 95);
 
 	--flow-data-field-graph-fill:  rgb(0, 105, 95, 0.15);
-	--flow-data-field-graph-stroke:  rgb(0, 105, 95, 0.85);
+	--flow-data-field-graph-stroke:  rgba(0, 105, 95, 1.0);
+	--flow-data-field-graph-stroke-width: 1px;
+	--flow-data-field-graph-stroke-opacity: 0.3;
 /*
 	--flow-data-field-graph-fill:  rgb(0, 105, 95, 0.15);
 	--flow-data-field-graph-stroke:  rgb(0, 105, 95, 0.5);
@@ -38,6 +40,13 @@ body.flow-theme-dark{
 
 	--flow-data-field-caption: #fff;
     --flow-data-field-caption-shawod: rgba(0,151,115,1.0);
+
+
+	--flow-data-field-graph-fill:  rgb(0, 105, 95, 0.5);
+	--flow-data-field-graph-stroke:  rgb(1, 138, 124);
+	--flow-data-field-graph-stroke-width: 1px;
+	--flow-data-field-graph-stroke-opacity: 0.75;
+
 }
 
 *[caption] {
