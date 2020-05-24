@@ -124,6 +124,7 @@ class Controller{
 	}
 	async initConsole() {
 		this.console = new Console(this, document.getElementById('kdx-console'));
+
 		return Promise.resolve();
 	}
 	async initTheme(){
@@ -360,9 +361,10 @@ class Controller{
 			// tabContent.querySelector(".tools").addEventListener('click', e=>{
 			// 	this.onToolsClick(e);
 			// });
+			document.body.appendChild(tabContent);
 			this.taskTabs[key] = tabContent;
 			this.taskTerminals[key] = tabContent.querySelector("flow-terminal");
-			document.body.appendChild(tabContent);
+			this.taskTerminals[key].registerLinkHandler(this.handleBrowserLink);
 		}
 		
 
@@ -589,6 +591,7 @@ class Controller{
 	showApps(daemons) {
 
 		const { qS } = this;
+		let apps = qS("#applications");
 		let appList = qS("#application-list");
 
 		let entries = Object.entries(daemons).map(([ident,v]) => {
@@ -628,6 +631,17 @@ class Controller{
 
 		appList.innerHTML = entries.join('');
 
+		apps.style.display = entries.length ? 'flex' : 'none';
+
+	}
+
+
+	getBinaryFolder(){
+		return path.join(this.appFolder, 'bin', utils.platform);
+	}
+
+	handleBrowserLink(event, href) {
+		require('nw.gui').Shell.openExternal(href);
 	}
 }
 
