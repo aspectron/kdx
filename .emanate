@@ -41,12 +41,12 @@ E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
     const config = {
         "app:dagviz": {
             "disable": false,
-            "folder": "c:/dev/daglabs/dagviz",
+            "folder": "$APPS/dagviz",
             "location": "http://localhost:8689",
             "width" : 1600, 
             "height" : 680,
             "args": [
-                "node", "dagviz",
+                "$node", "dagviz",
                 "--kdx","--no-auth", "--port=8689",
                 "--kasparov=http://localhost:11224",
                 "--mqtt-address=mqtt://localhost:18792"
@@ -55,8 +55,17 @@ E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
     };
 
     const dest = path.join(E.BUILD,'apps')
+    const dagvizFolder = path.join(dest,'dagviz');
     await git.clone('git@github.com:kaspanet/dagviz', dest, { branch : E.flags['dagviz-branch'] || 'master' });
-    await npm.install({ cwd : path.join(dest,'dagviz')});
+    await npm.install({ cwd : dagvizFolder});
+
+    // sine dagviz carries a lot of modules already included with kdx
+    // scan for duplicates and remove them from dagviz as require() will
+    // scan parent folders (kdx) for node_module
+    let dagvizModules = fs.readdirSync(path.join(dagvizFolder,'node_modules'));
+    let kdxModules = fs.readdirSync(E.BUILD,'node_modules');
+    let duplicates = dagvizModules.filter(f => kdxModules.includes(f) && !/^\.\.?$/.test(f));
+    duplicates.forEach(f => E.remove(path.join(dagvizFolder,'node_modules',f)));
 
     const defaultConfigFile = path.join(E.BUILD,'default-config.json');
     if(!fs.existsSync) {
@@ -64,11 +73,10 @@ E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
         process.exit(1);
     }
 
+    // rewrite default kdx config to include dagviz configuration
     let dc = JSON.parse(fs.readFileSync(defaultConfigFile,'utf8'));
     Object.assign(dc.modules, config);
     fs.writeFileSync(defaultConfigFile,JSON.stringify(dc));
-
-    // TODO - REWRITE DEFAULT CONFIG FILE TO INCLUDE DAGVIZ CONFIGURATION
 });
 
 
@@ -281,6 +289,8 @@ E.task('remote', ['origin'], async () => {
     })
     E.log(`copying ${files.length} items...`);
     await Promise.all(files);
+
+    fs.writeFileSync(path.join(E.BUILD,'i18n.lock'));
     // console.log(`done...`);
 })
 
