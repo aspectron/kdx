@@ -15,8 +15,8 @@ body{
 	--flow-tab-font-size:1.5rem;
 	--flow-link-color:rgba(0, 150, 136, 1);
     --flow-link-hover-color:rgba(0,121,85,1.0);
-	--flow-data-field-caption: #000;
-    --flow-data-field-caption-shadow: rgba(0,151,115,1.0);
+	--flow-data-badge-caption: #000;
+    --flow-data-badge-caption-shadow: rgba(0,151,115,1.0);
 
 	opacity:1;
 	transition:opacity 0.5s ease;
@@ -24,13 +24,13 @@ body{
 	--flow-link-color:  rgba(0,150,136,1);
 	--flow-link-hover-color:  rgb(0, 105, 95);
 
-	--flow-data-field-graph-fill:  rgb(0, 105, 95, 0.15);
-	--flow-data-field-graph-stroke:  rgba(0, 105, 95, 1.0);
-	--flow-data-field-graph-stroke-width: 1px;
-	--flow-data-field-graph-stroke-opacity: 0.3;
+	--flow-data-badge-graph-fill:  rgb(0, 105, 95, 0.15);
+	--flow-data-badge-graph-stroke:  rgba(0, 105, 95, 1.0);
+	--flow-data-badge-graph-stroke-width: 1px;
+	--flow-data-badge-graph-stroke-opacity: 0.3;
 /*
-	--flow-data-field-graph-fill:  rgb(0, 105, 95, 0.15);
-	--flow-data-field-graph-stroke:  rgb(0, 105, 95, 0.5);
+	--flow-data-badge-graph-fill:  rgb(0, 105, 95, 0.15);
+	--flow-data-badge-graph-stroke:  rgb(0, 105, 95, 0.5);
 */
 }
 
@@ -38,14 +38,14 @@ body.flow-theme-dark{
 	--flow-primary-color:  rgba(0,150,136,1);
 	--flow-border-color:  rgba(0,150,136,1);
 
-	--flow-data-field-caption: #fff;
-    --flow-data-field-caption-shawod: rgba(0,151,115,1.0);
+	--flow-data-badge-caption: #fff;
+    --flow-data-badge-caption-shawod: rgba(0,151,115,1.0);
 
 
-	--flow-data-field-graph-fill:  rgb(0, 105, 95, 0.5);
-	--flow-data-field-graph-stroke:  rgb(1, 138, 124);
-	--flow-data-field-graph-stroke-width: 1px;
-	--flow-data-field-graph-stroke-opacity: 0.75;
+	--flow-data-badge-graph-fill:  rgb(0, 105, 95, 0.5);
+	--flow-data-badge-graph-stroke:  rgb(1, 138, 124);
+	--flow-data-badge-graph-stroke-width: 1px;
+	--flow-data-badge-graph-stroke-opacity: 0.75;
 
 }
 
@@ -249,3 +249,6 @@ project > * { padding: 2px; }
 	margin: 14px 0px 0px 8px;
 }
 
+.uptime {
+	min-width: 120px;
+}
