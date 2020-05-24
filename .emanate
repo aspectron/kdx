@@ -295,9 +295,12 @@ E.task('remote', ['origin'], async () => {
 })
 
 E.task('mqtt',['origin'], async () => {
+    E.log('setting up mqtt...');
     if(E.PLATFORM == 'windows') {
         E.registerFirewallRule({ name : 'KDX MQTT', file : 'mosquitto/mosquitto.exe', binary : true });
         return E.copy(path.join(E.REPO,'resources','deps','mosquitto-windows-x64'),path.join(E.BIN,'mosquitto'));
+    } else if(E.PLATFORM == 'darwin') {
+        return E.copy(path.join(E.REPO,'resources','deps','mosquitto-darwin-x64'),path.join(E.BIN,'mosquitto'));
     }
 })
 
