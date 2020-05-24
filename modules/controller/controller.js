@@ -364,7 +364,9 @@ class Controller{
 			document.body.appendChild(tabContent);
 			this.taskTabs[key] = tabContent;
 			this.taskTerminals[key] = tabContent.querySelector("flow-terminal");
-			this.taskTerminals[key].registerLinkHandler(this.handleBrowserLink);
+			dpc(512, () => {
+				this.taskTerminals[key].registerLinkHandler?.(this.handleBrowserLink);
+			})
 		}
 		
 
