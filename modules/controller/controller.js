@@ -618,10 +618,13 @@ class Controller{
 			let uid = Math.round(Math.random()*0xffffff).toString(16);
 			const width = app.width || 1024;
 			const height = app.height || 768;
+			let key = app.ident.replace(/\W/g,'-');
 			return `
 				<flow-window-link
+					disabled
 					url="${app.location}"
-					id="${app.ident.replace(/\W/g,'-')}-${uid}"
+					id="${key}-${uid}"
+					appid="${key}"
 					title="${pkg.name}"
 					width="${width}"
 					height="${height}"
