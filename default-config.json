@@ -2,7 +2,6 @@
 	"modules":{
 		"kaspad:kd0" : {
 			"reset-peers" : false,
-			"monitor-storage" : true,
 			"args":{
 				"rpclisten" : "0.0.0.0:16210",
 				"listen": "0.0.0.0:16211",
@@ -11,7 +10,6 @@
 		},
 		"kaspad:kd1" : {
 			"reset-peers" : false,
-			"monitor-storage" : true,
 			"args":{
 				"rpclisten":"0.0.0.0:16310",
 				"listen": "0.0.0.0:16311",
@@ -20,7 +18,6 @@
 			}
 		},
 		"pgsql:db0" : {
-			"monitor-storage" : true,
 			"port": 18787
 		},
 
