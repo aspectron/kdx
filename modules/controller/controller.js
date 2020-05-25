@@ -603,10 +603,14 @@ class Controller{
 			} else
 				return null;
 		}).filter(v=>v).map((app) => {
+			Object.entries(app).forEach(([k,v]) => {
+				if(typeof v == 'string')
+					return app[k] = this.manager.resolveStrings(v);
+			})
 			let [,name] = app.ident.split(':');
-			name = name || '???';
+			name = name || app.name || '???';
 			let pkgFile = path.join(app.folder,'package.json');
-			let pkg = { name, description : app.folder };
+			let pkg = { name, description : app.descr || app.description || app.folder };
 			if(fs.existsSync(pkgFile)) {
 				try {
 					pkg = JSON.parse(fs.readFileSync(pkgFile,'utf8'));
@@ -620,9 +624,12 @@ class Controller{
 			const width = app.width || 1024;
 			const height = app.height || 768;
 			let key = app.ident.replace(/\W/g,'-');
+			let disabled = '';
+			if(!/\.html$/.test(app.location))
+				disabled = true;
 			return `
 				<flow-window-link
-					disabled
+					${disabled}
 					url="${app.location}"
 					id="${key}-${uid}"
 					appid="${key}"
@@ -630,9 +637,10 @@ class Controller{
 					width="${width}"
 					height="${height}"
 					resizable
-					frame				
-				>${`${pkg.name.toUpperCase()} - ${pkg.description}`}</flow-window-link>
-			`;
+					frame
+					>${`${pkg.name.toUpperCase()} - ${pkg.description}`}</flow-window-link>
+					`;
+					//new_instance
 		});
 
 		appList.innerHTML = entries.join('');
