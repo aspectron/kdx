@@ -226,6 +226,7 @@ class Controller{
 	async initSettings(){
 		const doc = document;
 		const qS = this.qS = doc.querySelector.bind(doc);
+		const qSA = this.qSA = doc.querySelectorAll.bind(doc);
 		let themeInput = qS("#settings-dark-theme");
 		let invertTermInput = qS("#settings-invert-terminal");
 		let runInBGInput = qS("#settings-run-in-bg");
@@ -618,10 +619,13 @@ class Controller{
 			let uid = Math.round(Math.random()*0xffffff).toString(16);
 			const width = app.width || 1024;
 			const height = app.height || 768;
+			let key = app.ident.replace(/\W/g,'-');
 			return `
 				<flow-window-link
+					disabled
 					url="${app.location}"
-					id="${app.ident.replace(/\W/g,'-')}-${uid}"
+					id="${key}-${uid}"
+					appid="${key}"
 					title="${pkg.name}"
 					width="${width}"
 					height="${height}"
