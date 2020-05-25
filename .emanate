@@ -3,7 +3,7 @@
 const KASPA_DEFAULT_BRANCH = 'v0.4.0-dev';
 
 const E = new Emanator(__dirname, {
-    type : 'NWJS+SDK',
+    type : 'NODE+NWJS',
     guid : 'c1072045-6d98-44d8-9aa5-e9be6c79bd01',
     group : 'Kaspa',
     ident : 'kdx',
