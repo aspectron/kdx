@@ -23,6 +23,7 @@
   ],
   "dependencies": {
     "@aspectron/flow-app": "latest",
+    "@aspectron/flow-async": "latest",
     "@aspectron/flow-ux": "latest",
     "@aspectron/flow-rpc": "latest",
     "@aspectron/flow-utils": "latest",
