@@ -9,3 +9,4 @@ __info.txt
 setup
 build/.build
 i18n.entries
+.DS_Store
