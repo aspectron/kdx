@@ -1,15 +1,36 @@
+const WebSocket = require('ws');
 const os = require('os');
-const { snapshot } = require('process-list');
+const ifaces = {
+    winCPU : null,
+    snapshot : null,
+    pslist : null,
+}
 
-let winCPU = null;
-if(os.platform() == 'win32') {
+const platform = os.platform();
+if(platform == 'win32') {
     try {
-        winCPU = require("windows-cpu");
-        if(!winCPU.isSupported())
-            winCPU = null;
+        ifaces.winCPU = require("windows-cpu");
+        if(!ifaces.winCPU.isSupported())
+            ifaces.winCPU = null;
     }
     catch(ex) {
-        winCPU = null;
+        ifaces.winCPU = null;
+    }
+}
+
+try {
+    ifaces.snapshot = require('process-list').snapshot;
+} catch(ex) {
+    ifaces.snapshot = null;
+    console.log('snapshot: not available')
+}
+
+if(platform == 'darwin') {
+    try {
+        ifaces.pslist = require('./ps-list');
+    } catch(ex) {
+        ifaces.pslist = null;
+        console.log('pslist: not available')
     }
 }
 
@@ -42,8 +63,38 @@ class ProcessMonitor {
         //     'utime',
         //     'stime'
         // ];        
+
+        this.websockets = [];
+        this.wss = new WebSocket.Server({ port: 8080 });
+        let sid_ = 0;
+        this.wss.on('connection', (ws) => {
+            const sid = sid_++;
+            this.websockets.push({sid,ws});
+            console.log(`websocket connection ${sid}`);
+            // ws.on('message', (message) => {
+            //     console.log('received: %s', message);
+            // });
+
+            // ws.send('something');
+            // });
+
+            ws.on('close', () => {
+                console.log("disconnected");
+                this.websockets = this.websockets.filter(ws => ws.sid != sid);
+            })
+        })
     }
 
+    bbcast(json) {
+        if(typeof json != 'string')
+            json = JSON.stringify(json);
+        this.websockets.forEach((ws) => {
+            if(client.readyState === WebSocket.OPEN) {
+                client.send(json);
+            }
+        })
+    }
+    
     system() {
         return new Promise((resolve,reject) => {
             let data = {
@@ -53,8 +104,8 @@ class ProcessMonitor {
                 }
             }
 
-            if(winCPU) {
-                winCPU.totalLoad().then((results) =>{
+            if(ifaces.winCPU) {
+                ifaces.winCPU.totalLoad().then((results) =>{
                     let avg = _.reduce(results, function(m,n) { return m+n; }) / results.length;
                     data.loadavg = {
                         '1m' : avg,
@@ -86,16 +137,33 @@ class ProcessMonitor {
         })
     }
 
-    procs() {
-        return new Promise((resolve) => {
-    		let procs = null;
+    snapshot() {
+        if(!ifaces.snapshot)
+            return Promise.resolve();
+        return new Promise(async (resolve) => {
+    		let procs = undefined;
     		try {
-                procs = await snapshot(...this.SNAPSHOT_CAPTURE_PROPERTIES);
-                resolve(procs);
+                procs = await ifaces.snapshot(...this.SNAPSHOT_CAPTURE_PROPERTIES);
+                procs = this.filterInterest(procs,'cmdline');
     		} catch(ex) { 
-    			console.log(ex.toString());
-    			resolve();
+                console.log(ex.toString());
     		}
+            resolve(procs);
+        })
+    }
+
+    async pslist() {
+        if(!ifaces.pslist)
+            return Promise.resolve();
+        let list = await ifaces.pslist();
+        return this.filterInterest(list,'cmd');
+        
+    }
+
+    filterInterest(list, prop) {
+        return list.filter(proc => {
+            let t = proc[prop];
+            return /kaspa|postgres|mosquitto|dag|kdx|perfmon/ig.test(t);
         })
     }
 
@@ -106,12 +174,20 @@ class ProcessMonitor {
 
     async poll() {
 
+        let ts = Date.now();
+        console.log('poll',ts);
+
         const system = await this.system();
-        const procs = await this.procs();
-console.log(system,procs);
-        setInterval(()=>{
+        const snapshot = await this.snapshot();
+        const pslist = await this.pslist();
+
+//console.log(system,snapshot,pslist);
+console.log(pslist.filter(v=>v.memory > 0))
+        this.bbcast({system, snapshot, pslist});
+        console.log(`duration: ${Date.now()-ts} msec`);
+        setTimeout(()=>{
             this.poll();
-        },1e4)
+        },1.5*1e3);
     }
 }
 
