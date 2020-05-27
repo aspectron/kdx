@@ -600,7 +600,45 @@ class Controller{
 		let apps = qS("#applications");
 		let appList = qS("#application-list");
 
-		let entries = this.manager.apps.map((app_) => {
+
+		let cfgApps = Object.entries(daemons).map(([ident,v]) => {
+			if(/^app:/i.test(ident) && !v.disable) {
+				return { ident, ...v };
+			} else
+				return null;
+		}).filter(v=>v).map((app) => {
+			Object.entries(app).forEach(([k,v]) => {
+				if(typeof v == 'string')
+					return app[k] = this.manager.resolveStrings(v);
+			})
+			let [,name] = app.ident.split(':');
+			name = name || app.name || '???';
+			let pkgFile = path.join(app.folder,'package.json');
+			let pkg = { name, description : app.descr || app.description || app.folder };
+			if(fs.existsSync(pkgFile)) {
+				try {
+					pkg = JSON.parse(fs.readFileSync(pkgFile,'utf8'));
+				} catch(ex) {
+					console.log(ex);
+				}
+			}
+
+			return { name : pkg.name, description : pkg.description, folder : app.folder}
+		})
+
+
+		let appsMap = { }
+
+		this.manager.apps.forEach((app) => {
+			appsMap[app.name] = Object.assign({}, app, appsMap[app.name] || {});
+		})
+		cfgApps.forEach((app) => {
+			appsMap[app.name] = Object.assign({}, app, appsMap[app.name] || {});
+		});
+
+
+
+		let entries = Object.values(appsMap).map((app_) => {
 			let app = { }
 			Object.entries(app_).forEach(([k,v]) => {
 				if(typeof v == 'string')
@@ -628,14 +666,14 @@ class Controller{
 
 
 			let location = app.location;
-			if(!location && app.engines.kdx) {
+			if(!location && app.engines?.kdx) {
 				location = `apps/${app.folder}/${app.main}`;
 			}
 
 			let uid = Math.round(Math.random()*0xffffff).toString(16);
 			const width = app.width || 1024;
 			const height = app.height || 768;
-			let key = app.ident.replace(/\W/g,'-');
+			let key = ident.replace(/\W/g,'-');
 			let disabled = '';
 			if(!/\.html$/.test(app.location))
 				disabled = true;
@@ -645,12 +683,12 @@ class Controller{
 					url="${app.location}"
 					id="${key}-${uid}"
 					appid="${key}"
-					title="${pkg.name}"
+					title="${app.name}"
 					width="${width}"
 					height="${height}"
 					resizable
 					frame
-					>${`${pkg.name.toUpperCase()} - ${pkg.description}`}</flow-window-link>
+					>${`${app.name.toUpperCase()} - ${app.description}`}</flow-window-link>
 					`;
 					//new_instance
 		});
