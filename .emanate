@@ -18,7 +18,20 @@ const E = new Emanator(__dirname, {
     production: true,
     DMG: true,
     nwjs : { version : '0.45.4' },
-    resources : 'resources/setup'
+    resources : 'resources/setup',
+
+    manifest : (manifest) => {
+        if(flags['with-perfmon'] && !flags['no-perfmon']) {
+            if(E.PLATFORM != 'darwin') {
+                Object.assign(manifest.dependencies,{
+                    "process-list": "*",
+                })
+            }
+        }
+        return manifest;
+    },
+
+
 })
 
 const go = await E.tools.go('go1.14.3');
