@@ -53,11 +53,14 @@ class Controller{
 		rpc.on("enable-ui", (args)=>{
 			this.setUiDisabled(false)
 		});
+		rpc.on("alert", (args)=>{
+			alert('alert');
+		});	
 	}
 	async initI18n(){
 		window.addEventListener("flow-i18n-entries-changed", e=>{
 			let {entries} = e.detail;
-			console.log("entries", entries)
+			// console.log("entries", entries)
 			this.post("set-app-i18n-entries", {entries})
 		});
 		let {entries} = await this.get("get-app-i18n-entries");
@@ -597,16 +600,18 @@ class Controller{
 		let apps = qS("#applications");
 		let appList = qS("#application-list");
 
-		let entries = Object.entries(daemons).map(([ident,v]) => {
-			if(/^app:/i.test(ident) && !v.disable) {
-				return { ident, ...v };
-			} else
-				return null;
-		}).filter(v=>v).map((app) => {
-			Object.entries(app).forEach(([k,v]) => {
+		let entries = this.manager.apps.map((app_) => {
+			let app = { }
+			Object.entries(app_).forEach(([k,v]) => {
 				if(typeof v == 'string')
 					return app[k] = this.manager.resolveStrings(v);
+				else
+					app[k] = v;
 			})
+
+			let ident = `app:${app.name}`;
+
+			/*
 			let [,name] = app.ident.split(':');
 			name = name || app.name || '???';
 			let pkgFile = path.join(app.folder,'package.json');
@@ -619,6 +624,13 @@ class Controller{
 				}
 			}
 			console.log("processing app:",app,pkg,pkgFile);
+			*/
+
+
+			let location = app.location;
+			if(!location && app.engines.kdx) {
+				location = `apps/${app.folder}/${app.main}`;
+			}
 
 			let uid = Math.round(Math.random()*0xffffff).toString(16);
 			const width = app.width || 1024;
