@@ -148,6 +148,7 @@ class Controller{
 	setEnableMining(enableMining){
 		this.enableMining = !!enableMining;
 		this.post("set-enable-mining", {enableMining});
+		this.manager.setEnableMining(this.enableMining);
 	}
 	setBuildType(build){
 		this.buildType = build;
@@ -321,8 +322,13 @@ class Controller{
 		themeInput.checked = config.theme == 'dark';
 		invertTermInput.checked = !!config.invertTerminals;
 		runInBGInput.checked = !!config.runInBG;
+		enableMiningInput.checked = !!config.enableMining;
 		this.runInBG = runInBGInput.checked;
+		this.enableMining = enableMiningInput.checked;
 		this.buildType = config.build || 'generic';
+	
+		this.manager.enableMining = this.enableMining;
+		//this.manager.setEnableMining(this.enableMining);
 	}
 	initTaskTab(task){
 		const advanced = document.querySelector('#settings-advanced').checked;

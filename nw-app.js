@@ -84,7 +84,7 @@ class NWApp extends App{
 			let {enableMining} = args;
 			if(enableMining == undefined)
 				return
-			this.setEnableMining(enabbleMining);
+			this.setEnableMining(enableMining);
 		});
 
 		rpc.on("set-build-type", (args)=>{
