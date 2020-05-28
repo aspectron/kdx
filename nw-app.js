@@ -80,6 +80,13 @@ class NWApp extends App{
 			this.setRunInBG(runInBG);
 		});
 
+		rpc.on("set-enable-mining", (args)=>{
+			let {enableMining} = args;
+			if(enableMining == undefined)
+				return
+			this.setEnableMining(enabbleMining);
+		});
+
 		rpc.on("set-build-type", (args)=>{
 			let {build} = args;
 			if(build == undefined)

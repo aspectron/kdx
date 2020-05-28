@@ -107,7 +107,7 @@
 						['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
 						['PostgreSQL','PostgreSQL',`Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br/>Portions Copyright © 1994, The Regents of the University of California`],
 						['Mosquitto','EDL-V10 EPL-V10',`Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors`],
-						['Flow-ux','MIT',`Copyright (c) ASPECTRON Inc.`],
+						['Flow-UX Framework','MIT',`Copyright (c) ASPECTRON Inc.`],
 						['NWJS','MIT',`Copyright (c) 2015 四月橘林`],
 						['Chromium','BSD', `Copyright (c) The Chromium Authors`]
 
@@ -164,12 +164,35 @@
 			<flow-i18n caption>Service Control</flow-i18n>
 			<flow-checkbox id="settings-run-in-bg" class="block advanced-tool"
 				slot="input"><flow-i18n>Run in Background</flow-i18n></flow-checkbox>
-				<h4 slot="info" class="title"><flow-i18n>Background Execution</flow-i18n></h4>
-				<p slot="info" is="i18n-p">
-					When enabled, KDX runs itself and it's services hidden in the background
-					and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).
-				</p>
-			</flow-form-control>
+			<h4 slot="info" class="title"><flow-i18n>Background Execution</flow-i18n></h4>
+			<p slot="info" is="i18n-p">
+				When enabled, KDX runs itself and it's services hidden in the background
+				and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).
+			</p>
+
+		</flow-form-control>
+		<flow-form-control icon="fal:cog" class="advanced-tool">
+			<flow-i18n caption>Block Generation</flow-i18n>
+			<flow-checkbox id="settings-enable-mining" class="block advanced-tool"
+				slot="input"><flow-i18n>Enable Mining</flow-i18n></flow-checkbox>
+			<h4 slot="info" class="title"><flow-i18n>Enable Mining</flow-i18n></h4>
+			<p slot="info" is="i18n-p">
+				This option starts / stops all configured Kaspaminer
+			</p>
+			
+		</flow-form-control>
+		<!--
+		<flow-form-control icon="fal:cog" class="advanced-tool">
+			<flow-i18n caption>Metrics</flow-i18n>
+			<flow-checkbox id="settings-run-in-bg" class="block advanced-tool"
+				slot="input"><flow-i18n>Run in Background</flow-i18n></flow-checkbox>
+			<h4 slot="info" class="title"><flow-i18n>Background Execution</flow-i18n></h4>
+			<p slot="info" is="i18n-p">
+				When enabled, KDX runs itself and it's services hidden in the background
+				and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).
+			</p>
+		</flow-form-control>
+		-->
 		<flow-form-control id="settings-script" icon="fal:tasks">
 			<flow-i18n caption>Service Configuration</flow-i18n>
 			<div slot="input" class="settings-script">

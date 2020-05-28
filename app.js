@@ -119,6 +119,10 @@ class App extends FlowApp{
 		this.config.runInBG = !!runInBG;
 		this.setConfig(this.config);
 	}
+	setEnableMining(enableMining){
+		this.config.enableMining = !!enableMining;
+		this.setConfig(this.config);
+	}
 
 	setBuildType(build) {
 		this.config.build = build;

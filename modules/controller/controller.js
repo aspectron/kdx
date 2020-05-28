@@ -145,6 +145,10 @@ class Controller{
 		this.runInBG = !!runInBG;
 		this.post("set-run-in-bg", {runInBG});
 	}
+	setEnableMining(enableMining){
+		this.enableMining = !!enableMining;
+		this.post("set-enable-mining", {enableMining});
+	}
 	setBuildType(build){
 		this.buildType = build;
 		this.post("set-build-type", {build});
@@ -233,6 +237,7 @@ class Controller{
 		let themeInput = qS("#settings-dark-theme");
 		let invertTermInput = qS("#settings-invert-terminal");
 		let runInBGInput = qS("#settings-run-in-bg");
+		let enableMiningInput = qS("#settings-enable-mining");
 		let scriptHolder = qS('#settings-script');
 		let advancedInput = qS('#settings-advanced');
 		advancedInput.addEventListener('changed', (e)=>{
@@ -308,6 +313,9 @@ class Controller{
 		});
 		runInBGInput.addEventListener('changed', (e)=>{
 			this.setRunInBG(e.detail.checked);
+		});
+		enableMiningInput.addEventListener('changed', (e)=>{
+			this.setEnableMining(e.detail.checked);
 		});
 
 		themeInput.checked = config.theme == 'dark';
