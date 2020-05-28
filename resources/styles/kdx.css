@@ -252,3 +252,7 @@ project > * { padding: 2px; }
 .uptime {
 	min-width: 120px;
 }
+
+.cpu, .memory {
+	min-width: 160px;
+}
