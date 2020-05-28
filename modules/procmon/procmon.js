@@ -65,7 +65,7 @@ class ProcessMonitor {
         // ];        
 
         this.websockets = [];
-        this.wss = new WebSocket.Server({ port: 8080 });
+        this.wss = new WebSocket.Server({ port: 9119 });
         let sid_ = 0;
         this.wss.on('connection', (ws) => {
             const sid = sid_++;
@@ -88,9 +88,9 @@ class ProcessMonitor {
     bbcast(json) {
         if(typeof json != 'string')
             json = JSON.stringify(json);
-        this.websockets.forEach((ws) => {
-            if(client.readyState === WebSocket.OPEN) {
-                client.send(json);
+        this.websockets.forEach((client) => {
+            if(client.ws.readyState === WebSocket.OPEN) {
+                client.ws.send(json);
             }
         })
     }
@@ -163,7 +163,7 @@ class ProcessMonitor {
     filterInterest(list, prop) {
         return list.filter(proc => {
             let t = proc[prop];
-            return /kaspa|postgres|mosquitto|dag|kdx|perfmon/ig.test(t);
+            return /kaspa|postgres|mosquitto|dag|perfmon/ig.test(t);
         })
     }
 
@@ -175,16 +175,16 @@ class ProcessMonitor {
     async poll() {
 
         let ts = Date.now();
-        console.log('poll',ts);
+        //console.log('poll',ts);
 
         const system = await this.system();
         const snapshot = await this.snapshot();
         const pslist = await this.pslist();
 
-//console.log(system,snapshot,pslist);
-console.log(pslist.filter(v=>v.memory > 0))
+        //console.log(system,snapshot,pslist);
+        //console.log(pslist.filter(v=>v.memory > 0))
         this.bbcast({system, snapshot, pslist});
-        console.log(`duration: ${Date.now()-ts} msec`);
+        //console.log(`duration: ${Date.now()-ts} msec`);
         setTimeout(()=>{
             this.poll();
         },1.5*1e3);

@@ -680,7 +680,7 @@ class Controller{
 			return `
 				<flow-window-link
 					${disabled}
-					url="${app.location}"
+					url="${location}"
 					id="${key}-${uid}"
 					appid="${key}"
 					title="${app.name}"
