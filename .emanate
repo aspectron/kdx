@@ -24,7 +24,7 @@ const E = new Emanator(__dirname, {
         if(flags['with-perfmon'] && !flags['no-perfmon']) {
             if(E.PLATFORM != 'darwin') {
                 Object.assign(manifest.dependencies,{
-                    "process-list": "*",
+                    "@aspectron/process-list": "*",
                 })
             }
         }
