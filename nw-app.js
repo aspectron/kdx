@@ -1,6 +1,7 @@
 const App = require("./app.js");
 const fs = require("fs");
 const path = require("path");
+const { dpc } = require("@aspectron/flow-async");
 
 
 false && chrome.developerPrivate.openDevTools({
