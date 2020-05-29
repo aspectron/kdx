@@ -348,17 +348,19 @@ class Controller{
 				section:'advanced',
 				disable:!advanced,
 				render:()=>{
-					//console.log("renderTab:",task);
+					// console.log("renderTab:",task);
 
-					if(task?.impl?.renderTab)
-						return task.impl.renderTab(html, T);
+					const impl = this.manager.getTask(task.name)?.impl;
+					if(impl && impl.renderTab)
+						return impl.renderTab(html, T);
 
 					return html`
 						<div style="display:flex;flex-direction:row;">
-							<div style="font-size:18px;"><flow-i18n>${task.type}</flow-i18n></div>
+							<div style="font-size:18px;">${task.type}</div>
 							<div style="font-size:10px; margin-top:8px;">${task.id}</div>
 						</div>`;
 				}
+//				<div style="font-size:18px;"><flow-i18n>${task.type}</flow-i18n></div>
 			});
 		}
 		

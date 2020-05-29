@@ -253,6 +253,6 @@ project > * { padding: 2px; }
 	min-width: 120px;
 }
 
-.cpu, .memory {
+.cpu, .pmem, .vmem, .memory {
 	min-width: 160px;
 }

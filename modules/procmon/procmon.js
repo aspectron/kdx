@@ -19,7 +19,7 @@ if(platform == 'win32') {
 }
 
 try {
-    ifaces.snapshot = require('process-list').snapshot;
+    ifaces.snapshot = require('@aspectron/process-list').snapshot;
 } catch(ex) {
     ifaces.snapshot = null;
     console.log('snapshot: not available')
@@ -45,7 +45,7 @@ class ProcessMonitor {
             // 'priority',
             //'starttime',
             // ---------------
-            //'cmdline',
+            'cmdline',
             'pid',
             'threads',
             'vmem',
@@ -144,7 +144,10 @@ class ProcessMonitor {
     		let procs = undefined;
     		try {
                 procs = await ifaces.snapshot(...this.SNAPSHOT_CAPTURE_PROPERTIES);
-                procs = this.filterInterest(procs,'cmdline');
+                //console.log("procs:",procs.map(p=>p.cmdline).join('\n'));
+                console.log("procs:",procs);//.map(p=>p.cmdline).join('\n'));
+
+                procs = this.import_snapshot(procs);
     		} catch(ex) { 
                 console.log(ex.toString());
     		}
@@ -156,14 +159,30 @@ class ProcessMonitor {
         if(!ifaces.pslist)
             return Promise.resolve();
         let list = await ifaces.pslist();
-        return this.filterInterest(list,'cmd');
-        
+        return this.import_pslist(list);
     }
-
-    filterInterest(list, prop) {
-        return list.filter(proc => {
+    
+    filter(list, prop) {
+        list = list.filter(proc => {
             let t = proc[prop];
             return /kaspa|postgres|mosquitto|dag|perfmon/ig.test(t);
+        })
+        return list;
+    }
+
+    import_pslist(list) {
+        list = this.filter(list,'cmd');
+        return list.map(({ pid, cmd, memory, cpu}) => {
+            return { pid, cmd, memory, cpu };
+        })
+    }
+
+    import_snapshot(list) {
+        list = this.filter(list,'cmdline');
+        return list.map(({ pid, cmdline, pmem, vmem, threads, cpu}) => {
+            pmem = parseInt(pmem) || 0;
+            vmem = parseInt(vmem) || 0;
+            return { pid, cmd : cmdline, pmem, vmem, cpu };
         })
     }
 
@@ -181,6 +200,7 @@ class ProcessMonitor {
         const snapshot = await this.snapshot();
         const pslist = await this.pslist();
 
+        console.log('system',system?.length||0,'snapshot',snapshot?.length||0,'pslist',pslist?.length||0);
         //console.log(system,snapshot,pslist);
         //console.log(pslist.filter(v=>v.memory > 0))
         this.bbcast({system, snapshot, pslist});
