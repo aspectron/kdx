@@ -50,6 +50,11 @@ emanate --local-binaries
 nw .
 ```
 
+To build additional utilities such as `txgen` you can run 
+```
+emanate --local-binaries --with-extras --with-dagviz --with-kasperf
+```
+
 #### Building installers from specific Kaspa Git branches
 
 `--branch` argument specifies common branch name for kaspa and kasparov, for example:
