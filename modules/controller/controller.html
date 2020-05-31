@@ -171,7 +171,7 @@
 			</p>
 
 		</flow-form-control>
-		<flow-form-control icon="fal:cog" class="advanced-tool">
+		<flow-form-control icon="fal:cog">
 			<flow-i18n caption>Block Generation</flow-i18n>
 			<flow-checkbox id="settings-enable-mining" class="block advanced-tool"
 				slot="input"><flow-i18n>Enable Mining</flow-i18n></flow-checkbox>
@@ -193,6 +193,20 @@
 			</p>
 		</flow-form-control>
 		-->
+		<flow-form-control icon="fal:cog" class="advanced-tool">
+			<flow-i18n caption>Metrics</flow-i18n>
+			<flow-checkbox id="settings-enable-metrics" class="block advanced-tool"
+				slot="input"><flow-i18n>Enable Metrics</flow-i18n></flow-checkbox>
+
+			<flow-input id="settings-statsd-address" class="block advanced-tool"></flow-input>
+
+			<h4 slot="info" class="title"><flow-i18n>Enable Metrics</flow-i18n></h4>
+			<p slot="info" is="i18n-p">
+				You can stream metrics to your own StatsD-compatible server
+			</p>
+			
+		</flow-form-control>
+
 		<flow-form-control id="settings-script" icon="fal:tasks">
 			<flow-i18n caption>Service Configuration</flow-i18n>
 			<div slot="input" class="settings-script">
@@ -207,7 +221,9 @@
 				by a list of application/service configuration objects. Each service configuration object is used 
 				to start the corresponding service.
 			</p>
-	</flow-form-control>
+		</flow-form-control>
+
+
 	</tab-content>
 	<tab-content for="console" data-active-display="flex" class="vertical-flex term">
 		<flow-terminal id="kdx-console" class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
