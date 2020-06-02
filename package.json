@@ -35,6 +35,7 @@
     "is-docker": "*",
     "lit-element": "*",
     "mkdirp": "*",
+    "node-fetch": "^2.6.0",
     "pg": "*",
     "underscore": "*",
     "ws": "^7.2.5",
