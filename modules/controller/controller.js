@@ -253,6 +253,8 @@ class Controller{
 			
 			scriptHolder.classList.toggle("active", advanced)
 			doc.body.classList.toggle("advanced-ui", advanced)
+
+			this.refreshApps();
 		});
 		advancedInput.setChecked(localStorage.advancedUI==1);
 		this.configEditor = ace.edit(scriptHolder.querySelector(".script-box"), {
@@ -449,9 +451,17 @@ class Controller{
 		
 		this.showApps(daemons);
 		
-		console.log("initDaemons", daemons)
+		console.log("initDaemons", daemons);
 		this.manager.start(daemons);
 	}
+
+	refreshApps() {
+		dpc(async () => {
+			let { config } = await this.get("get-modules-config");
+			this.showApps(config);		
+		})
+	}
+	
 	async restartDaemons(daemons){
 
 		if(!daemons) {
@@ -680,6 +690,8 @@ class Controller{
 			console.log("processing app:",app,pkg,pkgFile);
 			*/
 
+			if(app.advanced && !this.advanced)
+				return;
 
 			let location = app.location;
 			if(!location && app.engines?.kdx) {
@@ -704,7 +716,7 @@ class Controller{
 					height="${height}"
 					resizable
 					frame
-					>${`${app.name.toUpperCase()} - ${app.description}`}</flow-window-link>
+					>${`${app.name} - ${app.description}`}</flow-window-link><br/>
 					`;
 					//new_instance
 		});
