@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const pkg = require("../../package");
 const FlowRPC = require("@aspectron/flow-rpc");
+const utils = require('@aspectron/flow-utils');
 const Manager = require("../../lib/manager.js");
 const Console = require("../../lib/console.js")
 
@@ -96,7 +97,7 @@ class Controller{
 		manager.on("task-start", (daemon)=>{
 			console.log("init-task:task", daemon.task)
 			this.initTaskTab(daemon.task);
-
+			this.refreshApps();
 		});
 		manager.on("task-exit", (daemon)=>{
 			console.log("task-exit", daemon.task)
@@ -492,7 +493,6 @@ class Controller{
 			console.log("manager.stop:error", e)
 			return false;
 		}
-
 		return true;
 	}
 	post(subject, data){
@@ -620,6 +620,23 @@ class Controller{
 	isDevMode() {
 	    return (window.navigator.plugins.namedItem('Native Client') !== null);
 	}
+	resolveStrings(v){
+		if(typeof v == "string")
+			return this.manager.resolveStrings(v);
+		if(utils.isArray(v)){
+			return v.map(c=>{
+				return this.resolveStrings(c)
+			})
+		}
+		if(utils.isObject(v)){
+			Object.entries(v).forEach(([k, c])=>{
+				v[k] = this.resolveStrings(c)
+			})
+		}
+
+		return v;
+
+	}
 	showApps(daemons) {
 
 		const { qS } = this;
@@ -633,23 +650,36 @@ class Controller{
 			} else
 				return null;
 		}).filter(v=>v).map((app) => {
-			Object.entries(app).forEach(([k,v]) => {
-				if(typeof v == 'string')
-					return app[k] = this.manager.resolveStrings(v);
-			})
+			app = this.resolveStrings(app);
 			let [,name] = app.ident.split(':');
 			name = name || app.name || '???';
-			let pkgFile = path.join(app.folder,'package.json');
+			let pkgFile;
+			if(!app.folder){
+				pkgFile = path.join(this.manager.appFolder, 'apps', name, 'package.json');
+				app.folder = name;
+			}else{
+				pkgFile = path.join(app.folder,'package.json');
+			}
+			
 			let pkg = { name, description : app.descr || app.description || app.folder };
+			//console.log("pkgFile", pkgFile)
 			if(fs.existsSync(pkgFile)) {
 				try {
 					pkg = JSON.parse(fs.readFileSync(pkgFile,'utf8'));
 				} catch(ex) {
 					console.log(ex);
 				}
+
+				//console.log("pkgpkgpkg", pkg)
 			}
 
-			return { name : pkg.name, description : pkg.description, folder : app.folder}
+			let config =  Object.assign({
+				name:pkg.name,
+				description:pkg.description,
+				folder:app.folder
+			}, pkg.kdx||{})
+
+			return this.resolveStrings(config);
 		})
 
 
@@ -664,31 +694,10 @@ class Controller{
 
 
 
-		let entries = Object.values(appsMap).map((app_) => {
-			let app = { }
-			Object.entries(app_).forEach(([k,v]) => {
-				if(typeof v == 'string')
-					return app[k] = this.manager.resolveStrings(v);
-				else
-					app[k] = v;
-			})
+		let entries = Object.values(appsMap).map((app) => {
+			app = this.resolveStrings(app);
 
 			let ident = `app:${app.name}`;
-
-			/*
-			let [,name] = app.ident.split(':');
-			name = name || app.name || '???';
-			let pkgFile = path.join(app.folder,'package.json');
-			let pkg = { name, description : app.descr || app.description || app.folder };
-			if(fs.existsSync(pkgFile)) {
-				try {
-					pkg = JSON.parse(fs.readFileSync(pkgFile,'utf8'));
-				} catch(ex) {
-					console.log(ex);
-				}
-			}
-			console.log("processing app:",app,pkg,pkgFile);
-			*/
 
 			if(app.advanced && !this.advanced)
 				return;
@@ -705,7 +714,7 @@ class Controller{
 			let disabled = '';
 			if(!/\.html$/.test(app.location))
 				disabled = true;
-			return `
+			return `${this.debugAppLinks?JSON.stringify(app)+"::"+location:""}
 				<flow-window-link
 					${disabled}
 					url="${location}"
