@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo docker run $2 --net host kdx
