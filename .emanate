@@ -338,6 +338,23 @@ E.task('aptitude', null, async () => {
 })
 
 
+
+E.task('docker',null, async () => {
+
+    E.manifest_read();
+
+    const relay = ['no-cache'];
+    const args = ['-s','docker','build'].concat(relay.map(k=>E.flags[k]?`--${k}`:null)).filter(v=>v);
+    args.push('-t',`kdx:latest`,'.');
+    const ts0 = Date.now();
+    await E.utils.spawn('sudo', args, { cwd : __dirname, stdio: 'inherit' });
+    await E.utils.spawn('sudo',['docker','tag','kdx:latest',`kdx:${E.manifest.version}`], { cwd : __dirname, stdio: 'inherit' });
+    console.log('Docker build complete at',new Date());
+    const ts1 = Date.now();
+    console.log('Docker build took'.brightBlue,`${((ts1-ts0)/1000/60).toFixed(1)}`.brightWhite,'minutes'.brightBlue)
+});
+
+
 if(E.flags['local-binaries'] || E.flags['pgsql'] || E.flags['mqtt'] || E.flags['kaspa']) {
     E.BIN = path.join(E.appFolder,'bin',E.PLATFORM_ARCH);
     mkdirp.sync(E.BIN);
