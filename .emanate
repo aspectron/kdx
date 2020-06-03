@@ -21,7 +21,7 @@ const E = new Emanator(__dirname, {
     resources : 'resources/setup',
 
     manifest : (manifest) => {
-        if(flags['with-perfmon'] && !flags['no-perfmon']) {
+        if(E.flags['with-perfmon'] && !E.flags['no-perfmon']) {
             if(E.PLATFORM != 'darwin') {
                 Object.assign(manifest.dependencies,{
                     "@aspectron/process-list": "*",
