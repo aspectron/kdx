@@ -8,11 +8,6 @@ RUN apk add --no-cache gcc make g++ build-base git lzo bzip2 openssl bash file p
 #    if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi 
 
 
-WORKDIR /usr/src/kdx
-COPY . .
-RUN npm install
-RUN npm install -g emanator@latest
-RUN emanate --local-binaries --no-ssh
 #RUN mv /usr/src/dagviz/k-explorer /usr/src/k-explorer
 #RUN cd /usr/src/k-explorer && npm install && npm link
 #RUN npm link k-explorer
@@ -26,6 +21,14 @@ RUN chown kdx:kdx /run/postgresql
 
 # Tell docker that all future commands should run as the appuser user
 USER kdx
+
+WORKDIR /home/kdx/kdx
+COPY . .
+RUN npm install
+RUN npm install @aspectron/process-list
+RUN npm install -g emanator@latest
+RUN emanate --local-binaries --no-ssh
+
 
 EXPOSE 16210 16211 16310 16311 11224 18787 18792
 
