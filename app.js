@@ -31,7 +31,7 @@ class App extends FlowApp{
 			return this.dataDirInitError();
 
 		let {init} = this.flags;
-		if(init && init != '.')
+		if(init && init != '.' && typeof init == 'string')
 			this.config.dataDir = init;
 
 		if(this.config.dataDir){
