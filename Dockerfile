@@ -12,7 +12,7 @@ WORKDIR /usr/src/kdx
 COPY . .
 RUN npm install
 RUN npm install -g emanator@latest
-RUN emanator --local-binaries --http
+RUN emanate --local-binaries --http
 #RUN mv /usr/src/dagviz/k-explorer /usr/src/k-explorer
 #RUN cd /usr/src/k-explorer && npm install && npm link
 #RUN npm link k-explorer
