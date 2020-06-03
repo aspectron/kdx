@@ -20,13 +20,15 @@ RUN mkdir -p /run/postgresql
 RUN chown kdx:kdx /run/postgresql
 
 # Tell docker that all future commands should run as the appuser user
-USER kdx
 
 WORKDIR /home/kdx/releases/kdx
 COPY . .
 RUN rm -rf node_modules
 RUN rm package-lock.json
 RUN chown -R kdx:kdx .
+
+USER kdx
+
 RUN npm install
 RUN npm install @aspectron/process-list
 RUN npm install -g emanator@latest
