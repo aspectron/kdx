@@ -1,4 +1,5 @@
 const { App : FlowApp } = require('@aspectron/flow-app');
+const utils = require('@aspectron/flow-utils');
 const crypto = require('crypto');
 const bs58 = require('bs58');
 const colors = require('colors');
@@ -21,6 +22,7 @@ class App extends FlowApp{
 	async initConfig(){
 		await super.initConfig();
 		await this.initDataFolder();
+		await this.initCerts();
 	}
 
 	/**
@@ -78,6 +80,17 @@ class App extends FlowApp{
 	async setDataDir(dataDir){
 		this.config.dataDir = dataDir;
 		await this.setConfig(this.config);
+	}
+
+	async initCerts() {
+		if(!fs.existsSync(path.join(this.dataFolder,'rpc.cert'))) {
+			const gencerts = path.join(__dirname,'bin',utils.platform,'gencerts'+(utils.platform == 'windows-x64'?'.exe':''));
+			if(fs.existsSync(gencerts)) {
+				await utils.spawn(gencerts,[],{cwd : this.dataFolder});
+			} else {
+				console.log('Error: no RPC certificates available');
+			}
+		}
 	}
 
 	/**
