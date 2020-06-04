@@ -38,4 +38,4 @@ USER kdx
 
 EXPOSE 16210 16211 16310 16311 11224 18787 18792
 
-ENTRYPOINT ["node","kdx.js","--init"]
+ENTRYPOINT ["node","kdx.js","--init","--nice"]
