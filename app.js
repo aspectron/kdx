@@ -83,6 +83,8 @@ class App extends FlowApp{
 	}
 
 	async initCerts() {
+		if(!this.dataFolder)
+			return
 		if(!fs.existsSync(path.join(this.dataFolder,'rpc.cert'))) {
 			const gencerts = path.join(__dirname,'bin',utils.platform,'gencerts'+(utils.platform == 'windows-x64'?'.exe':''));
 			if(fs.existsSync(gencerts)) {
