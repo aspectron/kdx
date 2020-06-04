@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo docker run $2 --net host kdx
+sudo docker run $1 --net host kdx
