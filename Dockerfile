@@ -36,6 +36,8 @@ RUN emanate --local-binaries --no-ssh
 
 USER kdx
 
-EXPOSE 16210 16211 16310 16311 11224 18787 18792
+EXPOSE 16210 16211 16310 16311 11224 18792 
+# 18787 
+# (pgsql - may conflict with other instances)
 
 ENTRYPOINT ["node","kdx.js","--init","--nice"]
