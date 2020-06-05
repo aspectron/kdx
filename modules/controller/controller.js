@@ -151,6 +151,9 @@ class Controller{
 		this.post("set-enable-mining", {enableMining});
 		this.manager.setEnableMining(this.enableMining);
 	}
+	setStatsdAddress(address){
+		console.log("setStatsdAddress", address)
+	}
 	setBuildType(build){
 		this.buildType = build;
 		this.post("set-build-type", {build});
@@ -242,6 +245,7 @@ class Controller{
 		let enableMiningInput = qS("#settings-enable-mining");
 		let scriptHolder = qS('#settings-script');
 		let advancedInput = qS('#settings-advanced');
+		let statsdAddressInput = qS('#settings-statsd-address');
 		advancedInput.addEventListener('changed', (e)=>{
 			let advanced = this.advanced = e.detail.checked;
 			let index = this.caption.tabs.forEach((t, index)=>{
@@ -300,7 +304,7 @@ class Controller{
 		$(".use-default-data-dir").on("click", e=>{
 			folderInput.setValue(configFolder);
 		});
-		$folderInput.on("change", (e)=>{
+		$folderInput.on("changed", (e)=>{
 			let value = folderInput.value;
 			console.log(originalValue, value);
 			$('.data-folder-input-tools').toggleClass("active", value!=originalValue);
@@ -321,11 +325,15 @@ class Controller{
 		enableMiningInput.addEventListener('changed', (e)=>{
 			this.setEnableMining(e.detail.checked);
 		});
+		statsdAddressInput.addEventListener('changed', (e)=>{
+			this.setStatsdAddress(e.detail.value);
+		});
 
 		themeInput.checked = config.theme == 'dark';
 		invertTermInput.checked = !!config.invertTerminals;
 		runInBGInput.checked = !!config.runInBG;
 		enableMiningInput.checked = !!config.enableMining;
+		statsdAddressInput.value = config.statsdAddress || "";
 		this.runInBG = runInBGInput.checked;
 		this.enableMining = enableMiningInput.checked;
 		this.buildType = config.build || 'generic';

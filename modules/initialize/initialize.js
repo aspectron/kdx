@@ -15,7 +15,7 @@ class Initializer{
 		let folderInput = $folderInput[0];
 		let originalValue = config.dataDir || configFolder;
 		folderInput.value = originalValue;
-		$folderInput.on("change", (e)=>{
+		$folderInput.on("changed", (e)=>{
 			console.log(e.detail.value, folderInput.value);
 		});
 
