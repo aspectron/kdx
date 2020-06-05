@@ -51,23 +51,25 @@ if(E.flags.full || E.flags.all) {
 
 E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
 
-    const config = {
-        "app:dagviz": {
-            "disable": false,
-            "folder": "$APPS/dagviz",
-            "location": "http://localhost:8689",
-            "width" : 1600, 
-            "height" : 680,
-            "args": [
-                "$node", "dagviz",
-                "--kdx","--no-auth", "--port=8689",
-                "--kasparov=http://localhost:11224",
-                "--mqtt-address=mqtt://localhost:18792"
-            ]
-        }
-    };
+    // const config = {
+    //     "app:dagviz": {
+    //         "disable": false,
+    //         "folder": "$APPS/dagviz",
+    //         "location": "http://localhost:8689",
+    //         "width" : 1600, 
+    //         "height" : 680,
+    //         "args": [
+    //             "$node", "dagviz",
+    //             "--kdx","--no-auth", "--port=8689",
+    //             "--kasparov=http://localhost:11224",
+    //             "--mqtt-address=mqtt://localhost:18792"
+    //         ]
+    //     }
+    // };
 
-    const dest = path.join(E.BUILD,'apps')
+    const dest = path.join(E.BUILD,'apps');
+    mkdirp.sync(dest);
+
     const dagvizFolder = path.join(dest,'dagviz');
     await git.clone('git@github.com:kaspanet/dagviz', dest, { branch : E.flags['dagviz-branch'] || 'master' });
     await npm.install({ cwd : dagvizFolder});
@@ -78,20 +80,40 @@ E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
     let dagvizModules = fs.readdirSync(path.join(dagvizFolder,'node_modules'));
     let kdxModules = fs.readdirSync(E.BUILD,'node_modules');
     let duplicates = dagvizModules.filter(f => kdxModules.includes(f) && !/^\.\.?$/.test(f));
-    duplicates.forEach(f => E.remove(path.join(dagvizFolder,'node_modules',f)));
+    let jobs = duplicates.map(f => E.remove(path.join(dagvizFolder,'node_modules',f)));
+    await Promise.all(jobs);
 
-    const defaultConfigFile = path.join(E.BUILD,'default-config.json');
-    if(!fs.existsSync) {
-        E.log(`fatal - unable to locate: ${defaultConfigFile}`);
-        process.exit(1);
-    }
+    // const defaultConfigFile = path.join(E.BUILD,'default-config.json');
+    // if(!fs.existsSync) {
+    //     E.log(`fatal - unable to locate: ${defaultConfigFile}`);
+    //     process.exit(1);
+    // }
 
-    // rewrite default kdx config to include dagviz configuration
-    let dc = JSON.parse(fs.readFileSync(defaultConfigFile,'utf8'));
-    Object.assign(dc.modules, config);
-    fs.writeFileSync(defaultConfigFile,JSON.stringify(dc));
+    // // rewrite default kdx config to include dagviz configuration
+    // let dc = JSON.parse(fs.readFileSync(defaultConfigFile,'utf8'));
+    // Object.assign(dc.modules, config);
+    // fs.writeFileSync(defaultConfigFile,JSON.stringify(dc));
 });
 
+/*
+E.flags['with-ksandbox'] && E.task('ksandbox', ['remote'], async () => {
+    const dest = path.join(E.BUILD,'apps')
+    mkdirp.sync(dest);
+    const ksandboxFolder = path.join(dest,'ksandbox');
+    return Promise.resolve();
+});
+*/
+
+
+E.flags['with-kmetrics'] && E.task('kmetrics', ['remote'], async () => {
+
+    const dest = path.join(E.BUILD,'apps')
+    mkdirp.sync(dest);
+    const kmetricsFolder = path.join(dest,'kmetrics');
+    await git.clone('git@github.com:aspectron/kmetrics', dest, { branch : E.flags['kmetrics-branch'] || 'master' });
+
+    return Promise.resolve();
+});
 
 E.task('kaspad', ['origin'], async () => {
 
