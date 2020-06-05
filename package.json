@@ -24,9 +24,9 @@
   "dependencies": {
     "@aspectron/flow-app": "latest",
     "@aspectron/flow-async": "latest",
-    "@aspectron/flow-ux": "latest",
     "@aspectron/flow-rpc": "latest",
     "@aspectron/flow-utils": "latest",
+    "@aspectron/flow-ux": "latest",
     "@webcomponents/webcomponentsjs": "*",
     "bs58": "^4.0.1",
     "colors": "^1.4.0",
@@ -36,6 +36,7 @@
     "lit-element": "*",
     "mkdirp": "*",
     "node-fetch": "^2.6.0",
+    "node-statsd": "^0.1.1",
     "pg": "*",
     "underscore": "*",
     "ws": "^7.2.5",
