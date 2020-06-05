@@ -168,9 +168,9 @@ body.flow-theme-dark{
 	--flow-terminal-selection:rgba(100, 100, 100, 0.5);
 }
 body.invert-terminals{
-	--flow-terminal-bg-color:#000000;
-	--flow-terminal-color:#FFFFFF;
-	--flow-terminal-cursor:#FFFFFF;
+	--flow-terminal-bg-color:var(--flow-foreground-color);
+	--flow-terminal-color:var(--flow-background-color);
+	--flow-terminal-cursor:var(--flow-background-color);
 	--flow-terminal-selection:rgba(100, 100, 100, 0.5);
 }
 /*tab-content.term .x-terminal{
