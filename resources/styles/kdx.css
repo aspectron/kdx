@@ -33,6 +33,7 @@ body{
 	--flow-graph-stroke:  rgba(0, 105, 95, 1.0);
 	--flow-graph-stroke-width: 1px;
 	--flow-graph-stroke-opacity: 0.3;
+	--flow-input-min-width:300px;
 /*
 	--flow-data-badge-graph-fill:  rgb(0, 105, 95, 0.15);
 	--flow-data-badge-graph-stroke:  rgb(0, 105, 95, 0.5);
