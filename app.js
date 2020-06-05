@@ -138,6 +138,10 @@ class App extends FlowApp{
 		this.config.enableMining = !!enableMining;
 		this.setConfig(this.config);
 	}
+	setEnableMetrics(enableMetrics){
+		this.config.enableMetrics = !!enableMetrics;
+		this.setConfig(this.config);
+	}
 
 	setBuildType(build) {
 		this.config.build = build;

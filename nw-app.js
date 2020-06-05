@@ -87,6 +87,12 @@ class NWApp extends App{
 				return
 			this.setEnableMining(enableMining);
 		});
+		rpc.on("set-enable-metrics", (args)=>{
+			let {enableMetrics} = args;
+			if(enableMetrics == undefined)
+				return
+			this.setEnableMetrics(enableMetrics);
+		});
 
 		rpc.on("set-build-type", (args)=>{
 			let {build} = args;

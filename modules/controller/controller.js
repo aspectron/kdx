@@ -154,6 +154,10 @@ class Controller{
 	setStatsdAddress(address){
 		console.log("setStatsdAddress", address)
 	}
+	setEnableMetrics(enableMetrics){
+		this.enableMetrics = !!enableMetrics;
+		this.post("set-enable-metrics", {enableMetrics});
+	}
 	setBuildType(build){
 		this.buildType = build;
 		this.post("set-build-type", {build});
@@ -246,6 +250,7 @@ class Controller{
 		let scriptHolder = qS('#settings-script');
 		let advancedInput = qS('#settings-advanced');
 		let statsdAddressInput = qS('#settings-statsd-address');
+		let enableMetricsInput = qS('#settings-enable-metrics');
 		advancedInput.addEventListener('changed', (e)=>{
 			let advanced = this.advanced = e.detail.checked;
 			let index = this.caption.tabs.forEach((t, index)=>{
@@ -328,10 +333,14 @@ class Controller{
 		statsdAddressInput.addEventListener('changed', (e)=>{
 			this.setStatsdAddress(e.detail.value);
 		});
+		enableMetricsInput.addEventListener('changed', (e)=>{
+			this.setEnableMetrics(e.detail.checked);
+		});
 
 		themeInput.checked = config.theme == 'dark';
 		invertTermInput.checked = !!config.invertTerminals;
 		runInBGInput.checked = !!config.runInBG;
+		enableMetricsInput.checked = !!config.enableMetrics;
 		enableMiningInput.checked = !!config.enableMining;
 		statsdAddressInput.value = config.statsdAddress || "";
 		this.runInBG = runInBGInput.checked;
