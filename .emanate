@@ -384,7 +384,7 @@ if(E.flags['local-binaries'] || E.flags['pgsql'] || E.flags['mqtt'] || E.flags['
 
 
 if(E.flags.link) {
-    let list = ['flow-ux','flow-app','flow-utils','flow-rpc'];
+    let list = ['flow-ux','flow-app','flow-utils','flow-rpc','flow-async'];
     while(list.length) {
         let ident = list.shift();
         await npm.link(`@aspectron/${ident}`, { cwd : __dirname, stdio : 'inherit' });
