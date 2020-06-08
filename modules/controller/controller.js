@@ -581,12 +581,12 @@ class Controller{
 			console.log("%c######## closeWin called ######", 'color:red')
 			if(isExit !== true && !this.runInBG){
 				let {btn} = await FlowDialog.show({
-					title:"EXIT KDX",
-					body:"Are you sure?",
-					btns:['Cancel', 'Exit:warning',
+					title:i18n.t("EXIT KDX"),
+					body:i18n.t("Are you sure?"),
+					btns:[i18n.t('Cancel'), i18n.t('Exit')+':warning',
 					{
 						value : 'background',
-						text : html`<span style="font-size:13.3px;">Leave in the Background</style>`,
+						text : html`<span style="font-size:13.3px;">${i18n.t("Leave in the Background")}</style>`,
 						cls : 'primary'						
 					}]
 				});
