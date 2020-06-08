@@ -44,7 +44,8 @@ body.flow-theme-dark{
 	--flow-primary-color:  rgba(0,150,136,1);
 	--flow-border-color:  rgba(0,150,136,1);
 
-	--flow-data-badge-caption: #fff;
+	--flow-data-badge-value: #fff;
+	--flow-data-badge-caption: #ccc;
     --flow-data-badge-caption-shawod: rgba(0,151,115,1.0);
 
 
