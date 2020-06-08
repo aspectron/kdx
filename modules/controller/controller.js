@@ -154,13 +154,13 @@ class Controller{
 	}
 	setStatsdAddress(statsdAddress){
 		// console.log("setStatsdAddress", address)
-		this.statsdAddress = address;
+		this.statsdAddress = statsdAddress;
 		this.post("set-statsd-address", {statsdAddress});
 		this.initStatsdServer(this.statsdAddress, this.statsdPrefix, true);
 	}
-	setStatsdPrefix(prefix){
+	setStatsdPrefix(statsdPrefix){
 		// console.log("setStatsdPrefix", prefix)
-		this.statsdAddress = address;
+		this.statsdPrefix = statsdPrefix;
 		this.post("set-statsd-prefix", {statsdPrefix});
 		this.initStatsdServer(this.statsdAddress, this.statsdPrefix, true);
 	}
@@ -790,7 +790,9 @@ class Controller{
 		if(this.statsd)
 			delete this.statsd;
 
-		const prefix = (prefix_||'').replace(/\$HOSTNAME/ig,os.hostname());
+		let prefix = (prefix_||'').replace(/\$HOSTNAME/ig,os.hostname());
+		if(prefix[prefix.length-1] != '.')
+			prefix = prefix+'.';
 
 		let [host,port] = (address||'').split(':');
 		port = parseInt(port) || 8125;
@@ -823,7 +825,7 @@ class Controller{
 			return;
 		}
 
-		this.statsd.gauge(name,value);
+		this.statsd.gauge(ident,value);
 	}
 }
 
