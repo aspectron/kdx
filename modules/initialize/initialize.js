@@ -1,6 +1,7 @@
 true && nw.Window.get().showDevTools();
-const FlowRPC = require("@aspectron/flow-rpc");
+const { BroadcastChannelRPC : FlowRPC } = require("@aspectron/flow-rpc");
 const os = require("os");
+const fs = require("fs");
 
 class Initializer{
 	constructor(){
@@ -11,6 +12,8 @@ class Initializer{
 		this.appData = await this.get("get-app-data");
 		console.log("this.appData", this.appData)
 		let {configFolder, config} = this.appData;
+		if(!config)
+			config = { }
 		let $folderInput = $("#data-folder-input");
 		let folderInput = $folderInput[0];
 		let originalValue = config.dataDir || configFolder;
@@ -35,6 +38,8 @@ class Initializer{
 			console.log("err:", err)
 			this.setUiDisabled(false);
 		})
+
+		this.checkCompatibility();
 	}
 	initRPC(){
 		let rpc = new FlowRPC({bcastChannel:'kdx'});
@@ -73,6 +78,50 @@ class Initializer{
 				resolve(result);
 			})
 		})
+	}
+
+	checkCompatibility() {
+		if(os.platform() != 'linux')
+			return;
+
+		let mosquitto = true;
+		if(!fs.existsSync('/usr/bin/mosquitto'))
+			mosquitto = false;
+
+		let postgres = true;
+		if(!fs.existsSync('/usr/bin/postgres'))
+			postgres = false;
+
+		
+		if(!mosquitto || !postgres) {
+
+			let html = `
+				<flow-form-control icon="fal:puzzle-piece">
+				<p>
+					<h3>WARNING - MISSING COMPONENTS</h3>
+					<br/>
+					Please note - on Linux operating systems, KDX currently requires manual installation of 
+					mosquitto (MQTT broker) and PostgreSQL (Postgres Database).
+				</p><br/>
+				<p>Please install the following components before proceeding as follows:<br/>&nbsp;<br/>
+					<table>
+					<tr>
+						<td>Ubuntu (apt):</td>
+						<td><pre>sudo apt-get install ${!mosquitto?'mosquitto':''}${!mosquitto&&!postgres?' ':''}${!postgres?'postgresql':''}</pre></td>
+					</tr>
+					<tr>
+						<td>Alpine (apk):</td>
+						<td><pre>sudo apk add ${!mosquitto?'mosquitto':''}${!mosquitto&&!postgres?' ':''}${!postgres?'postgresql':''}</pre></td>
+					</tr>
+					</table>
+				</p>
+				<p>
+				</flow-form-control>
+			`;
+
+			$("body").append(html);
+		}
+		
 	}
 }
 

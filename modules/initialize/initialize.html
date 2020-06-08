@@ -26,9 +26,12 @@
 	<script type="text/javascript" src="/resources/extern/ace/src/mode-javascript.js" charset="utf-8"></script>
 	<script type="text/javascript">
 		var flowConfig = {
-			iconsPath:'/resources/extern/fonts/fontawesome/sprites/light.svg',
-			icons:{
-				'language':'/node_modules/flow-ux/resources/images/icons.svg#language'
+			theme:{
+				iconPath:'/resources/extern/fonts/fontawesome/sprites/',
+				iconFile:'light',
+				icons:{
+					language:'icons:language'
+				}
 			}
 		}
 	</script>
@@ -42,17 +45,19 @@
 	<style type="text/css">
 		body{padding:10px;}
 		.tools{padding:10px 0px; text-align:right}
+		td { padding: 2px; }
 	</style>
 </head>
 <body>
-	<h2>Configuration:</h2>
-	<flow-form-control>
-		Data Folder:
+	<h2>Configuration</h2>
+	<br/>
+	<flow-form-control icon="fal:folder">
+		Data Folder
 		<flow-folder-input slot="input" id="data-folder-input"
 			value="~/.kdx/data"></flow-folder-input>
 		<div slot="input" class="slot-block">
 			<flow-btn class="reset-data-dir">Reset</flow-btn>
-			<flow-btn class="save-config" primary>Save</flow-btn>
+			<flow-btn class="save-config" primary>Proceed</flow-btn>
 		</div>
 		
 		<h4 slot="info" class="title"><flow-i18n>Data Folder</flow-i18n></h4>
@@ -62,10 +67,20 @@
 				This location also contains process log files.
 			</p>
 	</flow-form-control>
-	<!-- flow-form-control icon="-">
+	<flow-form-control icon="fal:plug">
+		<p>
+			<h3>WARNING - BATTERY POWER</h3>
+			<br/>
+			This version of KDX is configured to automatically start mining upon startup.
+			If you are running on a laptop battery power, please make sure you are plugged in before proceeding.
+		</p>
+	</flow-form-control>
+		<!-- flow-form-control icon="-">
 		<div slot="input" class="tools">
 		</div>
 	</flow-form-control -->
+
+
 
 	<script type="module" src="/modules/initialize/initialize.js"></script>
 </body>
