@@ -94,6 +94,20 @@ class NWApp extends App{
 			this.setEnableMetrics(enableMetrics);
 		});
 
+		rpc.on("set-statsd-address", (args)=>{
+			let {statsdAddress} = args;
+			if(statsdAddress == undefined)
+				return
+			this.setStatsdAddress(statsdAddress);
+		});
+
+		rpc.on("set-statsd-prefix", (args)=>{
+			let {statsdPrefix} = args;
+			if(statsdPrefix == undefined)
+				return
+			this.setStatsdPrefix(statsdPrefix);
+		});
+
 		rpc.on("set-build-type", (args)=>{
 			let {build} = args;
 			if(build == undefined)

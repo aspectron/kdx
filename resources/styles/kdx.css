@@ -262,3 +262,5 @@ project > * { padding: 2px; }
 .cpu, .pmem, .vmem, .memory {
 	min-width: 160px;
 }
+
+flow-input { margin: 2px; }

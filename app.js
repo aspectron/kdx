@@ -142,6 +142,14 @@ class App extends FlowApp{
 		this.config.enableMetrics = !!enableMetrics;
 		this.setConfig(this.config);
 	}
+	setStatsdAddress(statsdAddress){
+		this.config.statsdAddress = statsdAddress;
+		this.setConfig(this.config);
+	}
+	setStatsdPrefix(statsdPrefix){
+		this.config.statsdPrefix = statsdPrefix;
+		this.setConfig(this.config);
+	}
 
 	setBuildType(build) {
 		this.config.build = build;

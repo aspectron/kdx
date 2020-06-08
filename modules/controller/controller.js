@@ -8,10 +8,11 @@ const { BroadcastChannelRPC : FlowRPC } = require("@aspectron/flow-rpc");
 const utils = require('@aspectron/flow-utils');
 const Manager = require("../../lib/manager.js");
 const Console = require("../../lib/console.js")
+const StatsD = require('node-statsd');
 
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
-import {FlowDialog, i18n, getLocalSetting, setLocalSetting, T} from '/node_modules/@aspectron/flow-ux/flow-ux.js';
+import {flow, FlowDialog, i18n, getLocalSetting, setLocalSetting, T} from '/node_modules/@aspectron/flow-ux/flow-ux.js';
 window.testI18n = (testing)=>i18n.setTesting(!!testing);
 window.getLocalSetting = getLocalSetting;
 window.setLocalSetting = setLocalSetting;
@@ -151,8 +152,17 @@ class Controller{
 		this.post("set-enable-mining", {enableMining});
 		this.manager.setEnableMining(this.enableMining);
 	}
-	setStatsdAddress(address){
-		console.log("setStatsdAddress", address)
+	setStatsdAddress(statsdAddress){
+		// console.log("setStatsdAddress", address)
+		this.statsdAddress = address;
+		this.post("set-statsd-address", {statsdAddress});
+		this.initStatsdServer(this.statsdAddress, this.statsdPrefix, true);
+	}
+	setStatsdPrefix(prefix){
+		// console.log("setStatsdPrefix", prefix)
+		this.statsdAddress = address;
+		this.post("set-statsd-prefix", {statsdPrefix});
+		this.initStatsdServer(this.statsdAddress, this.statsdPrefix, true);
 	}
 	setEnableMetrics(enableMetrics){
 		this.enableMetrics = !!enableMetrics;
@@ -250,6 +260,7 @@ class Controller{
 		let scriptHolder = qS('#settings-script');
 		let advancedInput = qS('#settings-advanced');
 		let statsdAddressInput = qS('#settings-statsd-address');
+		let statsdPrefixInput = qS('#settings-statsd-prefix');
 		let enableMetricsInput = qS('#settings-enable-metrics');
 		advancedInput.addEventListener('changed', (e)=>{
 			let advanced = this.advanced = e.detail.checked;
@@ -333,6 +344,9 @@ class Controller{
 		statsdAddressInput.addEventListener('changed', (e)=>{
 			this.setStatsdAddress(e.detail.value);
 		});
+		statsdPrefixInput.addEventListener('changed', (e)=>{
+			this.setStatsdPrefix(e.detail.value);
+		});
 		enableMetricsInput.addEventListener('changed', (e)=>{
 			this.setEnableMetrics(e.detail.checked);
 		});
@@ -342,13 +356,16 @@ class Controller{
 		runInBGInput.checked = !!config.runInBG;
 		enableMetricsInput.checked = !!config.enableMetrics;
 		enableMiningInput.checked = !!config.enableMining;
-		statsdAddressInput.value = config.statsdAddress || "";
+		this.statsdAddress = statsdAddressInput.value = config.statsdAddress || "";
+		this.statsdPrefix = statsdPrefixInput.value = config.statsdPrefix || "kdx.$HOSTNAME";
 		this.runInBG = runInBGInput.checked;
 		this.enableMining = enableMiningInput.checked;
 		this.buildType = config.build || 'generic';
 	
 		this.manager.enableMining = this.enableMining;
 		//this.manager.setEnableMining(this.enableMining);
+		flow.samplers.registerSink(this.sampler_sink.bind(this));
+		this.initStatsdServer(this.statsdAddress,this.statsdPrefix);
 	}
 	initTaskTab(task){
 		const advanced = document.querySelector('#settings-advanced').checked;
@@ -512,6 +529,12 @@ class Controller{
 		}
 		return true;
 	}
+
+	cleanup() {
+		if(this.statsd)
+			delete this.statsd;
+	}
+
 	post(subject, data){
 		this.rpc.dispatch(subject, data)
 	}
@@ -612,6 +635,7 @@ class Controller{
 			}
 
 			this.stopDaemons();
+			this.cleanup();
 			if(this.tray){
 				this.tray.remove();
 				this.tray = null;
@@ -761,11 +785,52 @@ class Controller{
 	handleBrowserLink(event, href) {
 		require('nw.gui').Shell.openExternal(href);
 	}
+
+	initStatsdServer(address,prefix_, notify = false) {
+		if(this.statsd)
+			delete this.statsd;
+
+		const prefix = (prefix_||'').replace(/\$HOSTNAME/ig,os.hostname());
+
+		let [host,port] = (address||'').split(':');
+		port = parseInt(port) || 8125;
+
+		if(!host) {
+			if(0 && notify) {
+				$.notify({
+					//title : 'DAGViz',
+					text : 'Missing statsd host',
+					className : 'yellow',
+					autoHide : true,
+					autoHideDelay : 2000
+				});
+			}
+			
+			return;
+		}
+
+		this.statsd = new StatsD({
+			host, port, prefix
+		})
+	}
+
+	sampler_sink(ident, value, date) {
+		if(!this.statsd)
+			return;
+
+		if(isNaN(value)) {
+			console.error('sampler_sink error:',ident,value,date);
+			return;
+		}
+
+		this.statsd.gauge(name,value);
+	}
 }
 
-console.log("global.manager::::", global.manager)
+console.log("global.manager ->", global.manager)
 window.addEventListener("WebComponentsReady", ()=>{
-	let uiCtl = new Controller();
-	window.xxxxuiCtl = uiCtl;
+	let controller = new Controller();
+	window.controller = controller;
+	console.log("controller ->", controller);
 })
 
