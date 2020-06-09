@@ -764,6 +764,7 @@ class Controller{
 					title="${app.name}"
 					width="${width}"
 					height="${height}"
+					icon="resources/images/kdx-icon.png"
 					resizable
 					frame
 					>${`${app.name} - ${app.description}`}</flow-window-link><br/>
