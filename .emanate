@@ -31,6 +31,10 @@ const E = new Emanator(__dirname, {
 
         manifest.files.push('apps');
 
+        manifest.dmg_files = async (root) => {
+            E.copy(process.argv[0], root);
+        }
+
         return manifest;
     },
 })
