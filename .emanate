@@ -56,11 +56,12 @@ E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
     // sine dagviz carries a lot of modules already included with kdx
     // scan for duplicates and remove them from dagviz as require() will
     // scan parent folders (kdx) for node_module
-    let dagvizModules = fs.readdirSync(path.join(dagvizFolder,'node_modules'));
-    let kdxModules = fs.readdirSync(path.join(E.BUILD,'node_modules'));
-    let duplicates = dagvizModules.filter(f => kdxModules.includes(f) && !/^\.\.?$/.test(f));
-    let jobs = duplicates.map(f => E.remove(path.join(dagvizFolder,'node_modules',f)));
-    await Promise.all(jobs);
+    // --- this doesn't work properly - breaks dependency resolution in the deployment
+    // let dagvizModules = fs.readdirSync(path.join(dagvizFolder,'node_modules'));
+    // let kdxModules = fs.readdirSync(path.join(E.BUILD,'node_modules'));
+    // let duplicates = dagvizModules.filter(f => kdxModules.includes(f) && !/^\.\.?$/.test(f));
+    // let jobs = duplicates.map(f => E.remove(path.join(dagvizFolder,'node_modules',f)));
+    // await Promise.all(jobs);
 });
 
 /*
