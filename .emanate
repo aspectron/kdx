@@ -29,7 +29,8 @@ const E = new Emanator(__dirname, {
             }
         }
 
-        manifest.files.push('apps');
+        // if(E.PLATFORM == 'darwin')
+        //     manifest.files.push('apps');
 
         return manifest;
     },
@@ -59,8 +60,11 @@ E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
     await git.clone('git@github.com:kaspanet/dagviz', dest, { branch : E.flags['dagviz-branch'] || 'master' });
     await E.remove(path.join(dagvizFolder,'.git'));
     await npm.install({ cwd : dagvizFolder});
-    await E.spawn('emanate', ['--local-binaries'], { cwd : dagvizFolder, stdio: 'inherit' });
+    //await E.spawn('emanate', ['--local-binaries'], { cwd : dagvizFolder, stdio: 'inherit' });
+    
+    execSync('emanate --local-binaries', { cwd : dagvizFolder, stdio : 'inherit' });    
     await E.copy(process.argv[0],path.join(dagvizFolder,path.basename(process.argv[0])));
+    //await E.spawn('emanate', ['--local-binaries'], { cwd : dagvizFolder, stdio: 'inherit' });
 
     // sine dagviz carries a lot of modules already included with kdx
     // scan for duplicates and remove them from dagviz as require() will
