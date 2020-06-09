@@ -48,14 +48,16 @@ E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
     mkdirp.sync(dest);
 
     const dagvizFolder = path.join(dest,'dagviz');
+    await E.remove(dagvizFolder);
     await git.clone('git@github.com:kaspanet/dagviz', dest, { branch : E.flags['dagviz-branch'] || 'master' });
+    await E.remove(path.join(dagvizFolder,'.git'));
     await npm.install({ cwd : dagvizFolder});
 
     // sine dagviz carries a lot of modules already included with kdx
     // scan for duplicates and remove them from dagviz as require() will
     // scan parent folders (kdx) for node_module
     let dagvizModules = fs.readdirSync(path.join(dagvizFolder,'node_modules'));
-    let kdxModules = fs.readdirSync(E.BUILD,'node_modules');
+    let kdxModules = fs.readdirSync(path.join(E.BUILD,'node_modules'));
     let duplicates = dagvizModules.filter(f => kdxModules.includes(f) && !/^\.\.?$/.test(f));
     let jobs = duplicates.map(f => E.remove(path.join(dagvizFolder,'node_modules',f)));
     await Promise.all(jobs);
@@ -74,7 +76,9 @@ E.flags['with-kmetrics'] && E.task('kmetrics', ['remote'], async () => {
     const dest = path.join(E.BUILD,'apps')
     mkdirp.sync(dest);
     const kmetricsFolder = path.join(dest,'kmetrics');
+    await E.remove(kmetricsFolder);
     await git.clone('git@github.com:kaspanet/kmetrics', dest, { branch : E.flags['kmetrics-branch'] || 'master' });
+    await E.remove(path.join(kmetricsFolder,'.git'));
 
     return Promise.resolve();
 });
@@ -283,14 +287,26 @@ E.task('pgsql', ['origin'], async () => {
 })
 
 E.task('remote', ['origin'], async () => {
+
+
+    // let files = E.manifest.files.slice();
+    // while(files.length) {
+    //     let f = files.shift();
+    //     console.log('copying:',f);
+    //     await E.copy(path.join(E.REPO,f), path.join(E.BUILD, f));
+    // }
+
+    // console.log('done');
+
     let files = (E.manifest.files||[]).map(f=>{
+        // console.log(E.REPO,'->',E.BUILD, f);
         return E.copy(path.join(E.REPO,f), path.join(E.BUILD, f));
     })
     E.log(`copying ${files.length} items...`);
     await Promise.all(files);
 
-    fs.writeFileSync(path.join(E.BUILD,'i18n.lock'));
-    // console.log(`done...`);
+    fs.writeFileSync(path.join(E.BUILD,'i18n.lock'),'');
+    console.log(`i18n.lock`);
 })
 
 E.task('mqtt',['origin'], async () => {
@@ -312,7 +328,7 @@ E.task('aptitude', null, async () => {
         return;
 })
 
-E.task('docker',null, async () => {
+E.flags.docker && E.task('docker', null, async () => {
 
     E.manifest_read();
 
