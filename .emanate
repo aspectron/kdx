@@ -30,43 +30,19 @@ const E = new Emanator(__dirname, {
         }
         return manifest;
     },
-
-
 })
 
 const go = await E.tools.go('go1.14.3');
 const git = await E.tools.git();
 const gcc = await E.tools.gcc();
-const npm = await E.tools.npm();
-
-
-// E.BIN = path.join(E.appFolder,'bin',E.PLATFORM_ARCH);
-// mkdirp.sync(E.BIN);
-
-//mkdirp.sync(path.join(E.appFolder,'setup'));
+const npm = await E.tools.npm({ production : true });
 
 if(E.flags.full || E.flags.all) {
     E.flags['with-dagviz'] = true;
+    E.flags['with-kmetrics'] = true;
 }
 
 E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
-
-    // const config = {
-    //     "app:dagviz": {
-    //         "disable": false,
-    //         "folder": "$APPS/dagviz",
-    //         "location": "http://localhost:8689",
-    //         "width" : 1600, 
-    //         "height" : 680,
-    //         "args": [
-    //             "$node", "dagviz",
-    //             "--kdx","--no-auth", "--port=8689",
-    //             "--kasparov=http://localhost:11224",
-    //             "--mqtt-address=mqtt://localhost:18792"
-    //         ]
-    //     }
-    // };
-
     const dest = path.join(E.BUILD,'apps');
     mkdirp.sync(dest);
 
@@ -82,17 +58,6 @@ E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
     let duplicates = dagvizModules.filter(f => kdxModules.includes(f) && !/^\.\.?$/.test(f));
     let jobs = duplicates.map(f => E.remove(path.join(dagvizFolder,'node_modules',f)));
     await Promise.all(jobs);
-
-    // const defaultConfigFile = path.join(E.BUILD,'default-config.json');
-    // if(!fs.existsSync) {
-    //     E.log(`fatal - unable to locate: ${defaultConfigFile}`);
-    //     process.exit(1);
-    // }
-
-    // // rewrite default kdx config to include dagviz configuration
-    // let dc = JSON.parse(fs.readFileSync(defaultConfigFile,'utf8'));
-    // Object.assign(dc.modules, config);
-    // fs.writeFileSync(defaultConfigFile,JSON.stringify(dc));
 });
 
 /*
@@ -104,13 +69,11 @@ E.flags['with-ksandbox'] && E.task('ksandbox', ['remote'], async () => {
 });
 */
 
-
 E.flags['with-kmetrics'] && E.task('kmetrics', ['remote'], async () => {
-
     const dest = path.join(E.BUILD,'apps')
     mkdirp.sync(dest);
     const kmetricsFolder = path.join(dest,'kmetrics');
-    await git.clone('git@github.com:aspectron/kmetrics', dest, { branch : E.flags['kmetrics-branch'] || 'master' });
+    await git.clone('git@github.com:kaspanet/kmetrics', dest, { branch : E.flags['kmetrics-branch'] || 'master' });
 
     return Promise.resolve();
 });
@@ -183,7 +146,7 @@ E.task('kaspad', ['origin'], async () => {
         folders.push(folder);
         //jobs.push(go.build(folder));
     }
-console.log('done - 1');
+    //console.log('done - 1');
     //await Promise.all(jobs);
 
     folders.forEach((folder) => {
@@ -206,12 +169,8 @@ console.log('done - 1');
     E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
 })
 
+// MySQL is disabled - this section will be removed at a later date
 0 && E.task('mysql', ['origin'], async () => {
-
-    // disabling MySQL for now
-    // return Promise.resolve();
-
-    // ---
 
     if(E.PLATFORM == 'linux')
         return Promise.resolve();
@@ -347,19 +306,10 @@ E.task('done', ['pgsql','kaspad','remote','mqtt'], async () => {
 
 })
 
-
 E.task('aptitude', null, async () => {
-
     if(E.PLATFORM != 'linux')
         return;
-
-// TODO - APT-PACKAGE REQUIREMENTS
-// net-tools
-// wondershaper
-
 })
-
-
 
 E.task('docker',null, async () => {
 
@@ -401,9 +351,6 @@ else if(E.flags['mqtt'])
 else if(E.flags['kaspa']) 
     E.run(['kaspad']);
 else if(E.flags['local-binaries']) {
-
-    
-
     E.run(['kaspad','pgsql', 'mqtt', 'aptitude']);
 }
 else
