@@ -28,6 +28,9 @@ const E = new Emanator(__dirname, {
                 })
             }
         }
+
+        manifest.files.push('apps');
+
         return manifest;
     },
 })
