@@ -40,6 +40,7 @@ const npm = await E.tools.npm({ production : true });
 if(E.flags.full || E.flags.all) {
     E.flags['with-dagviz'] = true;
     E.flags['with-kmetrics'] = true;
+    E.flags['with-perfmon'] = true;
 }
 
 E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
