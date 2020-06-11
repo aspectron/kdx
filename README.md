@@ -20,6 +20,7 @@ KDX is built using [NWJS](https://nwjs.io) and is compatible Windows, Linux and 
 ### Pre-requisites
 
 - [Node.js 14.0.0+](https://nodejs.org/)
+- Emanator - `npm install emanator`
 
 **NOTE:** KDX build process builds and includes latest Kaspa binaries from Git master branches. 
 To build from specific branches, you can use `--branch...` flags (see below).
@@ -36,24 +37,83 @@ cd kdx
 #  --all        generate all OS compatible packages
 emanate [--portable | --innosetup | --dmg | --all]
 ```
+To generate installer with kMetrics and DAGViz you can add `--full` argument to emanate:
+```
+emanate --full --portable -innosetup
+```
 
 #### Running KDX from development environment
 
 
 In addition to Node.js, please download and install [Latest NWJS SDK https://nwjs.io](https://nwjs.io/) - make sure that `nw` executable is available in the system PATH and that you can run `nw` from command line.
 
+On Linux / Darwin, as good way to install node and nwjs is as follows:
+
+```
+cd ~
+mkdir bin
+cd bin
+
+#node - (must be 14.0+)
+wget https://nodejs.org/dist/v14.4.0/node-v14.4.0-linux-x64.tar.xz
+tar xvf node-v14.4.0-linux-x64.tar.xz
+ln -s node-v14.4.0-linux-x64 node
+
+#nwjs
+wget https://dl.nwjs.io/v0.46.2/nwjs-sdk-v0.46.2-linux-x64.tar.gz
+tar xvf nwjs-sdk-v0.46.2-linux-x64.tar.gz
+ln -s nwjs-sdk-v0.46.2-linux-x64 nwjs
+
+```
+Once done add the following to `~/.bashrc`
+```
+export PATH = /home/<user>/bin/node/bin:/home/<user>/bin/nwjs:$PATH
+```
+The above method allows you to deploy latest binaries and manage versions by re-targeting symlinks pointing to target folders.
+
+Once you have node and nwjs working, you can continue with KDX.
+
+KDX installation:
 ```
 npm install emanator@latest
 git clone git@github.com:aspectron/kdx
 cd kdx
-emanate --local-binaries
+npm install
+emanate --local-binaries --with-extras
 nw .
 ```
 
-To build additional utilities such as `txgen` you can run 
+Passing `--with-extras` to `emanate` will add `txgen` to the list of binaries being built (`txgen` is not included in distributions by default)
+
+**NOTE:** On LINUX systems, you need to have mosquitto and postgresql installed on the machine. This can be accomplished using aptitude, packman or other package managers:
 ```
-emanate --local-binaries --with-extras --with-dagviz --with-kasperf
+sudo apt-get install posgresql mosquitto
+# or
+apk add postgresql mosquitto 
 ```
+
+#### Adding kMetrics and DAGViz
+
+When in developer environment, you can add kMetrics and DAGViz to the list of applications
+managed by KDX.   KDX enumerates `apps` folder to see which applications have been installed under it.
+
+You need to clone DAGViz and kMetrics, then inside DAGViz folder run `emanate --local-binaries` and `npm install`.
+Once complete you need to *symlink* these folders inside of the `KDX/apps folder`:
+```
+cd kdx
+mkdir apps
+cd apps
+ln -s ../../dagviz dagviz
+ln -s ../../kmetrics kmetrics
+```
+
+KDX scans `package.json` within folders found inside the `apps` folder. KDX looks for `main` script and 
+the optional `kdx` section that can define startup execution parameters, application name, description and window startup parameters.
+
+KDX supports full nodejs applications (that would typicaly run server-side applications) and can serve 
+these applications directly via a browser window. KDX also supports **Applets** which load an HTML file
+directly within the KDX process. Upon startup, applets receive KDX configuration, making them a good
+candidate for small apps that directly interface with Kaspa stack.  kMetrics is one such example.
 
 #### Building installers from specific Kaspa Git branches
 
