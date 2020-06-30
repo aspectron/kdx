@@ -2,7 +2,7 @@
 FROM node:14.4-alpine AS build
 
 RUN apk update
-RUN apk add --no-cache python gcc make g++ build-base git lzo bzip2 openssl bash file postgresql mosquitto nano go
+RUN apk add --no-cache python gcc make g++ build-base git lzo bzip2 openssl bash file postgresql mosquitto nano go coreutils
 #ENV PYTHONUNBUFFERED=1
 #RUN apk add --no-cache python3 && \
 #    if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi 
