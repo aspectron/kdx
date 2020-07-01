@@ -51,7 +51,7 @@ if(E.flags.full || E.flags.all) {
     E.flags['with-dagviz'] = true;
     E.flags['with-kmetrics'] = true;
     E.flags['with-perfmon'] = true;
-    E.flags['with-txgen'] = true;
+    E.flags['with-extras'] = true;
 }
 
 E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
@@ -148,7 +148,7 @@ E.task('kaspad', ['origin'], async () => {
         ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`),
     ];
 
-    if(E.flags['with-txgen']) {
+    if(E.flags['with-extras']) {
         targets = [
             ...targets,
             // 'miningsimulator',
