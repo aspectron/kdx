@@ -29,16 +29,18 @@ const E = new Emanator(__dirname, {
             }
         }
 
-        // if(E.PLATFORM == 'darwin')
-        //     manifest.files.push('apps');
+        if(E.PLATFORM == 'darwin')
+            manifest.files.push('apps');
 
         return manifest;
     },
 })
 
-// E.aux_dmg_file_ops = async (root) => {
-//     E.copy(process.argv[0], root);
-// }
+E.aux_dmg_files = async (root) => {
+    await E.copy(path.join(E.BUILD,'apps'),path.join(root,'apps'));
+
+    //    E.copy(process.argv[0], root);
+}
 
 const go = await E.tools.go('go1.14.3');
 const git = await E.tools.git();
@@ -329,7 +331,15 @@ E.task('mqtt',['origin'], async () => {
         E.registerFirewallRule({ name : 'KDX MQTT', file : 'mosquitto/mosquitto.exe', binary : true });
         return E.copy(path.join(E.REPO,'resources','deps','mosquitto-windows-x64'),path.join(E.BIN,'mosquitto'));
     } else if(E.PLATFORM == 'darwin') {
-        return E.copy(path.join(E.REPO,'resources','deps','mosquitto-darwin-x64'),path.join(E.BIN,'mosquitto'));
+
+        E.log('cleaning up bin/mosquitto');
+        await E.remove(path.join(E.BIN,'mosquitto'));
+        E.log('brew - copying libwebsockets');
+        await E.copy('/usr/local/Cellar/libwebsockets/4.0.19',path.join(E.BIN,'mosquitto'));
+        E.log('brew - copying mosquitto');
+        await E.copy('/usr/local/Cellar/mosquitto/1.6.10',path.join(E.BIN,'mosquitto'));
+        return Promise.resolve();
+//        return E.copy(path.join(E.REPO,'resources','deps','mosquitto-darwin-x64'),path.join(E.BIN,'mosquitto'));
     }
 })
 
