@@ -127,7 +127,7 @@ E.task('kaspad', ['origin'], async () => {
         console.log(`git clone git@github.com:kaspanet/${name}`);
         await git.clone(`git@github.com:kaspanet/${name}`,dest, {branch : git_branch || 'master'});
     }
-    
+    ƒ
     //     repos.extras = ['miningsimulator', `txgen:${branch}`];
     //     for(const repo of repos.extras) {
     //         const [name_, branch_] = repo.split(':');
