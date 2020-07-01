@@ -51,6 +51,7 @@ if(E.flags.full || E.flags.all) {
     E.flags['with-dagviz'] = true;
     E.flags['with-kmetrics'] = true;
     E.flags['with-perfmon'] = true;
+    E.flags['with-txgen'] = true;
 }
 
 E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
@@ -145,7 +146,7 @@ E.task('kaspad', ['origin'], async () => {
         ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`),
     ];
 
-    if(E.flags['with-extras']) {
+    if(E.flags['with-txgen']) {
         targets = [
             ...targets,
             // 'miningsimulator',
@@ -332,12 +333,34 @@ E.task('mqtt',['origin'], async () => {
         return E.copy(path.join(E.REPO,'resources','deps','mosquitto-windows-x64'),path.join(E.BIN,'mosquitto'));
     } else if(E.PLATFORM == 'darwin') {
 
-        E.log('cleaning up bin/mosquitto');
-        await E.remove(path.join(E.BIN,'mosquitto'));
-        E.log('brew - copying libwebsockets');
-        await E.copy('/usr/local/Cellar/libwebsockets/4.0.19',path.join(E.BIN,'brew'));
-        E.log('brew - copying mosquitto');
-        await E.copy('/usr/local/Cellar/mosquitto/1.6.10',path.join(E.BIN,'brew'));
+        E.log('cleaning up bin/brew');
+        await E.remove(path.join(E.BIN,'brew'));
+        const brew = `/usr/local/Cellar/`;
+        let folders = ['libevent','libuv','libwebsockets','openssl@1.1','mosquitto'];
+        while(folders.length) {
+            let f = folders.shift();
+            let folder = path.join(brew,f);
+            E.log(`brew - copying ${f}`);
+            let versions = fs.readdirSync(folder);
+            while(versions.length) {
+                let v = versions.shift();
+                let srcver = path.join(folder,v);
+                const list = ['AUTHORS','LICENSE','README.md','notice.html','README','bin','lib','sbin'];
+                while(list.length) {
+                    let t = list.shift();
+                    let src = path.join(srcver,t);
+                    if(fs.existsSync(src)) {
+                        let dest = path.join(E.BIN,'brew',f,v,t);
+                        E.log('+--<'+src);
+                        E.log('+-->'+dest);
+                        await E.copy(src,dest);
+                    }
+                }
+            }
+
+            // await E.copy(folder,path.join(E.BIN,'brew',f));
+            
+        }
         return Promise.resolve();
 //        return E.copy(path.join(E.REPO,'resources','deps','mosquitto-darwin-x64'),path.join(E.BIN,'mosquitto'));
     }
