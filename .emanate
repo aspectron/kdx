@@ -335,9 +335,9 @@ E.task('mqtt',['origin'], async () => {
         E.log('cleaning up bin/mosquitto');
         await E.remove(path.join(E.BIN,'mosquitto'));
         E.log('brew - copying libwebsockets');
-        await E.copy('/usr/local/Cellar/libwebsockets/4.0.19',path.join(E.BIN,'mosquitto'));
+        await E.copy('/usr/local/Cellar/libwebsockets/4.0.19',path.join(E.BIN,'brew'));
         E.log('brew - copying mosquitto');
-        await E.copy('/usr/local/Cellar/mosquitto/1.6.10',path.join(E.BIN,'mosquitto'));
+        await E.copy('/usr/local/Cellar/mosquitto/1.6.10',path.join(E.BIN,'brew'));
         return Promise.resolve();
 //        return E.copy(path.join(E.REPO,'resources','deps','mosquitto-darwin-x64'),path.join(E.BIN,'mosquitto'));
     }
