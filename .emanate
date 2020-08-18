@@ -1,6 +1,6 @@
 "use strict";
 
-const KASPA_DEFAULT_BRANCH = 'v0.4.0-dev';
+const KASPA_DEFAULT_BRANCH = 'v0.6.4-dev';
 
 const E = new Emanator(__dirname, {
     type : 'NODE+NWJS',
@@ -42,10 +42,10 @@ E.aux_dmg_files = async (root) => {
     //    E.copy(process.argv[0], root);
 }
 
-const go = await E.tools.go('go1.14.3');
-const git = await E.tools.git();
-const gcc = await E.tools.gcc();
-const npm = await E.tools.npm({ production : true });
+const go = await E.modules.go('go1.14.3');
+const git = await E.modules.git();
+const gcc = await E.modules.gcc();
+const npm = await E.modules.npm({ production : true });
 
 if(E.flags.full || E.flags.all) {
     E.flags['with-dagviz'] = true;
@@ -100,7 +100,7 @@ E.flags['with-kmetrics'] && E.task('kmetrics', ['remote'], async () => {
     return Promise.resolve();
 });
 
-E.task('kaspad', ['origin'], async () => {
+const kaspad = E.task('kaspad', ['origin'], async () => {
 
     //return true;
     if(E.PLATFORM == 'windows') {
@@ -108,8 +108,8 @@ E.task('kaspad', ['origin'], async () => {
     }
 
     let dest = path.join(go.SRC,'github.com/kaspanet/');
-    if(E.flags.reset && fs.existsSync(dest))
-        E.emptyDir(dest);
+    if((E.flags.reset || E.flags.clean) && fs.existsSync(dest))
+        await E.emptyDir(dest);
 
     const branch = E.flags['branch'] || KASPA_DEFAULT_BRANCH || 'master';
     
@@ -145,7 +145,7 @@ E.task('kaspad', ['origin'], async () => {
         'kasparov/kasparovd',
         'kasparov/kasparovsyncd',
         'kasparov/examples/wallet',
-        ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`),
+        ...fs.readdirSync(path.join(dest,'kaspad/executables')).map(f => `kaspad/executables/${f}`),
     ];
 
     if(E.flags['with-extras']) {
@@ -191,7 +191,8 @@ E.task('kaspad', ['origin'], async () => {
     })
 
     E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
-})
+});
+
 
 // MySQL is disabled - this section will be removed at a later date
 0 && E.task('mysql', ['origin'], async () => {
@@ -240,7 +241,7 @@ E.task('kaspad', ['origin'], async () => {
 
 })
 
-E.task('pgsql', ['origin'], async () => {
+const pgsql = E.task('pgsql', ['origin'], async () => {
     console.log("PGSQL",E.BIN)
     if(E.PLATFORM == 'linux')
         return Promise.resolve();
@@ -248,7 +249,7 @@ E.task('pgsql', ['origin'], async () => {
     if(E.flags.nodb || E.flags.nosql || E.flags.nopgsql)
         return Promise.resolve();
 
-    const pgsql = {
+    const pgsql_url = {
         windows : { 
             url : 'http://sbp.enterprisedb.com/getfile.jsp?fileid=12454', 
             file : `postgresql-12.2-2-windows-x64-binaries.zip` 
@@ -259,16 +260,16 @@ E.task('pgsql', ['origin'], async () => {
         }
     }[E.PLATFORM];
     // `postgresql-12.2-3-osx-binaries.zip`.match(/^\w+-(\d).(\d)-(\d)/)
-    const [, major, minor, release_] = pgsql.file.match(/^\w+-(\d+).(\d+)-(\d+)/);
+    const [, major, minor, release_] = pgsql_url.file.match(/^\w+-(\d+).(\d+)-(\d+)/);
     const version = `${major}.${minor}.${release_}`;
 
     E.utils.resetTTY();
 
-    const file = path.join(E.DEPS,pgsql.file);
-    const basename = path.basename(pgsql.file).replace(/\.(zip|tar|tar.gz|tar.xz)$/,'');
+    const file = path.join(E.DEPS,pgsql_url.file);
+    const basename = path.basename(pgsql_url.file).replace(/\.(zip|tar|tar.gz|tar.xz)$/,'');
     const archiveFolder = path.join(E.DEPS, basename);
     if(!fs.existsSync(file) || !fs.existsSync(path.join(archiveFolder,'pgsql'))) {
-        await E.download(pgsql.url,file);
+        await E.download(pgsql_url.url,file);
         await E.unzip(file, archiveFolder);
     }
 
@@ -303,7 +304,7 @@ E.task('pgsql', ['origin'], async () => {
     })
 
     E.log('done...');
-})
+});
 
 E.task('remote', ['origin'], async () => {
 
@@ -411,11 +412,13 @@ if(E.flags.docker) {
     E.run(['docker']);
 }
 else if(E.flags['pgsql']) 
-    E.run(['pgsql']);
+    //E.run(['pgsql']);
+    await pgsql();
 else if(E.flags['mqtt']) 
     E.run(['mqtt']);
 else if(E.flags['kaspa']) 
-    E.run(['kaspad']);
+    await kaspad();
+    //E.run(['kaspad']);
 else if(E.flags['local-binaries']) {
     E.run(['kaspad','pgsql', 'mqtt', 'aptitude']);
 }
