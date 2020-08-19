@@ -14,7 +14,7 @@ class NodeApp extends App{
 		if(!this.dataFolder)
 			return Promise.resolve();
 
-		if(this.args.purge) {
+		if(this.args.purge || this.args.reset) {
 			try {
 				console.log('purging'.brightMagenta,this.dataFolder.brightWhite);
 				await fse.remove(this.dataFolder);
