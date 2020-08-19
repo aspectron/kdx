@@ -4,7 +4,6 @@
 		"kaspad:kd0" : {
 			"reset-peers" : false,
 			"args":{
-				"miningaddr" : "kaspatest:qpc3hr2kmnu6j0crw42cmryptzqmyqm9gstqp5r863",
 				"rpclisten" : "0.0.0.0:16210",
 				"listen": "0.0.0.0:16211",
 				"profile": 7000
@@ -45,6 +44,7 @@
 		"kaspaminer:km0" : {
 			"args":{
 				"testnet" : null,
+				"miningaddr" : "kaspatest:qpc3hr2kmnu6j0crw42cmryptzqmyqm9gstqp5r863",
 				"rpcserver":"localhost:16210",
 				"block-delay" : 2000,
 				"mine-when-not-synced" : null
