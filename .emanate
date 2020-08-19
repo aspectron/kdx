@@ -1,6 +1,6 @@
 "use strict";
 
-const KASPA_DEFAULT_BRANCH = 'v0.6.4-dev';
+const KASPA_DEFAULT_BRANCH = 'v0.6.5-dev';
 
 const E = new Emanator(__dirname, {
     type : 'NODE+NWJS',
@@ -145,7 +145,7 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
         'kasparov/kasparovd',
         'kasparov/kasparovsyncd',
         'kasparov/examples/wallet',
-        ...fs.readdirSync(path.join(dest,'kaspad/executables')).map(f => `kaspad/executables/${f}`),
+        ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`),
     ];
 
     if(E.flags['with-extras']) {
