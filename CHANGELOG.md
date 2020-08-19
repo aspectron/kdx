@@ -7,8 +7,8 @@ This version updates KDX to be compatible with kaspad `v0.6.5-dev` branch. Befor
 - Compatibility with the latest Emanator integration API (please update Emanator `npm install -g emanator@alpha`)
 
 ### Changed
-- Removed `--miningaddr` from Kaspad, migrated it to Kaspaminer
+- Migrated `--miningaddr` from Kaspad to Kaspaminer
 
 ### Removed
-- Removed network statistics (as they were removed from Kaspad); KDX no longer shows Kaspad network transfer rates.
+- Removed network statistics (as RPC Call has been removed from Kaspad); KDX no longer shows Kaspad network transfer rates.
 
