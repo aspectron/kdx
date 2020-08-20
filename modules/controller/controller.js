@@ -111,7 +111,8 @@ class Controller{
 				return
 			//data.map(d=>{
 				//console.log("data-line", d.trim())
-				terminal.term.write(data.toString('utf8').replace(/\n/g,'\r\n')); //(d.trim());
+				terminal.writeToResidentBuffers(data.toString('utf8').replace(/\n/g,'\r\n')); //(d.trim());
+				//terminal.term.write(data.toString('utf8').replace(/\n/g,'\r\n')); //(d.trim());
 			//});
 		});
 
@@ -406,7 +407,7 @@ class Controller{
 			const template = document.createElement('template');
 			template.innerHTML = 
 			`<tab-content for="${key}" data-active-display="flex" class="advanced term">
-				<flow-terminal noinput class="x-terminal" background="transparent" foreground="transparent"></flow-terminal>
+				<flow-terminal noinput resident="2048" class="x-terminal" background="transparent" foreground="transparent"></flow-terminal>
 				<!-- div class="tools">
 					<flow-btn data-action="RUN">RUN</flow-btn>
 					<flow-btn data-action="STOP">STOP</flow-btn>
