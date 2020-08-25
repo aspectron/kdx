@@ -113,8 +113,8 @@ class Controller{
 				return
 			//data.map(d=>{
 				//console.log("data-line", d.trim())
-				terminal.writeToResidentBuffers(data.toString('utf8').replace(/\n/g,'\r\n')); //(d.trim());
-				//terminal.term.write(data.toString('utf8').replace(/\n/g,'\r\n')); //(d.trim());
+				//terminal.writeToResidentBuffers(data.toString('utf8').replace(/\n/g,'\r\n')); //(d.trim());
+				terminal.term.write(data.toString('utf8').replace(/\n/g,'\r\n')); //(d.trim());
 			//});
 		});
 
