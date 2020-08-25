@@ -20,6 +20,8 @@ window.setLocalSetting = setLocalSetting;
 
 class Controller{
 	constructor(){
+		let doc = document;
+		this.qS = doc.querySelector.bind(doc);
 		//testDialogs();
 		this.debug = getLocalSetting('debug-ctx')==1;
 		this.init();
@@ -128,8 +130,9 @@ class Controller{
 
 		global.manager = manager;
 	}
-	async initConsole() {
-		this.console = new Console(this, document.getElementById('kdx-console'));
+	initConsole() {
+		let terminal = this.qS('#kdx-console');
+		this.console = new Console(this, terminal);
 
 		return Promise.resolve();
 	}
@@ -252,7 +255,7 @@ class Controller{
 
 	async initSettings(){
 		const doc = document;
-		const qS = this.qS = doc.querySelector.bind(doc);
+		const qS = this.qS;
 		const qSA = this.qSA = doc.querySelectorAll.bind(doc);
 		let themeInput = qS("#settings-dark-theme");
 		let invertTermInput = qS("#settings-invert-terminal");
