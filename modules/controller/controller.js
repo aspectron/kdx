@@ -332,6 +332,9 @@ class Controller{
 			$('.use-default-data-dir')[0].disabled = value==configFolder;
 		});
 
+
+		this.initReleaseNotes();
+
 		themeInput.addEventListener('changed', (e)=>{
 			let theme = e.detail.checked ? 'dark' : 'light';
 			this.setTheme(theme);
@@ -370,6 +373,19 @@ class Controller{
 		//this.manager.setEnableMining(this.enableMining);
 		flow.samplers.registerSink(this.sampler_sink.bind(this));
 		this.initStatsdServer(this.statsdAddress,this.statsdPrefix);
+	}
+	initReleaseNotes(){
+		let dialog = this.qS("#release-notes-dialog");
+		let readmeContent = fs.readFileSync(path.join(this.manager.appFolder, 'README.md'))+"";
+		dialog.content = readmeContent;
+		$("#release-notes-link").on("click", ()=>{
+			window.showReleaseNotesDialog(true);
+		});
+
+		if(getLocalSetting('version')!=pkg.version){
+			setLocalSetting('version', pkg.version);
+			window.showReleaseNotesDialog(true);
+		}
 	}
 	initTaskTab(task){
 		const advanced = document.querySelector('#settings-advanced').checked;
