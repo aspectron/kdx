@@ -250,6 +250,7 @@ project > * { padding: 2px; }
 #kaspa-resources ul li {
 	font-size: 18px;
 	padding: 6px;
+	--flow-link-font-size:18px;
 }
 
 #applications flow-window-link {
