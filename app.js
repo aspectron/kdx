@@ -114,6 +114,11 @@ class App extends FlowApp{
 
 	getDefaultConfig(){
 		let config = super.getDefaultConfig();
+
+		if(!process.env['KASPA_JSON_RPC'])
+			return config;
+
+		// disabled as of Kaspad 7.0
 		let rpcuser = this.randomBytes();
 		let rpcpass = this.randomBytes();
 		Object.entries(config.modules).forEach(([k,v]) => {
