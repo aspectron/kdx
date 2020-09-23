@@ -266,3 +266,9 @@ project > * { padding: 2px; }
 }
 
 flow-input { margin: 2px; }
+
+.block { display: block; }
+
+.input-ctl-margin {
+	margin: 8px;
+}

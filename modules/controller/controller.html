@@ -153,7 +153,7 @@
 		</flow-form-control>
 		<flow-form-control icon="fal:tools">
 			<flow-i18n caption>Turn ON/OFF advanced settings and process control</flow-i18n>
-			<flow-checkbox id="settings-advanced" slot="input">
+			<flow-checkbox id="settings-advanced" slot="input" class="block">
 			<flow-i18n>Advanced</flow-i18n>
 			</flow-checkbox>
 			<h4 slot="info" class="title"><flow-i18n>Advanced mode</flow-i18n></h4>
@@ -174,7 +174,7 @@
 		</flow-form-control>
 		<flow-form-control icon="fal:cube" xclass="advanced-tool">
 			<flow-i18n caption>Block Generation</flow-i18n>
-			<flow-checkbox id="settings-enable-mining" xclass="block advanced-tool"
+			<flow-checkbox id="settings-enable-mining" class="block advanced-tool"
 				slot="input"><flow-i18n>Enable Mining</flow-i18n></flow-checkbox>
 			<h4 slot="info" class="title"><flow-i18n>Block Generation</flow-i18n></h4>
 			<p slot="info" is="i18n-p">
@@ -199,11 +199,11 @@
 			<flow-checkbox id="settings-enable-metrics" class="block advanced-tool"
 				slot="input"><flow-i18n>Enable Metrics</flow-i18n></flow-checkbox>
 
-			<flow-input id="settings-statsd-address" class="block advanced-tool"
+			<flow-input id="settings-statsd-address" class="block advanced-tool input-ctl-margin"
 				placeholder="STATSD ADDRESS.."
 				label="STATSD ADDRESS"
 				slot="input"></flow-input>
-			<flow-input id="settings-statsd-prefix" class="block advanced-tool"
+			<flow-input id="settings-statsd-prefix" class="block advanced-tool input-ctl-margin"
 				label="STATSD PREFIX"
 				placeholder="STATSD PREFIX..."
 				slot="input"></flow-input>
