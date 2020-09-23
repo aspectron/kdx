@@ -1,7 +1,7 @@
 {
   "name": "kdx",
   "description": "Kaspa Desktop eXperience",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "main": "kdx.js",
   "files": [
@@ -32,6 +32,7 @@
     "colors": "^1.4.0",
     "du": "^1.0.0",
     "fs-extra": "*",
+    "grpc": "*",
     "is-docker": "*",
     "lit-element": "*",
     "mkdirp": "*",
