@@ -61,5 +61,5 @@
     "http://localhost"
   ],
   "chromium-args-v1": "--disable-gpu-compositing --force-cpu-draw --enable-logging --disable-pinch --enable-experimental-web-platform-features",
-  "chromium-args": "--enable-logging --disable-pinch --enable-experimental-web-platform-features"
+  "chromium-args": "--enable-logging --disable-pinch --enable-experimental-web-platform-features --mixed-content"
 }
