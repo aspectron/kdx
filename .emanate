@@ -12,11 +12,11 @@ const E = new Emanator(__dirname, {
     git : 'git@github.com:aspectron/kdx',
     author : "ASPECTRON Inc.",
     url : "http://aspectron.com",
-    archive : true,
+    //archive : true,
     folder : true,
     standalone : true,
     production: true,
-    DMG: true,
+    //DMG: true,
     nwjs : { version : '0.46.2' },
     resources : 'resources/setup',
 
