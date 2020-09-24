@@ -193,54 +193,6 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
     E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
 });
 
-
-// MySQL is disabled - this section will be removed at a later date
-0 && E.task('mysql', ['origin'], async () => {
-
-    if(E.PLATFORM == 'linux')
-        return Promise.resolve();
-
-    if(E.flags.nodb || E.flags.nosql || E.flags.nomysql)
-        return Promise.resolve();
-
-    let version = '8.0.18';
-    let macos = 'macos10.14';
-    const mysql = {
-        windows : `mysql-${version}-winx64.zip`,
-        linux : `mysql-${version}-linux-x86_64-minimal.tar.xz`,
-        darwin : `mysql-${version}-${macos}-x86_64.tar.gz`
-    }[E.PLATFORM];
-
-
-    E.utils.resetTTY();
-
-    let file = path.join(E.DEPS,mysql);
-    await E.download(`https://dev.mysql.com/get/Downloads/MySQL-8.0/${mysql}`,file);
-    await E.unzip(file, E.DEPS);//, );
-    let basename = path.basename(mysql).replace(/\.(zip|tar|tar.gz|tar.xz)$/,'');
-
-    const targetBinFolder = path.join(E.BIN,basename);
-    if(fs.existsSync(targetBinFolder)) {
-        E.log(`WARNING: previous MySQL deployment found...`.brightRed,);
-        E.log(`         cleaning up existing ${targetBinFolder}...`);
-        await fs.remove(targetBinFolder);
-    }
-    mkdirp.sync(targetBinFolder);
-
-    E.log(`copying ${basename}...`);
-    let folders = ['bin','lib','share'];
-
-    let jobs = folders.map((f) => {
-        if(E.PLATFORM == 'windows')
-            return E.copy(path.join(E.DEPS,basename,f), path.join(targetBinFolder,f));
-        else
-            return E.spawn('cp', ['-R',path.join(E.DEPS,basename,f),path.join(targetBinFolder,f)], { cwd : E.DEPS, stdio: 'inherit' });
-    })
-    await Promise.all(jobs);
-    E.log('done...');
-
-})
-
 const pgsql = E.task('pgsql', ['origin'], async () => {
     console.log("PGSQL",E.BIN)
     if(E.PLATFORM == 'linux')
