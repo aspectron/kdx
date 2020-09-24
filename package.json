@@ -32,7 +32,7 @@
     "colors": "^1.4.0",
     "du": "^1.0.0",
     "fs-extra": "*",
-    "grpc": "*",
+    "@grpc/grpc-js": "*",
     "is-docker": "*",
     "lit-element": "*",
     "mkdirp": "*",
