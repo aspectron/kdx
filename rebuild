@@ -1,0 +1,5 @@
+#!/bin/bash
+
+emanate --full --local-binaries --docker
+
+
