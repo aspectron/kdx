@@ -3,7 +3,7 @@
 const KASPA_DEFAULT_BRANCH = 'v0.6.5-dev';
 
 const E = new Emanator(__dirname, {
-    type : 'NODE+NWJS',
+    type : argv.build ? 'NODE+NWJS' : 'UTIL',
     guid : 'c1072045-6d98-44d8-9aa5-e9be6c79bd01',
     group : 'Kaspa',
     ident : 'kdx',
@@ -409,7 +409,7 @@ if(E.flags.link) {
 }
 else 
 if(E.flags.docker) {
-    E.run(['docker']);
+    E.runTask('docker');
 }
 else if(E.flags['pgsql']) 
     //E.run(['pgsql']);
@@ -420,7 +420,11 @@ else if(E.flags['kaspa'])
     await kaspad();
     //E.run(['kaspad']);
 else if(E.flags['local-binaries']) {
-    E.run(['kaspad','pgsql', 'mqtt', 'aptitude']);
+    E.runTask('kaspad');
+    E.runTask('pgsql');
+    E.runTask('mqtt');
+    E.runTask('aptitude');
+//    E.run(['kaspad','pgsql', 'mqtt', 'aptitude']);
 }
 else
     E.run();
