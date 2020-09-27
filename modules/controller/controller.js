@@ -377,7 +377,17 @@ class Controller{
 	initReleaseNotes(){
 		let dialog = this.qS("#release-notes-dialog");
 		let readmeContent = fs.readFileSync(path.join(this.manager.appFolder, 'README.md'))+"";
-		dialog.content = readmeContent;
+		let changelogContent = fs.readFileSync(path.join(this.manager.appFolder, 'CHANGELOG.md'))+"";
+		dialog.content = 
+`#	Welcome to KDX ${pkg.version}!
+
+Useful resources:
+- Kaspa Documentation: https://docs.kas.pa 
+- Kaspa Discord: https://discord.gg/vMT39xB
+- Kaspa GitHub: https://github.com/kaspanet/
+- KDX GitHub: https://github.com/aspectron/kdx
+
+${changelogContent}`;
 		$("#release-notes-link").on("click", ()=>{
 			window.showReleaseNotesDialog(true);
 		});

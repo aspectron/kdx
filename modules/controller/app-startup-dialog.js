@@ -17,6 +17,7 @@ class AppStartupDialog extends BaseElement{
 				position:fixed;top:0px;left:0px;width:100%;height:100%;
 				background-color:rgba(255, 255, 255, 0.5);
 				box-sizing:border-box;
+				font-family: "Open Sans";
 			}
 			.container{
 				position:absolute;

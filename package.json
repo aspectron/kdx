@@ -1,7 +1,7 @@
 {
   "name": "kdx",
   "description": "Kaspa Desktop eXperience",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "main": "kdx.js",
   "files": [
@@ -10,6 +10,7 @@
     "nw-app.js",
     "app.js",
     "README.md",
+    "CHANGELOG.md",
     "lib",
     "modules",
     "resources/extern",
@@ -32,6 +33,7 @@
     "colors": "^1.4.0",
     "du": "^1.0.0",
     "fs-extra": "*",
+    "@grpc/grpc-js": "*",
     "is-docker": "*",
     "lit-element": "*",
     "mkdirp": "*",
@@ -60,5 +62,5 @@
     "http://localhost"
   ],
   "chromium-args-v1": "--disable-gpu-compositing --force-cpu-draw --enable-logging --disable-pinch --enable-experimental-web-platform-features",
-  "chromium-args": "--enable-logging --disable-pinch --enable-experimental-web-platform-features"
+  "chromium-args": "--enable-logging --disable-pinch --enable-experimental-web-platform-features --mixed-content"
 }

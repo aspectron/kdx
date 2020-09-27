@@ -54,6 +54,8 @@ body.flow-theme-dark{
 	--flow-data-badge-graph-stroke-width: 1px;
 	--flow-data-badge-graph-stroke-opacity: 0.75;
 
+	--flow-markdown-code-background-color: rgba(0,0,0,0.9);
+	--flow-markdown-code-border: #333;
 }
 
 *[caption] {
@@ -266,3 +268,9 @@ project > * { padding: 2px; }
 }
 
 flow-input { margin: 2px; }
+
+.block { display: block; }
+
+.input-ctl-margin {
+	margin: 8px;
+}
