@@ -23,7 +23,7 @@
 		},
 
 		"mqtt:mq0" : {
-			"port": 18792
+			"port": 19792
 		},
 		"kasparovd:kvd0" : {
 			"args":{
@@ -36,7 +36,7 @@
 			"args":{
 				"rpcserver":"localhost:16210",
 				"dbaddress":"localhost:18787",
-				"mqttaddress": "localhost:18792",
+				"mqttaddress": "localhost:19792",
 				"mqttuser" : "user",
 				"mqttpass" : "pass"
 				}
