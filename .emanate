@@ -1,6 +1,6 @@
 "use strict";
 
-const KASPA_DEFAULT_BRANCH = 'v0.7.1-dev';
+const KASPA_DEFAULT_BRANCH = 'v0.7.2-dev';
 
 const E = new Emanator(__dirname, {
     type : argv.build ? 'NODE+NWJS' : 'UTIL',
@@ -41,6 +41,8 @@ E.aux_dmg_files = async (root) => {
 
     //    E.copy(process.argv[0], root);
 }
+
+
 
 const go = await E.modules.go('go1.14.3');
 const git = await E.modules.git();
