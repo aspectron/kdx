@@ -44,7 +44,7 @@
 		"kaspaminer:km0" : {
 			"args":{
 				"testnet" : null,
-				"miningaddr" : "kaspatest:qpc3hr2kmnu6j0crw42cmryptzqmyqm9gstqp5r863",
+				"miningaddr" : "kaspatest:qpjmmd8fc20c6mf5zxr6qax0369g0aufyg6aqcel9u",
 				"rpcserver":"localhost:16210",
 				"block-delay" : 2000,
 				"mine-when-not-synced" : null
