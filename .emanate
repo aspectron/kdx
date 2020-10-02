@@ -120,7 +120,10 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
     //const repos = { };
     const repos = [`kaspad:${branch}`,`kasparov:${branch}`];
     if(E.flags['with-extras']) {
-        repos.push('miningsimulator');
+//        repos.push('miningsimulator');
+        repos.push(`txgen:${branch}`);
+    }
+    else if(E.flags['with-kmetrics'] || E.flags['with-txgen']) {
         repos.push(`txgen:${branch}`);
     }
 
@@ -150,7 +153,7 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
         ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`),
     ];
 
-    if(E.flags['with-extras']) {
+    if(E.flags['with-extras'] || E.flags['with-txgen']) {
         targets = [
             ...targets,
             // 'miningsimulator',
