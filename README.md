@@ -20,7 +20,7 @@ KDX is built using [NWJS](https://nwjs.io) and is compatible Windows, Linux and 
 ### Pre-requisites
 
 - [Node.js 14.0.0+](https://nodejs.org/)
-- Emanator - `npm install emanator`
+- Emanator - `npm install emanator@latest`
 
 **NOTE:** KDX build process builds and includes latest Kaspa binaries from Git master branches. 
 To build from specific branches, you can use `--branch...` flags (see below).
@@ -32,15 +32,22 @@ git clone git@github.com:aspectron/kdx
 cd kdx
 # run emanate with one or multiple flags below
 #  --portable   create a portable zipped application
-#  --innosetup  generate Windows setup execitable
+#  --innosetup  generate Windows setup executable
 #  --dmg        generate a DMG image for Mac OS X
 #  --all        generate all OS compatible packages
+# following flags can be used to reset the environment
+#  --clean		clean build folders: purges cloned `GOPATH` folder
+#  --reset		`--clean` + deletes downloaded/cached NWJS and NODE binaries
 emanate [--portable | --innosetup | --dmg | --all]
 ```
+DMG - Building DMG images on Mac OS requires `sudo` access in order to use system tools such as `diskutil` to generate images: `sudo emanate --dmg`
+
 To generate installer with kMetrics and DAGViz you can add `--full` argument to emanate:
 ```
 emanate --full --portable -innosetup
 ```
+
+Emanator stores build files in the `~/emanator` folder
 
 #### Running KDX from development environment
 
