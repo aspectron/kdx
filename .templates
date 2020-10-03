@@ -1,0 +1,143 @@
+{
+    "kaspad-node-only" : {
+        "disable" : true,
+        "description" : "Kaspad Node",
+        "modules":{
+            "kaspad:kd0" : {
+                "reset-peers" : false,
+                "args":{
+                    "rpclisten" : "0.0.0.0:16210",
+                    "listen": "0.0.0.0:16211",
+                    "profile": 7000
+                }
+            }
+        }
+    },
+
+    "kaspad-mining" : {
+        "description" : "Kaspad Node + Miner",
+        "modules":{
+            "kaspad:kd0" : {
+                "reset-peers" : false,
+                "args":{
+                    "rpclisten" : "0.0.0.0:16210",
+                    "listen": "0.0.0.0:16211",
+                    "profile": 7000
+                }
+            },
+            "kaspaminer:km0" : {
+                "args":{
+                    "testnet" : null,
+                    "miningaddr" : "kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz",
+                    "rpcserver":"localhost:16210",
+                    "block-delay" : 2000,
+                    "mine-when-not-synced" : null
+                }
+            }
+        }
+    },
+
+    "full-stack" : {
+        "description" : "Full Stack",
+        "modules":{
+            "kaspad:kd0" : {
+                "reset-peers" : false,
+                "args":{
+                    "rpclisten" : "0.0.0.0:16210",
+                    "listen": "0.0.0.0:16211",
+                    "profile": 7000
+                }
+            },
+            "pgsql:db0" : {
+                "port": 18787
+            },
+
+            "mqtt:mq0" : {
+                "port": 19792
+            },
+            "kasparovd:kvd0" : {
+                "args":{
+                    "listen":"localhost:11224",
+                    "rpcserver":"localhost:16210",
+                    "dbaddress":"localhost:18787"
+                }
+            },
+            "kasparovsyncd:kvsd0" : {
+                "args":{
+                    "rpcserver":"localhost:16210",
+                    "dbaddress":"localhost:18787",
+                    "mqttaddress": "localhost:19792",
+                    "mqttuser" : "user",
+                    "mqttpass" : "pass"
+                    }
+            },
+            "kaspaminer:km0" : {
+                "args":{
+                    "testnet" : null,
+                    "miningaddr" : "kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz",
+                    "rpcserver":"localhost:16210",
+                    "block-delay" : 2000,
+                    "mine-when-not-synced" : null
+                }
+            }
+        }
+    }
+
+
+    "full-stack-standalone-mining" : {
+        "description" : "Full Self-contained Stack",
+        "enableMining" : true,
+        "modules":{
+            "kaspad:kd0" : {
+                "reset-peers" : false,
+                "args":{
+                    "rpclisten" : "0.0.0.0:16210",
+                    "listen": "0.0.0.0:16211",
+                    "profile": 7000
+                }
+            },
+            "kaspad:kd1" : {
+                "reset-peers" : false,
+                "args":{
+                    "rpclisten":"0.0.0.0:16310",
+                    "listen": "0.0.0.0:16311",
+                    "profile": 7001,
+                    "connect": "0.0.0.0:16211"
+                }
+            },
+            "pgsql:db0" : {
+                "port": 18787
+            },
+
+            "mqtt:mq0" : {
+                "port": 19792
+            },
+            "kasparovd:kvd0" : {
+                "args":{
+                    "listen":"localhost:11224",
+                    "rpcserver":"localhost:16210",
+                    "dbaddress":"localhost:18787"
+                }
+            },
+            "kasparovsyncd:kvsd0" : {
+                "args":{
+                    "rpcserver":"localhost:16210",
+                    "dbaddress":"localhost:18787",
+                    "mqttaddress": "localhost:19792",
+                    "mqttuser" : "user",
+                    "mqttpass" : "pass"
+                    }
+            },
+            "kaspaminer:km0" : {
+                "args":{
+                    "testnet" : null,
+                    "miningaddr" : "kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz",
+                    "rpcserver":"localhost:16210",
+                    "block-delay" : 2000,
+                    "mine-when-not-synced" : null
+                }
+            }
+        }
+    }
+
+}

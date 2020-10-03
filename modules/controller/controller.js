@@ -253,6 +253,17 @@ class Controller{
 		tray.menu = menu;
 	}
 
+	async initTemplates() {
+		try {
+			this.templates = JSON.parse(fs.readFileSync(path.join(this.manager.appFolder, '.templates'))+'');
+		} catch(ex) {
+			alert(ex+'');
+		}
+
+		const qS = this.qS;
+
+	}
+
 	async initSettings(){
 		const doc = document;
 		const qS = this.qS;
