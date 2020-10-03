@@ -1,6 +1,5 @@
 {
     "kaspad-node-only" : {
-        "disable" : true,
         "description" : "Kaspad Node",
         "modules":{
             "kaspad:kd0" : {
@@ -36,7 +35,6 @@
             }
         }
     },
-
     "full-stack" : {
         "description" : "Full Stack",
         "modules":{
@@ -81,9 +79,7 @@
                 }
             }
         }
-    }
-
-
+    },
     "full-stack-standalone-mining" : {
         "description" : "Full Self-contained Stack",
         "enableMining" : true,

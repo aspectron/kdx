@@ -38,6 +38,7 @@ class Controller{
 		this.taskTabs = {};
 		this.taskTerminals = {};
 		this.initCaption();
+		this.initTemplates();
 		await this.initSettings();
 		this.setUiLoading(false);
 	}
@@ -257,11 +258,18 @@ class Controller{
 		try {
 			this.templates = JSON.parse(fs.readFileSync(path.join(this.manager.appFolder, '.templates'))+'');
 		} catch(ex) {
-			alert(ex+'');
+			alert('Error loading configuration templates file .templates:\n\n'+ex+'');
 		}
 
 		const qS = this.qS;
+		let tplEl = qS('#template-list');
+		let html = Object.entries(this.templates).map(([ident,tpl]) => {
+			return `<div value="${ident}">${tpl.description}</div>`;
+		}).join('');
+		tplEl.innerHTML = html;
 
+		// TODO - implement selection-based loading
+		// TODO - confirm dialog before loading
 	}
 
 	async initSettings(){

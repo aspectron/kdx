@@ -172,9 +172,9 @@
 			</p>
 
 		</flow-form-control>
-		<flow-form-control icon="fal:cube" xclass="advanced-tool">
+		<flow-form-control icon="fal:cube" class="xadvanced-tool">
 			<flow-i18n caption>Block Generation</flow-i18n>
-			<flow-checkbox id="settings-enable-mining" class="block advanced-tool"
+			<flow-checkbox id="settings-enable-mining" class="block xadvanced-tool"
 				slot="input"><flow-i18n>Enable Mining</flow-i18n></flow-checkbox>
 			<h4 slot="info" class="title"><flow-i18n>Block Generation</flow-i18n></h4>
 			<p slot="info" is="i18n-p">
@@ -231,14 +231,14 @@
 			</p>
 		</flow-form-control>
 
-		<flow-form-control id="settings-script" icon="fal:tasks">
+		<flow-form-control id="settings-templates" icon="fal:file-alt" class="advanced-tool">
 			<flow-i18n caption>Configuration Templates</flow-i18n>
-			<div slot="input" class="settings-templates">
+			<div slot="input" style="margin-top:16px;">
 
 				<flow-selector id="template-list" label="Select Configuration Template" selected="" class="template-list"></flow-selector>
 				<flow-selector id="network-list" label="Network" selected="testnet" class="network-list">
-					<span class="menu-item" value="mainnet">MAINNET</span>
-					<span class="menu-item" value="testnet">TESTNET</span>
+					<div class="menu-item" value="mainnet">MAINNET</div>
+					<div class="menu-item" value="testnet">TESTNET</div>
 				</flow-selector>
 				<flow-btn class="load-config"><flow-i18n>Load</flow-i18n></flow-btn>
 			</div>
@@ -248,7 +248,7 @@
 			</p>
 		</flow-form-control>
 
-
+		<div style="height:128px;"></div>
 
 
 	</tab-content>

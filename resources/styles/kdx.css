@@ -152,7 +152,6 @@ tab-content>x-terminal{height:100%;}
 .settings-script .script-box{flex:1;}
 
 
-
 body:not(.flow-theme-dark) .settings-script .script-box{background-color:#fbfbfb;}
 body{
 	--flow-background-color:#FFFFFF;
