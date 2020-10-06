@@ -37,7 +37,8 @@ const E = new Emanator(__dirname, {
 })
 
 E.aux_dmg_files = async (root) => {
-    await E.copy(path.join(E.BUILD,'apps'),path.join(root,'apps'));
+    if(fs.existsSync(path.join(E.BUILD,'apps')))
+        await E.copy(path.join(E.BUILD,'apps'),path.join(root,'apps'));
 
     //    E.copy(process.argv[0], root);
 }
