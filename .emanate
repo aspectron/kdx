@@ -37,7 +37,8 @@ const E = new Emanator(__dirname, {
 })
 
 E.aux_dmg_files = async (root) => {
-    await E.copy(path.join(E.BUILD,'apps'),path.join(root,'apps'));
+    if(fs.existsSync(path.join(E.BUILD,'apps')))
+        await E.copy(path.join(E.BUILD,'apps'),path.join(root,'apps'));
 
     //    E.copy(process.argv[0], root);
 }
@@ -96,7 +97,7 @@ E.flags['with-kmetrics'] && E.task('kmetrics', ['remote'], async () => {
     mkdirp.sync(dest);
     const kmetricsFolder = path.join(dest,'kmetrics');
     await E.remove(kmetricsFolder);
-    await git.clone('git@github.com:kaspanet/kmetrics', dest, { branch : E.flags['kmetrics-branch'] || 'master' });
+    await git.clone('https://github.com/kaspanet/kmetrics', dest, { branch : E.flags['kmetrics-branch'] || 'master' });
     await E.remove(path.join(kmetricsFolder,'.git'));
 
     return Promise.resolve();
@@ -131,8 +132,8 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
 
     for(const repo of repos) {
         let [name, git_branch] = repo.split(':');
-        console.log(`git clone git@github.com:kaspanet/${name} branch: ${git_branch || 'master'}`.brightYellow);
-        await git.clone(`git@github.com:kaspanet/${name}`,dest, {branch : git_branch || 'master'});
+        console.log(`git clone https://github.com/kaspanet/${name} branch: ${git_branch || 'master'}`.brightYellow);
+        await git.clone(`https://github.com/kaspanet/${name}`,dest, {branch : git_branch || 'master'});
     }
     
     //     repos.extras = ['miningsimulator', `txgen:${branch}`];
