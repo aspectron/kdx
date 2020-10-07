@@ -273,3 +273,11 @@ flow-input { margin: 2px; }
 .input-ctl-margin {
 	margin: 8px;
 }
+.h-box{display:flex;}
+.h-box.stretched{align-item:stretch;}
+.h-box-stretched-group{
+	display:flex;align-item:stretch;
+}
+.h-box-stretched-group>flow-selector{margin:0px 5px 0px 0px}
+.h-box-stretched-group>flow-btn{margin-top:3px;}
+.h-box-stretched-group>flow-selector .menu-item{padding:4px;}
