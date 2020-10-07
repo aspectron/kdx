@@ -2,6 +2,7 @@ false && nw.Window.get().showDevTools();
 const { BroadcastChannelRPC : FlowRPC } = require("@aspectron/flow-rpc");
 const os = require("os");
 const fs = require("fs");
+const path = require("path");
 
 class Initializer{
 	constructor(){
@@ -11,6 +12,7 @@ class Initializer{
 		this.initRPC();
 		this.appData = await this.get("get-app-data");
 		console.log("this.appData", this.appData)
+		this.appFolder = this.appData.appFolder;
 		let {configFolder, config} = this.appData;
 		if(!config)
 			config = { }
@@ -28,19 +30,26 @@ class Initializer{
 		$("flow-btn.save-config").on("click", async()=>{
 			let value = folderInput.value;
 			if(!value)
-				return
+				return;
 
 			if(value==originalValue)
 				value = '';
+
+			const defaults = this.templates[this.tpl_template];
+			const network = this.tpl_network;
+
 			this.setUiDisabled(true);
-			let err = await this.get("set-app-data-dir", {dataDir:value});
+			let err = await this.get("set-app-data-dir", {dataDir:value, defaults, network });
 			FlowDialog.show("Error", err.error || err)
 			console.log("err:", err)
 			this.setUiDisabled(false);
 		})
 
+		this.initTemplates();
+
 		this.checkCompatibility();
 	}
+
 	initRPC(){
 		let rpc = new FlowRPC({bcastChannel:'kdx'});
 
@@ -53,6 +62,46 @@ class Initializer{
 			$('body').removeClass("disable");
 		});
 	}
+
+	initTemplates() {
+
+		this.tpl_network = 'testnet';
+		this.tpl_template = 'full-stack-standalone-mining';
+
+		try {
+			this.templates = JSON.parse(fs.readFileSync(path.join(this.appFolder,'.templates'))+'');
+		} catch(ex) {
+			alert('Error loading configuration templates file .templates:\n\n'+ex+'');
+		}
+
+		const qS = document.querySelector.bind(document);
+		let tplEl = qS('#template-list');
+		let netEl = qS('#network-list');
+		let html = Object.entries(this.templates).map(([ident,tpl]) => {
+			return `<div value="${ident}">${tpl.description}</div>`;
+		}).join('');
+		tplEl.innerHTML = html;
+
+		tplEl.setAttribute('selected',this.tpl_template);
+		netEl.setAttribute('selected',this.tpl_network);
+
+		window.addEventListener('select', (e) => {
+			let { selected } = e.detail;
+			switch(e.target.id) {
+				case 'network-list': {
+					this.tpl_network = selected;
+				} break;
+
+				case 'template-list': {
+					this.tpl_template = selected;
+				} break;
+			}
+		})
+		// TODO - implement selection-based loading
+		// TODO - confirm dialog before loading
+	}
+
+
 	saveConfig(config){
 		//console.log("saveConfig:config", config)
 		try{

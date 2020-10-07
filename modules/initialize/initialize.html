@@ -57,7 +57,6 @@
 			value="~/.kdx/data"></flow-folder-input>
 		<div slot="input" class="slot-block">
 			<flow-btn class="reset-data-dir">Reset</flow-btn>
-			<flow-btn class="save-config" primary>Proceed</flow-btn>
 		</div>
 		
 		<h4 slot="info" class="title"><flow-i18n>Data Folder</flow-i18n></h4>
@@ -67,13 +66,34 @@
 				This location also contains process log files.
 			</p>
 	</flow-form-control>
+
+	<flow-form-control id="settings-templates" icon="fal:file-alt">
+		<flow-i18n caption>Configuration Templates</flow-i18n>
+		<div slot="input" style="margin-top:16px;">
+
+			<flow-selector id="template-list" label="Select Configuration Template" selected="" class="template-list"></flow-selector>
+			<flow-selector id="network-list" label="Network" selected="testnet" class="network-list">
+				<div class="menu-item" value="mainnet">MAINNET</div>
+				<div class="menu-item" value="testnet">TESTNET</div>
+			</flow-selector>
+		</div>
+		<h4 slot="info" class="title"><flow-i18n>Kaspa Stack Configuration</flow-i18n></h4>
+		<p slot="info" is="i18n-p">
+			Select Kaspa stack configuration from templates.
+		</p>
+	</flow-form-control>
+
 	<flow-form-control icon="fal:plug">
-		<p>
+		<p class='battery-warning'>
 			<h3>WARNING - BATTERY POWER</h3>
 			<br/>
 			This version of KDX is configured to automatically start mining upon startup.
 			If you are running on a laptop battery power, please make sure you are plugged in before proceeding.
 		</p>
+		<div slot="input" class="slot-block">
+			<flow-btn class="save-config" primary>Proceed</flow-btn>
+		</div>
+
 	</flow-form-control>
 		<!-- flow-form-control icon="-">
 		<div slot="input" class="tools">

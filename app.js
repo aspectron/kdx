@@ -170,6 +170,11 @@ class App extends FlowApp{
 		this.config.modules = modules;
 		this.setConfig(this.config);
 	}
+
+	setConfigTemplate(defaults, network) {
+		this.config = defaults;
+		// TODO - apply network settings
+	}
 }
 
 module.exports = App;
