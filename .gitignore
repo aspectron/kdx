@@ -1,4 +1,5 @@
 bin
+bin.*
 ___bin
 build
 node_modules
