@@ -264,7 +264,7 @@ class Controller{
 		const qS = this.qS;
 		let tplEl = qS('#template-list');
 		let html = Object.entries(this.templates).map(([ident,tpl]) => {
-			return `<div value="${ident}">${tpl.description}</div>`;
+			return `<div class="menu-item" value="${ident}">${tpl.description}</div>`;
 		}).join('');
 		tplEl.innerHTML = html;
 
