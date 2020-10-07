@@ -13,8 +13,8 @@ class NodeApp extends App{
 	async main() {
 		if(!this.dataFolder)
 			return Promise.resolve();
-
-		if(this.args.purge || this.args.reset) {
+		const argv = process.argv.slice(2);
+		if(this.args.purge || this.args.reset || argv.includes('reset') || argv.includes('purge')) {
 			try {
 				console.log('purging'.brightMagenta,this.dataFolder.brightWhite);
 				await fse.remove(this.dataFolder);
