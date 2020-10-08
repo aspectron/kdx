@@ -171,8 +171,23 @@ class App extends FlowApp{
 		this.setConfig(this.config);
 	}
 
-	setConfigTemplate(defaults, network) {
-		this.config = defaults;
+	setModulesConfigTemplate(defaults, network) {
+		let prev = this.config;
+		if(prev) {
+			delete prev.modules;
+		}
+		this.config = Object.assign({},defaults,prev||{});
+		this.config.network = network;
+
+		if(network != 'mainnet') {
+			Object.keys(this.config.modules).forEach((k) =>{
+				const [type,ident] = k.split(':');
+				if(/^(kaspa)/.test(type))
+					this.config.modules[k].args[network] = true;
+			})
+		}
+
+		this.setConfig(this.config);
 		// TODO - apply network settings
 	}
 }

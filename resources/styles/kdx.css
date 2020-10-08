@@ -281,3 +281,7 @@ flow-input { margin: 2px; }
 .h-box-stretched-group>flow-selector{margin:0px 5px 0px 0px}
 .h-box-stretched-group>flow-btn{margin-top:3px;}
 .h-box-stretched-group>flow-selector .menu-item{padding:4px;}
+
+.no-mining {
+	display:none;
+}

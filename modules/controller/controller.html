@@ -172,7 +172,7 @@
 			</p>
 
 		</flow-form-control>
-		<flow-form-control icon="fal:cube" class="xadvanced-tool">
+		<flow-form-control icon="fal:cube" class="xadvanced-tool" id="block-generation">
 			<flow-i18n caption>Block Generation</flow-i18n>
 			<flow-checkbox id="settings-enable-mining" class="block xadvanced-tool"
 				slot="input"><flow-i18n>Enable Mining</flow-i18n></flow-checkbox>
@@ -240,7 +240,7 @@
 					<div class="menu-item" value="mainnet">MAINNET</div>
 					<div class="menu-item" value="testnet">TESTNET</div>
 				</flow-selector>
-				<flow-btn class="load-config" full-height-wrapper><flow-i18n>Load</flow-i18n></flow-btn>
+				<flow-btn id="load-config" class="load-config" full-height-wrapper warning><flow-i18n>Reset Configuration</flow-i18n></flow-btn>
 			</div>
 			<h4 slot="info" class="title"><flow-i18n>Configuration Templates</flow-i18n></h4>
 			<p slot="info" is="i18n-p">
@@ -248,7 +248,7 @@
 			</p>
 		</flow-form-control>
 
-		<div style="height:128px;"></div>
+		<div style="height:192px;"></div>
 
 
 	</tab-content>

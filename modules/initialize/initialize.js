@@ -36,6 +36,7 @@ class Initializer{
 				value = '';
 
 			const defaults = this.templates[this.tpl_template];
+			defaults.ident = this.tpl_template;
 			const network = this.tpl_network;
 
 			this.setUiDisabled(true);

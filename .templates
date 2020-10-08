@@ -26,7 +26,6 @@
             },
             "kaspaminer:km0" : {
                 "args":{
-                    "testnet" : null,
                     "miningaddr" : "kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz",
                     "rpcserver":"localhost:16210",
                     "block-delay" : 2000,
@@ -71,7 +70,6 @@
             },
             "kaspaminer:km0" : {
                 "args":{
-                    "testnet" : null,
                     "miningaddr" : "kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz",
                     "rpcserver":"localhost:16210",
                     "block-delay" : 2000,
@@ -126,7 +124,6 @@
             },
             "kaspaminer:km0" : {
                 "args":{
-                    "testnet" : null,
                     "miningaddr" : "kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz",
                     "rpcserver":"localhost:16210",
                     "block-delay" : 2000,

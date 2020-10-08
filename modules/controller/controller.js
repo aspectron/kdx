@@ -263,13 +263,56 @@ class Controller{
 
 		const qS = this.qS;
 		let tplEl = qS('#template-list');
+		let netEl = qS('#network-list');
 		let html = Object.entries(this.templates).map(([ident,tpl]) => {
 			return `<div class="menu-item" value="${ident}">${tpl.description}</div>`;
 		}).join('');
 		tplEl.innerHTML = html;
 
-		// TODO - implement selection-based loading
-		// TODO - confirm dialog before loading
+		const blockgenEl = qS("#block-generation");
+
+		if(!this.tpl_template) {
+			let {config} = this.initData;
+			this.tpl_template = config.ident;
+			this.tpl_network = config.network;
+
+			let miner = Object.keys(config.modules).filter(v=>/^kaspaminer/.test(v));
+			if(!miner.length)
+				$(blockgenEl).addClass('no-mining');
+		}
+
+		tplEl.setAttribute('selected',this.tpl_template);
+		netEl.setAttribute('selected',this.tpl_network);
+
+		window.addEventListener('select', (e) => {
+			let { selected } = e.detail;
+			switch(e.target.id) {
+				case 'network-list': {
+					this.tpl_network = selected;
+				} break;
+
+				case 'template-list': {
+					this.tpl_template = selected;
+				} break;
+			}
+		})
+
+		const loadConfigBtn = qS("#load-config");
+		loadConfigBtn.addEventListener('click', async (e) => {	
+
+			let config = this.templates[this.tpl_template];
+			let network = this.tpl_network;
+
+			//this.saveModulesConfig(config);
+			config = await this.setConfigTemplate(config, network);
+			this.configEditor.session.setValue(JSON.stringify(config.modules, null, "\t"));
+
+			let miner = Object.keys(config.modules).filter(v=>/^kaspaminer/.test(v));
+			if(miner.length)
+				$(blockgenEl).removeClass('no-mining');
+			else
+				$(blockgenEl).addClass('no-mining');
+		});
 	}
 
 	async initSettings(){
@@ -506,6 +549,15 @@ ${changelogContent}`;
 		console.log("updatedConfig", daemons)
 		if(daemons)
 			this.restartDaemons(daemons);
+	}
+
+	async setConfigTemplate(nc, network){
+		//console.log("saveModulesConfig:config", config)
+		let {config} = await this.get("set-config-template", {defaults : nc, network});
+		console.log("Update Config From Template:", config)
+		if(config && config.modules)
+			this.restartDaemons(config.modules);
+		return config;
 	}
 
 	onToolsClick(e){

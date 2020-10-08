@@ -129,12 +129,19 @@ class NWApp extends App{
 			callback(null, {config:this.getModulesConfig()})
 		});
 
+		rpc.on("set-config-template", (args, callback)=>{
+			let { defaults, network } = args;
+			if(defaults && network)
+				this.setModulesConfigTemplate(defaults,network);
+			callback(null, {config:this.config});
+		});
+
 		rpc.on("set-app-data-dir", async (args, callback)=>{
 			let {dataDir, restartDelay, defaults, network } = args;
 			//return callback({error: "Invalid directory"});
 
 			if(defaults && network) {
-				this.setConfigTemplate(defaults,network);
+				this.setModulesConfigTemplate(defaults,network);
 			}
 
 			if(dataDir === ""){
