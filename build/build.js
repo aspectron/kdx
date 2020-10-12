@@ -1,9 +1,10 @@
+
+let extract_; try { extract_ = require('extract-zip'); } catch(ex) { showDepsError() }; const extract = extract_;
 const os = require('os');
 const fs = require('fs');
 const path = require('path');
 const utils = require('../lib/utils');
 const pkg = require('./package');
-const extract = require('extract-zip');
 const fse = require('fs-extra');
 const mkdirp = require('mkdirp');
 const progress = require('request-progress');
@@ -450,3 +451,17 @@ Where <flags> are:
     const build = new Build();
     build.main();
 })();
+
+function showDepsError() {
+    console.log(`
+
+Hm.. it looks like you don't have dependencies installed.
+
+Before building Kaspa, you need to do some setup:
+From the kdx folder:
+
+    
+    
+    `);
+    process.exit(1);
+}
