@@ -4,6 +4,7 @@
 		"kaspad:kd0" : {
 			"reset-peers" : false,
 			"args":{
+				"testnet" : null,
 				"rpclisten" : "0.0.0.0:16210",
 				"listen": "0.0.0.0:16211",
 				"profile": 7000
@@ -12,6 +13,7 @@
 		"kaspad:kd1" : {
 			"reset-peers" : false,
 			"args":{
+				"testnet" : null,
 				"rpclisten":"0.0.0.0:16310",
 				"listen": "0.0.0.0:16311",
 				"profile": 7001,
@@ -27,6 +29,7 @@
 		},
 		"kasparovd:kvd0" : {
 			"args":{
+				"testnet" : null,
 				"listen":"localhost:11224",
 				"rpcserver":"localhost:16210",
 				"dbaddress":"localhost:18787"
@@ -34,6 +37,7 @@
 		},
 		"kasparovsyncd:kvsd0" : {
 			"args":{
+				"testnet" : null,
 				"rpcserver":"localhost:16210",
 				"dbaddress":"localhost:18787",
 				"mqttaddress": "localhost:19792",
