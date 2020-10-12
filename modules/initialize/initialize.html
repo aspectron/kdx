@@ -52,7 +52,7 @@
 	<h2>Configuration</h2>
 	<br/>
 	<flow-form-control icon="fal:folder">
-		Data Folder
+		<flow-i18n caption>Data Folder</flow-i18n>
 		<flow-folder-input slot="input" id="data-folder-input"
 			value="~/.kdx/data"></flow-folder-input>
 		<div slot="input" class="slot-block">
@@ -68,11 +68,11 @@
 	</flow-form-control>
 
 	<flow-form-control id="settings-templates" icon="fal:file-alt">
-		<flow-i18n caption>Configuration Templates</flow-i18n>
+		<flow-i18n caption>Kaspa Configuration</flow-i18n>
 		<div slot="input" style="margin-top:16px;">
 
-			<flow-selector id="template-list" label="Select Configuration Template" selected="" class="template-list"></flow-selector>
-			<flow-selector id="network-list" label="Network" selected="testnet" class="network-list">
+			<flow-selector id="template-list" label="Select Configuration Template" selected="" mergeattributes="value" mergeinnerhtml class="template-list"></flow-selector>
+			<flow-selector id="network-list" label="Network" selected="" mergeattributes="value" mergeinnerhtml class="network-list">
 				<div class="menu-item" value="mainnet">MAINNET</div>
 				<div class="menu-item" value="testnet">TESTNET</div>
 			</flow-selector>
