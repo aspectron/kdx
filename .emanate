@@ -7,6 +7,7 @@ const E = new Emanator(__dirname, {
     guid : 'c1072045-6d98-44d8-9aa5-e9be6c79bd01',
     group : 'Kaspa',
     ident : 'kdx',
+    suffix : flags.full ? '-dev' : '',
     title : 'KDX',
     banner : 'KDX',
     git : 'git@github.com:aspectron/kdx',
@@ -97,7 +98,7 @@ E.flags['with-kmetrics'] && E.task('kmetrics', ['remote'], async () => {
     mkdirp.sync(dest);
     const kmetricsFolder = path.join(dest,'kmetrics');
     await E.remove(kmetricsFolder);
-    await git.clone('https://github.com/kaspanet/kmetrics', dest, { branch : E.flags['kmetrics-branch'] || 'master' });
+    await git.clone('git@github.com:aspectron/kmetrics', dest, { branch : E.flags['kmetrics-branch'] || 'master' });
     await E.remove(path.join(kmetricsFolder,'.git'));
 
     return Promise.resolve();
