@@ -215,13 +215,16 @@ class Controller{
 			title : "Settings".toUpperCase(),
 			id : "settings"
 		},{
+			title : "WALLET",
+			id : "wallet"
+		},{
 			title : "Console".toUpperCase(),
 			id : "console",
 			disable:true,
 			section: 'advanced'
 		}];
 
-		caption["active"] = "home";
+		caption["active"] = "wallet";
 	}
 	initTrayMenu() {
 		let tray = new nw.Tray({

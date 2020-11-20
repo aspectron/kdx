@@ -29,6 +29,7 @@
     "@aspectron/flow-rpc": "*",
     "@aspectron/flow-utils": "*",
     "@aspectron/flow-ux": "*",
+    "kaspa-module":"file:../kaspa-module",
     "@webcomponents/webcomponentsjs": "*",
     "bs58": "^4.0.1",
     "colors": "^1.4.0",

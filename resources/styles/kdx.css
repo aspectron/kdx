@@ -273,6 +273,7 @@ flow-input { margin: 2px; }
 .input-ctl-margin {
 	margin: 8px;
 }
+.v-box{display:flex;flex-direction:column;}
 .h-box{display:flex;}
 .h-box.stretched{align-item:stretch;}
 .h-box-stretched-group{
@@ -281,7 +282,16 @@ flow-input { margin: 2px; }
 .h-box-stretched-group>flow-selector{margin:0px 5px 0px 0px}
 .h-box-stretched-group>flow-btn{margin-top:3px;}
 .h-box-stretched-group>flow-selector .menu-item{padding:4px;}
-
 .no-mining {
 	display:none;
 }
+.wallet{flex-direction:column;position:relative;}
+.wallet flow-tabs{flex:initial;margin:0px 10px 5px;}
+.wallet-init-overlay{
+	position:absolute;z-index:100;
+	left:0px;right:0px;top:0px;bottom:0px;
+	padding:2px 10px;
+	background-color:var(--flow-background-color);
+	display:none;flex-direction:column;
+}
+.wallet-init-overlay.active{display:flex;}
