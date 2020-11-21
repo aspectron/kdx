@@ -251,35 +251,8 @@
 		<div style="height:192px;"></div>
 	</tab-content>
 	<tab-content for="wallet" class="wallet" data-active-display="flex">
-		<div class="wallet-init-overlay active">
-			<flow-tabs>
-				<flow-tab id="wallet-open">OPEN</flow-tab>
-				<flow-tab id="wallet-create">CREATE</flow-tab>
-				<flow-tab id="wallet-restore">RESTORE</flow-tab>
-			</flow-tabs>
-			<tab-content for="wallet-open" style="display:block">
-				<kdx-wallet-open></kdx-wallet-open>
-			</tab-content>
-			<tab-content for="wallet-create">
-				<kdx-wallet-create></kdx-wallet-create>
-			</tab-content>
-			<tab-content for="wallet-restore">
-				<kdx-wallet-restore></kdx-wallet-restore>
-			</tab-content>
-		</div>
-		
-		<tab-content for="wallet-send" style="display:block">
-			SEND
-		</tab-content>
-		<tab-content for="wallet-receive">
-			RECEIVE
-		</tab-content>
-		<tab-content for="wallet-balance">
-			BALANCE
-		</tab-content>
-		<tab-content for="wallet-txqueue">
-			TXQUEUE
-		</tab-content>
+		<kdx-wallet-open-dialog></kdx-wallet-open-dialog>
+		<kdx-wallet></kdx-wallet>
 	</tab-content>
 	<tab-content for="console" data-active-display="flex" class="vertical-flex term">
 		<flow-terminal id="kdx-console" class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>

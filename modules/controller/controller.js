@@ -208,17 +208,17 @@ class Controller{
 		caption.version = pkg.version;
 
 		caption.tabs = [{
-			title : "Home".toUpperCase(),
-			id : "home",
-			cls: "home"
-		},{
-			title : "Settings".toUpperCase(),
-			id : "settings"
-		},{
 			title : "WALLET",
 			id : "wallet"
 		},{
-			title : "Console".toUpperCase(),
+			title : "KASPA",
+			id : "home",
+			cls: "home"
+		},{
+			title : "SETTINGS",
+			id : "settings"
+		},{
+			title : "CONSOLE",
 			id : "console",
 			disable:true,
 			section: 'advanced'
