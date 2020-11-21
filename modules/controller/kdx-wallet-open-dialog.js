@@ -1,75 +1,26 @@
-import {html, css, BaseElement, ScrollbarStyle} from '/node_modules/@aspectron/flow-ux/src/base-element.js';
+import {html, css, Dialog} from './dialog.js';
 
-class KDXWalletOpenDialog extends BaseElement{
+class KDXWalletOpenDialog extends Dialog{
 
 	static get properties() {
 		return {
 			mode:{type:String, reflect:true},
 			inputType:{type:String},
-			errorMessage:{type:String},
-			hideable:{type:Boolean, reflect:true},
 			hideOpenMode:{type:Boolean}
 		};
 	}
 
 	static get styles(){
-		return [ScrollbarStyle, css`
-			:host{
-				z-index:-10;opacity:0;
-				position:absolute;top:0px;left:0px;width:100%;height:100%;
-				background-color:rgba(255, 255, 255, 0.5);
-				box-sizing:border-box;
-				font-family: "Open Sans";
-				display:none;
-				align-items:center;
-				justify-content:center;
-			}
-			:host(.active){opacity:1;z-index:100000;display:flex;}
-			.container{
-				width:100%;
-				height:100%;
-				background-color:var(--flow-background-color, #F00);
-				overflow:auto;z-index:1;
-				border:2px solid var(--flow-primary-color);
-				border-radius:3px;
-				max-width:700px;
-				max-height:300px;
-				margin:auto;
-				padding:10px;
-				position:relative;
-			}
+		return [Dialog.styles, css`
 			:host([mode="restore"]) .container{max-height:350px}
-			.close-btn{
-			    color:var(--flow-dialog-close-btn-color, var(--flow-color));
-			    position:absolute;
-			    right:15px;
-			    top:15px;
-			    font-size:var(--flow-dialog-close-btn-font-size, 1.5rem);
-			    cursor:pointer;z-index:2;
-			    line-height:0px;display:none;
-			}
-			:host([hideable]) .close-btn{display:inline-block}
-			.heading{margin:5px 15px 25px;font-size:1.5rem;}
-			.sub-heading{margin:5px;font-size:1.2rem;}
-			.body{display:flex;justify-content:center}
-			.inner-body{width:90%;}
-			.full-width{width:100%;max-width:100%;}
-			.error{
-				min-height:30px;color:#F00;padding:5px;
-				font-size:0.8rem;box-sizing:border-box;
-			}
-
-			.input-type-btn{
-				align-self:center;margin:5px 10px;cursor:pointer;
-			}
-			flow-btn{vertical-align:bottom;margin-bottom:5px;}
-			[hidden]{display:none}
 		`];
 	}
 	constructor() {
 		super();
 
 		window.showWalletInitDialog = (args, callback)=>{
+
+			//return callback(null, {password:"Asd123###", dialog:this, mode:"open"});
 			
 			this.hideable = !!args.hideable;
 			this.mode = args.mode||"open";
@@ -86,24 +37,20 @@ class KDXWalletOpenDialog extends BaseElement{
 
 		this.mode = "open";
 		this.inputType = "password";
-
-		this.show();
 	}
-	render(){
+	buildRenderArgs(){
 		let {mode} = this;
-		mode = mode[0].toUpperCase()+mode.substr(1);
-		return html`
-			<div class="container">
-				<h2 class="heading">${`${mode} Wallet`}</h2>
-				<div class="body">
-					<div class="inner-body">
-						${this[`render${mode}UI`]()}
-					</div>
-				</div>
-				<span class="close-btn" title="Close" 
-					@click="${this.onCloseClick}">&times;</span>
-			</div>
-		`
+		let modeName = mode[0].toUpperCase()+mode.substr(1);
+		return {modeName};
+	}
+	renderHeading({modeName}){
+		return `${modeName} Wallet`;
+	}
+	renderBody({modeName}){
+		return this[`render${modeName}UI`]();
+	}
+	renderButtons({modeName}){
+		return this[`render${modeName}Buttons`]();
 	}
 	renderOpenUI(){
 		let icon = this.inputType=="password"?'eye':'eye-slash';
@@ -116,9 +63,6 @@ class KDXWalletOpenDialog extends BaseElement{
 					icon="${icon}"></fa-icon>
 			</flow-input>
 			<div class="error">${this.errorMessage}</div>
-			<flow-btn primary @click="${this.openWallet}">OPEN WALLET</flow-btn>
-			<flow-btn @click="${e=>this.mode='create'}">NEW WALLET</flow-btn>
-
 		`
 	}
 	renderCreateUI(){
@@ -139,14 +83,18 @@ class KDXWalletOpenDialog extends BaseElement{
 					icon="${icon}"></fa-icon>
 			</flow-input>
 			<div class="error">${this.errorMessage}</div>
-			<flow-btn primary @click="${this.createWallet}">CREATE WALLET</flow-btn>
-			<flow-btn ?hidden=${this.hideOpenMode} 
-				@click="${e=>this.mode='open'}">I HAVE WALLET</flow-btn>	
 		`
 	}
-	firstUpdated(...args){
-		super.firstUpdated(...args)
-		this.qS = this.renderRoot.querySelector.bind(this.renderRoot);
+	renderOpenButtons(){
+		return html`
+			<flow-btn primary @click="${this.openWallet}">OPEN WALLET</flow-btn>
+			<flow-btn @click="${e=>this.mode='create'}">NEW WALLET</flow-btn>`;
+	}
+	renderCreateButtons(){
+		return html`
+			<flow-btn primary @click="${this.createWallet}">CREATE WALLET</flow-btn>
+			<flow-btn ?hidden=${this.hideOpenMode} 
+				@click="${e=>this.mode='open'}">I HAVE WALLET</flow-btn>`;
 	}
 	updated(changes){
         super.updated(changes);
@@ -155,22 +103,6 @@ class KDXWalletOpenDialog extends BaseElement{
         	this.errorMessage = "";
         }
     }
-
-    setError(errorMessage){
-    	this.errorMessage = errorMessage;
-    }
-
-    show(){
-		this.classList.add('active');
-	}
-
-	hide(){
-		this.classList.remove('active');
-	}
-
-	onCloseClick(){
-		this.hide();
-	}
 
     changeInputType(){
     	this.inputType = this.inputType=="password"?'text':'password';
@@ -192,10 +124,6 @@ class KDXWalletOpenDialog extends BaseElement{
     		return this.setError("Passwords do not match")
 
     	this.callback(null, {password, dialog:this});
-    }
-    checkPassword(password){
-    	const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-    	return regex.test(password);
     }
 }
 

@@ -6,6 +6,7 @@ import {
 } from './wallet.js';
 
 export * from './kdx-wallet-open-dialog.js';
+export * from './kdx-wallet-seeds-dialog.js';
 
 class KDXWallet extends BaseElement{
 
@@ -116,6 +117,20 @@ class KDXWallet extends BaseElement{
 			this.setWallet(wallet);
 			return
 		}
+	}
+	showSeedRecoveryDialog(){
+		let encryptedMnemonic = getLocalWallet();
+		if(!this.seedsDialog){
+			this.seedsDialog = document.createElement("kdx-wallet-seeds-dialog");
+			this.parentNode.appendChild(this.seedsDialog);
+		}
+		//console.log("encryptedMnemonic", encryptedMnemonic)
+		this.seedsDialog.open({encryptedMnemonic}, ({finished})=>{
+			if(finished){
+				setLocalSetting("have-backup", 1);
+				this.requestUpdate("have-backup", null)
+			}
+		})
 	}
 }
 

@@ -1,6 +1,6 @@
 const {Wallet, bitcoreKaspaSetup} = require("kaspa-module").default;
 bitcoreKaspaSetup();
-console.log("Wallet", Wallet)
+//console.log("Wallet", Wallet)
 
 import {getLocalSetting as getLS, setLocalSetting as setLS} from '/node_modules/@aspectron/flow-ux/src/base-element.js';
 
