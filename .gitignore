@@ -13,3 +13,4 @@ i18n.entries
 .DS_Store
 apps/dagtps
 apps
+module_config_state.txt

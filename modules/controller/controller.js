@@ -208,20 +208,23 @@ class Controller{
 		caption.version = pkg.version;
 
 		caption.tabs = [{
-			title : "Home".toUpperCase(),
+			title : "WALLET",
+			id : "wallet"
+		},{
+			title : "KASPA",
 			id : "home",
 			cls: "home"
 		},{
-			title : "Settings".toUpperCase(),
+			title : "SETTINGS",
 			id : "settings"
 		},{
-			title : "Console".toUpperCase(),
+			title : "CONSOLE",
 			id : "console",
 			disable:true,
 			section: 'advanced'
 		}];
 
-		caption["active"] = "home";
+		caption["active"] = "wallet";
 	}
 	initTrayMenu() {
 		let tray = new nw.Tray({

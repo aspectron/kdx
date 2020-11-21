@@ -45,6 +45,7 @@
 	<script src="/resources/extern/scripts/jquery-3.1.1.normal.js"></script>
 	<!-- install xterm, xterm-addon-fit, xterm-addon-web-links node-modules -->
 	<script type="module" src="/node_modules/@aspectron/flow-ux/src/flow-terminal.js"></script>
+	<script type="module" src="./kdx-wallet.js"></script>
 	<script type="text/javascript" src="/resources/rpc.js"></script>
 </head>
 <body class="ui-loading">
@@ -125,7 +126,6 @@
 			
 
 		</div>
-
 	</tab-content>
 	<tab-content for="settings">
 		<flow-form-control icon="fal:database">
@@ -249,8 +249,10 @@
 		</flow-form-control>
 
 		<div style="height:192px;"></div>
-
-
+	</tab-content>
+	<tab-content for="wallet" class="wallet" data-active-display="flex">
+		<kdx-wallet-open-dialog></kdx-wallet-open-dialog>
+		<kdx-wallet></kdx-wallet>
 	</tab-content>
 	<tab-content for="console" data-active-display="flex" class="vertical-flex term">
 		<flow-terminal id="kdx-console" class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
