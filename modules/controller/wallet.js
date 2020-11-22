@@ -9,16 +9,22 @@ Wallet.setRPC(new RPC({
 	}
 }))
 
-import {getLocalSetting as getLS, setLocalSetting as setLS} from '/node_modules/@aspectron/flow-ux/src/base-element.js';
+export const setLocalSetting = (name, value, prefix='kaspa-')=>{
+	if(!window.localStorage)
+		return
 
-const prefix = 'kaspa-';
-
-export const getLocalSetting = (key, defaults)=>{
-	return getLS(key, defaults, prefix)
+	window.localStorage.setItem(prefix+name, JSON.stringify(value));
 }
 
-export const setLocalSetting = (key, value)=>{
-	return setLS(key, value, prefix)
+export const getLocalSetting = (name, defaults=undefined, prefix='kaspa-')=>{
+	if(!window.localStorage)
+		return defaults;
+
+	let value = window.localStorage.getItem(prefix+name);
+	if(typeof(value) == 'undefined')
+		return defaults
+
+	return JSON.parse(value);
 }
 
 export const getLocalWallet = ()=>{
