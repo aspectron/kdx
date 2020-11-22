@@ -1,6 +1,13 @@
 const {Wallet, bitcoreKaspaSetup} = require("kaspa-module").default;
 bitcoreKaspaSetup();
 //console.log("Wallet", Wallet)
+export const {RPC} = require("kaspa-module-node");
+
+Wallet.setRPC(new RPC({
+	clientConfig:{
+		host:"127.0.0.1:16210"
+	}
+}))
 
 import {getLocalSetting as getLS, setLocalSetting as setLS} from '/node_modules/@aspectron/flow-ux/src/base-element.js';
 

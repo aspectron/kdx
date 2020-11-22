@@ -71,10 +71,10 @@ class KDXWallet extends BaseElement{
 	setWallet(wallet){
 		this.wallet = wallet;
 		console.log("setWallet:", wallet)
+		wallet.addressDiscovery();
 	}
 	connectedCallback(){
 		super.connectedCallback();
-
 
 		let encryptedMnemonic = getLocalWallet();
 		if(encryptedMnemonic){

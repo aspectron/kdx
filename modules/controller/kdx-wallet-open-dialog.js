@@ -1,4 +1,5 @@
 import {html, css, Dialog} from './dialog.js';
+const pass = "Asd123###";
 
 class KDXWalletOpenDialog extends Dialog{
 
@@ -56,7 +57,7 @@ class KDXWalletOpenDialog extends Dialog{
 		let icon = this.inputType=="password"?'eye':'eye-slash';
 		return html`
 			<div class="sub-heading">Unlock the wallet with your password</div>
-			<flow-input class="password full-width" outer-border
+			<flow-input class="password full-width" outer-border value="${pass}"
 				type="${this.inputType}" placeholder="Password">
 				<fa-icon class="input-type-btn" slot="sufix"
 					@click="${this.changeInputType}"
@@ -67,7 +68,6 @@ class KDXWalletOpenDialog extends Dialog{
 	}
 	renderCreateUI(){
 		let icon = this.inputType=="password"?'eye':'eye-slash';
-		let pass = "Asd123###";
 		return html`
 			<div class="sub-heading">Create a password for your new wallet</div>
 			<flow-input class="password full-width" outer-border value="${pass}"
