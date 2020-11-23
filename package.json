@@ -30,6 +30,7 @@
     "@aspectron/flow-utils": "*",
     "@aspectron/flow-ux": "file:../flow-ux",
     "kaspa-module": "file:../kaspa-module",
+    "kaspa-module-node": "file:../kaspa-module-node",
     "@webcomponents/webcomponentsjs": "*",
     "bs58": "^4.0.1",
     "colors": "^1.4.0",

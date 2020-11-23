@@ -112,7 +112,7 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
         process.env.PATH = ['C:\\TDM-GCC-64\\bin', ...process.env.PATH.split(';')].join(';');
     }
 
-    let dest = path.join(go.SRC,'github.com/kaspanet/');
+    let dest = path.join(go.SRC,'github.com/kaspanet2/');
     if((E.flags.reset || E.flags.clean) && fs.existsSync(dest))
         await E.emptyDir(dest);
 
@@ -121,7 +121,7 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
     console.log('branch:',branch);
     
     //const repos = { };
-    const repos = [`kaspad:${branch}`,`kasparov:${branch}`];
+    const repos = [`kaspad:${branch}`,`kasparov:${KASPA_DEFAULT_BRANCH}`];
     if(E.flags['with-extras']) {
 //        repos.push('miningsimulator');
         repos.push(`txgen:${branch}`);
@@ -134,8 +134,12 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
 
     for(const repo of repos) {
         let [name, git_branch] = repo.split(':');
-        console.log(`git clone https://github.com/kaspanet/${name} branch: ${git_branch || 'master'}`.brightYellow);
-        await git.clone(`https://github.com/kaspanet/${name}`,dest, {branch : git_branch || 'master'});
+        let src = "kaspanet"
+        if(name == "kaspad")
+            src = "aspectron"
+
+        console.log(`git clone https://github.com/${src}/${name} branch: ${git_branch || 'master'}`.brightYellow);
+        await git.clone(`https://github.com/${src}/${name}`,dest, {branch : git_branch || 'master'});
     }
     
     //     repos.extras = ['miningsimulator', `txgen:${branch}`];
@@ -193,7 +197,7 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
             console.log(`...giving up`);
             process.exit(1);
         }
-
+        console.log("E.copy:", path.join(folder,file)," -> ",path.join(E.BIN,dest))
         E.copy(path.join(folder,file),path.join(E.BIN,dest));
         E.registerFirewallRule({ name, file : dest, binary : true });
     })

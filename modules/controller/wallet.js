@@ -1,17 +1,30 @@
 const {Wallet, bitcoreKaspaSetup} = require("kaspa-module").default;
 bitcoreKaspaSetup();
-console.log("Wallet", Wallet)
+//console.log("Wallet", Wallet)
+export const {RPC} = require("kaspa-module-node");
 
-import {getLocalSetting as getLS, setLocalSetting as setLS} from '/node_modules/@aspectron/flow-ux/src/base-element.js';
+Wallet.setRPC(new RPC({
+	clientConfig:{
+		host:"127.0.0.1:16210"
+	}
+}))
 
-const prefix = 'kaspa-';
+export const setLocalSetting = (name, value, prefix='kaspa-')=>{
+	if(!window.localStorage)
+		return
 
-export const getLocalSetting = (key, defaults)=>{
-	return getLS(key, defaults, prefix)
+	window.localStorage.setItem(prefix+name, JSON.stringify(value));
 }
 
-export const setLocalSetting = (key, value)=>{
-	return setLS(key, value, prefix)
+export const getLocalSetting = (name, defaults=undefined, prefix='kaspa-')=>{
+	if(!window.localStorage)
+		return defaults;
+
+	let value = window.localStorage.getItem(prefix+name);
+	if(typeof(value) == 'undefined')
+		return defaults
+
+	return JSON.parse(value);
 }
 
 export const getLocalWallet = ()=>{
