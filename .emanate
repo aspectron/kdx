@@ -1,6 +1,7 @@
 "use strict";
 
-const KASPA_DEFAULT_BRANCH = 'v0.7.2-dev';
+const KASPA_DEFAULT_BRANCH = 'feature/karpov-wallet-api-rebased-3';
+// const KASPA_DEFAULT_BRANCH = 'v0.8.1-dev';
 
 const E = new Emanator(__dirname, {
     type : argv.includes('build') ? 'NODE+NWJS' : 'UTIL',
@@ -68,8 +69,8 @@ E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
     await E.remove(path.join(dagvizFolder,'.git'));
     await npm.install({ cwd : dagvizFolder});
     //await E.spawn('emanate', ['--local-binaries'], { cwd : dagvizFolder, stdio: 'inherit' });
-    
-    execSync('emanate --local-binaries', { cwd : dagvizFolder, stdio : 'inherit' });    
+
+    execSync('emanate --local-binaries', { cwd : dagvizFolder, stdio : 'inherit' });
     await E.copy(process.argv[0],path.join(dagvizFolder,path.basename(process.argv[0])));
     //await E.spawn('emanate', ['--local-binaries'], { cwd : dagvizFolder, stdio: 'inherit' });
 
@@ -328,8 +329,9 @@ E.task('mqtt',['origin'], async () => {
     }
 })
 
-E.task('done', ['pgsql','kaspad','remote','mqtt'], async () => {
-
+const aux_deps = E.flags.auxiliary ? ['pgsql','kaspad','remote','mqtt'] : ['kaspad']
+//E.task('done', ['pgsql','kaspad','remote','mqtt'], async () => {
+E.task('done', aux_deps, async () => {
 })
 
 E.task('aptitude', null, async () => {

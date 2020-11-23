@@ -34,6 +34,36 @@
             }
         }
     },
+    "kaspad-standalone-mining" : {
+        "description" : "Self-Contained Kaspad Mining",
+        "modules":{
+            "kaspad:kd0" : {
+                "reset-peers" : false,
+                "args":{
+                    "rpclisten" : "0.0.0.0:16210",
+                    "listen": "0.0.0.0:16211",
+                    "profile": 7000
+                }
+            },
+            "kaspad:kd1" : {
+                "reset-peers" : false,
+                "args":{
+                    "rpclisten":"0.0.0.0:16310",
+                    "listen": "0.0.0.0:16311",
+                    "profile": 7001,
+                    "connect": "0.0.0.0:16211"
+                }
+            },
+            "kaspaminer:km0" : {
+                "args":{
+                    "miningaddr" : "kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz",
+                    "rpcserver":"localhost:16210",
+                    "block-delay" : 2000,
+                    "mine-when-not-synced" : null
+                }
+            }
+        }
+    },
     "full-stack" : {
         "description" : "Full Stack",
         "modules":{

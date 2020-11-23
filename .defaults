@@ -20,31 +20,6 @@
 				"connect": "0.0.0.0:16211"
 			}
 		},
-		"pgsql:db0" : {
-			"port": 18787
-		},
-
-		"mqtt:mq0" : {
-			"port": 19792
-		},
-		"kasparovd:kvd0" : {
-			"args":{
-				"testnet" : null,
-				"listen":"localhost:11224",
-				"rpcserver":"localhost:16210",
-				"dbaddress":"localhost:18787"
-			}
-		},
-		"kasparovsyncd:kvsd0" : {
-			"args":{
-				"testnet" : null,
-				"rpcserver":"localhost:16210",
-				"dbaddress":"localhost:18787",
-				"mqttaddress": "localhost:19792",
-				"mqttuser" : "user",
-				"mqttpass" : "pass"
-				}
-		},
 		"kaspaminer:km0" : {
 			"args":{
 				"testnet" : null,
