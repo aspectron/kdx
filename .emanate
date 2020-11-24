@@ -112,7 +112,7 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
         process.env.PATH = ['C:\\TDM-GCC-64\\bin', ...process.env.PATH.split(';')].join(';');
     }
 
-    let dest = path.join(go.SRC,'github.com/kaspanet2/');
+    let dest = path.join(go.SRC,'github.com/kaspanet/');
     if((E.flags.reset || E.flags.clean) && fs.existsSync(dest))
         await E.emptyDir(dest);
 
@@ -121,10 +121,10 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
     console.log('branch:',branch);
     
     //const repos = { };
-    const repos = [`kaspad:${branch}`,`kasparov:${KASPA_DEFAULT_BRANCH}`];
+    const repos = [`kaspad:${branch}`];
     if(E.flags['with-extras']) {
 //        repos.push('miningsimulator');
-        repos.push(`txgen:${branch}`);
+        repos.push(`txgen:${branch}`,`kasparov:${KASPA_DEFAULT_BRANCH}`);
     }
     else if(E.flags['with-kmetrics'] || E.flags['with-txgen']) {
         repos.push(`txgen:${branch}`);
@@ -135,8 +135,8 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
     for(const repo of repos) {
         let [name, git_branch] = repo.split(':');
         let src = "kaspanet"
-        if(name == "kaspad")
-            src = "aspectron"
+        // if(name == "kaspad")
+        //     src = "aspectron"
 
         console.log(`git clone https://github.com/${src}/${name} branch: ${git_branch || 'master'}`.brightYellow);
         await git.clone(`https://github.com/${src}/${name}`,dest, {branch : git_branch || 'master'});
@@ -154,9 +154,9 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
 
     let targets = [
         'kaspad',
-        'kasparov/kasparovd',
-        'kasparov/kasparovsyncd',
-        'kasparov/examples/wallet',
+        // 'kasparov/kasparovd',
+        // 'kasparov/kasparovsyncd',
+        // 'kasparov/examples/wallet',
         ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`),
     ];
 
@@ -202,7 +202,7 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
         E.registerFirewallRule({ name, file : dest, binary : true });
     })
 
-    E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
+//    E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
 });
 
 const pgsql = E.task('pgsql', ['origin'], async () => {

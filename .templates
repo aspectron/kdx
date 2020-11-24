@@ -7,7 +7,8 @@
                 "args":{
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
-                    "profile": 7000
+                    "profile": 7000,
+                    "wallet" : null
                 }
             }
         }
@@ -21,7 +22,8 @@
                 "args":{
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
-                    "profile": 7000
+                    "profile": 7000,
+                    "wallet" : null
                 }
             },
             "kaspaminer:km0" : {
@@ -42,7 +44,8 @@
                 "args":{
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
-                    "profile": 7000
+                    "profile": 7000,
+                    "wallet" : null
                 }
             },
             "kaspad:kd1" : {
@@ -51,7 +54,8 @@
                     "rpclisten":"0.0.0.0:16310",
                     "listen": "0.0.0.0:16311",
                     "profile": 7001,
-                    "connect": "0.0.0.0:16211"
+                    "connect": "0.0.0.0:16211",
+                    "wallet" : null
                 }
             },
             "kaspaminer:km0" : {
@@ -72,7 +76,8 @@
                 "args":{
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
-                    "profile": 7000
+                    "profile": 7000,
+                    "wallet" : null
                 }
             },
             "pgsql:db0" : {
@@ -117,7 +122,8 @@
                 "args":{
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
-                    "profile": 7000
+                    "profile": 7000,
+                    "wallet" : null
                 }
             },
             "kaspad:kd1" : {
@@ -126,7 +132,8 @@
                     "rpclisten":"0.0.0.0:16310",
                     "listen": "0.0.0.0:16311",
                     "profile": 7001,
-                    "connect": "0.0.0.0:16211"
+                    "connect": "0.0.0.0:16211",
+                    "wallet" : null
                 }
             },
             "pgsql:db0" : {
