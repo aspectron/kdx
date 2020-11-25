@@ -295,3 +295,12 @@ flow-input { margin: 2px; }
 	display:none;flex-direction:column;
 }
 .wallet-init-overlay.active{display:flex;}
+.short-dialog .msg{padding-bottom:10px;}
+.short-dialog .error-msg{
+	padding:5px;color:red;min-height:30px;font-size:0.8rem;box-sizing:border-box;
+}
+.short-dialog .fa-btn{align-self:center;margin:5px 10px;cursor:pointer;}
+.short-dialog .full-width{width:100%;max-width:100%;}
+.short-dialog dialog{min-width:10px;width:95%;max-width:510px}
+
+

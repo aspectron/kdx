@@ -1,21 +1,17 @@
-const crypto = require('crypto');
+
 
 import {html, css, BaseElement, ScrollbarStyle} from '/node_modules/@aspectron/flow-ux/src/base-element.js';
 import {
 	Wallet,
 	setLocalWallet, getLocalWallet,
-	getLocalSetting, setLocalSetting
+	getLocalSetting, setLocalSetting,
+	getUniqueId
 } from './wallet.js';
 
 export * from './kdx-wallet-open-dialog.js';
 export * from './kdx-wallet-seeds-dialog.js';
-
-const getUniqueId = (mnemonic)=>{
-	const secret = 'c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e';
-	return crypto.createHmac('sha256', secret)
-		.update(mnemonic)
-		.digest('hex');
-}
+export * from './kdx-wallet-send-dialog.js';
+export * from './kdx-wallet-receive-dialog.js';
 
 class KDXWallet extends BaseElement{
 
@@ -59,6 +55,7 @@ class KDXWallet extends BaseElement{
 				</h2>
 				${this.renderBackupWarning()}
 				<div class="error-message">${this.errorMessage}</div>
+				${this.renderButtons()}
 				<div class="body maskable">
 					<div>Balanace: $123.4</div>
 				</div>
@@ -77,6 +74,15 @@ class KDXWallet extends BaseElement{
 				<flow-btn @click="${this.showSeedRecoveryDialog}">SHOW RECOVERY SEED</flow-btn>
 				<flow-btn @click="${this.showSaveWalletDialog}">SAVE WALLET</flow-btn>
 			</flow-form-control>`
+	}
+	renderButtons(){
+		if(!this.wallet)
+			return '';
+		return html`
+			<div>
+				<flow-btn @click="${this.showSendDialog}">SEND</flow-btn>
+				<flow-btn @click="${this.showReceiveDialog}">RECEIVE</flow-btn>
+			</div>`
 	}
 	show(){
 		this.classList.add('active');
@@ -191,6 +197,26 @@ class KDXWallet extends BaseElement{
 				setLocalSetting("have-backup", 1);
 				this.requestUpdate("have-backup", null)
 			}
+		})
+	}
+	showSendDialog(){
+		if(!this.sendDialog){
+			this.sendDialog = document.createElement("kdx-wallet-send-dialog");
+			this.parentNode.appendChild(this.sendDialog);
+		}
+		console.log("this.sendDialog", this.sendDialog)
+		this.sendDialog.open({}, ()=>{
+			
+		})
+	}
+	showReceiveDialog(){
+		if(!this.receiveDialog){
+			this.receiveDialog = document.createElement("kdx-wallet-receive-dialog");
+			this.parentNode.appendChild(this.receiveDialog);
+		}
+		let {address} = this.wallet.addressManager.receiveAddress.current;
+		this.receiveDialog.open({address}, ()=>{
+			
 		})
 	}
 }

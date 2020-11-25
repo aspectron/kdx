@@ -2,6 +2,8 @@ import {
 	html, css, BaseElement, ScrollbarStyle
 } from '/node_modules/@aspectron/flow-ux/src/base-element.js';
 export * from '/node_modules/@aspectron/flow-ux/src/base-element.js';
+import {validatePassword} from './wallet.js';
+export * from './wallet.js';;
 
 export class Dialog extends BaseElement{
 
@@ -104,6 +106,7 @@ export class Dialog extends BaseElement{
 	firstUpdated(...args){
 		super.firstUpdated(...args)
 		this.qS = this.renderRoot.querySelector.bind(this.renderRoot);
+		this.qSAll = this.renderRoot.querySelectorAll.bind(this.renderRoot);
 	}
     setError(errorMessage){
     	this.errorMessage = errorMessage;
@@ -118,7 +121,6 @@ export class Dialog extends BaseElement{
 		this.hide();
 	}
 	checkPassword(password){
-    	const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-    	return regex.test(password);
+    	return validatePassword(password);
     }
 }
