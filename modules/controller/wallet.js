@@ -1,8 +1,8 @@
-const {Wallet, bitcoreKaspaSetup} = require("kaspa-module").default;
+const {Wallet, kaspaSetup} = require("kaspa-wallet");
 const crypto = require('crypto');
-bitcoreKaspaSetup();
+kaspaSetup();
 //console.log("Wallet", Wallet)
-export const {RPC} = require("kaspa-module-node");
+export const {RPC} = require("kaspa-wallet-grpc-node");
 import {html, css} from '/node_modules/@aspectron/flow-ux/src/base-element.js';
 
 
@@ -123,4 +123,4 @@ Wallet.setLocalWallet = setLocalWallet;
 
 window.askForPassword = askForPassword;
 
-export {Wallet, bitcoreKaspaSetup};
+export {Wallet};

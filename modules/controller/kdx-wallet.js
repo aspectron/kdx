@@ -1,5 +1,3 @@
-
-
 import {html, css, BaseElement, ScrollbarStyle} from '/node_modules/@aspectron/flow-ux/src/base-element.js';
 import {
 	Wallet,
