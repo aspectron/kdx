@@ -16,6 +16,8 @@ export const setLocalSetting = (name, value, prefix='kaspa-')=>{
 	if(!window.localStorage)
 		return
 
+	console.log("setLocalSetting ", name+":", value)
+
 	window.localStorage.setItem(prefix+name, JSON.stringify(value));
 }
 
@@ -45,9 +47,12 @@ export const setLocalWallet = (wallet)=>{
 
 export const getUniqueId = (mnemonic)=>{
 	const secret = 'c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e';
+	/*
 	return crypto.createHmac('sha256', secret)
 		.update(mnemonic)
 		.digest('hex');
+	*/
+	return crypto.scryptSync(mnemonic, secret, 20, { N: 1024 }).toString('hex');
 }
 
 export const validatePassword = (password)=>{
