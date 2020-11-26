@@ -13,7 +13,7 @@ class KDXWalletOpenDialog extends Dialog{
 
 	static get styles(){
 		return [Dialog.styles, css`
-			:host([mode="restore"]) .container{max-height:350px}
+			:host([mode="create"]) .container{max-height:320px}
 		`];
 	}
 	constructor() {
