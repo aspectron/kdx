@@ -57,7 +57,7 @@ class KDXWallet extends BaseElement{
 		return html`
 			<div class="container">
 				<h2 class="heading">
-					Wallet
+					<!-- Wallet -->
 					<fa-icon ?hidden=${!this.isLoading} icon="spinner"></fa-icon>
 				</h2>
 				
@@ -144,7 +144,7 @@ class KDXWallet extends BaseElement{
 		}]
 
 		return html`
-		<div class="heading">Resent transcations</div>
+		<div class="heading">Recent transcations</div>
 		<div class="transcations">
 		${txs.map(tx=>{
 			return html`
