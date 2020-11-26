@@ -205,7 +205,8 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
 //    E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
 });
 
-const pgsql = E.task('pgsql', ['origin'], async () => {
+if(E.flags.pgsql) // const pgsql = 
+E.task('pgsql', ['origin'], async () => {
     console.log("PGSQL",E.BIN)
     if(E.PLATFORM == 'linux')
         return Promise.resolve();
@@ -293,6 +294,7 @@ E.task('remote', ['origin'], async () => {
     console.log(`i18n.lock`);
 })
 
+if(E.flags.mqtt)
 E.task('mqtt',['origin'], async () => {
     E.log('setting up mqtt...');
     if(E.PLATFORM == 'windows') {
@@ -326,7 +328,7 @@ E.task('mqtt',['origin'], async () => {
             }
 
             // await E.copy(folder,path.join(E.BIN,'brew',f));
-            
+
         }
         return Promise.resolve();
 //        return E.copy(path.join(E.REPO,'resources','deps','mosquitto-darwin-x64'),path.join(E.BIN,'mosquitto'));

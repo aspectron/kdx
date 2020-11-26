@@ -1,7 +1,7 @@
 {
   "name": "kdx",
   "description": "Kaspa Desktop eXperience",
-  "version": "1.2.0",
+  "version": "1.4.0",
   "private": true,
   "main": "kdx.js",
   "files": [
@@ -28,9 +28,9 @@
     "@aspectron/flow-async": "*",
     "@aspectron/flow-rpc": "*",
     "@aspectron/flow-utils": "*",
-    "@aspectron/flow-ux": "file:../flow-ux",
-    "kaspa-wallet": "file:../kaspa-wallet",
-    "kaspa-wallet-grpc-node": "file:../kaspa-wallet-grpc-node",
+    "@aspectron/flow-ux": "^0.0.64",
+    "kaspa-wallet": "git+ssh://git@github.com/aspectron/kaspa-wallet",
+    "kaspa-wallet-grpc-node": "git+ssh://git@github.com/aspectron/kaspa-wallet-grpc-node",
     "@webcomponents/webcomponentsjs": "*",
     "bs58": "^4.0.1",
     "colors": "^1.4.0",
