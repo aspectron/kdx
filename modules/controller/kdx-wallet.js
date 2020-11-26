@@ -185,7 +185,7 @@ class KDXWallet extends BaseElement{
     	this.uid = getUniqueId(wallet.mnemonic);
     	const cache = getLocalSetting(`cache-${this.uid}`);
     	const {addresses} = cache||{};
-    	if (addresses?.receiveCounter !== 0 || addresses?.changeCounter !== 0) {
+    	if (cache && (addresses?.receiveCounter !== 0 || addresses?.changeCounter !== 0)) {
 			wallet.restoreCache(cache);
 			this._isCache = true;
 	    }
