@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0] - 2020-09-24
+** WORK IN PROGRESS - INTERNAL POC RELEASE **
+This version updates KDX to be compatible with kaspad `v0.8.1-dev` branch (as of 2020-11-26 feature/karpov-rebase-3 branch). Before running you must reset your data folders with `node kdx --purge`.
+- Removed 3rd-party service dependence (PostgreSQL and MQTT) from the project build.
+- Integrated Karpov Wallet interface directly into KDX
+- Integrated basic wallet functionality (creation, recovery etc)
+
 ## [1.2.0] - 2020-09-24
 This version updates KDX to be compatible with kaspad `v0.7.2-dev` branch. Before running you must reset your data folders with `node kdx --purge`.
 
