@@ -4,7 +4,7 @@ const KASPA_DEFAULT_BRANCH = 'feature/karpov-wallet-api-rebased-3';
 // const KASPA_DEFAULT_BRANCH = 'v0.8.1-dev';
 
 const E = new Emanator(__dirname, {
-    type : argv.includes('build') ? 'NODE+NWJS' : 'UTIL',
+    type : argv.includes('build') || flags.innosetup ? 'NODE+NWJS' : 'UTIL',
     guid : 'c1072045-6d98-44d8-9aa5-e9be6c79bd01',
     group : 'Kaspa',
     ident : 'kdx',
