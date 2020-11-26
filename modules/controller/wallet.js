@@ -12,6 +12,24 @@ Wallet.setRPC(new RPC({
 	}
 }))
 
+/**
+ * Converts from sompis to KSP
+ * @param val Value to convert, as string or number
+ * @returns Converted value as a string
+ */
+export const formatForHuman = (val)=>{
+  return String(Number(val) / 1e8 );
+}
+
+/**
+ * Converts from KSP to sompis
+ * @param val Value to convert, as string or number
+ * @returns Converted value as a string
+ */
+export const formatForMachine = (val)=>{
+  return Number(val) * 1e8;
+}
+
 export const setLocalSetting = (name, value, prefix='kaspa-')=>{
 	if(!window.localStorage)
 		return
@@ -65,7 +83,7 @@ export const askForPassword = async (args, callback)=>{
 		callback = args;
 		args = {};
 	}
-	const {confirmBtnText="CONFIRM"} = args||{}
+	const {confirmBtnText="CONFIRM", pass=""} = args||{}
 	let inputType = "password";
 	let icon = "eye";
 	let errorMessage = "";
@@ -82,7 +100,8 @@ export const askForPassword = async (args, callback)=>{
 		return html`
 			<div class="msg">Enter a password to send a transaction.</div>
 			<flow-input label="Password" class="password full-width" outer-border
-				name="password" type="${inputType}" placeholder="Password">
+				name="password" type="${inputType}" placeholder="Password"
+				value="${pass}">
 				<fa-icon class="fa-btn"
 					slot="sufix"
 					@click="${changeInputType}"

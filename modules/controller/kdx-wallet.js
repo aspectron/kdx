@@ -3,7 +3,7 @@ import {
 	Wallet,
 	setLocalWallet, getLocalWallet,
 	getLocalSetting, setLocalSetting,
-	getUniqueId
+	getUniqueId, formatForMachine
 } from './wallet.js';
 
 export * from './kdx-wallet-open-dialog.js';
@@ -24,15 +24,6 @@ class KDXWallet extends BaseElement{
 	static get styles(){
 		return [ScrollbarStyle, css`
 			.container{padding:15px;}
-			.maskable{
-				position:relative;
-			}
-			.maskable:after{
-				content:"";
-				opacity:0.9;background-color:var(--flow-background-color);
-				display:block;width:100%;height:100%;position:absolute;top:0px;left:0px;
-			}
-			:host(.active) .maskable:after{display:none;}
 			.wallet-warning{
 				max-width:640px;margin:5px auto;padding:10px;text-align:center;
 				background-color:var(--kdx-wallet-warning-bg, #fdf8e4);
@@ -56,6 +47,7 @@ class KDXWallet extends BaseElement{
 			.buttons{margin:20px 0px;}
 			.balances .value{text-align:right}
 			.balances .balance{display:flex;justify-content: space-between;}
+			.loading-img{width:20px;height:20px;vertical-align:text-top;}
 		`];
 	}
 	constructor() {
@@ -116,7 +108,7 @@ class KDXWallet extends BaseElement{
 			<flow-expandable static-icon class="balances" expand icon="wallet" no-info>
 				<div slot="title">
 					Balanace
-					<fa-icon ?hidden=${!this.isLoading} icon="spinner"></fa-icon>
+					<img class="loading-img" ?hidden=${!this.isLoading} src="/resources/images/spinner.svg">
 				</div>
 				<div class="balance">
 					<span class="label">Available:</span>
@@ -175,14 +167,6 @@ class KDXWallet extends BaseElement{
 	formatKSD(value){
 		return (value/1e8).toFixed(4);
 	}
-	/*
-	show(){
-		this.classList.add('active');
-	}
-	hide(){
-		this.classList.remove('active');
-	}
-	*/
 	showError(err){
 		console.log("showError:err", err)
 		this.errorMessage = err.error || err+"";
@@ -318,8 +302,8 @@ class KDXWallet extends BaseElement{
 			this.parentNode.appendChild(this.sendDialog);
 		}
 		console.log("this.sendDialog", this.sendDialog)
-		this.sendDialog.open({}, ()=>{
-			
+		this.sendDialog.open({}, (args)=>{
+			this.sendTx(args);
 		})
 	}
 	showReceiveDialog(){
@@ -328,9 +312,23 @@ class KDXWallet extends BaseElement{
 			this.parentNode.appendChild(this.receiveDialog);
 		}
 		let {address} = this.wallet.addressManager.receiveAddress.current;
-		this.receiveDialog.open({address}, ()=>{
-			
+		this.receiveDialog.open({address}, (args)=>{
 		})
+	}
+
+	async sendTx(args){
+		const {address, amount, note} = args;
+		console.log("sendTx:args", args)
+
+		const response = await this.wallet.sendTx({
+			toAddr: address,
+			amount: formatForMachine(amount)
+		}).catch(error=>{
+			console.log("error", error)
+			FlowDialog.alert("Error", error);
+		})
+
+		console.log("sendTx: response", response)
 	}
 }
 

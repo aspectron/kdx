@@ -1,4 +1,5 @@
 import {html, css, Dialog, askForPassword} from './dialog.js';
+const pass = "Asd123###";
 
 class KDXWalletSendDialog extends Dialog{
 	static get styles(){
@@ -13,13 +14,15 @@ class KDXWalletSendDialog extends Dialog{
 	}
 	renderBody(){
 		return html`
-			<!--div class="sub-heading">Send funds</div-->
+			<!--div class="sub-heading">Send funds
+			to: kaspatest:qrhefqj5c80m59d9cdx4ssxw96vguvn9fgy6yc0qtd
+			</div-->
 			<flow-input class="address full-width" outer-border
-				label="Recipient Kaspa Address"
+				label="Recipient Kaspa Address" value="kaspatest:qrhefqj5c80m59d9cdx4ssxw96vguvn9fgy6yc0qtd"
 				placeholder="kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz">
 			</flow-input>
 			<flow-input class="amount full-width" outer-border
-				label="Amount in KAS"
+				label="Amount in KAS" value="0.00000001"
 				placeholder="1">
 			</flow-input>
 			<flow-input class="note full-width" outer-border label="Note">
@@ -36,10 +39,13 @@ class KDXWalletSendDialog extends Dialog{
 		this.args = args;
 		this.show();
 	}
-    cancel(){
-    	this.qSAll("flow-input").forEach(input=>{
+	cleanUpForm(){
+		this.qSAll("flow-input").forEach(input=>{
     		input.value = "";
     	})
+	}
+    cancel(){
+    	this.cleanUpForm();
     	this.hide();
     }
     sendAfterConfirming(){
@@ -48,15 +54,13 @@ class KDXWalletSendDialog extends Dialog{
     	let note = this.qS(".note").value;
 
     	let info = {address, amount, note};
-    	askForPassword({confirmBtnText:"CONFIRM SEND"}, ({btn, password})=>{
+    	askForPassword({confirmBtnText:"CONFIRM SEND", pass}, ({btn, password})=>{
     		if(btn!="send")
     			return
 			info.password = password;
-			this.send(info);
+			this.hide();
+			this.callback(info);
     	})
-    }
-    send(info){
-    	console.log("info", info)
     }
 }
 
