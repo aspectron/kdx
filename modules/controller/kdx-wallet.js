@@ -239,24 +239,25 @@ class KDXWallet extends BaseElement{
 	}
 	connectedCallback(){
 		super.connectedCallback();
-
-		let encryptedMnemonic = getLocalWallet();
-		if(encryptedMnemonic){
-			showWalletInitDialog({
-				mode:"open"
-			}, (err, {password, dialog})=>{
-				this.handleInitDialogCallback({password, dialog, encryptedMnemonic})
-			})
-		}else{
-			showWalletInitDialog({
-				mode:"create",
-				hideOpenMode:true
-			}, (err, {password, dialog})=>{
-				this.handleInitDialogCallback({password, dialog})
-			})
-		}
+		Wallet.onReady(()=>{
+			let encryptedMnemonic = getLocalWallet();
+			if(encryptedMnemonic){
+				showWalletInitDialog({
+					mode:"open"
+				}, (err, {password, dialog})=>{
+					this.handleInitDialogCallback({password, dialog, encryptedMnemonic})
+				})
+			}else{
+				showWalletInitDialog({
+					mode:"init",
+					hideOpenMode:true
+				}, (err, {password, seedPhrase, dialog})=>{
+					this.handleInitDialogCallback({password, seedPhrase, dialog})
+				})
+			}
+		})
 	}
-	async handleInitDialogCallback({dialog, password, encryptedMnemonic}){
+	async handleInitDialogCallback({dialog, password, seedPhrase, encryptedMnemonic}){
 		let {mode} = dialog;
 		if(mode =="open"){
 			const wallet = await Wallet.import(password, encryptedMnemonic)
@@ -277,6 +278,33 @@ class KDXWallet extends BaseElement{
 			encryptedMnemonic = await wallet.export(password);
 			setLocalWallet(encryptedMnemonic);
 			setLocalSetting("have-backup", 0);
+			dialog.hide();
+			this.setWallet(wallet);
+			return
+		}
+
+		if(mode == "recover"){
+			let wallet;
+			try{
+				wallet = Wallet.fromMnemonic(seedPhrase)
+			}catch(error){
+				console.log("recover:Wallet.fromMnemonic error", error)
+				dialog.setError(`Invalid seed (${error.message})`);
+			}
+
+			if(!wallet)
+				return
+			const encryptedMnemonic = wallet.export(password);
+			const imported = Wallet.import(password, encryptedMnemonic)
+			.catch(error=>{
+				console.log("recover:Wallet.import error", error)
+			})
+			if(!imported){
+				dialog.setError("Invalid password.");
+				return
+			}
+			setLocalWallet(encryptedMnemonic);
+			setLocalSetting("have-backup", 1);
 			dialog.hide();
 			this.setWallet(wallet);
 			return

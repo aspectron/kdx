@@ -3,6 +3,7 @@ bin.*
 ___bin
 build
 node_modules
+node_modules__
 logs
 package-lock.json
 config.json
@@ -14,3 +15,4 @@ i18n.entries
 apps/dagtps
 apps
 module_config_state.txt
+package-lock_.json

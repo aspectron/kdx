@@ -1,4 +1,6 @@
 const {Wallet, kaspaSetup} = require("kaspa-wallet");
+let {Mnemonic} = Wallet;
+console.log("test Mnemonic: ", new Mnemonic(Mnemonic.Words.ENGLISH).toString())
 const crypto = require('crypto');
 kaspaSetup();
 //console.log("Wallet", Wallet)
