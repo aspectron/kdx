@@ -244,15 +244,17 @@ class KDXWallet extends BaseElement{
 			if(encryptedMnemonic){
 				showWalletInitDialog({
 					mode:"open"
-				}, (err, {password, dialog})=>{
-					this.handleInitDialogCallback({password, dialog, encryptedMnemonic})
+				}, (err, info)=>{
+					info.encryptedMnemonic = encryptedMnemonic;
+					this.handleInitDialogCallback(info)
 				})
 			}else{
 				showWalletInitDialog({
 					mode:"init",
 					hideOpenMode:true
-				}, (err, {password, seedPhrase, dialog})=>{
-					this.handleInitDialogCallback({password, seedPhrase, dialog})
+				}, (err, info)=>{
+					console.log("showWalletInitDialog:result", info)
+					this.handleInitDialogCallback(info)
 				})
 			}
 		})
@@ -284,6 +286,7 @@ class KDXWallet extends BaseElement{
 		}
 
 		if(mode == "recover"){
+			console.log("recover:Wallet:seedPhrase, password", seedPhrase, password)
 			let wallet;
 			try{
 				wallet = Wallet.fromMnemonic(seedPhrase)
@@ -294,8 +297,9 @@ class KDXWallet extends BaseElement{
 
 			if(!wallet)
 				return
-			const encryptedMnemonic = wallet.export(password);
-			const imported = Wallet.import(password, encryptedMnemonic)
+			const encryptedMnemonic = await wallet.export(password);
+			console.log("encryptedMnemonic", encryptedMnemonic)
+			const imported = await Wallet.import(password, encryptedMnemonic)
 			.catch(error=>{
 				console.log("recover:Wallet.import error", error)
 			})

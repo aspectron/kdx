@@ -77,6 +77,7 @@ class KDXWalletOpenDialog extends Dialog{
 	renderRecoverUI(){
 		let rows = [0, 1, 2];
 		let cells = [0, 1, 2, 3];
+		let seed = testSeed.split(" ");
 		return html`
 			<p class="sub-heading text-center">
 				Enter your 12-word seed phrase to recover your wallet
@@ -88,7 +89,7 @@ class KDXWalletOpenDialog extends Dialog{
 						${cells.map((v, i)=>{
 							return html`
 							<div class="cell">
-								<input class="seed word" value="${Math.random()*100}" data-index="${index*4+i}" />
+								<input class="seed word" value="${seed[index*4+i]}" data-index="${index*4+i}" />
 							</div>
 							`;
 						})}
@@ -212,10 +213,18 @@ class KDXWalletOpenDialog extends Dialog{
     		words.push(wordsMap[i])
     	}
 
-    	if(isInvalid)
+    	if(isInvalid || !words.join("").length)
     		return this.setError("Please provide valid words");
 
-    	this.callback(null, {seedPhrase:words.join(" "), dialog:this});
+    	console.log("words", words)
+    	askForPassword({
+    		title:"Password to encryt the wallet",
+    		confirmBtnText:"Encrypt Wallet"
+    	}, ({btn, password})=>{
+    		if(!password || btn != 'ok')
+    			return
+	    	this.callback(null, {seedPhrase:words.join(" "), password, dialog:this});
+	    })
     }
 }
 

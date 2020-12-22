@@ -1,6 +1,7 @@
 const {Wallet, kaspaSetup} = require("kaspa-wallet");
 let {Mnemonic} = Wallet;
-console.log("test Mnemonic: ", new Mnemonic(Mnemonic.Words.ENGLISH).toString())
+window.testSeed = new Mnemonic(Mnemonic.Words.ENGLISH).toString();
+console.log("test Mnemonic: ", window.testSeed)
 const crypto = require('crypto');
 kaspaSetup();
 //console.log("Wallet", Wallet)
@@ -85,7 +86,12 @@ export const askForPassword = async (args, callback)=>{
 		callback = args;
 		args = {};
 	}
-	const {confirmBtnText="CONFIRM", pass=""} = args||{}
+	const {
+		confirmBtnText="CONFIRM",
+		pass="",
+		msg="",
+		title="Enter a password"
+	} = args||{}
 	let inputType = "password";
 	let icon = "eye";
 	let errorMessage = "";
@@ -100,8 +106,8 @@ export const askForPassword = async (args, callback)=>{
 	}
 	let body = ()=>{
 		return html`
-			<div class="msg">Enter a password to send a transaction.</div>
-			<flow-input label="Password" class="password full-width" outer-border
+			<div class="msg">${msg}</div>
+			<flow-input class="password full-width" outer-border
 				name="password" type="${inputType}" placeholder="Password"
 				value="${pass}">
 				<fa-icon class="fa-btn"
@@ -114,12 +120,12 @@ export const askForPassword = async (args, callback)=>{
 	}
 
 	const p = FlowDialog.show({
-		title:"Password",
+		title,
 		body:body(),
 		cls:"short-dialog",
 		btns:['Cancel',{
 			text:confirmBtnText,
-			value:"send",
+			value:"ok",
 			handler(resolve, result){
 				let {values} = result;
 				let {password} = values;
