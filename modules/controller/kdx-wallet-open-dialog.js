@@ -133,15 +133,16 @@ class KDXWalletOpenDialog extends Dialog{
 	}
 	renderOpenButtons(){
 		return html`
-			<flow-btn primary @click="${this.openWallet}">OPEN WALLET</flow-btn>
-			<flow-btn @click="${e=>this.mode='create'}">NEW WALLET</flow-btn>`;
+			<flow-btn @click="${e=>this.mode='create'}">NEW WALLET</flow-btn>
+			<flow-btn primary @click="${this.openWallet}">OPEN WALLET</flow-btn>`;
 	}
 	renderCreateButtons(){
 		return html`
 			<flow-btn @click="${e=>this.mode='init'}">Cancel</flow-btn>
-			<flow-btn primary @click="${this.createWallet}">CREATE WALLET</flow-btn>
 			<flow-btn ?hidden=${this.hideOpenMode} 
-				@click="${e=>this.mode='open'}">I HAVE WALLET</flow-btn>`;
+				@click="${e=>this.mode='open'}">I HAVE WALLET</flow-btn>
+			<flow-btn primary @click="${this.createWallet}">CREATE WALLET</flow-btn>
+			`;
 	}
 	renderInitButtons(){
 		return html`
@@ -187,7 +188,13 @@ class KDXWalletOpenDialog extends Dialog{
     	if(!input || !input.dataset.index != "0")
     		return
     	let words = (input.value+"").split(" ");
-    	//if(words.length>1)
+    	if(words.length<2)
+    		return
+
+    	this.qSAll("input.seed.word").forEach(input=>{
+    		let index = input.dataset.index;
+    		input.value = words[index];
+    	});
 
     }
     recoverWallet(){
