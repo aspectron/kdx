@@ -168,6 +168,9 @@ body.flow-theme-dark{
 	--flow-terminal-color:#fff;
 	--flow-terminal-cursor:#ccc;
 	--flow-terminal-selection:rgba(100, 100, 100, 0.5);
+	--flow-box-shadow: 0 2px 15px 0 rgba(39, 206, 164, 0.14),
+	0 3px 1px -3px rgba(13,226,195,.2),
+	0 1px 15px 0 rgba(14,234,184,.12);
 }
 body.invert-terminals{
 	--flow-terminal-bg-color:var(--flow-foreground-color);

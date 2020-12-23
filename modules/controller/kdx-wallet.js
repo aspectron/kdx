@@ -29,7 +29,7 @@ class KDXWallet extends BaseElement{
 				background-color:var(--kdx-wallet-warning-bg, #fdf8e4);
 			}
 			.heading{margin:5px 15px 25px;font-size:1.5rem;}
-			flow-btn{vertical-align:bottom;margin-bottom:5px;}
+			flow-btn{vertical-align:bottom;margin:5px;}
 			.error-message{color:#F00;margin:10px 0px;}
 			[hidden]{display:none}
 			.h-box{display:flex;align-items:center}
@@ -41,13 +41,24 @@ class KDXWallet extends BaseElement{
 			.flex{flex:1}
 			.body{display:flex;align-items:top}
 			.tx-title{width:100%;display:flex;align-items:center;margin-bottom:10px;}
-			.left-area{flex:4}
-			.right-area{flex:3}
+			.left-area{flex:4;margin-left:20px;max-width:500px;}
+			.right-area{flex:3;margin-left:20px;max-width:750px;}
 			[txout] .amount{color:red}
 			.buttons{margin:20px 0px;}
 			.balances .value{text-align:right}
 			.balances .balance{display:flex;justify-content: space-between;}
 			.loading-img{width:20px;height:20px;vertical-align:text-top;}
+
+			.balance-badge{
+				display:flex;flex-direction:column;
+				padding:10px; border:2px solid var(--flow-primary-color);
+				border-radius:10px;max-width: fit-content;
+				box-shadow:var(--flow-box-shadow)}
+            .balance-badge .value{text-align:right;padding-left:10px;}
+            .balance-badge .balance{display:flex;padding:5px;}
+			.balance-badge .pending{font-size:0.7rem}
+			.transactions {padding:15px;}
+
 		`];
 	}
 	constructor() {
@@ -65,12 +76,12 @@ class KDXWallet extends BaseElement{
 					<div class="left-area">
 						${this.renderBackupWarning()}
 						<div class="error-message">${this.errorMessage}</div>
-						${this.renderTX()}
+						${this.renderBalance()}
+						${this.renderButtons()}
 					</div>
 					<div class="flex"></div>
 					<div class="right-area">
-						${this.renderBalance()}
-						${this.renderButtons()}
+						${this.renderTX()}
 					</div>
 				</div>
 			</div>
@@ -105,7 +116,23 @@ class KDXWallet extends BaseElement{
 		let {availableBalance, totalBalance} = this.wallet.utxoSet;
 		let pending = totalBalance - availableBalance;
 		return html`
-			<flow-expandable static-icon class="balances" expand icon="wallet" no-info>
+  			<div class="balance-badge">
+                <div class="balance">
+                    <span class="label">Available</span>
+                    <span class="value">${this.formatKSD(availableBalance)} KSP</span>
+                </div>
+                <div class="balance pending">
+                    <span class="label">Pending</span>
+                    <span class="value">${this.formatKSD(pending)} KSP</span>
+                </div>
+            </div>
+
+
+
+
+
+
+			<!-- <flow-expandable static-icon class="balances" expand icon="wallet" no-info>
 				<div slot="title">
 					Balanace
 					<img class="loading-img" ?hidden=${!this.isLoading} src="/resources/images/spinner.svg">
@@ -122,7 +149,7 @@ class KDXWallet extends BaseElement{
 					<span class="label">Total:</span>
 					<span class="value">${this.formatKSD(totalBalance)} KSP</span>
 				</div>
-			</flow-expandable>
+			</flow-expandable> -->
 		`
 	}
 	renderTX(){
