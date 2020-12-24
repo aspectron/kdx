@@ -123,6 +123,7 @@ class KDXWalletOpenDialog extends Dialog{
 					@click="${this.changeInputType}"
 					icon="${icon}"></fa-icon>
 			</flow-input>
+			<div class="sub-heading">Confirm password</div>
 			<flow-input class="cfm-password full-width" outer-border value="${pass}"
 				type="${this.inputType}" placeholder="Confirm Password">
 				<fa-icon class="input-type-btn" slot="sufix"
