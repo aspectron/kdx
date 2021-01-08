@@ -41,12 +41,12 @@ class KDXWallet extends BaseElement{
 			.flex{flex:1}
 			.body{display:flex;align-items:top}
 			.tx-title{width:100%;display:flex;align-items:center;margin-bottom:10px;}
-			.left-area{flex:4;margin-left:20px;max-width:500px;}
-			.right-area{flex:3;margin-left:20px;max-width:750px;}
+			.left-area{flex:4;margin-left:20px;max-width:600px;}
+			.right-area{flex:2;margin-left:20px;max-width:750px;}
 			[txout] .amount{color:red}
 			.buttons{margin:20px 0px;}
-			.balances .value{text-align:right}
-			.balances .balance{display:flex;justify-content: space-between;}
+			/*.balances .value{text-align:right}
+			.balances .balance{display:flex;justify-content: space-between;}*/
 			.loading-img{width:20px;height:20px;vertical-align:text-top;}
 
 			.balance-badge{
@@ -54,10 +54,14 @@ class KDXWallet extends BaseElement{
 				padding:10px; border:2px solid var(--flow-primary-color);
 				border-radius:10px;max-width: fit-content;
 				box-shadow:var(--flow-box-shadow)}
-            .balance-badge .value{text-align:right;padding-left:10px;}
-            .balance-badge .balance{display:flex;padding:5px;}
-			.balance-badge .pending{font-size:0.7rem}
+			.balance{display:flex;flex-direction:column;padding:5px;}
+       		.value{font-family : "IBM Plex Sans Condensed"; font-size: 36px; margin-top: 4px;}
+		 	.value-pending{font-family : "IBM Plex Sans Condensed"; font-size: 20px; margin-top: 4px;} 
+			.label { font-family : "Open Sans"; font-size: 20px; }
+			.label-pending { font-family : "Open Sans"; font-size: 14px; }
 			.transactions {padding:15px;}
+			[row]{display:flex;flex-direction:row;justify-content:space-between;}
+			flow-qrcode{width:172px;margin-top:50px;}
 
 		`];
 	}
@@ -76,9 +80,10 @@ class KDXWallet extends BaseElement{
 					<div class="left-area">
 						${this.renderBackupWarning()}
 						<div class="error-message">${this.errorMessage}</div>
-						${this.renderBalance()}
-						${this.renderButtons()}
-					</div>
+							${this.renderBalance()}
+							${this.renderButtons()}
+							${this.renderQRcode()}
+						</div>
 					<div class="flex"></div>
 					<div class="right-area">
 						${this.renderTX()}
@@ -101,8 +106,8 @@ class KDXWallet extends BaseElement{
 			</flow-expandable>`
 	}
 	renderButtons(){
-		if(!this.wallet)
-			return '';
+		// if(!this.wallet)
+		// 	return '';
 		return html`
 			<div class="buttons">
 				<flow-btn @click="${this.showSendDialog}">SEND</flow-btn>
@@ -111,25 +116,27 @@ class KDXWallet extends BaseElement{
 	}
 
 	renderBalance(){
-		if(!this.wallet)
-			return '';
-		let {availableBalance, totalBalance} = this.wallet.utxoSet;
+		// if(!this.wallet)
+		// 	return '';
+		//let {availableBalance, totalBalance} = this.wallet.utxoSet;
+		let availableBalance = 67580000000000;
+		let totalBalance = 100000000000000.40;
 		let pending = totalBalance - availableBalance;
 		return html`
   			<div class="balance-badge">
                 <div class="balance">
                     <span class="label">Available</span>
-                    <span class="value">${this.formatKSD(availableBalance)} KSP</span>
+                    <span class="value">${this.formatKSP(availableBalance)} KSP</span>
                 </div>
                 <div class="balance pending">
-                    <span class="label">Pending</span>
-                    <span class="value">${this.formatKSD(pending)} KSP</span>
+                    <span class="label-pending">Pending</span>
+                    <span class="value-pending">${this.formatKSP(pending)} KSP</span>
                 </div>
             </div>
 
 
 
-
+	
 
 
 			<!-- <flow-expandable static-icon class="balances" expand icon="wallet" no-info>
@@ -139,22 +146,29 @@ class KDXWallet extends BaseElement{
 				</div>
 				<div class="balance">
 					<span class="label">Available:</span>
-					<span class="value">${this.formatKSD(availableBalance)} KSP</span>
+					<span class="value">${this.formatKSP(availableBalance)} KSP</span>
 				</div>
 				<div class="balance">
 					<span class="label">Pending:</span>
-					<span class="value">${this.formatKSD(pending)} KSP</span>
+					<span class="value">${this.formatKSP(pending)} KSP</span>
 				</div>
 				<div class="balance top-line">
 					<span class="label">Total:</span>
-					<span class="value">${this.formatKSD(totalBalance)} KSP</span>
+					<span class="value">${this.formatKSP(totalBalance)} KSP</span>
 				</div>
 			</flow-expandable> -->
 		`
 	}
+
+	renderQRcode(){
+		return html`
+		<flow-qrcode>
+
+		</flow-qrcode>`
+	}
 	renderTX(){
-		if(!this.wallet)
-			return '';
+		// if(!this.wallet)
+		// 	return '';
 
 		let txs = [{
 			in:1,
@@ -180,7 +194,7 @@ class KDXWallet extends BaseElement{
 					<div class="tx-title" slot="title">
 						<div class="tx-date flex">${tx.date}</div>
 						<div class="amount">
-							${tx.in?'':'-'}${this.formatKSD(tx.amount)}KSP
+							${tx.in?'':'-'}${this.formatKSP(tx.amount)}KSP
 						</div>
 					</div>
 					<div>
@@ -191,8 +205,8 @@ class KDXWallet extends BaseElement{
 		})}
 		</div>`
 	}
-	formatKSD(value){
-		return (value/1e8).toFixed(4);
+	formatKSP(value){
+		return (value/1e8).toFixed(8).replace(/000000$/,'');
 	}
 	showError(err){
 		console.log("showError:err", err)

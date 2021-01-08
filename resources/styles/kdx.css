@@ -1,29 +1,24 @@
 *{margin:0px;padding:0px;}
+
 body{
 	background:white;display:flex;flex-direction:column;
-
-
 	font-family:'Exo 2';
 	font-weight:normal;
 	--flow-font-family:'Exo 2';
 	--flow-font-weight:normal;
 	font-size: 18px;
+	opacity:1;
+	transition:opacity 0.5s ease;
 	
 	--flow-primary-color:rgba(0, 150, 136, 1);
 	--flow-border-color:rgb(0, 133, 119);
 	--flow-border-hover-color:rgba(2, 97, 74, 1);
 	--flow-tab-font-size:1.5rem;
-	--flow-link-color:rgba(0, 150, 136, 1);
-    --flow-link-hover-color:rgba(0,121,85,1.0);
-	--flow-data-badge-caption: #000;
-    --flow-data-badge-caption-shadow: rgba(0,151,115,1.0);
-
-	opacity:1;
-	transition:opacity 0.5s ease;
-
 	--flow-link-color:  rgba(0,150,136,1);
 	--flow-link-hover-color:  rgb(0, 105, 95);
-
+	
+	--flow-data-badge-caption: #000;
+    --flow-data-badge-caption-shadow: rgba(0,151,115,1.0);
 	--flow-data-badge-graph-fill:  rgb(0, 105, 95, 0.15);
 	--flow-data-badge-graph-stroke:  rgba(0, 105, 95, 1.0);
 	--flow-data-badge-graph-stroke-width: 1px;
@@ -33,11 +28,11 @@ body{
 	--flow-graph-stroke:  rgba(0, 105, 95, 1.0);
 	--flow-graph-stroke-width: 1px;
 	--flow-graph-stroke-opacity: 0.3;
+	
 	--flow-input-min-width:300px;
 	--flow-input-bg:white;
     --flow-input-color: #585858;
     --flow-input-placeholder: #555;
-   
     --flow-input-label-border: 0px;
     --flow-input-height: 40px;
     --flow-input-font-size:0.75rem;
@@ -76,16 +71,28 @@ body.flow-theme-dark{
 	--flow-data-badge-value: #fff;
 	--flow-data-badge-caption: #ccc;
     --flow-data-badge-caption-shawod: rgba(0,151,115,1.0);
-
-
 	--flow-data-badge-graph-fill:  rgb(0, 105, 95, 0.5);
 	--flow-data-badge-graph-stroke:  rgb(1, 138, 124);
 	--flow-data-badge-graph-stroke-width: 1px;
 	--flow-data-badge-graph-stroke-opacity: 0.75;
-
 	--flow-markdown-code-background-color: rgba(0,0,0,0.9);
 	--flow-markdown-code-border: #333;
+	--flow-background-color:#232323;
+	--flow-foreground-color:#FFFFFF;
+	--flow-terminal-bg-color:#232323;
+	--flow-terminal-color:#fff;
+	--flow-terminal-cursor:#ccc;
+	--flow-terminal-selection:rgba(100, 100, 100, 0.5);
+	--flow-box-shadow: 0 2px 15px 0 rgba(39, 206, 164, 0.14),
+	0 3px 1px -3px rgba(13,226,195,.2),
+	0 1px 15px 0 rgba(14,234,184,.12);
+	--flow-input-box-shadow:0 2px 9px 0 rgba(1, 150, 136),
+	0 3px 1px -3px rgba(121, 255, 235, 0.2),
+	0 1px 7px 0 rgba(65, 255, 212, 0.12);
+
+	
 }
+
 
 *[caption] {
 	text-transform: uppercase;
@@ -154,7 +161,7 @@ body.ui-loading{
 }
 @font-face {
 	font-family:'IBM Plex Sans Condensed';
-	src: url("../../resources/extern/fonts/IBMPlexSans/IBMPlexSansCondensed-Regular.ttf") format('truetype');
+	src: url("../../resources/extern/fonts/IBMPlexSansCondensed/IBMPlexSansCondensed-Regular.ttf") format('truetype');
 }
 
 tab-content::-webkit-scrollbar-track{
@@ -199,17 +206,7 @@ body{
 	--flow-terminal-cursor:#555;
 	--flow-terminal-selection:rgba(100, 100, 100, 0.5);
 }
-body.flow-theme-dark{
-	--flow-background-color:#232323;
-	--flow-foreground-color:#FFFFFF;
-	--flow-terminal-bg-color:#232323;
-	--flow-terminal-color:#fff;
-	--flow-terminal-cursor:#ccc;
-	--flow-terminal-selection:rgba(100, 100, 100, 0.5);
-	--flow-box-shadow: 0 2px 15px 0 rgba(39, 206, 164, 0.14),
-	0 3px 1px -3px rgba(13,226,195,.2),
-	0 1px 15px 0 rgba(14,234,184,.12);
-}
+
 body.invert-terminals{
 	--flow-terminal-bg-color:var(--flow-foreground-color);
 	--flow-terminal-color:var(--flow-background-color);
@@ -320,7 +317,7 @@ flow-input { margin: 2px; }
 .h-box-stretched-group{
 	display:flex;flex-direction:column;align-items:stretch;
 }
-[row]{display:flex;flex-direction:row;}
+[row]{display:flex;flex-direction:row;max-width: 350px;justify-content: space-between;margin-bottom: 15px;}
 .h-box-stretched-group>flow-selector{margin:0px 5px 0px 0px}
 .h-box-stretched-group>flow-btn{margin-top:7px;max-width:50px;padding:5px;}
 .h-box-stretched-group>flow-selector .menu-item{padding:4px;}

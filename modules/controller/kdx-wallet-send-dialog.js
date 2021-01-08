@@ -5,8 +5,21 @@ class KDXWalletSendDialog extends Dialog{
 	static get styles(){
 		return [Dialog.styles, 
 		css`
-			.container{max-height:400px}
+			.container{
+				max-height:500px;
+				--flow-input-label-font-size: 0.9rem;
+				--flow-input-label-padding: 5px 7px;
+				--flow-input-font-family: 'Consolas';
+				--flow-input-font-size:14px;
+				--flow-input-font-weight: normal;
+				--flow-input-height:50px;
+				--flow-input-margin: 20px 0px;
+				--flow-input-padding: 10px 10px 10px 16px;
+			
+			}
 			.buttons{justify-content:flex-end}
+			
+				
 		`]
 	}
 	renderHeading(){
@@ -18,11 +31,11 @@ class KDXWalletSendDialog extends Dialog{
 			to: kaspatest:qrhefqj5c80m59d9cdx4ssxw96vguvn9fgy6yc0qtd
 			</div-->
 			<flow-input class="address full-width" outer-border
-				label="Recipient Kaspa Address" value="kaspatest:qrhefqj5c80m59d9cdx4ssxw96vguvn9fgy6yc0qtd"
+				label="Recipient Address" value="kaspatest:qrhefqj5c80m59d9cdx4ssxw96vguvn9fgy6yc0qtd"
 				placeholder="kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz">
 			</flow-input>
 			<flow-input class="amount full-width" outer-border
-				label="Amount in KAS" value="0.00000001"
+				label="Amount in KSP" value="0.00000001"
 				placeholder="1">
 			</flow-input>
 			<flow-input class="note full-width" outer-border label="Note">
