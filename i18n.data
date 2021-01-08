@@ -450,5 +450,9 @@
 	{
 		"en": "Leave in the Background",
 		"ja": "バックグラウンドに残す"
+	},
+	{
+		"en": "Reset Configuration",
+		"ja": "構成のリセット"
 	}
 ]
