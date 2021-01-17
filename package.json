@@ -30,7 +30,7 @@
     "@aspectron/flow-utils": "*",
     "@aspectron/flow-ux": "^0.0.64",
     "kaspa-wallet": "aspectron/kaspa-wallet",
-    "kaspa-wallet-grpc-node": "aspectron/kaspa-wallet-grpc-node",
+    "kaspa-grpc-node": "aspectron/kaspa-grpc-node",
     "@webcomponents/webcomponentsjs": "*",
     "blake2": "github:vrza/node-blake2",
     "blake2b": "^2.1.3",
