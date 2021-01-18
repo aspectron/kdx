@@ -8,7 +8,7 @@
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
                     "profile": 7000,
-                    "wallet" : null
+                    "utxoindex" : null
                 }
             }
         }
@@ -23,14 +23,13 @@
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
                     "profile": 7000,
-                    "wallet" : null
+                    "utxoindex" : null
                 }
             },
             "kaspaminer:km0" : {
                 "args":{
                     "miningaddr" : "kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz",
                     "rpcserver":"localhost:16210",
-                    "block-delay" : 2000,
                     "mine-when-not-synced" : null
                 }
             }
@@ -45,7 +44,7 @@
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
                     "profile": 7000,
-                    "wallet" : null
+                    "utxoindex" : null
                 }
             },
             "kaspad:kd1" : {
@@ -55,14 +54,13 @@
                     "listen": "0.0.0.0:16311",
                     "profile": 7001,
                     "connect": "0.0.0.0:16211",
-                    "wallet" : null
+                    "utxoindex" : null
                 }
             },
             "kaspaminer:km0" : {
                 "args":{
                     "miningaddr" : "kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz",
                     "rpcserver":"localhost:16210",
-                    "block-delay" : 2000,
                     "mine-when-not-synced" : null
                 }
             }
@@ -77,7 +75,7 @@
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
                     "profile": 7000,
-                    "wallet" : null
+                    "utxoindex" : null
                 }
             },
             "pgsql:db0" : {
@@ -107,7 +105,6 @@
                 "args":{
                     "miningaddr" : "kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz",
                     "rpcserver":"localhost:16210",
-                    "block-delay" : 2000,
                     "mine-when-not-synced" : null
                 }
             }
@@ -123,7 +120,7 @@
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
                     "profile": 7000,
-                    "wallet" : null
+                    "utxoindex" : null
                 }
             },
             "kaspad:kd1" : {
@@ -133,7 +130,7 @@
                     "listen": "0.0.0.0:16311",
                     "profile": 7001,
                     "connect": "0.0.0.0:16211",
-                    "wallet" : null
+                    "utxoindex" : null
                 }
             },
             "pgsql:db0" : {
@@ -163,7 +160,6 @@
                 "args":{
                     "miningaddr" : "kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz",
                     "rpcserver":"localhost:16210",
-                    "block-delay" : 2000,
                     "mine-when-not-synced" : null
                 }
             }
