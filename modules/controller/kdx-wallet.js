@@ -1,10 +1,12 @@
 import {html, css, BaseElement, ScrollbarStyle} from '/node_modules/@aspectron/flow-ux/src/base-element.js';
 import {
-	Wallet,
+	initKaspaFramework, Wallet, RPC,
 	setLocalWallet, getLocalWallet,
 	getLocalSetting, setLocalSetting,
 	getUniqueId, formatForMachine
 } from './wallet.js';
+//import { mainnet } from '../../../kaspacore-lib/lib/networks.js';
+//import { initKaspaFramework } from '../../node_modules/kaspa-wallet/dist/index.js';
 
 export * from './kdx-wallet-open-dialog.js';
 export * from './kdx-wallet-seeds-dialog.js';
@@ -68,6 +70,25 @@ class KDXWallet extends BaseElement{
 	constructor() {
 		super();
 	}
+	async setController(controller) {
+		this.controller = controller;
+	}
+
+	async initNetworkSettings() {
+		console.log("Wallet init controller", this, controller);
+		this.local_kaspad_settings = await controller.get_default_local_kaspad_settings();
+		console.log("$$$$$$$$$$$$$$$ KASPAD SETTINGS",this.local_kaspad_settings);
+
+		if(this.rpc) {
+			this.rpc.disconnect();
+			// !!! FIXME delete wallet instance?
+			delete this.rpc;
+		}
+		
+		const { network, port } = this.local_kaspad_settings;
+		this.rpc = new RPC({ clientConfig:{ host : `127.0.0.1:${port}` } });
+		this.network = network;
+	}
 	render(){
 		return html`
 			<div class="container">
@@ -119,45 +140,45 @@ class KDXWallet extends BaseElement{
 		// if(!this.wallet)
 		// 	return '';
 		//let {availableBalance, totalBalance} = this.wallet.utxoSet;
-		let availableBalance = 67580000000000;
-		let totalBalance = 100000000000000.40;
-		let pending = totalBalance - availableBalance;
+		if(!this.wallet || !this.wallet.balance)
+			return html``;
+
+		const { balance : { available, pending } } = this.wallet;
+		// let availableBalance = 67580000000000;
+		// let totalBalance = 100000000000000.40;
+		// let pending = totalBalance - availableBalance;
 		return html`
   			<div class="balance-badge">
                 <div class="balance">
                     <span class="label">Available</span>
-                    <span class="value">${this.formatKSP(availableBalance)} KSP</span>
+                    <span class="value">${this.formatKSP(available)} KSP</span>
                 </div>
                 <div class="balance pending">
                     <span class="label-pending">Pending</span>
                     <span class="value-pending">${this.formatKSP(pending)} KSP</span>
                 </div>
             </div>
+		`;
 
+			// <!-- <flow-expandable static-icon class="balances" expand icon="wallet" no-info>
+			// 	<div slot="title">
+			// 		Balanace
+			// 		<img class="loading-img" ?hidden=${!this.isLoading} src="/resources/images/spinner.svg">
+			// 	</div>
+			// 	<div class="balance">
+			// 		<span class="label">Available:</span>
+			// 		<span class="value">${this.formatKSP(availableBalance)} KSP</span>
+			// 	</div>
+			// 	<div class="balance">
+			// 		<span class="label">Pending:</span>
+			// 		<span class="value">${this.formatKSP(pending)} KSP</span>
+			// 	</div>
+			// 	<div class="balance top-line">
+			// 		<span class="label">Total:</span>
+			// 		<span class="value">${this.formatKSP(totalBalance)} KSP</span>
+			// 	</div>
+			// </flow-expandable> -->
 
-
-	
-
-
-			<!-- <flow-expandable static-icon class="balances" expand icon="wallet" no-info>
-				<div slot="title">
-					Balanace
-					<img class="loading-img" ?hidden=${!this.isLoading} src="/resources/images/spinner.svg">
-				</div>
-				<div class="balance">
-					<span class="label">Available:</span>
-					<span class="value">${this.formatKSP(availableBalance)} KSP</span>
-				</div>
-				<div class="balance">
-					<span class="label">Pending:</span>
-					<span class="value">${this.formatKSP(pending)} KSP</span>
-				</div>
-				<div class="balance top-line">
-					<span class="label">Total:</span>
-					<span class="value">${this.formatKSP(totalBalance)} KSP</span>
-				</div>
-			</flow-expandable> -->
-		`
 	}
 
 	renderQRcode(){
@@ -280,6 +301,28 @@ class KDXWallet extends BaseElement{
 	}
 	connectedCallback(){
 		super.connectedCallback();
+
+		initKaspaFramework().then(()=>{
+			let encryptedMnemonic = getLocalWallet();
+			if(encryptedMnemonic){
+				showWalletInitDialog({
+					mode:"open"
+				}, (err, info)=>{
+					info.encryptedMnemonic = encryptedMnemonic;
+					this.handleInitDialogCallback(info)
+				})
+			}else{
+				showWalletInitDialog({
+					mode:"init",
+					hideOpenMode:true
+				}, (err, info)=>{
+					console.log("showWalletInitDialog:result", info)
+					this.handleInitDialogCallback(info)
+				})
+			}
+		})
+/*
+
 		Wallet.onReady(()=>{
 			let encryptedMnemonic = getLocalWallet();
 			if(encryptedMnemonic){
@@ -299,11 +342,21 @@ class KDXWallet extends BaseElement{
 				})
 			}
 		})
+
+*/
+
 	}
 	async handleInitDialogCallback({dialog, password, seedPhrase, encryptedMnemonic}){
+		console.log("$$$$$$$ INIT NETWORK SETTINGS - START");
+		await this.initNetworkSettings();
+		console.log("$$$$$$$ INIT NETWORK SETTINGS - DONE");
+
+		const { network, rpc } = this;
+		console.log("$$$$$$$ INIT NETWORK SETTINGS", { network, rpc });
+
 		let {mode} = dialog;
 		if(mode =="open"){
-			const wallet = await Wallet.import(password, encryptedMnemonic)
+			const wallet = await Wallet.import(password, encryptedMnemonic, {network, rpc})
 			.catch(error=>{
 				console.log("import wallet error:", error)
 				dialog.setError("Incorrect passsword.");
@@ -317,7 +370,10 @@ class KDXWallet extends BaseElement{
 			return
 		}
 		if(mode == "create"){
-			const wallet = new Wallet();
+
+			// TODO - GET CURRENT NETWORK TYPE
+			// TODO - CREATE CORRESPONDING RPC
+			const wallet = new Wallet(null,null,{network,rpc});
 			encryptedMnemonic = await wallet.export(password);
 			setLocalWallet(encryptedMnemonic);
 			setLocalSetting("have-backup", 0);
@@ -327,10 +383,12 @@ class KDXWallet extends BaseElement{
 		}
 
 		if(mode == "recover"){
+			const { network, rpc } = this;
+
 			console.log("recover:Wallet:seedPhrase, password", seedPhrase, password)
 			let wallet;
 			try{
-				wallet = Wallet.fromMnemonic(seedPhrase)
+				wallet = Wallet.fromMnemonic(seedPhrase, { network, rpc });
 			}catch(error){
 				console.log("recover:Wallet.fromMnemonic error", error)
 				dialog.setError(`Invalid seed (${error.message})`);
@@ -340,7 +398,7 @@ class KDXWallet extends BaseElement{
 				return
 			const encryptedMnemonic = await wallet.export(password);
 			console.log("encryptedMnemonic", encryptedMnemonic)
-			const imported = await Wallet.import(password, encryptedMnemonic)
+			const imported = await Wallet.import(password, encryptedMnemonic, { network, rpc })
 			.catch(error=>{
 				console.log("recover:Wallet.import error", error)
 			})

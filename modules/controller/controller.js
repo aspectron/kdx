@@ -35,6 +35,7 @@ class Controller{
 		this.initTheme();
 		await this.initManager();
 		await this.initConsole();
+		await this.initWallet();
 		this.taskTabs = {};
 		this.taskTerminals = {};
 		this.initCaption();
@@ -131,7 +132,57 @@ class Controller{
 
 		global.manager = manager;
 	}
-	initConsole() {
+	async initWallet() {
+		let wallet = this.qS('kdx-wallet');
+		await wallet.setController(this);
+		// await this.getDefaultKaspadSettings();
+		return Promise.resolve();
+	}
+	async get_default_local_kaspad_settings() {
+		
+		let {config:daemons} = await this.get("get-modules-config");
+		console.log("############### DAEMONS", daemons);
+		let kaspad = Object.entries(daemons).map(([k,v]) => { 
+			const { args } = v;
+			const [type, ident] = k.split(':');
+			return { type, ident, args};
+		}).filter(o=>o.type=='kaspad').shift();
+
+		if(!kaspad)
+			return null;
+
+		const { args } = kaspad;
+		let networkType = ['testnet','devnet','simnet'].filter(v=>args[v] !== undefined).shift() || 'mainnet';
+		let network = {
+			mainnet : 'kaspa',
+			testnet : 'kaspatest',
+			devnet : 'kaspadev',
+			simnet : 'kaspasim'
+		}[networkType];
+		let { rpclisten } = args;
+		let port = parseInt(rpclisten.split(':').pop());
+		return { network, port };
+
+		// let kaspad = this.manager.tasks.filter(t=>t.type=="kaspad").shift();
+		// console.log("############# KASPAD:", kaspad);
+
+    // getKasparovsyncTasks() {
+    //     return this.manager.tasks.filter(t=>t.type=="kasparovsyncd");
+    // }
+
+    // getKasparovAddress() {
+    //     let cfg = this.getKasparovTasks().shift();
+    //     if(!cfg)
+    //         return Promise.reject(`kasparov is not instantiated`);
+    //     if(!cfg.args)
+    //         return Promise.reject(`kasparov configuration has no args object`);
+    //     if(!cfg.args.listen)
+    //         return Promise.reject(`kasparov configuration arguments have no 'listen' property`);
+    //     let address = `http://${cfg.args.listen}`;
+    //     return Promise.resolve(address);
+    // }
+	}
+	async initConsole() {
 		let terminal = this.qS('#kdx-console');
 		this.console = new Console(this, terminal);
 
