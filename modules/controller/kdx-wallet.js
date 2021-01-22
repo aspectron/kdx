@@ -19,7 +19,9 @@ class KDXWallet extends BaseElement{
 		return {
 			wallet:{type:Object},
 			isLoading:{type:Boolean},
-			errorMessage:{type:String}
+			errorMessage:{type:String},
+			receiveAddress:{type:String},
+			changeAddress:{type:String}
 		};
 	}
 
@@ -85,7 +87,8 @@ class KDXWallet extends BaseElement{
 			delete this.rpc;
 		}
 		
-		const { network, port } = this.local_kaspad_settings;
+		const { network } = this.local_kaspad_settings;
+		const port = Wallet.networkTypes[network].port;
 		this.rpc = new RPC({ clientConfig:{ host : `127.0.0.1:${port}` } });
 		this.network = network;
 	}
@@ -240,13 +243,23 @@ class KDXWallet extends BaseElement{
     	//const network = LocalStorage.getItem(localSavedNetworkVar);
     	//const selectedNetwork = network || DEFAULT_NETWORK;
     	//await wallet.updateNetwork(selectedNetwork);
-    	this.uid = getUniqueId(wallet.mnemonic);
+    	this.uid = getUniqueId(await wallet.mnemonic);
     	const cache = getLocalSetting(`cache-${this.uid}`);
     	const {addresses} = cache||{};
     	if (cache && (addresses?.receiveCounter !== 0 || addresses?.changeCounter !== 0)) {
 			wallet.restoreCache(cache);
 			this._isCache = true;
 	    }
+
+	    //blue-score-changed
+	    wallet.on("balance-update", ()=>{
+	    	this.requestUpdate("balance", null);
+	    })
+	    wallet.on("new-address", (detail)=>{
+	    	let {receive, change} = detail;
+	    	this.receiveAddress = receive;
+	    	this.changeAddress = change;
+	    })
 
 	    this.wallet = wallet;
 	}
@@ -259,7 +272,7 @@ class KDXWallet extends BaseElement{
 				this.isLoading = false;
 			}else{*/
 				this.log("calling loadData-> wallet.addressDiscovery")
-				await this.wallet.addressDiscovery();
+				await this.wallet.sync();
 				this.saveCache();
 				this.isLoading = false;
 			/*}*/
@@ -289,11 +302,13 @@ class KDXWallet extends BaseElement{
 	}
 	*/
 	saveCache(){
+		/*
 		let cache = Object.assign({}, this.wallet.cache);
 		cache.utxos = Object.assign({}, cache.utxos);
 		cache.utxos.utxoStorage = {};
 		console.log("cache", cache)
 		setLocalSetting(`cache-${this.uid}`, cache);
+		*/
 	}
 	connectedCallback(){
 		super.connectedCallback();
@@ -326,7 +341,9 @@ class KDXWallet extends BaseElement{
 		const { network, rpc } = this;
 		console.log("$$$$$$$ INIT NETWORK SETTINGS", { network, rpc });
 
+
 		let {mode} = dialog;
+		console.log("$$$$$$$ mode", mode)
 		if(mode =="open"){
 			const wallet = await Wallet.import(password, encryptedMnemonic, {network, rpc})
 			.catch(error=>{
@@ -414,7 +431,7 @@ class KDXWallet extends BaseElement{
 			this.receiveDialog = document.createElement("kdx-wallet-receive-dialog");
 			this.parentNode.appendChild(this.receiveDialog);
 		}
-		let {address} = this.wallet.addressManager.receiveAddress.current;
+		let address = this.receiveAddress;
 		this.receiveDialog.open({address}, (args)=>{
 		})
 	}
