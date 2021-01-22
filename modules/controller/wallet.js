@@ -1,19 +1,13 @@
-const {Wallet, initKaspaFramework} = require("kaspa-wallet");
+const {Wallet, initKaspaFramework} = require("kaspa-wallet-worker");
 let {Mnemonic} = Wallet;
+console.log("Wallet", Wallet)
 window.testSeed = new Mnemonic(Mnemonic.Words.ENGLISH).toString();
 console.log("test Mnemonic: ", window.testSeed)
 const crypto = require('crypto');
-//await initKaspaFramework();
-//console.log("Wallet", Wallet)
+
 export const {RPC} = require("kaspa-grpc-node");
 import {html, css} from '/node_modules/@aspectron/flow-ux/src/base-element.js';
 
-
-// Wallet.setRPC(new RPC({
-// 	clientConfig:{
-// 		host:"127.0.0.1:16210"
-// 	}
-// }))
 
 /**
  * Converts from sompis to KSP

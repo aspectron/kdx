@@ -127,8 +127,8 @@ class KDXWallet extends BaseElement{
 			</flow-expandable>`
 	}
 	renderButtons(){
-		// if(!this.wallet)
-		// 	return '';
+		if(!this.wallet)
+			return '';
 		return html`
 			<div class="buttons">
 				<flow-btn @click="${this.showSendDialog}">SEND</flow-btn>
@@ -137,9 +137,6 @@ class KDXWallet extends BaseElement{
 	}
 
 	renderBalance(){
-		// if(!this.wallet)
-		// 	return '';
-		//let {availableBalance, totalBalance} = this.wallet.utxoSet;
 		if(!this.wallet || !this.wallet.balance)
 			return html``;
 
@@ -182,14 +179,13 @@ class KDXWallet extends BaseElement{
 	}
 
 	renderQRcode(){
-		return html`
-		<flow-qrcode>
-
-		</flow-qrcode>`
+		if(!this.wallet)
+			return '';
+		return html`<flow-qrcode></flow-qrcode>`
 	}
 	renderTX(){
-		// if(!this.wallet)
-		// 	return '';
+		if(!this.wallet)
+			return '';
 
 		let txs = [{
 			in:1,
@@ -321,30 +317,6 @@ class KDXWallet extends BaseElement{
 				})
 			}
 		})
-/*
-
-		Wallet.onReady(()=>{
-			let encryptedMnemonic = getLocalWallet();
-			if(encryptedMnemonic){
-				showWalletInitDialog({
-					mode:"open"
-				}, (err, info)=>{
-					info.encryptedMnemonic = encryptedMnemonic;
-					this.handleInitDialogCallback(info)
-				})
-			}else{
-				showWalletInitDialog({
-					mode:"init",
-					hideOpenMode:true
-				}, (err, info)=>{
-					console.log("showWalletInitDialog:result", info)
-					this.handleInitDialogCallback(info)
-				})
-			}
-		})
-
-*/
-
 	}
 	async handleInitDialogCallback({dialog, password, seedPhrase, encryptedMnemonic}){
 		console.log("$$$$$$$ INIT NETWORK SETTINGS - START");
