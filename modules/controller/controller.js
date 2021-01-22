@@ -139,6 +139,8 @@ class Controller{
 		return Promise.resolve();
 	}
 	async get_default_local_kaspad_settings() {
+
+		return {network:"kaspadev"}
 		
 		let {config:daemons} = await this.get("get-modules-config");
 		console.log("############### DAEMONS", daemons);
