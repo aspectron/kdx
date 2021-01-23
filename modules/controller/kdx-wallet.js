@@ -446,11 +446,13 @@ class KDXWallet extends BaseElement{
 		const {address, amount, note} = args;
 		console.log("sendTx:args", args)
 
-		const response = await this.wallet.sendTx({
+		const response = await this.wallet.submitTransaction({
 			toAddr: address,
-			amount: formatForMachine(amount)
+			amount: formatForMachine(amount),
+			networkFeeMax: 500
 		}).catch(error=>{
 			console.log("error", error)
+			error = (error+"").replace("Error:", '')
 			FlowDialog.alert("Error", error);
 		})
 

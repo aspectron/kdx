@@ -68,7 +68,8 @@ class KDXWalletSendDialog extends Dialog{
 
     	let info = {address, amount, note};
     	askForPassword({confirmBtnText:"CONFIRM SEND", pass}, ({btn, password})=>{
-    		if(btn!="send")
+    		console.log("btn, password", btn, password)
+    		if(btn!="confirm")
     			return
 			info.password = password;
 			this.hide();

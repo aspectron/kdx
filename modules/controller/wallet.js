@@ -82,6 +82,7 @@ export const askForPassword = async (args, callback)=>{
 	}
 	const {
 		confirmBtnText="CONFIRM",
+		confirmBtnValue="confirm",
 		pass="",
 		msg="",
 		title="Enter a password"
@@ -119,7 +120,7 @@ export const askForPassword = async (args, callback)=>{
 		cls:"short-dialog",
 		btns:['Cancel',{
 			text:confirmBtnText,
-			value:"ok",
+			value:confirmBtnValue,
 			handler(resolve, result){
 				let {values} = result;
 				let {password} = values;
