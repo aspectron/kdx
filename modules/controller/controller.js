@@ -136,6 +136,7 @@ class Controller{
 		let wallet = this.qS('kdx-wallet');
 		await wallet.setController(this);
 		// await this.getDefaultKaspadSettings();
+		this.wallet = wallet;
 		return Promise.resolve();
 	}
 	async get_default_local_kaspad_settings() {
@@ -360,6 +361,7 @@ class Controller{
 		let invertTermInput = qS("#settings-invert-terminal");
 		let runInBGInput = qS("#settings-run-in-bg");
 		let enableMiningInput = qS("#settings-enable-mining");
+		let miningAddressInput = qS("#mining-address-input");
 		let scriptHolder = qS('#settings-script');
 		let advancedInput = qS('#settings-advanced');
 		let statsdAddressInput = qS('#settings-statsd-address');
@@ -447,6 +449,11 @@ class Controller{
 		enableMiningInput.addEventListener('changed', (e)=>{
 			this.setEnableMining(e.detail.checked);
 		});
+		miningAddressInput.addEventListener('btn-click', async (e)=>{
+			let address = await this.wallet.getMiningAddress();
+			if(address)
+				miningAddressInput.value = address;
+		})
 		statsdAddressInput.addEventListener('changed', (e)=>{
 			this.setStatsdAddress(e.detail.value);
 		});

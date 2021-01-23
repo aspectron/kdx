@@ -1,15 +1,15 @@
 *{margin:0px;padding:0px;}
-
+html{font-size:16px;}
 body{
 	background:white;display:flex;flex-direction:column;
 	font-family:'Exo 2';
 	font-weight:normal;
 	--flow-font-family:'Exo 2';
 	--flow-font-weight:normal;
-	font-size: 18px;
 	opacity:1;
 	transition:opacity 0.5s ease;
-	
+	font-size:18px;
+	--flow-input-btn-font-size:18px;
 	--flow-primary-color:rgba(0, 150, 136, 1);
 	--flow-border-color:rgb(0, 133, 119);
 	--flow-border-hover-color:rgba(2, 97, 74, 1);
@@ -304,7 +304,7 @@ project > * { padding: 2px; }
 	min-width: 160px;
 }
 
-flow-input { margin: 2px; }
+flow-input {margin:10px 2px;}
 
 .block { display: block; }
 

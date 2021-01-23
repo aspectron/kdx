@@ -5,8 +5,6 @@ import {
 	getLocalSetting, setLocalSetting,
 	getUniqueId, formatForMachine
 } from './wallet.js';
-//import { mainnet } from '../../../kaspacore-lib/lib/networks.js';
-//import { initKaspaFramework } from '../../node_modules/kaspa-wallet/dist/index.js';
 
 export * from './kdx-wallet-open-dialog.js';
 export * from './kdx-wallet-seeds-dialog.js';
@@ -440,6 +438,17 @@ class KDXWallet extends BaseElement{
 		let address = this.receiveAddress;
 		this.receiveDialog.open({address}, (args)=>{
 		})
+	}
+
+	getMiningAddress(){
+		if(!this.wallet){
+			FlowDialog.alert("Error", "Wallet is not initilized yet.");
+			return Promise.resolve(false);
+		}
+		if(this.receiveAddress)
+			return Promise.resolve(this.receiveAddress);
+
+		return this.wallet.receiveAddress;
 	}
 
 	async sendTx(args){

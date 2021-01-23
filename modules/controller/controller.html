@@ -54,16 +54,9 @@
 		logo="/resources/images/kaspa-logo-light-bg.png" 
 		xicon="fal fa-chart-network">KDX</flow-caption-bar>
 	<tab-content for="home">
-		<!--
-		<flow-checkbox-styled></flow-checkbox-styled>
-		<flow-textarea maxlength="10">hello</flow-textarea>
-		-->
-		<div id="test-ui"></div>
 		<flow-form-control id="applications" icon="fal:fire" no-help style='display:none;'>
 			<flow-i18n caption>Applications</flow-i18n>
-			<div id="application-list">
-				<!-- div class="application"></div -->
-			</div>
+			<div id="application-list"></div>
 		</flow-form-control>
 		<flow-form-control icon="fal:database" no-help>
 			<flow-i18n caption>Services</flow-i18n>
@@ -129,7 +122,7 @@
 	</tab-content>
 	<tab-content for="settings">
 		<flow-form-control icon="fal:database">
-			<flow-i18n caption>Data Folder</flow-i18n>
+			<flow-i18n slot="title">Data Folder</flow-i18n>
 			<flow-folder-input slot="input" id="data-folder-input"></flow-folder-input>
 			<div slot="input" class="slot-block data-folder-input-tools">
 				<flow-btn class="reset-data-dir"><flow-i18n>Reset</flow-i18n></flow-btn>
@@ -145,14 +138,14 @@
 			</p>
 		</flow-form-control>
 		<flow-form-control icon="fal:palette">
-			<flow-i18n caption>User Interface Color Theme</flow-i18n>
-			<flow-checkbox id="settings-dark-theme" class="block"
-				slot="input"><flow-i18n>Dark Theme</flow-i18n></flow-checkbox><br/>
-			<flow-checkbox id="settings-invert-terminal" class="block advanced-tool"
-				slot="input"><flow-i18n>Invert Terminal Color</flow-i18n></flow-checkbox>
+			<flow-i18n slot="title">User Interface Color Theme</flow-i18n>
+			<flow-checkbox id="settings-dark-theme" 
+				class="block"><flow-i18n>Dark Theme</flow-i18n></flow-checkbox>
+			<flow-checkbox id="settings-invert-terminal"
+				class="block advanced-tool"><flow-i18n>Invert Terminal Color</flow-i18n></flow-checkbox>
 		</flow-form-control>
 		<flow-form-control icon="fal:tools">
-			<flow-i18n caption>Turn ON/OFF advanced settings and process control</flow-i18n>
+			<flow-i18n slot="title">Turn ON/OFF advanced settings and process control</flow-i18n>
 			<flow-checkbox id="settings-advanced" slot="input" class="block">
 			<flow-i18n>Advanced</flow-i18n>
 			</flow-checkbox>
@@ -162,7 +155,7 @@
 			</p>
 		</flow-form-control>
 		<flow-form-control icon="fal:cog" class="advanced-tool">
-			<flow-i18n caption>Service Control</flow-i18n>
+			<flow-i18n slot="title">Service Control</flow-i18n>
 			<flow-checkbox id="settings-run-in-bg" class="block advanced-tool"
 				slot="input"><flow-i18n>Run in Background</flow-i18n></flow-checkbox>
 			<h4 slot="info" class="title"><flow-i18n>Background Execution</flow-i18n></h4>
@@ -170,30 +163,22 @@
 				When enabled, KDX runs itself and it's services hidden in the background
 				and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).
 			</p>
-
 		</flow-form-control>
-		<flow-form-control icon="fal:cube" class="xadvanced-tool" id="block-generation">
-			<flow-i18n caption>Block Generation</flow-i18n>
+		<flow-form-control icon="fal:cube" _expandable
+			class="xadvanced-tool" id="block-generation">
+			<flow-i18n slot="title">Block Generation</flow-i18n>
 			<flow-checkbox id="settings-enable-mining" class="block xadvanced-tool"
-				slot="input"><flow-i18n>Enable Mining</flow-i18n></flow-checkbox>
+				><flow-i18n>Enable Mining</flow-i18n></flow-checkbox>
+			<flow-input id="mining-address-input" class="block"
+				label="Mining address" apply-btn
+				btnText="Get Mining Address From Wallet">
+			</flow-input>
+
 			<h4 slot="info" class="title"><flow-i18n>Block Generation</flow-i18n></h4>
 			<p slot="info" is="i18n-p">
 				The Enable Mining option starts / stops all configured Kaspaminer instances.
 			</p>
-			
 		</flow-form-control>
-		<!--
-		<flow-form-control icon="fal:cog" class="advanced-tool">
-			<flow-i18n caption>Metrics</flow-i18n>
-			<flow-checkbox id="settings-run-in-bg" class="block advanced-tool"
-				slot="input"><flow-i18n>Run in Background</flow-i18n></flow-checkbox>
-			<h4 slot="info" class="title"><flow-i18n>Background Execution</flow-i18n></h4>
-			<p slot="info" is="i18n-p">
-				When enabled, KDX runs itself and it's services hidden in the background
-				and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).
-			</p>
-		</flow-form-control>
-		-->
 		<flow-form-control icon="fal:drafting-compass" class="advanced-tool">
 			<flow-i18n caption>Metrics</flow-i18n>
 			<flow-checkbox id="settings-enable-metrics" class="block advanced-tool"
@@ -212,11 +197,10 @@
 			<p slot="info" is="i18n-p">
 				You can stream KDX metrics to your own StatsD-compatible server.
 			</p>
-			
 		</flow-form-control>
 
 		<flow-form-control id="settings-script" icon="fal:tasks">
-			<flow-i18n caption>Service Configuration</flow-i18n>
+			<flow-i18n slot="title">Service Configuration</flow-i18n>
 			<div slot="input" class="settings-script">
 				<div class="script-box"></div>
 				<div class="tools">
@@ -232,7 +216,7 @@
 		</flow-form-control>
 
 		<flow-form-control id="settings-templates" icon="fal:file-alt" class="advanced-tool">
-			<flow-i18n caption>Configuration Templates</flow-i18n>
+			<flow-i18n slot="title">Configuration Templates</flow-i18n>
 			<div slot="input" class="h-box-stretched-group" style="margin-top:16px;">
 				<div row>
 				<flow-selector id="template-list" mergeattributes="value" mergeinnerhtml label="Select Configuration Template" selected="" class="template-list"></flow-selector>
