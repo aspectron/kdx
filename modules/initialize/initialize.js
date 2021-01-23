@@ -1,4 +1,4 @@
-false && nw.Window.get().showDevTools();
+true && nw.Window.get().showDevTools();
 const { BroadcastChannelRPC : FlowRPC } = require("@aspectron/flow-rpc");
 const os = require("os");
 const fs = require("fs");
@@ -67,7 +67,7 @@ class Initializer{
 	initTemplates() {
 
 		this.tpl_network = 'testnet';
-		this.tpl_template = 'full-stack-standalone-mining';
+		this.tpl_template = 'kaspad-standalone-mining';
 
 		try {
 			this.templates = JSON.parse(fs.readFileSync(path.join(this.appFolder,'.templates'))+'');
@@ -78,13 +78,11 @@ class Initializer{
 		const qS = document.querySelector.bind(document);
 		let tplEl = qS('#template-list');
 		let netEl = qS('#network-list');
-		let html = Object.entries(this.templates).map(([ident,tpl]) => {
+		tplEl.innerHTML = Object.entries(this.templates).map(([ident,tpl]) => {
 			return `<div class="menu-item" value="${ident}">${tpl.description}</div>`;
 		}).join('');
-		tplEl.innerHTML = html;
-
-		tplEl.setAttribute('selected',this.tpl_template);
-		netEl.setAttribute('selected',this.tpl_network);
+		tplEl.selected = this.tpl_template;
+		netEl.setAttribute('selected', this.tpl_network);
 
 		window.addEventListener('select', (e) => {
 			let { selected } = e.detail;
@@ -131,47 +129,14 @@ class Initializer{
 	}
 
 	checkCompatibility() {
+		/*
 		if(os.platform() != 'linux')
 			return;
 
-		let mosquitto = true;
-		if(!fs.existsSync('/usr/bin/mosquitto'))
-			mosquitto = false;
-
-		let postgres = true;
-		if(!fs.existsSync('/usr/bin/postgres'))
-			postgres = false;
-
-		
-		if(!mosquitto || !postgres) {
-
-			let html = `
-				<flow-form-control icon="fal:puzzle-piece">
-				<p>
-					<h3>WARNING - MISSING COMPONENTS</h3>
-					<br/>
-					Please note - on Linux operating systems, KDX currently requires manual installation of 
-					mosquitto (MQTT broker) and PostgreSQL (Postgres Database).
-				</p><br/>
-				<p>Please install the following components before proceeding as follows:<br/>&nbsp;<br/>
-					<table>
-					<tr>
-						<td>Ubuntu (apt):</td>
-						<td><pre>sudo apt-get install ${!mosquitto?'mosquitto':''}${!mosquitto&&!postgres?' ':''}${!postgres?'postgresql':''}</pre></td>
-					</tr>
-					<tr>
-						<td>Alpine (apk):</td>
-						<td><pre>sudo apk add ${!mosquitto?'mosquitto':''}${!mosquitto&&!postgres?' ':''}${!postgres?'postgresql':''}</pre></td>
-					</tr>
-					</table>
-				</p>
-				<p>
-				</flow-form-control>
-			`;
-
-			$("body").append(html);
-		}
-		
+		let html = `
+		`;
+		$("body").append(html);
+		*/
 	}
 }
 

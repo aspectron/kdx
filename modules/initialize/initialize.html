@@ -70,14 +70,16 @@
 	<flow-form-control id="settings-templates" icon="fal:file-alt">
 		<flow-i18n caption>Kaspa Configuration</flow-i18n>
 		<div slot="input" style="margin-top:16px;">
-
-			<flow-selector id="template-list" label="Select Configuration Template" selected="" mergeattributes="value" mergeinnerhtml class="template-list"></flow-selector>
-			<flow-selector id="network-list" label="Network" selected="" mergeattributes="value" mergeinnerhtml class="network-list">
+			<flow-selector id="template-list" label="Select Configuration Template" 
+				mergeattributes="value" 
+				mergeinnerhtml class="template-list"></flow-selector>
+			<flow-selector id="network-list" label="Network" selected="" 
+				mergeattributes="value" mergeinnerhtml class="network-list">
 				<div class="menu-item" value="mainnet">MAINNET</div>
 				<div class="menu-item" value="testnet">TESTNET</div>
 				<div class="menu-item" value="devnet">DEVNET</div>
 				<div class="menu-item" value="simnet">SIMNET</div>
-		</flow-selector>
+			</flow-selector>
 		</div>
 		<h4 slot="info" class="title"><flow-i18n>Kaspa Stack Configuration</flow-i18n></h4>
 		<p slot="info" is="i18n-p">
@@ -97,13 +99,6 @@
 		</div>
 
 	</flow-form-control>
-		<!-- flow-form-control icon="-">
-		<div slot="input" class="tools">
-		</div>
-	</flow-form-control -->
-
-
-
 	<script type="module" src="/modules/initialize/initialize.js"></script>
 </body>
 </html>

@@ -311,6 +311,7 @@ flow-input { margin: 2px; }
 .input-ctl-margin {
 	margin: 8px;
 }
+flow-selector .menu-item{padding:2px 4px;}
 .v-box{display:flex;flex-direction:column;}
 .h-box{display:flex;}
 .h-box.stretched{align-items:stretch;}

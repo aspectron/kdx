@@ -122,7 +122,6 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
     //const repos = { };
     const repos = [`kaspad:${branch}`];
     if(E.flags['with-extras']) {
-//        repos.push('miningsimulator');
         repos.push(`txgen:${branch}`,`kasparov:${KASPA_DEFAULT_BRANCH}`);
     }
     else if(E.flags['with-kmetrics'] || E.flags['with-txgen']) {
@@ -133,29 +132,12 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
 
     for(const repo of repos) {
         let [name, git_branch] = repo.split(':');
-        let src = "kaspanet"
-        // if(name == "kaspad")
-        //     src = "aspectron"
-
-        console.log(`git clone https://github.com/${src}/${name} branch: ${git_branch || 'master'}`.brightYellow);
-        await git.clone(`https://github.com/${src}/${name}`,dest, {branch : git_branch || 'master'});
+        console.log(`git clone https://github.com/kaspanet/${name} branch: ${git_branch || 'master'}`.brightYellow);
+        await git.clone(`https://github.com/kaspanet/${name}`,dest, {branch : git_branch || 'master'});
     }
-    
-    //     repos.extras = ['miningsimulator', `txgen:${branch}`];
-    //     for(const repo of repos.extras) {
-    //         const [name_, branch_] = repo.split(':');
-    //         console.log(`git clone git@github.com:kaspanet/${name_}`);
-    //         await git.clone(`git@github.com:kaspanet/${name}`,dest,{branch});
-    //     }
-    // }
-        
-    // ---
 
     let targets = [
         'kaspad',
-        // 'kasparov/kasparovd',
-        // 'kasparov/kasparovsyncd',
-        // 'kasparov/examples/wallet',
         ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`),
     ];
 
@@ -167,10 +149,8 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
         ];
     }
 
-    let rename = {
-    }
+    let rename = {}
     console.log('Starting target processing...')
-    //let jobs = []
     let folders = []
 
     for(let target of targets) {
@@ -179,10 +159,7 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
         await go.build(folder);
         console.log('done',folder);
         folders.push(folder);
-        //jobs.push(go.build(folder));
     }
-    //console.log('done - 1');
-    //await Promise.all(jobs);
 
     folders.forEach((folder) => {
         let file = path.basename(folder);
@@ -201,86 +178,10 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
         E.registerFirewallRule({ name, file : dest, binary : true });
     })
 
-//    E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
-});
-
-if(E.flags.pgsql) // const pgsql = 
-E.task('pgsql', ['origin'], async () => {
-    console.log("PGSQL",E.BIN)
-    if(E.PLATFORM == 'linux')
-        return Promise.resolve();
-
-    if(E.flags.nodb || E.flags.nosql || E.flags.nopgsql)
-        return Promise.resolve();
-
-    const pgsql_url = {
-        windows : { 
-            url : 'http://sbp.enterprisedb.com/getfile.jsp?fileid=12454', 
-            file : `postgresql-12.2-2-windows-x64-binaries.zip` 
-        },
-        darwin : { 
-            url : 'https://sbp.enterprisedb.com/getfile.jsp?fileid=12475', 
-            file : `postgresql-12.2-3-osx-binaries.zip` 
-        }
-    }[E.PLATFORM];
-    // `postgresql-12.2-3-osx-binaries.zip`.match(/^\w+-(\d).(\d)-(\d)/)
-    const [, major, minor, release_] = pgsql_url.file.match(/^\w+-(\d+).(\d+)-(\d+)/);
-    const version = `${major}.${minor}.${release_}`;
-
-    E.utils.resetTTY();
-
-    const file = path.join(E.DEPS,pgsql_url.file);
-    const basename = path.basename(pgsql_url.file).replace(/\.(zip|tar|tar.gz|tar.xz)$/,'');
-    const archiveFolder = path.join(E.DEPS, basename);
-    if(!fs.existsSync(file) || !fs.existsSync(path.join(archiveFolder,'pgsql'))) {
-        await E.download(pgsql_url.url,file);
-        await E.unzip(file, archiveFolder);
-    }
-
-    const targetBinFolder = path.join(E.BIN,basename);
-    if(fs.existsSync(targetBinFolder)) {
-        E.log(`WARNING: previous pgSQL deployment found...`.brightRed,);
-        E.log(`         cleaning up existing ${targetBinFolder}...`);
-        await fs.remove(targetBinFolder);
-    }
-    mkdirp.sync(targetBinFolder);
-
-    E.log(`copying ${basename}...`);
-    let folders = ['bin','lib','share'];
-
-    // --pgsql-full-distro adds 425 Mb to the final distribution :/
-    if(E.flags['pgsql-full-distro'])
-        folders.push('pgadmin 4', 'stackbuilder', 'symbols', 'include', 'doc');
-    
-    const jobs = folders.map((f) => {
-        if(E.PLATFORM == 'windows') {
-            return E.copy(path.join(archiveFolder,'pgsql',f), path.join(targetBinFolder,f));
-        }
-        else
-            return E.spawn('cp', ['-R',path.join(archiveFolder,'pgsql',f),path.join(targetBinFolder,f)], { cwd : E.DEPS, stdio: 'inherit' });
-    })
-    await Promise.all(jobs);
-
-    [ 'postgres', 'pg_ctl', 'psql', 'initdb' ].forEach((f) => {
-        let name = `KDX pgSQL ${f}`;
-        let file = path.join(basename, 'bin', f+E.PLATFORM_BINARY_EXTENSION);
-        E.registerFirewallRule({ name, file, binary : true });
-    })
-
-    E.log('done...');
+    //E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
 });
 
 E.task('remote', ['origin'], async () => {
-
-
-    // let files = E.manifest.files.slice();
-    // while(files.length) {
-    //     let f = files.shift();
-    //     console.log('copying:',f);
-    //     await E.copy(path.join(E.REPO,f), path.join(E.BUILD, f));
-    // }
-
-    // console.log('done');
 
     let files = (E.manifest.files||[]).map(f=>{
         // console.log(E.REPO,'->',E.BUILD, f);
@@ -293,49 +194,7 @@ E.task('remote', ['origin'], async () => {
     console.log(`i18n.lock`);
 })
 
-if(E.flags.mqtt)
-E.task('mqtt',['origin'], async () => {
-    E.log('setting up mqtt...');
-    if(E.PLATFORM == 'windows') {
-        E.registerFirewallRule({ name : 'KDX MQTT', file : 'mosquitto/mosquitto.exe', binary : true });
-        return E.copy(path.join(E.REPO,'resources','deps','mosquitto-windows-x64'),path.join(E.BIN,'mosquitto'));
-    } else if(E.PLATFORM == 'darwin') {
-
-        E.log('cleaning up bin/brew');
-        await E.remove(path.join(E.BIN,'brew'));
-        const brew = `/usr/local/Cellar/`;
-        let folders = ['libevent','libuv','libwebsockets','openssl@1.1','mosquitto'];
-        while(folders.length) {
-            let f = folders.shift();
-            let folder = path.join(brew,f);
-            E.log(`brew - copying ${f}`);
-            let versions = fs.readdirSync(folder);
-            while(versions.length) {
-                let v = versions.shift();
-                let srcver = path.join(folder,v);
-                const list = ['AUTHORS','LICENSE','README.md','notice.html','README','bin','lib','sbin'];
-                while(list.length) {
-                    let t = list.shift();
-                    let src = path.join(srcver,t);
-                    if(fs.existsSync(src)) {
-                        let dest = path.join(E.BIN,'brew',f,v,t);
-                        E.log('+--<'+src);
-                        E.log('+-->'+dest);
-                        await E.copy(src,dest);
-                    }
-                }
-            }
-
-            // await E.copy(folder,path.join(E.BIN,'brew',f));
-
-        }
-        return Promise.resolve();
-//        return E.copy(path.join(E.REPO,'resources','deps','mosquitto-darwin-x64'),path.join(E.BIN,'mosquitto'));
-    }
-})
-
-const aux_deps = E.flags.auxiliary ? ['pgsql','kaspad','remote','mqtt'] : ['kaspad']
-//E.task('done', ['pgsql','kaspad','remote','mqtt'], async () => {
+const aux_deps = E.flags.auxiliary ? ['kaspad','remote'] : ['kaspad']
 E.task('done', aux_deps, async () => {
 })
 
@@ -360,8 +219,8 @@ E.flags.docker && E.task('docker', null, async () => {
 });
 
 
-if(E.flags['local-binaries'] || E.flags['pgsql'] || E.flags['mqtt'] || E.flags['kaspa']) {
-    E.BIN = path.join(E.appFolder,'bin',E.PLATFORM_ARCH);
+if(E.flags['local-binaries'] || E.flags['kaspa']) {
+    E.BIN = path.join(E.appFolder,'bin', E.PLATFORM_ARCH);
     mkdirp.sync(E.BIN);
 }
 
@@ -377,20 +236,11 @@ else
 if(E.flags.docker) {
     E.runTask('docker');
 }
-else if(E.flags['pgsql']) 
-    //E.run(['pgsql']);
-    await pgsql();
-else if(E.flags['mqtt']) 
-    E.run(['mqtt']);
 else if(E.flags['kaspa']) 
     await kaspad();
-    //E.run(['kaspad']);
 else if(E.flags['local-binaries']) {
     E.runTask('kaspad');
-    E.runTask('pgsql');
-    E.runTask('mqtt');
     E.runTask('aptitude');
-//    E.run(['kaspad','pgsql', 'mqtt', 'aptitude']);
 }
 else
     E.run();
