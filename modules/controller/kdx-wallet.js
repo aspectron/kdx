@@ -79,16 +79,19 @@ class KDXWallet extends BaseElement{
 	async initNetworkSettings() {
 		console.log("Wallet init controller", this, controller);
 		this.local_kaspad_settings = await controller.get_default_local_kaspad_settings();
-		console.log("$$$$$$$$$$$$$$$ KASPAD SETTINGS",this.local_kaspad_settings);
+		console.log("$$$$$$$$$$$$$$$ KASPAD SETTINGS", this.local_kaspad_settings);
 
 		if(this.rpc) {
 			this.rpc.disconnect();
 			// !!! FIXME delete wallet instance?
 			delete this.rpc;
 		}
+
+		if(!this.local_kaspad_settings)
+			return false;
 		
-		const { network } = this.local_kaspad_settings;
-		const port = Wallet.networkTypes[network].port;
+		const { network, port } = this.local_kaspad_settings;
+		//const port = Wallet.networkTypes[network].port;
 		this.rpc = new RPC({ clientConfig:{ host : `127.0.0.1:${port}` } });
 		this.network = network;
 	}
@@ -340,6 +343,9 @@ class KDXWallet extends BaseElement{
 
 		const { network, rpc } = this;
 		console.log("$$$$$$$ INIT NETWORK SETTINGS", { network, rpc });
+
+		if(!rpc)
+			return FlowDialog.alert("Error", "Kaspa Daemon config is missing.");
 
 
 		let {mode} = dialog;
