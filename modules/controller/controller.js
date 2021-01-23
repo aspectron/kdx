@@ -12,33 +12,260 @@ const StatsD = require('node-statsd');
 
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
-import {flow, FlowDialog, i18n, getLocalSetting, setLocalSetting, T} from '/node_modules/@aspectron/flow-ux/flow-ux.js';
+import {
+	flow, FlowDialog, i18n, getLocalSetting, setLocalSetting, T, dpc,
+	FlowApp
+} from '/node_modules/@aspectron/flow-ux/flow-ux.js';
 window.testI18n = (testing)=>i18n.setTesting(!!testing);
 window.getLocalSetting = getLocalSetting;
 window.setLocalSetting = setLocalSetting;
 
 
-class Controller{
+class KDXApp extends FlowApp{
+	render(){
+		let list = [
+			['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
+			['PostgreSQL','PostgreSQL','Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br/>Portions Copyright © 1994, The Regents of the University of California'],
+			['Mosquitto','EDL-V10 EPL-V10','Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors'],
+			['Flow-UX Framework','MIT', 'Copyright (c) ASPECTRON Inc.'],
+			['NWJS','MIT','Copyright (c) 2015 四月橘林'],
+			['Chromium','BSD', 'Copyright (c) The Chromium Authors']
+			// ['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
+			// ['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
+		];
+		return html`
+		<flow-caption-bar
+			logo="/resources/images/kaspa-logo-light-bg.png">KDX</flow-caption-bar>
+		<tab-content for="home">
+			<flow-form-control id="applications" icon="fal:fire" no-help style='display:none;'>
+				<flow-i18n caption>Applications</flow-i18n>
+				<div id="application-list"></div>
+			</flow-form-control>
+			<flow-form-control icon="fal:database" no-help>
+				<flow-i18n caption>Services</flow-i18n>
+				<div id='process-info-table' class="task-info-container">
+				</div>
+			</flow-form-control>
+			<div id='kaspa-resources'>
+
+				<flow-expandable>
+					<div slot="title" is="i18n-div" caption>KASPA RESOURCES</div>
+					<ul style="font-size: 12px;">
+						<li>
+							<flow-shell-link href="https://docs.kas.pa/kaspa/about-kaspa/get-started">
+								<flow-i18n>Documentation</flow-i18n>
+							</flow-shell-link>
+						</li>
+						<li><flow-shell-link
+							href="https://github.com/kaspanet/"><flow-i18n>GitHub</flow-i18n></flow-shell-link></li>
+						<li><flow-shell-link
+							href="https://discord.gg/vMT39xB"><flow-i18n>Discord Chat</flow-i18n></flow-shell-link></li>
+						<li><flow-link
+							id="release-notes-link"><flow-i18n>Release Notes</flow-i18n></flow-link></li>
+					</ul>
+				</flow-expandable>
+			</div>
+			<div id='license-info'>
+				<flow-form-control icon="fal:copyright">
+					<flow-i18n>KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br/>
+					All Rights Reserved.</flow-i18n><br/>
+				</flow-form-control>
+				<flow-expandable no-info class="license-info" >
+					
+					<div slot="title" is="i18n-div" caption>LICENSE INFORMATION</div>
+
+					<div style="font-weight:bold;font-size: 0.85rem;">
+
+						<div id="license-text">
+							${list.map((t) => {
+								let [name, license, copy] = t;
+								return html`
+								<project>
+									<name><flow-i18n>${name}</flow-i18n></name>
+									<span class='license'><flow-i18n>LICENSE</flow-i18n>:</span>
+									<license><flow-i18n>${license}</flow-i18n></license>
+									<br/>
+									<copyright><flow-i18n>${copy}</flow-i18n></copyright>
+								</project>`;
+							})}
+						</div>
+
+					</div>
+
+				</flow-expandable>
+			</div>
+		</tab-content>
+		<tab-content for="settings">
+			<flow-form-control icon="fal:database">
+				<flow-i18n slot="title">Data Folder</flow-i18n>
+				<flow-folder-input slot="input" id="data-folder-input"></flow-folder-input>
+				<div slot="input" class="slot-block data-folder-input-tools">
+					<flow-btn
+						class="reset-data-dir"><flow-i18n>Reset</flow-i18n></flow-btn>
+					<flow-btn
+						class="use-default-data-dir"><flow-i18n>Default</flow-i18n></flow-btn>
+					<flow-btn
+						class="apply-data-dir" primary><flow-i18n>Apply</flow-i18n></flow-btn>
+				</div>
+				
+				<h4 slot="info" class="title"><flow-i18n>Data Folder</flow-i18n></h4>
+				<p slot="info" is="i18n-p">
+					Data Folder location is used for storage by all KDX modules. 
+					In default configuration this includes Kaspad blockchain data and Kasparov API database.
+					This location also contains process log files.
+				</p>
+			</flow-form-control>
+			<flow-form-control icon="fal:palette">
+				<flow-i18n slot="title">User Interface Color Theme</flow-i18n>
+				<flow-checkbox id="settings-dark-theme" 
+					class="block"><flow-i18n>Dark Theme</flow-i18n></flow-checkbox>
+				<flow-checkbox id="settings-invert-terminal"
+					class="block advanced-tool"><flow-i18n>Invert Terminal Color</flow-i18n></flow-checkbox>
+			</flow-form-control>
+			<flow-form-control icon="fal:tools">
+				<flow-i18n slot="title">Turn ON/OFF advanced settings and process control</flow-i18n>
+				<flow-checkbox id="settings-advanced" slot="input" class="block">
+				<flow-i18n>Advanced</flow-i18n>
+				</flow-checkbox>
+				<h4 slot="info" class="title"><flow-i18n>Advanced mode</flow-i18n></h4>
+				<p slot="info" is="i18n-p">
+					Advanced mode allows you to manually configure, interact with and monitor KDX services.
+				</p>
+			</flow-form-control>
+			<flow-form-control icon="fal:cog" class="advanced-tool">
+				<flow-i18n slot="title">Service Control</flow-i18n>
+				<flow-checkbox id="settings-run-in-bg" class="block advanced-tool"
+					slot="input"><flow-i18n>Run in Background</flow-i18n></flow-checkbox>
+				<h4 slot="info" class="title"><flow-i18n>Background Execution</flow-i18n></h4>
+				<p slot="info" is="i18n-p">
+					When enabled, KDX runs itself and it's services hidden in the background
+					and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).
+				</p><!-- '-->
+			</flow-form-control>
+			<flow-form-control icon="fal:cube" _expandable
+				class="xadvanced-tool" id="block-generation">
+				<flow-i18n slot="title">Block Generation</flow-i18n>
+				<flow-checkbox id="settings-enable-mining" class="block"
+					><flow-i18n>Enable Mining</flow-i18n></flow-checkbox>
+				<flow-input id="mining-address-input" class="block"
+					label="Mining address" apply-btn
+					btnText="Get Mining Address From Wallet">
+				</flow-input>
+				<flow-checkbox id="settings-use-wallet-address" class="block"
+					><flow-i18n>Use Wallet Address</flow-i18n></flow-checkbox>
+
+				<h4 slot="info" class="title"><flow-i18n>Block Generation</flow-i18n></h4>
+				<p slot="info" is="i18n-p">
+					The Enable Mining option starts / stops all configured Kaspaminer instances.
+				</p>
+			</flow-form-control>
+			<flow-form-control icon="fal:drafting-compass" class="advanced-tool">
+				<flow-i18n caption>Metrics</flow-i18n>
+				<flow-checkbox id="settings-enable-metrics"
+					class="block advanced-tool"
+					slot="input"><flow-i18n>Enable Metrics</flow-i18n></flow-checkbox>
+
+				<flow-input id="settings-statsd-address"
+					class="block advanced-tool input-ctl-margin"
+					placeholder=""
+					label="STATSD ADDRESS"
+					slot="input"></flow-input>
+				<flow-input id="settings-statsd-prefix" 
+					class="block advanced-tool input-ctl-margin"
+					label="STATSD PREFIX"
+					placeholder=""
+					slot="input"></flow-input>
+
+				<h4 slot="info" class="title"><flow-i18n>Metrics</flow-i18n></h4>
+				<p slot="info" is="i18n-p">
+					You can stream KDX metrics to your own StatsD-compatible server.
+				</p>
+			</flow-form-control>
+
+			<flow-form-control id="settings-script" icon="fal:tasks">
+				<flow-i18n slot="title">Service Configuration</flow-i18n>
+				<div slot="input" class="settings-script">
+					<div class="script-box"></div>
+					<div class="tools">
+						<flow-btn class="save-config"><flow-i18n>Apply</flow-i18n></flow-btn>
+					</div>
+				</div>
+				<h4 slot="info" class="title"><flow-i18n>Service Configuration</flow-i18n></h4>
+				<p slot="info" is="i18n-p">
+					Configuration editor allows you to customize KDX environment.
+					KDX configuration is represented in JSON
+					by a list of application/service configuration objects.
+					Each service configuration object is used 
+					to start the corresponding service.
+				</p>
+			</flow-form-control>
+
+			<flow-form-control id="settings-templates" icon="fal:file-alt"
+				class="advanced-tool">
+				<flow-i18n slot="title">Configuration Templates</flow-i18n>
+				<div slot="input" class="h-box-stretched-group" style="margin-top:16px;">
+					<div row>
+						<flow-selector id="template-list" mergeattributes="value" 
+							mergeinnerhtml label="Select Configuration Template"
+							selected="" class="template-list"></flow-selector>
+						<flow-selector id="network-list" label="Network"
+							mergeattributes="value" mergeinnerhtml
+							selected="testnet" class="network-list">
+							<div class="menu-item" value="mainnet">MAINNET</div>
+							<div class="menu-item" value="testnet">TESTNET</div>
+							<div class="menu-item" value="devnet">DEVNET</div>
+							<div class="menu-item" value="simnet">SIMNET</div>
+						</flow-selector>
+					</div>
+					<flow-btn id="load-config" class="load-config" full-height-wrapper warning><flow-i18n>Reset</flow-i18n></flow-btn>
+				</div>
+				<h4 slot="info" class="title"><flow-i18n>Configuration Templates</flow-i18n></h4>
+				<p slot="info" is="i18n-p">
+					Configuration templates allow you to load pre-made KDX configurations.
+				</p>
+			</flow-form-control>
+			<div style="height:192px;"></div>
+		</tab-content>
+		<tab-content for="wallet" class="wallet" data-active-display="flex">
+			<kdx-wallet-open-dialog></kdx-wallet-open-dialog>
+			<kdx-wallet></kdx-wallet>
+		</tab-content>
+		<tab-content for="console" data-active-display="flex" class="vertical-flex term">
+			<flow-terminal id="kdx-console" class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
+		</tab-content>
+		<app-startup-dialog id="release-notes-dialog"></app-startup-dialog>`
+	}
 	constructor(){
-		let doc = document;
-		this.qS = doc.querySelector.bind(doc);
+		super();
+		//let doc = document;
+		this.qS = this.querySelector.bind(this);
 		//testDialogs();
 		this.debug = getLocalSetting('debug-ctx')==1;
-		this.init();
+		//this.init();
+	}
+
+	createRenderRoot(){
+		return this;
 	}
 	
+	connectedCallback(){
+		super.connectedCallback();
+		dpc(e=>this.init(), 200);
+	}
 	async init(){
+		this.taskTabs = {};
+		this.taskTerminals = {};
 		this.initWin();
 		this.initTrayMenu();
 		this.initRPC();
 		this.initI18n();
 		this.initTheme();
+		this.initCaption();
 		await this.initManager();
 		await this.initConsole();
 		await this.initWallet();
-		this.taskTabs = {};
-		this.taskTerminals = {};
-		this.initCaption();
+		
+		
 		this.initTemplates();
 		await this.initSettings();
 		this.setUiLoading(false);
@@ -134,14 +361,12 @@ class Controller{
 	}
 	async initWallet() {
 		let wallet = this.qS('kdx-wallet');
-		await wallet.setController(this);
-		// await this.getDefaultKaspadSettings();
+		let settings = await this.get_default_local_kaspad_settings();
+		wallet.setNetworkSettings(settings);
 		this.wallet = wallet;
 		return Promise.resolve();
 	}
 	async get_default_local_kaspad_settings() {
-
-		//return {network:"kaspadev"}
 		
 		let {config:daemons} = await this.get("get-modules-config");
 		console.log("############### DAEMONS", daemons);
@@ -213,6 +438,8 @@ class Controller{
 		this.post("set-build-type", {build});
 	}
 	setTheme(theme){
+		if(!this.rpc)
+			return
 		this.theme = theme;
 		if(this.caption)
 			this.caption.logo = `/resources/images/kaspa-logo-${theme}-bg.png`
@@ -235,7 +462,8 @@ class Controller{
 		document.body.dispatchEvent(new CustomEvent("flow-theme-changed"));
 	}
 	initCaption(){
-		let caption = document.querySelector('flow-caption-bar');
+		let caption = this.qS('flow-caption-bar');
+		console.log("caption", caption)
 		this.caption = caption;
 		this.caption.close = this.closeWin;
 		this.caption.logo = `/resources/images/kaspa-logo-${this.theme}-bg.png`;
@@ -533,11 +761,11 @@ ${changelogContent}`;
 							<div style="font-size:10px; margin-top:8px;">${task.id}</div>
 						</div>`;
 				}
-//				<div style="font-size:18px;"><flow-i18n>${task.type}</flow-i18n></div>
+				//<div style="font-size:18px;"><flow-i18n>${task.type}</flow-i18n></div>
 			});
 		}
 		
-		this.taskTabs[key] = document.querySelector(`tab-content[for="${key}"]`);
+		this.taskTabs[key] = this.qS(`tab-content[for="${key}"]`);
 		if(!this.taskTabs[key]){
 			const template = document.createElement('template');
 			template.innerHTML = 
@@ -554,7 +782,7 @@ ${changelogContent}`;
 			// tabContent.querySelector(".tools").addEventListener('click', e=>{
 			// 	this.onToolsClick(e);
 			// });
-			document.body.appendChild(tabContent);
+			this.appendChild(tabContent);
 			this.taskTabs[key] = tabContent;
 			this.taskTerminals[key] = tabContent.querySelector("flow-terminal");
 			dpc(512, () => {
@@ -975,10 +1203,14 @@ ${changelogContent}`;
 	}
 }
 
+KDXApp.define("kdx-app")
+
 console.log("global.manager ->", global.manager)
+/*
 window.addEventListener("WebComponentsReady", ()=>{
 	let controller = new Controller();
 	window.controller = controller;
 	console.log("controller ->", controller);
 })
+*/
 

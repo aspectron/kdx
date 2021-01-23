@@ -70,13 +70,12 @@ class KDXWallet extends BaseElement{
 	constructor() {
 		super();
 	}
-	async setController(controller) {
-		this.controller = controller;
+
+	setNetworkSettings(settings){
+		this.local_kaspad_settings = settings;
 	}
 
 	async initNetworkSettings() {
-		console.log("Wallet init controller", this, controller);
-		this.local_kaspad_settings = await controller.get_default_local_kaspad_settings();
 		console.log("$$$$$$$$$$$$$$$ KASPAD SETTINGS", this.local_kaspad_settings);
 
 		if(this.rpc) {
@@ -442,12 +441,13 @@ class KDXWallet extends BaseElement{
 
 	getMiningAddress(){
 		if(!this.wallet){
-			FlowDialog.alert("Error", "Wallet is not initilized yet.");
+			FlowDialog.alert("Error", "Please unlock or create wallet.");
 			return Promise.resolve(false);
 		}
 		if(this.receiveAddress)
 			return Promise.resolve(this.receiveAddress);
 
+		FlowDialog.alert("Please wait", "Please wait, This may take few moments, The wallet is loading.");
 		return this.wallet.receiveAddress;
 	}
 

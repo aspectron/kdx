@@ -164,6 +164,8 @@ body.ui-loading{
 	src: url("../../resources/extern/fonts/IBMPlexSansCondensed/IBMPlexSansCondensed-Regular.ttf") format('truetype');
 }
 
+kdx-app{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+
 tab-content::-webkit-scrollbar-track{
     -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);background-color:#F5F5F5;
 }
