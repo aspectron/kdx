@@ -327,7 +327,7 @@ flow-selector .menu-item{padding:2px 4px;}
 .no-mining {
 	display:none;
 }
-.wallet{flex-direction:column;position:relative;}
+.wallet{flex-direction:column;position:relative;overflow-x:hidden;}
 .wallet flow-tabs{flex:initial;margin:0px 10px 5px;}
 .wallet-init-overlay{
 	position:absolute;z-index:100;

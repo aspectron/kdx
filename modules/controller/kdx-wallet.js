@@ -20,7 +20,9 @@ class KDXWallet extends BaseElement{
 			errorMessage:{type:String},
 			receiveAddress:{type:String},
 			changeAddress:{type:String},
-			txs:{type:Array}
+			txs:{type:Array},
+			blueScore:{type:Number},
+			status:{type:String}
 		};
 	}
 
@@ -44,11 +46,12 @@ class KDXWallet extends BaseElement{
 			.flex{flex:1}
 			.body{display:flex;align-items:top;flex-wrap:wrap}
 			.tx-title{width:100%;display:flex;align-items:center;margin-bottom:10px;}
-			.left-area{flex:10;margin-left:20px;max-width:600px;}
-			.right-area{flex:5;margin-left:20px;max-width:750px;}
+			.left-area{flex:4;margin-left:20px;max-width:600px;}
+			.right-area{flex:6;margin-left:20px;max-width:750px;}
 			.divider{flex:1}
-			@media(max-width:500px){
-				.divider{min-width:100%;}
+			@media (max-width:950px){
+				.left-area,.right-area{margin:auto;min-width:none}
+				.divider{min-width:100%;height:100px}
 			}
 			[txout] .amount{color:red}
 			.buttons{margin:20px 0px;}
@@ -66,18 +69,27 @@ class KDXWallet extends BaseElement{
 			}
 			.balance{display:flex;flex-direction:column;padding:5px;}
        		.value{font-family : "IBM Plex Sans Condensed"; font-size: 36px; margin-top: 4px;}
-		 	.value-pending{font-family : "IBM Plex Sans Condensed"; font-size: 20px; margin-top: 4px;} 
+		 	.value-pending{
+		 		font-family : "IBM Plex Sans Condensed"; font-size: 20px; margin-top: 4px;
+		 	} 
 			.label { font-family : "Open Sans"; font-size: 20px; }
 			.label-pending { font-family : "Open Sans"; font-size: 14px; }
 			.transactions {padding:15px;}
-			.transactions .tx-body{overflow:hidden;text-overflow: ellipsis;}
+			.transactions .tx-body{overflow:hidden;text-overflow:ellipsis;}
+			.tx-body .tx-id,
+			.tx-body .tx-address{font-size:14px;max-width:100%;overflow:hidden;text-overflow:ellipsis;}
 			[row]{display:flex;flex-direction:row;justify-content:space-between;}
 			flow-qrcode{width:172px;margin-top:50px;}
 			.address-badge{padding:15px;}
 			.address-holder{display:flex}
 			input.address{
 				border:0px;-webkit-appearance:none;outline:none;margin:5px 10px 0px 0px;
-				flex:1;overflow: hidden;text-overflow:ellipsis;
+				flex:1;overflow: hidden;text-overflow:ellipsis;font-size:14px;
+				max-width:400px;
+			}
+			.qr-code-holder{
+				display:flex;align-items:flex-end;justify-content:space-between;
+				max-width:450px;
 			}
 
 
@@ -122,7 +134,7 @@ class KDXWallet extends BaseElement{
 						<div class="error-message">${this.errorMessage}</div>
 						${this.renderBalance()}
 						${this.renderAddress()}
-						${this.renderQRcode()}
+						${this.renderQRAndSendBtn()}
 					</div>
 					<div class="divider"></div>
 					<div class="right-area">
@@ -154,7 +166,9 @@ class KDXWallet extends BaseElement{
 			<div>Receive Address:</div>
 			<div class="address-holder">
 				<input class="address" readonly value="${this.receiveAddress||''}">
-				<fa-icon @click="${this.copyAddress}" title="Copy to clipboard" icon="copy"></fa-icon>
+				<fa-icon ?hidden=${!this.receiveAddress} 
+					@click="${this.copyAddress}"
+					title="Copy to clipboard" icon="copy"></fa-icon>
 			</div>
 		</div>`
 	}
@@ -207,13 +221,21 @@ class KDXWallet extends BaseElement{
 			// 		<span class="value">${this.formatKSP(totalBalance)} KSP</span>
 			// 	</div>
 			// </flow-expandable> -->
-
 	}
 
-	renderQRcode(){
+	renderQRAndSendBtn(){
 		if(!this.wallet)
 			return '';
-		return html`<flow-qrcode text="${this.receiveAddress||""}"></flow-qrcode>`
+		return html`
+			<div class="qr-code-holder">
+				<flow-qrcode text="${this.receiveAddress||""}"></flow-qrcode>
+				<flow-btn @click="${this.showSendDialog}">SEND</flow-btn>
+			</div>
+			<div>
+				Wallet Satus: ${this.status||'Offline'},
+				DAG blue score: ${this.blueScore||''}
+			</div>
+		`
 	}
 
 	copyAddress(){
@@ -256,7 +278,7 @@ class KDXWallet extends BaseElement{
 		return html`
 		<div class="heading">Recent transcations</div>
 		<div class="transcations">
-		${this.txs.slice(-20).map(tx=>{
+		${this.txs.slice(0, 6).map(tx=>{
 			return html`
 				<flow-expandable static-icon expand ?txin=${tx.in} ?txout=${!tx.in}
 					icon="${tx.in?'sign-in':'sign-out'}" no-info>
@@ -268,8 +290,8 @@ class KDXWallet extends BaseElement{
 					</div>
 					<div class="tx-body">
 						${tx.note}
-						${tx.id}
-						(${tx.address})
+						<div class="tx-id">${tx.id}</div>
+						<div class="tx-address">${tx.address}</div>
 					</div>
 				</flow-expandable>
 			`
@@ -302,7 +324,10 @@ class KDXWallet extends BaseElement{
 			this._isCache = true;
 	    }
 
-	    //blue-score-changed
+	    wallet.on("blue-score-changed", (e)=>{
+	    	this.blueScore = e.blueScore;
+	    	this.status = 'Online';//TODO
+	    })
 	    wallet.on("balance-update", ()=>{
 	    	this.requestUpdate("balance", null);
 	    })
