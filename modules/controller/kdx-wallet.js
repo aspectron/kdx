@@ -1,9 +1,13 @@
-import {html, css, BaseElement, ScrollbarStyle} from '/node_modules/@aspectron/flow-ux/src/base-element.js';
+import {
+	html, css, BaseElement, ScrollbarStyle,
+	FlowFormat
+} from '/node_modules/@aspectron/flow-ux/flow-ux.js';
+import '/node_modules/@aspectron/flow-ux/resources/extern/decimal.js/decimal.js'
 import {
 	initKaspaFramework, Wallet, RPC,
 	setLocalWallet, getLocalWallet,
 	getLocalSetting, setLocalSetting,
-	getUniqueId, formatForMachine
+	getUniqueId, formatForMachine, KSP
 } from './wallet.js';
 
 export * from './kdx-wallet-open-dialog.js';
@@ -233,28 +237,11 @@ class KDXWallet extends BaseElement{
 			</div>
 			<div>
 				Wallet Satus: ${this.status||'Offline'},
-				DAG blue score: ${this.blueScore||''}
+				DAG blue score: ${this.blueScore?FlowFormat.commas(this.blueScore):''}
 			</div>
 		`
 	}
 
-	copyAddress(){
-		let input = this.renderRoot.querySelector("input.address");
-		input.select();
-		input.setSelectionRange(0, 99999)
-		document.execCommand("copy");
-	}
-	getTS(d=null) {
-        d = d || new Date();
-        let year = d.getFullYear();
-        let month = d.getMonth()+1; month = month < 10 ? '0' + month : month;
-        let date = d.getDate(); date = date < 10 ? '0' + date : date;
-        let hour = d.getHours(); hour = hour < 10 ? '0' + hour : hour;
-        let min = d.getMinutes(); min = min < 10 ? '0' + min : min;
-        let sec = d.getSeconds(); sec = sec < 10 ? '0' + sec : sec;
-        //var time = year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
-        return `${year}-${month}-${date} ${hour}:${min}:${sec}`;
-    }
 	renderTX(){
 		if(!this.wallet)
 			return '';
@@ -285,7 +272,7 @@ class KDXWallet extends BaseElement{
 					<div class="tx-title" slot="title">
 						<div class="tx-date flex">${tx.date}</div>
 						<div class="amount">
-							${tx.in?'':'-'}${this.formatKSP(tx.amount)}KSP
+							${tx.in?'':'-'}${this.formatKSP(tx.amount)} KSP
 						</div>
 					</div>
 					<div class="tx-body">
@@ -298,8 +285,27 @@ class KDXWallet extends BaseElement{
 		})}
 		</div>`
 	}
+
+	copyAddress(){
+		let input = this.renderRoot.querySelector("input.address");
+		input.select();
+		input.setSelectionRange(0, 99999)
+		document.execCommand("copy");
+	}
+	getTS(d=null) {
+        d = d || new Date();
+        let year = d.getFullYear();
+        let month = d.getMonth()+1; month = month < 10 ? '0' + month : month;
+        let date = d.getDate(); date = date < 10 ? '0' + date : date;
+        let hour = d.getHours(); hour = hour < 10 ? '0' + hour : hour;
+        let min = d.getMinutes(); min = min < 10 ? '0' + min : min;
+        let sec = d.getSeconds(); sec = sec < 10 ? '0' + sec : sec;
+        //var time = year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
+        return `${year}-${month}-${date} ${hour}:${min}:${sec}`;
+    }
+	
 	formatKSP(value){
-		return (value/1e8).toFixed(8).replace(/000000$/,'');
+		return KSP(value);//(value/1e8).toFixed(8).replace(/000000$/,'');
 	}
 	showError(err){
 		console.log("showError:err", err)
