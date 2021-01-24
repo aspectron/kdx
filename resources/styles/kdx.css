@@ -345,4 +345,10 @@ flow-selector .menu-item{padding:2px 4px;}
 .short-dialog .full-width{width:100%;max-width:100%;}
 .short-dialog dialog{min-width:10px;width:95%;max-width:510px}
 
+@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(359deg)}}
+.spin{
+	webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
 

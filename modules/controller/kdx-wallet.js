@@ -96,6 +96,14 @@ class KDXWallet extends BaseElement{
 				max-width:450px;
 			}
 
+			@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(359deg)}}
+			.spin{
+				webkit-animation: spin 2s linear infinite;
+			    animation: spin 2s linear infinite;
+			    transform-origin:center;
+			}
+			fa-icon.spin:not([hidden]){display:inline-block;position:relative}
+
 
 		`];
 	}
@@ -129,7 +137,8 @@ class KDXWallet extends BaseElement{
 		return html`
 			<div class="container">
 				<h2 class="heading">
-					<fa-icon ?hidden=${!this.isLoading} icon="spinner"></fa-icon>
+					<fa-icon ?hidden=${!this.isLoading} 
+						class="spin" icon="spinner" style="position:absolute"></fa-icon>
 				</h2>
 				
 				<div class="body">
