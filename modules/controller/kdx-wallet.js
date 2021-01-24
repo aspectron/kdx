@@ -19,7 +19,8 @@ class KDXWallet extends BaseElement{
 			isLoading:{type:Boolean},
 			errorMessage:{type:String},
 			receiveAddress:{type:String},
-			changeAddress:{type:String}
+			changeAddress:{type:String},
+			txs:{type:Array}
 		};
 	}
 
@@ -41,10 +42,14 @@ class KDXWallet extends BaseElement{
 				padding-top:5px;margin-top:10px
 			}
 			.flex{flex:1}
-			.body{display:flex;align-items:top}
+			.body{display:flex;align-items:top;flex-wrap:wrap}
 			.tx-title{width:100%;display:flex;align-items:center;margin-bottom:10px;}
-			.left-area{flex:4;margin-left:20px;max-width:600px;}
-			.right-area{flex:2;margin-left:20px;max-width:750px;}
+			.left-area{flex:10;margin-left:20px;max-width:600px;}
+			.right-area{flex:5;margin-left:20px;max-width:750px;}
+			.divider{flex:1}
+			@media(max-width:500px){
+				.divider{min-width:100%;}
+			}
 			[txout] .amount{color:red}
 			.buttons{margin:20px 0px;}
 			/*.balances .value{text-align:right}
@@ -52,23 +57,35 @@ class KDXWallet extends BaseElement{
 			.loading-img{width:20px;height:20px;vertical-align:text-top;}
 
 			.balance-badge{
-				display:flex;flex-direction:column;
-				padding:10px; border:2px solid var(--flow-primary-color);
-				border-radius:10px;max-width: fit-content;
-				box-shadow:var(--flow-box-shadow)}
+				display:flex;flex-direction:column;padding:10px;
+				border-radius:10px;max-width:fit-content;
+				/*
+				box-shadow:var(--flow-box-shadow);
+				border:2px solid var(--flow-primary-color);
+				*/
+			}
 			.balance{display:flex;flex-direction:column;padding:5px;}
        		.value{font-family : "IBM Plex Sans Condensed"; font-size: 36px; margin-top: 4px;}
 		 	.value-pending{font-family : "IBM Plex Sans Condensed"; font-size: 20px; margin-top: 4px;} 
 			.label { font-family : "Open Sans"; font-size: 20px; }
 			.label-pending { font-family : "Open Sans"; font-size: 14px; }
 			.transactions {padding:15px;}
+			.transactions .tx-body{overflow:hidden;text-overflow: ellipsis;}
 			[row]{display:flex;flex-direction:row;justify-content:space-between;}
 			flow-qrcode{width:172px;margin-top:50px;}
+			.address-badge{padding:15px;}
+			.address-holder{display:flex}
+			input.address{
+				border:0px;-webkit-appearance:none;outline:none;margin:5px 10px 0px 0px;
+				flex:1;overflow: hidden;text-overflow:ellipsis;
+			}
+
 
 		`];
 	}
 	constructor() {
 		super();
+		this.txs = [];
 	}
 
 	setNetworkSettings(settings){
@@ -96,7 +113,6 @@ class KDXWallet extends BaseElement{
 		return html`
 			<div class="container">
 				<h2 class="heading">
-					<!-- Wallet -->
 					<fa-icon ?hidden=${!this.isLoading} icon="spinner"></fa-icon>
 				</h2>
 				
@@ -104,11 +120,11 @@ class KDXWallet extends BaseElement{
 					<div class="left-area">
 						${this.renderBackupWarning()}
 						<div class="error-message">${this.errorMessage}</div>
-							${this.renderBalance()}
-							${this.renderButtons()}
-							${this.renderQRcode()}
-						</div>
-					<div class="flex"></div>
+						${this.renderBalance()}
+						${this.renderAddress()}
+						${this.renderQRcode()}
+					</div>
+					<div class="divider"></div>
 					<div class="right-area">
 						${this.renderTX()}
 					</div>
@@ -129,13 +145,26 @@ class KDXWallet extends BaseElement{
 				<flow-btn @click="${this.showSaveWalletDialog}">SAVE WALLET</flow-btn>
 			</flow-expandable>`
 	}
+	renderAddress(){
+		if(!this.wallet)
+			return '';
+
+		return html`
+		<div class="address-badge">
+			<div>Receive Address:</div>
+			<div class="address-holder">
+				<input class="address" readonly value="${this.receiveAddress||''}">
+				<fa-icon @click="${this.copyAddress}" title="Copy to clipboard" icon="copy"></fa-icon>
+			</div>
+		</div>`
+	}
 	renderButtons(){
 		if(!this.wallet)
 			return '';
 		return html`
 			<div class="buttons">
 				<flow-btn @click="${this.showSendDialog}">SEND</flow-btn>
-				<flow-btn @click="${this.showReceiveDialog}">RECEIVE</flow-btn>
+				<!--flow-btn @click="${this.showReceiveDialog}">RECEIVE</flow-btn-->
 			</div>`
 	}
 
@@ -184,12 +213,31 @@ class KDXWallet extends BaseElement{
 	renderQRcode(){
 		if(!this.wallet)
 			return '';
-		return html`<flow-qrcode></flow-qrcode>`
+		return html`<flow-qrcode text="${this.receiveAddress||""}"></flow-qrcode>`
 	}
+
+	copyAddress(){
+		let input = this.renderRoot.querySelector("input.address");
+		input.select();
+		input.setSelectionRange(0, 99999)
+		document.execCommand("copy");
+	}
+	getTS(d=null) {
+        d = d || new Date();
+        let year = d.getFullYear();
+        let month = d.getMonth()+1; month = month < 10 ? '0' + month : month;
+        let date = d.getDate(); date = date < 10 ? '0' + date : date;
+        let hour = d.getHours(); hour = hour < 10 ? '0' + hour : hour;
+        let min = d.getMinutes(); min = min < 10 ? '0' + min : min;
+        let sec = d.getSeconds(); sec = sec < 10 ? '0' + sec : sec;
+        //var time = year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
+        return `${year}-${month}-${date} ${hour}:${min}:${sec}`;
+    }
 	renderTX(){
 		if(!this.wallet)
 			return '';
 
+		/*
 		let txs = [{
 			in:1,
 			date: "2020-02-21 01:22",
@@ -203,11 +251,12 @@ class KDXWallet extends BaseElement{
 			note:"Purchase",
 			address: "kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz"
 		}]
+		*/
 
 		return html`
 		<div class="heading">Recent transcations</div>
 		<div class="transcations">
-		${txs.map(tx=>{
+		${this.txs.slice(-20).map(tx=>{
 			return html`
 				<flow-expandable static-icon expand ?txin=${tx.in} ?txout=${!tx.in}
 					icon="${tx.in?'sign-in':'sign-out'}" no-info>
@@ -217,8 +266,10 @@ class KDXWallet extends BaseElement{
 							${tx.in?'':'-'}${this.formatKSP(tx.amount)}KSP
 						</div>
 					</div>
-					<div>
-						${tx.note} (${tx.address})
+					<div class="tx-body">
+						${tx.note}
+						${tx.id}
+						(${tx.address})
 					</div>
 				</flow-expandable>
 			`
@@ -253,6 +304,12 @@ class KDXWallet extends BaseElement{
 
 	    //blue-score-changed
 	    wallet.on("balance-update", ()=>{
+	    	this.requestUpdate("balance", null);
+	    })
+	    wallet.on("new-transaction", (tx)=>{
+	    	tx.date = this.getTS(new Date(tx.ts));
+	    	this.txs.unshift(tx);
+	    	this.txs = this.txs.slice(0, 200);
 	    	this.requestUpdate("balance", null);
 	    })
 	    wallet.on("new-address", (detail)=>{
@@ -458,7 +515,8 @@ class KDXWallet extends BaseElement{
 		const response = await this.wallet.submitTransaction({
 			toAddr: address,
 			amount: formatForMachine(amount),
-			networkFeeMax: 500
+			networkFeeMax: 500,
+			note
 		}).catch(error=>{
 			console.log("error", error)
 			error = (error+"").replace("Error:", '')
