@@ -88,8 +88,9 @@ class KDXWallet extends BaseElement{
 			.address-holder{display:flex}
 			input.address{
 				border:0px;-webkit-appearance:none;outline:none;margin:5px 10px 0px 0px;
-				flex:1;overflow: hidden;text-overflow:ellipsis;font-size:14px;
-				max-width:400px;
+				flex:1;overflow: hidden;text-overflow:ellipsis;font-size:16px;
+				max-width:400px;background-color:transparent;color:var(--flow-primary-color);
+				font-family:"Exo 2";
 			}
 			.qr-code-holder{
 				display:flex;align-items:flex-end;justify-content:space-between;
@@ -185,15 +186,15 @@ class KDXWallet extends BaseElement{
 			</div>
 		</div>`
 	}
-	renderButtons(){
-		if(!this.wallet)
-			return '';
-		return html`
-			<div class="buttons">
-				<flow-btn @click="${this.showSendDialog}">SEND</flow-btn>
-				<!--flow-btn @click="${this.showReceiveDialog}">RECEIVE</flow-btn-->
-			</div>`
-	}
+	// renderButtons(){
+	// 	if(!this.wallet)
+	// 		return '';
+	// 	return html`
+	// 		<div class="buttons">
+	// 			<flow-btn primary @click="${this.showSendDialog}">SEND</flow-btn>
+	// 			<!--flow-btn @click="${this.showReceiveDialog}">RECEIVE</flow-btn-->
+	// 		</div>`
+	// }
 
 	renderBalance(){
 		if(!this.wallet || !this.wallet.balance)
@@ -242,7 +243,7 @@ class KDXWallet extends BaseElement{
 		return html`
 			<div class="qr-code-holder">
 				<flow-qrcode text="${this.receiveAddress||""}"></flow-qrcode>
-				<flow-btn @click="${this.showSendDialog}">SEND</flow-btn>
+				<flow-btn primary @click="${this.showSendDialog}">SEND</flow-btn>
 			</div>
 			<div>
 				Wallet Satus: ${this.status||'Offline'},
