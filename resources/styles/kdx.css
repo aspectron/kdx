@@ -86,9 +86,9 @@ body.flow-theme-dark{
 	--flow-box-shadow: 0 2px 15px 0 rgba(39, 206, 164, 0.14),
 	0 3px 1px -3px rgba(13,226,195,.2),
 	0 1px 15px 0 rgba(14,234,184,.12);
-	--flow-input-box-shadow:0 2px 9px 0 rgba(1, 150, 136),
-	0 3px 1px -3px rgba(121, 255, 235, 0.2),
-	0 1px 7px 0 rgba(65, 255, 212, 0.12);
+	--flow-input-box-shadow:0 0px 4px 0 rgba(1, 150, 136),
+	0 0px 0px -3px rgba(121, 255, 235, 0.2),
+	0 0px 1px 0 rgba(65, 255, 212, 0.12);
 
 	
 }

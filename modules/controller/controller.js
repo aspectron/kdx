@@ -149,7 +149,7 @@ class KDXApp extends FlowApp{
 					><flow-i18n>Enable Mining</flow-i18n></flow-checkbox>
 				<flow-input id="mining-address-input" class="block"
 					label="Mining address" apply-btn
-					btnText="Get Mining Address From Wallet">
+					btnText="Update">
 				</flow-input>
 				<flow-checkbox id="settings-use-wallet-address" class="block"
 					><flow-i18n>Use Wallet Address</flow-i18n></flow-checkbox>
@@ -205,7 +205,7 @@ class KDXApp extends FlowApp{
 				<flow-i18n slot="title">Configuration Templates</flow-i18n>
 				<div slot="input" class="h-box-stretched-group" style="margin-top:16px;">
 					<div row>
-						<flow-selector id="template-list" mergeattributes="value" 
+						<flow-selector style="margin-right:32px;" id="template-list" mergeattributes="value" 
 							mergeinnerhtml label="Select Configuration Template"
 							selected="" class="template-list"></flow-selector>
 						<flow-selector id="network-list" label="Network"

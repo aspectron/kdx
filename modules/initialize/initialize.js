@@ -67,7 +67,7 @@ class Initializer{
 	initTemplates() {
 
 		this.tpl_network = 'testnet';
-		this.tpl_template = 'kaspad-standalone-mining';
+		this.tpl_template = 'kaspad-mining';
 
 		try {
 			this.templates = JSON.parse(fs.readFileSync(path.join(this.appFolder,'.templates'))+'');
