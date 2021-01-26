@@ -531,7 +531,7 @@ class KDXWallet extends BaseElement{
 			this.parentNode.appendChild(this.sendDialog);
 		}
 		console.log("this.sendDialog", this.sendDialog)
-		this.sendDialog.open({}, (args)=>{
+		this.sendDialog.open({wallet:this}, (args)=>{
 			this.sendTx(args);
 		})
 	}
@@ -560,14 +560,14 @@ class KDXWallet extends BaseElement{
 	async sendTx(args){
 		const {
 			address, amount, note, fee,
-			calculateNetworkFee, networkFeeMax, inclusiveFee
+			calculateNetworkFee, inclusiveFee
 		} = args;
 		console.log("sendTx:args", args)
 
 		const response = await this.wallet.submitTransaction({
 			toAddr: address,
 			amount: formatForMachine(amount),
-			fee, calculateNetworkFee, networkFeeMax, inclusiveFee, note
+			fee, calculateNetworkFee, inclusiveFee, note
 		}).catch(error=>{
 			console.log("error", error)
 			error = (error+"").replace("Error:", '')
@@ -575,6 +575,29 @@ class KDXWallet extends BaseElement{
 		})
 
 		console.log("sendTx: response", response)
+	}
+
+	async estimateTx(args){
+		const {
+			address, amount, note, fee,
+			calculateNetworkFee, inclusiveFee
+		} = args;
+		console.log("estimateTx:args", args)
+
+		let error = undefined;
+		const data = await this.wallet.estimateTransaction({
+			toAddr: address,
+			amount: formatForMachine(amount),
+			fee, calculateNetworkFee, inclusiveFee, note
+		}).catch(err=>{
+			console.log("error", err)
+			error = (err+"").replace("Error:", '')
+		})
+
+		let result = {data, error}
+		console.log("estimateTx:", data, error);
+
+		return result;
 	}
 }
 

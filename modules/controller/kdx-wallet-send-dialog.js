@@ -1,4 +1,4 @@
-import {html, css, Dialog, askForPassword} from './dialog.js';
+import {html, css, Dialog, askForPassword, KSP} from './dialog.js';
 const pass = "Asd123###";
 
 class KDXWalletSendDialog extends Dialog{
@@ -18,7 +18,8 @@ class KDXWalletSendDialog extends Dialog{
 			
 			}
 			.buttons{justify-content:flex-end}
-			
+			.estimate-tx-error{color:red}
+			.estimate-tx span{display:block}
 				
 		`]
 	}
@@ -35,16 +36,30 @@ class KDXWalletSendDialog extends Dialog{
 				placeholder="kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz">
 			</flow-input>
 			<flow-input class="amount full-width" outer-border
-				label="Amount in KSP" value="0.00000001"
+				label="Amount in KSP" value="0.00000001" @keyup=${this.onAmountChange}
 				placeholder="1">
 			</flow-input>
 			<flow-input class="fee full-width" label="Priority Fee"></flow-input>
-			<flow-checkbox class="calculate-network-fee">Automatically Calculate Network fee</flow-checkbox>
-			<flow-input class="maximum-fee full-width" label="Maximum network fee"></flow-input>
-			<flow-checkbox class="inclusive-fee">Inclusive fee</flow-checkbox>
+			<flow-checkbox class="calculate-network-fee"
+				@changed="${this.onNetworkFeeChange}">Automatically Calculate Network fee</flow-checkbox>
+			<!--flow-input class="maximum-fee full-width" label="Maximum network fee"></flow-input-->
+			<flow-checkbox class="inclusive-fee"
+				@changed="${this.onInclusiveFeeChange}">Inclusive fee</flow-checkbox>
 			<flow-input class="note full-width" outer-border label="Note">
 			</flow-input>
+			${this.renderEstimate()}
 			<div class="error">${this.errorMessage}</div>`;
+	}
+	renderEstimate(){
+		if(this.estimatedTxError)
+			return html`<div class="estimate-tx-error">${this.estimatedTxError}</div>`;
+		let {dataFee, fee, totalAmount, txSize} = this.estimatedTx;
+		return html`<div class="estimate-tx">
+			${txSize?html`<span class="tx-size">Transaction size: ${txSize.toFileSize()}<span>`:''}
+			${dataFee?html`<span class="tx-data-fee">Data fee: ${KSP(dataFee)} KSP<span>`:''}
+			${fee?html`<span class="tx-fee">Total fee: ${KSP(fee)} KSP<span>`:''}
+			${totalAmount?html`<span class="tx-total">Total: ${KSP(totalAmount)} KSP<span>`:''}
+		</div>`
 	}
 	renderButtons(){
 		return html`
@@ -54,6 +69,9 @@ class KDXWalletSendDialog extends Dialog{
 	open(args, callback){
 		this.callback = callback;
 		this.args = args;
+		this.wallet = args.wallet;
+		this.estimatedTxError = "";
+		this.estimatedTx = {};
 		this.show();
 	}
 	cleanUpForm(){
@@ -65,31 +83,63 @@ class KDXWalletSendDialog extends Dialog{
     	this.cleanUpForm();
     	this.hide();
     }
-    sendAfterConfirming(){
+    getFormData(){
     	let address = this.qS(".address").value;
     	let amount = this.qS(".amount").value;
     	let note = this.qS(".note").value;
     	let fee = this.qS(".fee").value;
     	let calculateNetworkFee = !!this.qS(".calculate-network-fee").checked;
     	let inclusiveFee = !!this.qS(".inclusive-fee").checked;
+    	/*
     	let networkFeeMax = this.qS(".maximum-fee").value;
     	if(networkFeeMax && fee && fee>networkFeeMax){
-    		return this.setError("Invalid fee")
+    		this.setError("Invalid fee")
+    		return
     	}
+    	*/
 
-    	let info = {
+    	return {
     		address, amount, note, 
-    		fee, calculateNetworkFee, networkFeeMax,
+    		fee, calculateNetworkFee,
     		inclusiveFee
     	};
-    	console.log("info", info)
+    }
+    onInclusiveFeeChange(){
+    	this.estimateTx();
+    }
+    onNetworkFeeChange(){
+    	this.estimateTx();
+    }
+    onAmountChange(){
+    	this.estimateTx();
+    }
+	async estimateTx(){
+    	const formData = this.getFormData();
+    	if(!formData)
+    		return
+
+    	let {error, data} = await this.wallet.estimateTx(formData);
+    	console.log("estimateTx:error:", error, "data:", data)
+    	this.estimatedTxError = error;
+    	if(data){
+    		this.estimatedTx = data;
+    	}else{
+    		this.estimatedTx = {};
+    	}
+    	this.requestUpdate("estimatedTx", null)
+    }
+    sendAfterConfirming(){
+    	const data = this.getFormData();
+    	if(!data)
+    		return
+    	console.log("data", data)
     	askForPassword({confirmBtnText:"CONFIRM SEND", pass}, ({btn, password})=>{
     		console.log("btn, password", btn, password)
     		if(btn!="confirm")
     			return
-			info.password = password;
+			data.password = password;
 			this.hide();
-			this.callback(info);
+			this.callback(data);
     	})
     }
 }
