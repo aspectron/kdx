@@ -307,8 +307,9 @@ class KDXApp extends FlowApp{
 	}
 	async initManager(){
 		this.initData = await this.get("get-app-data");
-		let {dataFolder, appFolder} = this.initData;
+		let {dataFolder, appFolder, config} = this.initData;
 		let manager = global.manager || new Manager(this, dataFolder, appFolder);
+		manager.enableMining = config.enableMining;
 		if(global.manager){
 			manager.controller = this;
 			manager.dataFolder = dataFolder;
@@ -330,10 +331,26 @@ class KDXApp extends FlowApp{
 			console.log("init-task:task", daemon.task)
 			this.initTaskTab(daemon.task);
 			this.refreshApps();
+			const {wallet} = this;
+			if(!wallet || daemon.task.type!='kaspad' || !this.rpcDisconnect){
+				return
+			}
+
+			this.rpcDisconnect = false;
+			wallet.connectRPC();
+
 		});
 		manager.on("task-exit", (daemon)=>{
 			console.log("task-exit", daemon.task)
 			this.removeTaskTab(daemon.task);
+		})
+		manager.on("before-interrupt", ({daemon, interrupt})=>{
+			console.log("before-interrupt", daemon.task.type, daemon.task)
+			const {wallet} = this;
+			if(!wallet || daemon.task.type!='kaspad')
+				return
+			wallet.disconnectRPC();
+			this.rpcDisconnect = true;
 		})
 		manager.on("task-data", (daemon, data)=>{
 			//console.log("task-data", daemon.task, data)
@@ -800,7 +817,7 @@ ${changelogContent}`;
 		//console.log("lastValue", caption.tabs.slice(0), newTabs.slice(0))
 		let tabContent = this.taskTabs[key];
 		if(tabContent && tabContent.parentNode)
-			document.body.removeChild(tabContent);
+			tabContent.parentNode.removeChild(tabContent);
 
 		if(newTabs.length == caption.tabs.length)
 			return;

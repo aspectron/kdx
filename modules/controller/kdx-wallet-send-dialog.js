@@ -6,7 +6,7 @@ class KDXWalletSendDialog extends Dialog{
 		return [Dialog.styles, 
 		css`
 			.container{
-				max-height:500px;
+				max-height:710px;
 				--flow-input-label-font-size: 0.9rem;
 				--flow-input-label-padding: 5px 7px;
 				--flow-input-font-family: 'Consolas';
@@ -38,6 +38,10 @@ class KDXWalletSendDialog extends Dialog{
 				label="Amount in KSP" value="0.00000001"
 				placeholder="1">
 			</flow-input>
+			<flow-input class="fee full-width" label="Priority Fee"></flow-input>
+			<flow-checkbox class="calculate-network-fee">Automatically Calculate Network fee</flow-checkbox>
+			<flow-input class="maximum-fee full-width" label="Maximum network fee"></flow-input>
+			<flow-checkbox class="inclusive-fee">Inclusive fee</flow-checkbox>
 			<flow-input class="note full-width" outer-border label="Note">
 			</flow-input>
 			<div class="error">${this.errorMessage}</div>`;
@@ -65,8 +69,20 @@ class KDXWalletSendDialog extends Dialog{
     	let address = this.qS(".address").value;
     	let amount = this.qS(".amount").value;
     	let note = this.qS(".note").value;
+    	let fee = this.qS(".fee").value;
+    	let calculateNetworkFee = !!this.qS(".calculate-network-fee").checked;
+    	let inclusiveFee = !!this.qS(".inclusive-fee").checked;
+    	let networkFeeMax = this.qS(".maximum-fee").value;
+    	if(networkFeeMax && fee && fee>networkFeeMax){
+    		return this.setError("Invalid fee")
+    	}
 
-    	let info = {address, amount, note};
+    	let info = {
+    		address, amount, note, 
+    		fee, calculateNetworkFee, networkFeeMax,
+    		inclusiveFee
+    	};
+    	console.log("info", info)
     	askForPassword({confirmBtnText:"CONFIRM SEND", pass}, ({btn, password})=>{
     		console.log("btn, password", btn, password)
     		if(btn!="confirm")

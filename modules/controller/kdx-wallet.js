@@ -133,6 +133,14 @@ class KDXWallet extends BaseElement{
 		this.rpc = new RPC({ clientConfig:{ host : `127.0.0.1:${port}` } });
 		this.network = network;
 	}
+	disconnectRPC(){
+		if(this.rpc)
+			this.rpc.disconnect()
+	}
+	async connectRPC(){
+		if(this.rpc)
+			return this.rpc.connect()
+	}
 	render(){
 		return html`
 			<div class="container">
@@ -549,14 +557,16 @@ class KDXWallet extends BaseElement{
 	}
 
 	async sendTx(args){
-		const {address, amount, note} = args;
+		const {
+			address, amount, note, fee,
+			calculateNetworkFee, networkFeeMax, inclusiveFee
+		} = args;
 		console.log("sendTx:args", args)
 
 		const response = await this.wallet.submitTransaction({
 			toAddr: address,
 			amount: formatForMachine(amount),
-			networkFeeMax: 500,
-			note
+			fee, calculateNetworkFee, networkFeeMax, inclusiveFee, note
 		}).catch(error=>{
 			console.log("error", error)
 			error = (error+"").replace("Error:", '')
