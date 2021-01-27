@@ -187,7 +187,7 @@ class KDXApp extends FlowApp{
 				<div slot="input" class="settings-script">
 					<div class="script-box"></div>
 					<div class="tools">
-						<flow-btn class="save-config"><flow-i18n>Apply</flow-i18n></flow-btn>
+						<flow-btn primary class="save-config"><flow-i18n>APPLY</flow-i18n></flow-btn>
 					</div>
 				</div>
 				<h4 slot="info" class="title"><flow-i18n>Service Configuration</flow-i18n></h4>
@@ -206,7 +206,7 @@ class KDXApp extends FlowApp{
 				<div slot="input" class="h-box-stretched-group" style="margin-top:16px;">
 					<div row>
 						<flow-selector style="margin-right:32px;" id="template-list" mergeattributes="value" 
-							mergeinnerhtml label="Select Configuration Template"
+							mergeinnerhtml label="Configuration Template"
 							selected="" class="template-list"></flow-selector>
 						<flow-selector id="network-list" label="Network"
 							mergeattributes="value" mergeinnerhtml
@@ -217,7 +217,7 @@ class KDXApp extends FlowApp{
 							<div class="menu-item" value="simnet">SIMNET</div>
 						</flow-selector>
 					</div>
-					<flow-btn id="load-config" class="load-config" full-height-wrapper warning><flow-i18n>Reset</flow-i18n></flow-btn>
+					<flow-btn id="load-config" class="load-config" primary warning><flow-i18n>RESET</flow-i18n></flow-btn>
 				</div>
 				<h4 slot="info" class="title"><flow-i18n>Configuration Templates</flow-i18n></h4>
 				<p slot="info" is="i18n-p">

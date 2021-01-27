@@ -43,7 +43,6 @@ body{
 	--flow-input-box-shadow:10px 10px 30px  rgba(0,0,0,0.05), -10px -10px 30px rgba(0,0,0,0.05);
 	--flow-input-border: 0px;
 
-
 	--flow-select-margin: 5px 5px;
     --flow-select-border: var(--flow-input-border);
     --flow-select-label-border: 0px;
@@ -52,22 +51,19 @@ body{
     --flow-select-input-height: 40px;
 	--flow-select-selected-min-width: 200px;
 
-	/* --flow-btn-padding: 6px 6px;
-	--flow-btn-margin: 2px;
-	--flow-btn-border-width: 1.5px;
-	--flow-btn-font-weight: normal; */
-    --flow-btn-font-size: 0.9rem;
+	--flow-btn-font-size: 0.9rem;
+	--flow-btn-wrapper-min-width:50px;
+	--flow-btn-padding: 7px 2px;
+
+	--flow-dialog-btn-padding: 7px 2px;
+	
+
    
-/*
-	--flow-data-badge-graph-fill:  rgb(0, 105, 95, 0.15);
-	--flow-data-badge-graph-stroke:  rgb(0, 105, 95, 0.5);
-*/
 }
 
 body.flow-theme-dark{
 	--flow-primary-color:  rgba(0,150,136,1);
 	--flow-border-color:  rgba(0,150,136,1);
-
 	--flow-data-badge-value: #fff;
 	--flow-data-badge-caption: #ccc;
     --flow-data-badge-caption-shawod: rgba(0,151,115,1.0);
@@ -89,8 +85,6 @@ body.flow-theme-dark{
 	--flow-input-box-shadow:0 0px 4px 0 rgba(1, 150, 136),
 	0 0px 0px -3px rgba(121, 255, 235, 0.2),
 	0 0px 1px 0 rgba(65, 255, 212, 0.12);
-
-	
 }
 
 
@@ -198,7 +192,6 @@ tab-content>x-terminal{height:100%;}
 .settings-script{display:flex;height:400px;flex-direction:column;}
 .settings-script .script-box{flex:1;}
 
-
 body:not(.flow-theme-dark) .settings-script .script-box{background-color:#fbfbfb;}
 body{
 	--flow-background-color:#FFFFFF;
@@ -223,7 +216,7 @@ body.invert-terminals{
 	display:flex;justify-content:flex-end;
 	align-items:center;padding:5px 0px;
 }
-.tools>flow-btn{margin-left:5px;}
+.tools>flow-btn{margin-left:5px;padding:7px 2px;}
 tab-content{background-color:var(--flow-background-color);}
 tab-content.advanced,
 tab-content.vertical-flex{
@@ -238,6 +231,7 @@ tab-content.vertical-flex>flow-terminal{
 	align-items: flex-start;padding:5px 0px;
 }
 .slot-block{margin:5px 0px; text-align:right;}
+/*.slot-block>flow-btn{padding:10px 5px;}*/
 #data-folder-input{width:100%;}
 .data-folder-input-tools:not(.active){display:none}
 body:after{
@@ -322,7 +316,7 @@ flow-selector .menu-item{padding:2px 4px;}
 }
 [row]{display:flex;flex-direction:row;max-width: 350px;justify-content: space-between;margin-bottom: 15px;}
 .h-box-stretched-group>flow-selector{margin:0px 5px 0px 0px}
-.h-box-stretched-group>flow-btn{margin-top:7px;max-width:50px;padding:5px;}
+.h-box-stretched-group>flow-btn{margin-top:7px;max-width:60px;padding:7px 2px;}
 .h-box-stretched-group>flow-selector .menu-item{padding:4px;}
 .no-mining {
 	display:none;

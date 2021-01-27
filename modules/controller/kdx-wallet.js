@@ -83,7 +83,7 @@ class KDXWallet extends BaseElement{
 			.tx-body .tx-id,
 			.tx-body .tx-address{font-size:14px;max-width:100%;overflow:hidden;text-overflow:ellipsis;}
 			[row]{display:flex;flex-direction:row;justify-content:space-between;}
-			flow-qrcode{width:172px;margin-top:50px;}
+			flow-qrcode{width:172px;margin-top:50px;box-shadow:var(--flow-box-shadow);}
 			.address-badge{padding:15px;}
 			.address-holder{display:flex}
 			input.address{
@@ -95,6 +95,10 @@ class KDXWallet extends BaseElement{
 			.qr-code-holder{
 				display:flex;align-items:flex-end;justify-content:space-between;
 				max-width:450px;
+			}
+			.status{
+				display:flex;
+				margin-top:50px;
 			}
 		`];
 	}
@@ -243,7 +247,7 @@ class KDXWallet extends BaseElement{
 				<flow-qrcode text="${this.receiveAddress||""}"></flow-qrcode>
 				<flow-btn primary @click="${this.showSendDialog}">SEND</flow-btn>
 			</div>
-			<div>
+			<div class="status">
 				Wallet Satus: ${this.status||'Offline'},
 				DAG blue score: ${this.blueScore?FlowFormat.commas(this.blueScore):''}
 			</div>
