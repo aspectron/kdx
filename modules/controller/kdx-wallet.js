@@ -328,8 +328,14 @@ class KDXWallet extends BaseElement{
 	    }
 
 	    wallet.on("blue-score-changed", (e)=>{
-	    	this.blueScore = e.blueScore;
-	    	this.status = 'Online';//TODO
+			this.blueScore = e.blueScore;
+			
+			let status = 'Online';
+			if(this.sync && this.sync < 99.75) {
+				status += `, Syncing: ${this.sync.toFixed(2)} % `;
+			}
+
+	    	this.status = status; //'Online';//TODO
 	    })
 	    wallet.on("balance-update", ()=>{
 	    	this.requestUpdate("balance", null);
