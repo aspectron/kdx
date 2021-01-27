@@ -1,4 +1,7 @@
-import {html, css, Dialog, askForPassword, KSP} from './dialog.js';
+import {
+	html, css, Dialog, askForPassword, KSP,
+	formatForMachine, formatForHuman
+} from './dialog.js';
 const pass = "Asd123###";
 
 class KDXWalletSendDialog extends Dialog{
@@ -17,10 +20,10 @@ class KDXWalletSendDialog extends Dialog{
 				--flow-input-padding: 10px 10px 10px 16px;
 			
 			}
-			.buttons{justify-content:flex-end}
+			.buttons{justify-content:flex-end;align-items:center}
+			.spinner{margin-right:20px}
 			.estimate-tx-error{color:red}
-			.estimate-tx span{display:block}
-				
+			.estimate-tx span{display:block}	
 		`]
 	}
 	renderHeading(){
@@ -39,9 +42,11 @@ class KDXWalletSendDialog extends Dialog{
 				label="Amount in KSP" value="0.00000001" @keyup=${this.onAmountChange}
 				placeholder="1">
 			</flow-input>
-			<flow-input class="fee full-width" label="Priority Fee"></flow-input>
+			<flow-input class="fee full-width"
+				label="Priority Fee"
+				@keyup="${this.onNetworkFeeChange}"></flow-input>
 			<flow-checkbox class="calculate-network-fee"
-				@changed="${this.onNetworkFeeChange}">Automatically Calculate Network fee</flow-checkbox>
+				@changed="${this.onCalculateFeeChange}">Automatically Calculate Network fee</flow-checkbox>
 			<!--flow-input class="maximum-fee full-width" label="Maximum network fee"></flow-input-->
 			<flow-checkbox class="inclusive-fee"
 				@changed="${this.onInclusiveFeeChange}">Inclusive fee</flow-checkbox>
@@ -51,9 +56,9 @@ class KDXWalletSendDialog extends Dialog{
 			<div class="error">${this.errorMessage}</div>`;
 	}
 	renderEstimate(){
-		if(this.estimatedTxError)
-			return html`<div class="estimate-tx-error">${this.estimatedTxError}</div>`;
-		let {dataFee, fee, totalAmount, txSize} = this.estimatedTx;
+		if(this.estimateError)
+			return html`<div class="estimate-tx-error">${this.estimateError}</div>`;
+		let {dataFee, fee, totalAmount, txSize} = this.estimate;
 		return html`<div class="estimate-tx">
 			${txSize?html`<span class="tx-size">Transaction size: ${txSize.toFileSize()}<span>`:''}
 			${dataFee?html`<span class="tx-data-fee">Data fee: ${KSP(dataFee)} KSP<span>`:''}
@@ -62,16 +67,26 @@ class KDXWalletSendDialog extends Dialog{
 		</div>`
 	}
 	renderButtons(){
+		const estimating = this.estimateTxSignal && !this.estimateTxSignal.isResolved;
+		const estimateFee = this.estimate?.fee;
+		console.log("renderButtons", this.estimate)
 		return html`
+			${estimating?html`<fa-icon 
+				class="spinner" icon="spinner"
+				style__="position:absolute"></fa-icon>`:''}
 			<flow-btn @click="${this.cancel}">Cancel</flow-btn>
-			<flow-btn primary @click="${this.sendAfterConfirming}">SEND</flow-btn>`
+			<flow-btn primary 
+				?disabled=${estimating || !this.estimateTxSignal || !estimateFee}
+				@click="${this.sendAfterConfirming}">SEND
+			</flow-btn>`
 	}
 	open(args, callback){
 		this.callback = callback;
 		this.args = args;
 		this.wallet = args.wallet;
-		this.estimatedTxError = "";
-		this.estimatedTx = {};
+		this.estimateError = "";
+		this.estimate = {};
+		this.alertFeeAmount = 3000;
 		this.show();
 	}
 	cleanUpForm(){
@@ -99,13 +114,12 @@ class KDXWalletSendDialog extends Dialog{
     	*/
 
     	return {
-    		address, amount, note, 
-    		fee, calculateNetworkFee,
+    		amount:formatForMachine(amount),
+    		fee:formatForMachine(formatForHuman(fee)),
+    		address, note, 
+    		calculateNetworkFee,
     		inclusiveFee
     	};
-    }
-    onInclusiveFeeChange(){
-    	this.estimateTx();
     }
     onNetworkFeeChange(){
     	this.estimateTx();
@@ -113,33 +127,65 @@ class KDXWalletSendDialog extends Dialog{
     onAmountChange(){
     	this.estimateTx();
     }
-	async estimateTx(){
+    onCalculateFeeChange(){
+    	this.estimateTx();
+    }
+    onInclusiveFeeChange(){
+    	this.estimateTx();
+    }
+    
+	estimateTx(){
+		this.debounce('estimateTx', ()=>{
+			this.requestUpdate("estimateTx", null)
+			let p = this._estimateTx();
+			p.then(()=>{
+				p.isResolved = true;
+				this.requestUpdate("estimateTx", null)
+			})
+
+			this.estimateTxSignal = p;
+		}, 300)
+	}
+
+	async _estimateTx(){
     	const formData = this.getFormData();
     	if(!formData)
     		return
 
-    	let {error, data} = await this.wallet.estimateTx(formData);
-    	console.log("estimateTx:error:", error, "data:", data)
-    	this.estimatedTxError = error;
-    	if(data){
-    		this.estimatedTx = data;
+    	console.log("formData:", formData)
+    	let {error, data:estimate} = await this.wallet.estimateTx(formData);
+    	console.log("estimateTx:error:", error, "estimate:", estimate)
+    	this.estimateError = error;
+    	if(estimate){
+    		this.estimate = estimate;
     	}else{
-    		this.estimatedTx = {};
+    		this.estimate = {};
     	}
-    	this.requestUpdate("estimatedTx", null)
     }
-    sendAfterConfirming(){
-    	const data = this.getFormData();
-    	if(!data)
+    async sendAfterConfirming(){
+    	let estimate = this.estimate;
+    	if(!estimate)
     		return
-    	console.log("data", data)
+    	if(estimate.fee > this.alertFeeAmount){
+    		let {btn} = await FlowDialog.alert("Warning", 
+    			html`Transaction Fee (${KSP(estimate.fee)} KSP) is very large.`,
+    			'',
+    			['Cancel', 'Submit:primary']);
+
+    		if(btn !='submit')
+    			return
+    	}
+    	const formData = this.getFormData();
+    	if(!formData)
+    		return
+    	console.log("formData", formData)
     	askForPassword({confirmBtnText:"CONFIRM SEND", pass}, ({btn, password})=>{
     		console.log("btn, password", btn, password)
     		if(btn!="confirm")
     			return
-			data.password = password;
+			formData.password = password;
 			this.hide();
-			this.callback(data);
+			this.callback(formData);
     	})
     }
 }

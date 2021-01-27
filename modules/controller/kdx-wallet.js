@@ -1,6 +1,6 @@
 import {
 	html, css, BaseElement, ScrollbarStyle,
-	FlowFormat
+	FlowFormat, SpinnerStyle
 } from '/node_modules/@aspectron/flow-ux/flow-ux.js';
 import '/node_modules/@aspectron/flow-ux/resources/extern/decimal.js/decimal.js'
 import {
@@ -31,7 +31,7 @@ class KDXWallet extends BaseElement{
 	}
 
 	static get styles(){
-		return [ScrollbarStyle, css`
+		return [ScrollbarStyle, SpinnerStyle, css`
 			.container{padding:15px;}
 			.wallet-warning{
 				max-width:640px;margin:5px auto;padding:10px;text-align:center;
@@ -96,16 +96,6 @@ class KDXWallet extends BaseElement{
 				display:flex;align-items:flex-end;justify-content:space-between;
 				max-width:450px;
 			}
-
-			@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(359deg)}}
-			.spin{
-				webkit-animation: spin 2s linear infinite;
-			    animation: spin 2s linear infinite;
-			    transform-origin:center;
-			}
-			fa-icon.spin:not([hidden]){display:inline-block;position:relative}
-
-
 		`];
 	}
 	constructor() {
@@ -147,7 +137,7 @@ class KDXWallet extends BaseElement{
 			<div class="container">
 				<h2 class="heading">
 					<fa-icon ?hidden=${!this.isLoading} 
-						class="spin" icon="spinner" style="position:absolute"></fa-icon>
+						class="spinner" icon="spinner" style="position:absolute"></fa-icon>
 				</h2>
 				
 				<div class="body">
@@ -566,7 +556,7 @@ class KDXWallet extends BaseElement{
 
 		const response = await this.wallet.submitTransaction({
 			toAddr: address,
-			amount: formatForMachine(amount),
+			amount,
 			fee, calculateNetworkFee, inclusiveFee, note
 		}).catch(error=>{
 			console.log("error", error)
@@ -587,7 +577,7 @@ class KDXWallet extends BaseElement{
 		let error = undefined;
 		const data = await this.wallet.estimateTransaction({
 			toAddr: address,
-			amount: formatForMachine(amount),
+			amount,
 			fee, calculateNetworkFee, inclusiveFee, note
 		}).catch(err=>{
 			console.log("error", err)

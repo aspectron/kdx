@@ -1,5 +1,5 @@
 import {
-	html, css, BaseElement, ScrollbarStyle
+	html, css, BaseElement, ScrollbarStyle, SpinnerStyle
 } from '/node_modules/@aspectron/flow-ux/src/base-element.js';
 export * from '/node_modules/@aspectron/flow-ux/src/base-element.js';
 import {validatePassword} from './wallet.js';
@@ -15,7 +15,7 @@ export class Dialog extends BaseElement{
 	}
 
 	static get styles(){
-		return [ScrollbarStyle, css`
+		return [ScrollbarStyle, SpinnerStyle, css`
 			:host{
 				z-index:-10;opacity:0;
 				position:absolute;top:0px;left:0px;width:100%;height:100%;
