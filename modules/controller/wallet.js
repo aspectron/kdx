@@ -9,6 +9,18 @@ export const {RPC} = require("kaspa-grpc-node");
 import {html, css} from '/node_modules/@aspectron/flow-ux/src/base-element.js';
 
 
+export const GetTS = (d=null)=>{
+    d = d || new Date();
+    let year = d.getFullYear();
+    let month = d.getMonth()+1; month = month < 10 ? '0' + month : month;
+    let date = d.getDate(); date = date < 10 ? '0' + date : date;
+    let hour = d.getHours(); hour = hour < 10 ? '0' + hour : hour;
+    let min = d.getMinutes(); min = min < 10 ? '0' + min : min;
+    let sec = d.getSeconds(); sec = sec < 10 ? '0' + sec : sec;
+    //var time = year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
+    return `${year}-${month}-${date} ${hour}:${min}:${sec}`;
+}
+
 /**
  * Converts from sompis to KSP
  * @param val Value to convert, as string or number
