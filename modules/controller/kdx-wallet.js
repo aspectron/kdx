@@ -7,13 +7,15 @@ import {
 	initKaspaFramework, Wallet, RPC,
 	setLocalWallet, getLocalWallet,
 	getLocalSetting, setLocalSetting,
-	getUniqueId, formatForMachine, KSP
+	getUniqueId, formatForMachine, KSP,
+	GetTS
 } from './wallet.js';
 
 export * from './kdx-wallet-open-dialog.js';
 export * from './kdx-wallet-seeds-dialog.js';
 export * from './kdx-wallet-send-dialog.js';
 export * from './kdx-wallet-receive-dialog.js';
+export * from './kdx-wallet-tx-dialog.js';
 
 class KDXWallet extends BaseElement{
 
@@ -96,6 +98,7 @@ class KDXWallet extends BaseElement{
 				display:flex;align-items:flex-end;justify-content:space-between;
 				max-width:450px;
 			}
+			.tx-open-icon{cursor:pointer;margin-left:10px;}
 		`];
 	}
 	constructor() {
@@ -184,15 +187,6 @@ class KDXWallet extends BaseElement{
 			</div>
 		</div>`
 	}
-	// renderButtons(){
-	// 	if(!this.wallet)
-	// 		return '';
-	// 	return html`
-	// 		<div class="buttons">
-	// 			<flow-btn primary @click="${this.showSendDialog}">SEND</flow-btn>
-	// 			<!--flow-btn @click="${this.showReceiveDialog}">RECEIVE</flow-btn-->
-	// 		</div>`
-	// }
 
 	renderBalance(){
 		if(!this.wallet || !this.wallet.balance)
@@ -271,7 +265,9 @@ class KDXWallet extends BaseElement{
 		*/
 
 		return html`
-		<div class="heading">Recent transcations</div>
+		<div class="heading">Recent transcations 
+			<fa-icon title="Show all transcations" class="tx-open-icon" 
+				icon="list" @click="${this.showTxDialog}"></fa-icon></div>
 		<div class="transcations">
 		${this.txs.slice(0, 6).map(tx=>{
 			return html`
@@ -300,17 +296,6 @@ class KDXWallet extends BaseElement{
 		input.setSelectionRange(0, 99999)
 		document.execCommand("copy");
 	}
-	getTS(d=null) {
-        d = d || new Date();
-        let year = d.getFullYear();
-        let month = d.getMonth()+1; month = month < 10 ? '0' + month : month;
-        let date = d.getDate(); date = date < 10 ? '0' + date : date;
-        let hour = d.getHours(); hour = hour < 10 ? '0' + hour : hour;
-        let min = d.getMinutes(); min = min < 10 ? '0' + min : min;
-        let sec = d.getSeconds(); sec = sec < 10 ? '0' + sec : sec;
-        //var time = year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
-        return `${year}-${month}-${date} ${hour}:${min}:${sec}`;
-    }
 	
 	formatKSP(value){
 		return KSP(value);//(value/1e8).toFixed(8).replace(/000000$/,'');
@@ -346,10 +331,12 @@ class KDXWallet extends BaseElement{
 	    	this.requestUpdate("balance", null);
 	    })
 	    wallet.on("new-transaction", (tx)=>{
-	    	tx.date = this.getTS(new Date(tx.ts));
+	    	tx.date = GetTS(new Date(tx.ts));
 	    	this.txs.unshift(tx);
 	    	this.txs = this.txs.slice(0, 200);
 	    	this.requestUpdate("balance", null);
+	    	if(this.txDialog)
+	    		this.txDialog.onNewTx(tx)
 	    })
 	    wallet.on("new-address", (detail)=>{
 	    	let {receive, change} = detail;
@@ -514,6 +501,14 @@ class KDXWallet extends BaseElement{
 				this.requestUpdate("have-backup", null)
 			}
 		})
+	}
+	showTxDialog(){
+		if(!this.txDialog){
+			this.txDialog = document.createElement("kdx-wallet-tx-dialog");
+			this.parentNode.appendChild(this.txDialog);
+		}
+		console.log("this.txDialog", this.txDialog)
+		this.txDialog.open({wallet:this}, (args)=>{})
 	}
 	showSendDialog(){
 		if(!this.sendDialog){
