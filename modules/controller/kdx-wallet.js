@@ -91,12 +91,12 @@ class KDXWallet extends BaseElement{
 			input.address{
 				border:0px;-webkit-appearance:none;outline:none;margin:5px 10px 0px 0px;
 				flex:1;overflow: hidden;text-overflow:ellipsis;font-size:16px;
-				max-width:400px;background-color:transparent;color:var(--flow-primary-color);
+				max-width:450px;background-color:transparent;color:var(--flow-primary-color);
 				font-family:"Exo 2";
 			}
 			.qr-code-holder{
 				display:flex;align-items:flex-end;justify-content:space-between;
-				max-width:450px;
+				max-width:370px;
 			}
 			.status{
 				display:flex;
