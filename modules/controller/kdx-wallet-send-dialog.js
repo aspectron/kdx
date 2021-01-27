@@ -24,6 +24,7 @@ class KDXWalletSendDialog extends Dialog{
 			.spinner{margin-right:20px}
 			.estimate-tx-error{color:red}
 			.estimate-tx span{display:block}	
+			flow-checkbox{width:100%;margin:20px 0px;}
 		`]
 	}
 	renderHeading(){
@@ -45,13 +46,12 @@ class KDXWalletSendDialog extends Dialog{
 			<flow-input class="fee full-width"
 				label="Priority Fee"
 				@keyup="${this.onNetworkFeeChange}"></flow-input>
+			<flow-input class="note full-width" outer-border label="Note"></flow-input>
 			<flow-checkbox class="calculate-network-fee"
 				@changed="${this.onCalculateFeeChange}">Automatically Calculate Network fee</flow-checkbox>
 			<!--flow-input class="maximum-fee full-width" label="Maximum network fee"></flow-input-->
 			<flow-checkbox class="inclusive-fee"
 				@changed="${this.onInclusiveFeeChange}">Inclusive fee</flow-checkbox>
-			<flow-input class="note full-width" outer-border label="Note">
-			</flow-input>
 			${this.renderEstimate()}
 			<div class="error">${this.errorMessage}</div>`;
 	}

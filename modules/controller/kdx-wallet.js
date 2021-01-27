@@ -85,18 +85,22 @@ class KDXWallet extends BaseElement{
 			.tx-body .tx-id,
 			.tx-body .tx-address{font-size:14px;max-width:100%;overflow:hidden;text-overflow:ellipsis;}
 			[row]{display:flex;flex-direction:row;justify-content:space-between;}
-			flow-qrcode{width:172px;margin-top:50px;}
+			flow-qrcode{width:172px;margin-top:50px;box-shadow:var(--flow-box-shadow);}
 			.address-badge{padding:15px;}
 			.address-holder{display:flex}
 			input.address{
 				border:0px;-webkit-appearance:none;outline:none;margin:5px 10px 0px 0px;
 				flex:1;overflow: hidden;text-overflow:ellipsis;font-size:16px;
-				max-width:400px;background-color:transparent;color:var(--flow-primary-color);
+				max-width:450px;background-color:transparent;color:var(--flow-primary-color);
 				font-family:"Exo 2";
 			}
 			.qr-code-holder{
 				display:flex;align-items:flex-end;justify-content:space-between;
-				max-width:450px;
+				max-width:370px;
+			}
+			.status{
+				display:flex;
+				margin-top:50px;
 			}
 			.tx-open-icon{cursor:pointer;margin-left:10px;}
 		`];
@@ -237,7 +241,7 @@ class KDXWallet extends BaseElement{
 				<flow-qrcode text="${this.receiveAddress||""}"></flow-qrcode>
 				<flow-btn primary @click="${this.showSendDialog}">SEND</flow-btn>
 			</div>
-			<div>
+			<div class="status">
 				Wallet Satus: ${this.status||'Offline'},
 				DAG blue score: ${this.blueScore?FlowFormat.commas(this.blueScore):''}
 			</div>
