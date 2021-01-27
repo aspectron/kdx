@@ -435,8 +435,15 @@ class KDXApp extends FlowApp{
 		this.manager.setEnableMining(this.enableMining);
 	}
 	setUseWalletForMining(useWalletForMining){
-		this.useWalletForMining = !!enableWalletForMining;
+		this.useWalletForMining = !!useWalletForMining;
+		if(this.miningAddressInput)
+			this.miningAddressInput.disabled = this.useWalletForMining;
 		this.post("set-use-wallet-for-mining", {useWalletForMining});
+		this.manager.restartMining();
+	}
+	async setMiningAddress(address){
+		let {config} = await this.get("set-mining-address", {address});
+		this.setModuleConfigEditorValue(config);
 		this.manager.restartMining();
 	}
 	setStatsdAddress(statsdAddress){
@@ -603,6 +610,14 @@ class KDXApp extends FlowApp{
 		});
 	}
 
+	setModuleConfigEditorValue(modules){
+		if(!this.configEditor)
+			return
+		this.disableConfigUpdates = true;
+		this.configEditor.session.setValue(JSON.stringify(modules, null, "\t"));
+		this.disableConfigUpdates = false;
+	}
+
 	async initSettings(){
 		const doc = document;
 		const qS = this.qS;
@@ -612,12 +627,13 @@ class KDXApp extends FlowApp{
 		let runInBGInput = qS("#settings-run-in-bg");
 		let enableMiningInput = qS("#settings-enable-mining");
 		let useWalletForMiningInput = qS("#settings-use-wallet-address-for-mining");
-//		let miningAddressInput = qS("#mining-address-input");
+		let miningAddressInput = qS("#mining-address-input");
 		let scriptHolder = qS('#settings-script');
 		let advancedInput = qS('#settings-advanced');
 		let statsdAddressInput = qS('#settings-statsd-address');
 		let statsdPrefixInput = qS('#settings-statsd-prefix');
 		let enableMetricsInput = qS('#settings-enable-metrics');
+		this.miningAddressInput = miningAddressInput;
 		advancedInput.addEventListener('changed', (e)=>{
 			let advanced = this.advanced = e.detail.checked;
 			let index = this.caption.tabs.forEach((t, index)=>{
@@ -652,9 +668,7 @@ class KDXApp extends FlowApp{
 			//let script = this.configEditor.session.getValue();
 		});
 		let {config, configFolder, modules} = this.initData;
-		this.disableConfigUpdates = true;
-		this.configEditor.session.setValue(JSON.stringify(modules, null, "\t"));
-		this.disableConfigUpdates = false;
+		this.setModuleConfigEditorValue(modules);
 		$("flow-btn.save-config").on("click", ()=>{
 			let config = this.configEditor.session.getValue();
 			this.saveModulesConfig(config);
@@ -703,11 +717,11 @@ class KDXApp extends FlowApp{
 		useWalletForMiningInput.addEventListener('changed', (e)=>{
 			this.setUseWalletForMining(e.detail.checked);
 		});
-		// miningAddressInput.addEventListener('btn-click', async (e)=>{
-		// 	let address = await this.wallet.getMiningAddress();
-		// 	if(address)
-		// 		miningAddressInput.value = address;
-		// })
+		miningAddressInput.addEventListener('btn-click', async (e)=>{
+			let address = miningAddressInput.value;//await this.wallet.getMiningAddress();
+			if(address)
+				this.setMiningAddress(address)
+		})
 		statsdAddressInput.addEventListener('changed', (e)=>{
 			this.setStatsdAddress(e.detail.value);
 		});
@@ -724,6 +738,9 @@ class KDXApp extends FlowApp{
 		enableMetricsInput.checked = !!config.enableMetrics;
 		enableMiningInput.checked = !!config.enableMining;
 		useWalletForMiningInput.checked = !!config.useWalletForMining;
+		console.log("config.useWalletForMining", config.useWalletForMining)
+		miningAddressInput.disabled = useWalletForMiningInput.checked;
+		miningAddressInput.value = this.getMiningAddressFromConfig(config)
 		this.statsdAddress = statsdAddressInput.value = config.statsdAddress || "";
 		this.statsdPrefix = statsdPrefixInput.value = config.statsdPrefix || "kdx.$HOSTNAME";
 		this.runInBG = runInBGInput.checked;
@@ -735,6 +752,18 @@ class KDXApp extends FlowApp{
 		//this.manager.setEnableMining(this.enableMining);
 		flow.samplers.registerSink(this.sampler_sink.bind(this));
 		this.initStatsdServer(this.statsdAddress,this.statsdPrefix);
+	}
+	getMiningAddressFromConfig(config){
+		let {modules={}} = config;
+		let address = "";
+		Object.keys(modules).find(key=>{
+			if(key.includes("kaspaminer:")){
+				modules[key].args = modules[key].args||{};
+				address = modules[key].args.miningaddr;
+				return !!address
+			}
+		})
+		return address || "";
 	}
 	initReleaseNotes(){
 		let dialog = this.qS("#release-notes-dialog");

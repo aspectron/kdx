@@ -299,7 +299,7 @@ project > * { padding: 2px; }
 .cpu, .pmem, .vmem, .memory {
 	min-width: 160px;
 }
-
+flow-input[disabled]{opacity:0.5}
 flow-input {margin:10px 2px;}
 
 .block { display: block; }
