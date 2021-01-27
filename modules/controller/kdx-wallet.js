@@ -91,16 +91,16 @@ class KDXWallet extends BaseElement{
 			input.address{
 				border:0px;-webkit-appearance:none;outline:none;margin:5px 10px 0px 0px;
 				flex:1;overflow: hidden;text-overflow:ellipsis;font-size:16px;
-				max-width:450px;background-color:transparent;color:var(--flow-primary-color);
+				max-width:500px;min-width:460px;background-color:transparent;color:var(--flow-primary-color);
 				font-family:"Exo 2";
 			}
 			.qr-code-holder{
 				display:flex;align-items:flex-end;justify-content:space-between;
-				max-width:370px;
+				max-width:370px;max-height:200px;
 			}
 			.status{
 				display:flex;
-				margin-top:50px;
+				margin-top:10px;
 			}
 			.tx-open-icon{cursor:pointer;margin-left:10px;}
 		`];
@@ -328,8 +328,14 @@ class KDXWallet extends BaseElement{
 	    }
 
 	    wallet.on("blue-score-changed", (e)=>{
-	    	this.blueScore = e.blueScore;
-	    	this.status = 'Online';//TODO
+			this.blueScore = e.blueScore;
+			
+			let status = 'Online';
+			if(this.sync && this.sync < 99.75) {
+				status += `, Syncing: ${this.sync.toFixed(2)} % `;
+			}
+
+	    	this.status = status; //'Online';//TODO
 	    })
 	    wallet.on("balance-update", ()=>{
 	    	this.requestUpdate("balance", null);
