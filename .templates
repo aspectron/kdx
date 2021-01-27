@@ -8,7 +8,6 @@
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
                     "profile": 7000,
-                    "utxoindex" : null,
                     "dnsseed" : "testnet-dnsseed.daglabs-dev.com"
                 }
             }
@@ -24,7 +23,6 @@
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
                     "profile": 7000,
-                    "utxoindex" : null,
                     "dnsseed" : "testnet-dnsseed.daglabs-dev.com"
                 }
             },
@@ -44,8 +42,7 @@
                 "args":{
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
-                    "profile": 7000,
-                    "utxoindex" : null
+                    "profile": 7000
                 }
             },
             "kaspad:kd1" : {
@@ -54,8 +51,7 @@
                     "rpclisten":"0.0.0.0:16310",
                     "listen": "0.0.0.0:16311",
                     "profile": 7001,
-                    "connect": "0.0.0.0:16211",
-                    "utxoindex" : null
+                    "connect": "0.0.0.0:16211"
                 }
             },
             "kaspaminer:km0" : {
