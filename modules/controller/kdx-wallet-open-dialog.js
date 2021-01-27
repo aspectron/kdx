@@ -1,5 +1,5 @@
 import {html, css, Dialog} from './dialog.js';
-const pass = "Asd123###";
+const pass = "";
 
 class KDXWalletOpenDialog extends Dialog{
 
