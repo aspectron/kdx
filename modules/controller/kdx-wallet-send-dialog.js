@@ -2,7 +2,7 @@ import {
 	html, css, Dialog, askForPassword, KSP,
 	formatForMachine, formatForHuman
 } from './dialog.js';
-const pass = "Asd123###";
+const pass = "";
 
 class KDXWalletSendDialog extends Dialog{
 	static get styles(){
@@ -24,7 +24,7 @@ class KDXWalletSendDialog extends Dialog{
 			.spinner{margin-right:20px}
 			.estimate-tx-error{color:red}
 			.estimate-tx span{display:block}	
-			flow-checkbox{width:100%;margin:20px 0px;}
+			flow-checkbox{width:100%;margin:15px 0px;}
 		`]
 	}
 	renderHeading(){
@@ -36,8 +36,8 @@ class KDXWalletSendDialog extends Dialog{
 			to: kaspatest:qrhefqj5c80m59d9cdx4ssxw96vguvn9fgy6yc0qtd
 			</div-->
 			<flow-input class="address full-width" outer-border
-				label="Recipient Address" value="kaspatest:qrhefqj5c80m59d9cdx4ssxw96vguvn9fgy6yc0qtd"
-				placeholder="kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz">
+				label="Recipient Address (Must start with 'kaspa' prefix)" value=""
+				placeholder="">
 			</flow-input>
 			<flow-input class="amount full-width" outer-border
 				label="Amount in KSP" value="0.00000001" @keyup=${this.onAmountChange}

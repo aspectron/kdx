@@ -73,7 +73,7 @@ class KDXWalletSeedsDialog extends Dialog{
 				Make sure no one is looking, as anyone with your
 				seed phrase can access your wallet your funds. Keep it safe!
 			</p>
-			<flow-input class="password full-width" outer-border value="Asd123###"
+			<flow-input class="password full-width" outer-border value=""
 				type="${this.inputType}" placeholder="Password">
 				<fa-icon class="input-type-btn" slot="sufix"
 					@click="${this.changeInputType}"
