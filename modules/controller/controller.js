@@ -151,8 +151,8 @@ class KDXApp extends FlowApp{
 					label="Mining address" apply-btn
 					btnText="Update">
 				</flow-input>
-				<flow-checkbox id="settings-use-wallet-address" class="block"
-					><flow-i18n>Use Wallet Address</flow-i18n></flow-checkbox>
+				<flow-checkbox id="settings-use-wallet-address-for-mining" class="block"
+					><flow-i18n>Use Wallet Address for Mining</flow-i18n></flow-checkbox>
 
 				<h4 slot="info" class="title"><flow-i18n>Block Generation</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
@@ -434,6 +434,11 @@ class KDXApp extends FlowApp{
 		this.post("set-enable-mining", {enableMining});
 		this.manager.setEnableMining(this.enableMining);
 	}
+	setUseWalletForMining(useWalletForMining){
+		this.useWalletForMining = !!enableWalletForMining;
+		this.post("set-use-wallet-for-mining", {useWalletForMining});
+		this.manager.restartMining();
+	}
 	setStatsdAddress(statsdAddress){
 		// console.log("setStatsdAddress", address)
 		this.statsdAddress = statsdAddress;
@@ -606,7 +611,8 @@ class KDXApp extends FlowApp{
 		let invertTermInput = qS("#settings-invert-terminal");
 		let runInBGInput = qS("#settings-run-in-bg");
 		let enableMiningInput = qS("#settings-enable-mining");
-		let miningAddressInput = qS("#mining-address-input");
+		let useWalletForMiningInput = qS("#settings-use-wallet-address-for-mining");
+//		let miningAddressInput = qS("#mining-address-input");
 		let scriptHolder = qS('#settings-script');
 		let advancedInput = qS('#settings-advanced');
 		let statsdAddressInput = qS('#settings-statsd-address');
@@ -694,11 +700,14 @@ class KDXApp extends FlowApp{
 		enableMiningInput.addEventListener('changed', (e)=>{
 			this.setEnableMining(e.detail.checked);
 		});
-		miningAddressInput.addEventListener('btn-click', async (e)=>{
-			let address = await this.wallet.getMiningAddress();
-			if(address)
-				miningAddressInput.value = address;
-		})
+		useWalletForMiningInput.addEventListener('changed', (e)=>{
+			this.setUseWalletForMining(e.detail.checked);
+		});
+		// miningAddressInput.addEventListener('btn-click', async (e)=>{
+		// 	let address = await this.wallet.getMiningAddress();
+		// 	if(address)
+		// 		miningAddressInput.value = address;
+		// })
 		statsdAddressInput.addEventListener('changed', (e)=>{
 			this.setStatsdAddress(e.detail.value);
 		});
@@ -714,10 +723,12 @@ class KDXApp extends FlowApp{
 		runInBGInput.checked = !!config.runInBG;
 		enableMetricsInput.checked = !!config.enableMetrics;
 		enableMiningInput.checked = !!config.enableMining;
+		useWalletForMiningInput.checked = !!config.useWalletForMining;
 		this.statsdAddress = statsdAddressInput.value = config.statsdAddress || "";
 		this.statsdPrefix = statsdPrefixInput.value = config.statsdPrefix || "kdx.$HOSTNAME";
 		this.runInBG = runInBGInput.checked;
 		this.enableMining = enableMiningInput.checked;
+		this.useWalletForMining = useWalletForMiningInput.checked;
 		this.buildType = config.build || 'generic';
 	
 		this.manager.enableMining = this.enableMining;

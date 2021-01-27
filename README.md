@@ -1,9 +1,7 @@
 # KDX
 
-KDX is a dedicated desktop process manager for Kaspa software stack.
+KDX is a dedicated desktop process manager for [Kaspa node](https://github.com/kaspanet/kaspad).
 
-KDX is meant to be a swiss-knife application that compliments the Kaspa project.
-KDX is capable of configuring and running Kaspa full node, Kasparov API server, Kasparov Sync server, Mosquitto MQTT broker, PostgreSQL as well as other applications if needed. Child processes are isolated in their separate data folders and all processes output is available at run-time in the KDX UI or via log files managed by KDX.
 
 KDX offers a miniature console using which user can re-build the Kaspa stack, upgrading Kaspa to the latest version directly from GitHub. The build process is automated via a series of scripts that, if
 needed, fetch required tools (git, go, gcc) and build Kaspa on the host computer (the build includes various Kaspa utilities including `txgen`, `wallet`, `kaspactl` and others and can be executed against any specific Git branch).  KDX console can also be used to migrate Kasparov database if building a version with an updated database schema.
@@ -99,29 +97,6 @@ sudo apt-get install posgresql mosquitto
 apk add postgresql mosquitto 
 ```
 
-#### Adding kMetrics and DAGViz
-
-When in developer environment, you can add kMetrics and DAGViz to the list of applications
-managed by KDX.   KDX enumerates `apps` folder to see which applications have been installed under it.
-
-You need to clone DAGViz and kMetrics, then inside DAGViz folder run `emanate --local-binaries` and `npm install`.
-Once complete you need to *symlink* these folders inside of the `KDX/apps folder`:
-```
-cd kdx
-mkdir apps
-cd apps
-ln -s ../../dagviz dagviz
-ln -s ../../kmetrics kmetrics
-```
-
-KDX scans `package.json` within folders found inside the `apps` folder. KDX looks for `main` script and 
-the optional `kdx` section that can define startup execution parameters, application name, description and window startup parameters.
-
-KDX supports full nodejs applications (that would typicaly run server-side applications) and can serve 
-these applications directly via a browser window. KDX also supports **Applets** which load an HTML file
-directly within the KDX process. Upon startup, applets receive KDX configuration, making them a good
-candidate for small apps that directly interface with Kaspa stack.  kMetrics is one such example.
-
 #### Building installers from specific Kaspa Git branches
 
 `--branch` argument specifies common branch name for kaspa and kasparov, for example:
@@ -143,19 +118,14 @@ emanate --branch-miningsimulator=v0.1.2-dev
 
 ### Configuration
 
-KDX runtime configuration is declared using a JSON object.  KDX supports a number of built-in process types (all components of the Kaspa software stack) as well as external applications.
+KDX runtime configuration is declared using a JSON object.  
 
 Each instance of the process is declared using it's **type** (for example: `kaspad`) and a unique **identifier** (`kd0`).  Most process configuration objects support `args` property that allows
 passing arguments or configuration options directly to the process executable.  Depending on the process type, the configuration is passed via command line arguments (kasparov*) or configuration file (kaspad).
 
 Supported process types:
 - `kaspad` - Kaspa full node
-- `kasparovd` - Kasparov API Server
-- `kasparovsyncd` - Kasparov Sync Server
-- `mqtt` - Mosquitto MQTT Broker
-- `pgsql` - PostgreSQL Database
-- `simulator` - `miningsimulator` application
-- `app` - External application/plugin
+- `kaspaminer` - Kaspa sha256 miner
 
 **NOTE:** For Kaspa, to specify multiple connection endpoints, you must use an array of addresses as follows: ` "args" : { "connect" : [ "peer-addr-port-a", "peer-addr-port-b", ...] }`
 
@@ -247,30 +217,3 @@ $ kd0 getblock "000000b22ce2fcea335cbaf5bc5e4911b0d4d43c1421415846509fc77ec643a7
   ...
 }
 ```
-
-### Building Kaspa in KDX Console
-
-WARNING - these are experimental features that may not function correctly on all operating systems (but should be compatible with most).
-
-To build latest Kaspad binaries, switch to KDX console and run `build`:
-```
-$ build
-...
-```
-
-This will produce a `local` build in `~/.kdx/bin` and switch KDX into `local` build mode.  
-
-Build type can be `generic` (included with KDX redistributables) or `local` (build produced as a result of running KDX build process)
-
-You can check and switch build type using the `set` command:
-```
-$ set
-
-build type is 'local'
-
-use 'set <key> <value>' to change settings
-$ set build generic
-setting build type to 'generic'
-```
-
-**NOTE:** `build` command accepts same `--branch...` series of flags as the emanator build process described above.
