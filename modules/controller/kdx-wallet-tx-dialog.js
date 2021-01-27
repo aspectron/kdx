@@ -16,6 +16,12 @@ class KDXWalletTXDialog extends Dialog{
 				position:fixed;
 				--k-pagination-active-bg:var(--flow-primary-color);
 				--k-pagination-active-border-color:var(--flow-primary-color);
+				--k-pagination-border-color:var(--flow-primary-color);
+			}
+			.pagination a{
+				border: var(--flow-btn-border, 2px solid var(--flow-border-color, var(--flow-primary-color, rgba(0,151,115,1))));
+				border-radius:var(--flow-btn-radius, 8px);
+				border-width:var(--flow-btn-border-width, 2px);
 			}
 			.inner-body, .buttons{width:calc(100% - 5px)}
 			.container{max-height:90%;max-width:90%}
@@ -75,7 +81,7 @@ class KDXWalletTXDialog extends Dialog{
 						<div class="tx-num">#${skip+i+1}</div>
 						<div class="tx-date">${tx.date}</div>
 						<div class="tx-amount">${KSP(tx.amount)} KSP</div>
-						<div class="tx-id">${tx.id}</div>
+						<div class="tx-id">${tx.id.split(":")[0]}</div>
 						<div class="br tx-note">${tx.note}</div>
 						<div class="tx-address">${tx.address}</div>
 					</div>`
