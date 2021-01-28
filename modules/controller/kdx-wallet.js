@@ -96,13 +96,13 @@ class KDXWallet extends BaseElement{
 			}
 			.qr-code-holder{
 				display:flex;align-items:flex-end;justify-content:space-between;
-				max-width:370px;max-height:200px;
+				max-width:370px;max-height:200px;margin-bottom:32px;
 			}
 			.status{
 				display:flex;
 				margin-top:10px;
 			}
-			.tx-open-icon{cursor:pointer;margin-left:10px;}
+			.tx-open-icon{cursor:pointer;margin-right:10px;}
 		`];
 	}
 	constructor() {
@@ -143,15 +143,17 @@ class KDXWallet extends BaseElement{
 	render(){
 		return html`
 			<div class="container">
-				<h2 class="heading">
-					<fa-icon ?hidden=${!this.isLoading} 
-						class="spinner" icon="spinner" style="position:absolute"></fa-icon>
-				</h2>
+				<!--h2 class="heading">
+					
+				</h2-->
+				<fa-icon ?hidden=${!this.isLoading} 
+					class="spinner" icon="spinner" style="position:absolute"></fa-icon>
 				
 				<div class="body">
 					<div class="left-area">
 						${this.renderBackupWarning()}
-						<div class="error-message">${this.errorMessage}</div>
+						<div class="error-message" 
+							?hidden=${!this.errorMessage}>${this.errorMessage}</div>
 						${this.renderBalance()}
 						${this.renderAddress()}
 						${this.renderQRAndSendBtn()}
@@ -271,9 +273,11 @@ class KDXWallet extends BaseElement{
 		*/
 
 		return html`
-		<div class="heading">Recent transcations 
+		<div class="heading">
 			<fa-icon title="Show all transcations" class="tx-open-icon" 
-				icon="list" @click="${this.showTxDialog}"></fa-icon></div>
+				icon="list" @click="${this.showTxDialog}"></fa-icon>
+			Recent transcations
+		</div>
 		<div class="transcations">
 		${this.txs.slice(0, 6).map(tx=>{
 			return html`
@@ -426,7 +430,7 @@ class KDXWallet extends BaseElement{
 		super.connectedCallback();
 
 		initKaspaFramework().then(()=>{
-			let encryptedMnemonic = false//getLocalWallet();
+			let encryptedMnemonic = getLocalWallet();
 			if(encryptedMnemonic){
 				showWalletInitDialog({
 					mode:"open",
@@ -509,14 +513,14 @@ class KDXWallet extends BaseElement{
 				return
 			const encryptedMnemonic = await wallet.export(password);
 			console.log("encryptedMnemonic", encryptedMnemonic)
-			const imported = await Wallet.import(password, encryptedMnemonic, { network, rpc })
+			/*const imported = await Wallet.import(password, encryptedMnemonic, { network, rpc })
 			.catch(error=>{
 				console.log("recover:Wallet.import error", error)
 			})
 			if(!imported){
 				dialog.setError("Invalid password.");
 				return
-			}
+			}*/
 			setLocalWallet(encryptedMnemonic);
 			setLocalSetting("have-backup", 1);
 			dialog.hide();
