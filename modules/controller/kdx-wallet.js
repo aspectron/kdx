@@ -242,10 +242,11 @@ class KDXWallet extends BaseElement{
 				<flow-btn primary @click="${this.showSendDialog}">SEND</flow-btn>
 			</div>
 			<div class="status">
-				Wallet Satus: ${this.status||'Offline'},
+				Wallet Status: ${this.status||'Offline'}<br/>
 				DAG blue score: ${this.blueScore?FlowFormat.commas(this.blueScore):''}
 			</div>
 		`
+///				${ this.status_eta ? html`Wallet Sync ETA: ${this.status_eta}<br/>` : '' }
 	}
 
 	renderTX(){
@@ -332,8 +333,24 @@ class KDXWallet extends BaseElement{
 			
 			let status = 'Online';
 			if(this.sync && this.sync < 99.75) {
-				status += `, Syncing: ${this.sync.toFixed(2)} % `;
+				status = `Syncing ${this.sync.toFixed(2)}% `;
+				if(this.eta && !isNaN(this.eta) && isFinite(this.eta)) {
+					let eta = this.eta;
+					eta = eta / 1000;
+					let sec = Math.round(eta % 60);
+					let min = Math.round(eta / 60);
+					eta = '';
+					if(sec < 10)
+						sec = '0'+sec;
+					if(min < 10) {
+						min = '0'+min;
+					}
+					this.status_eta = `${min}:${sec}`;
+					//status += eta;
+				} else 
+					this.status_eta = null;
 			}
+			else this.status_eta = null;
 
 	    	this.status = status; //'Online';//TODO
 	    })
