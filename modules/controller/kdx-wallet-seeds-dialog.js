@@ -195,7 +195,7 @@ class KDXWalletSeedsDialog extends Dialog{
 		return html`<flow-btn primary @click="${e=>this.step=2}">NEXT</flow-btn>`
 	}
 	renderStep2Buttons(){
-		return html`<flow-btn primary @click="${e=>this.step=2}">BACK TO THE WORDS</flow-btn>`
+		return html`<flow-btn primary @click="${e=>this.step=1}">BACK TO THE WORDS</flow-btn>`
 	}
 	renderStep3Buttons(){
 		return html`<flow-btn primary @click="${this.finish}">DONE</flow-btn>`
