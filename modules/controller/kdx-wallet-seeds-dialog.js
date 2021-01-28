@@ -16,7 +16,8 @@ class KDXWalletSeedsDialog extends Dialog{
 
 	static get styles(){
 		return [Dialog.styles, css`
-			.container{max-height:500px}
+			.heading{text-align:center}
+			.container{max-height:660px}
 			.buttons{justify-content:flex-end}
 			.dull-text{opacity:0.5}
 			.text-center{text-align:center;}
@@ -53,7 +54,7 @@ class KDXWalletSeedsDialog extends Dialog{
 		return {stepName};
 	}
 	renderHeading({stepName}){
-		return `Recovery`;
+		return `Recovery Seed`;
 	}
 	renderBody({stepName}){
 		return this[`render${stepName}`]();
@@ -62,28 +63,7 @@ class KDXWalletSeedsDialog extends Dialog{
 		return this[`render${stepName}Buttons`]();
 	}
 	renderStep1(){
-		let icon = this.inputType=="password"?'eye':'eye-slash';
-		return html`
-			<p>
-				Your wallet is accessible by a seed phrase.
-				The seed phrase is an ordered 12-word secret phrase.
-			</p>
-			<p>
-				Enter your password to reveal your seed phrase.
-				Make sure no one is looking, as anyone with your
-				seed phrase can access your wallet your funds. Keep it safe!
-			</p>
-			<flow-input class="password full-width" outer-border value=""
-				type="${this.inputType}" placeholder="Password">
-				<fa-icon class="input-type-btn" slot="sufix"
-					@click="${this.changeInputType}"
-					icon="${icon}"></fa-icon>
-			</flow-input>
-			<div class="error">${this.errorMessage}</div>
-		`
-	}
-	renderStep2(){
-		let {mnemonic} = this.wallet;
+		let {mnemonic} = this.args;
 		let words = mnemonic.split(" ");
 		const wordRows = chunks(words, 4);
 		let indexes = [];
@@ -110,9 +90,14 @@ class KDXWalletSeedsDialog extends Dialog{
 		console.log("indexes", wordRows, indexes, this.correctWords)
 
 		return html`
-			<p class="text-center">
-				Below is an ordered 12-word seed phrase, representing this wallet's seed.
-				It's like a secret pass phrase. Write it down and keep it safe.
+			<p>
+				Your wallet is accessible by a seed phrase.
+				The seed phrase is an ordered 12-word secret phrase.
+			</p>
+			<p>
+				Make sure no one is looking, as anyone with your
+				seed phrase can access your wallet your funds.
+				Write it down and keep it safe.
 			</p>
 			<div class="words">
 				${wordRows.map((words, index)=>{
@@ -136,7 +121,7 @@ class KDXWalletSeedsDialog extends Dialog{
 			</p>	
 		`
 	}
-	renderStep3(){
+	renderStep2(){
 		let otherWords = chunks(this.otherWords, 3);
 		let words = otherWords[this.varificationStep];
 		words.push(this.correctWords[this.varificationStep])
@@ -190,7 +175,7 @@ class KDXWalletSeedsDialog extends Dialog{
 			</div>
 		`
 	}
-	renderStep4(){
+	renderStep3(){
 		return html`
 			<div class="dots">
 				<fa-icon class="dot" icon="check"></fa-icon>
@@ -206,15 +191,12 @@ class KDXWalletSeedsDialog extends Dialog{
 		`
 	}
 	renderStep1Buttons(){
-		return html`<flow-btn primary @click="${this.showStep2}">NEXT</flow-btn>`
+		return html`<flow-btn primary @click="${e=>this.step=2}">NEXT</flow-btn>`
 	}
 	renderStep2Buttons(){
-		return html`<flow-btn primary @click="${e=>this.step=3}">NEXT</flow-btn>`
-	}
-	renderStep3Buttons(){
 		return html`<flow-btn primary @click="${e=>this.step=2}">BACK TO THE WORDS</flow-btn>`
 	}
-	renderStep4Buttons(){
+	renderStep3Buttons(){
 		return html`<flow-btn primary @click="${this.finish}">DONE</flow-btn>`
 	}
 	updated(changes){
@@ -222,46 +204,6 @@ class KDXWalletSeedsDialog extends Dialog{
         if(changes.has("step")){
         	this.inputType = "password";
         }
-    }
-    async showStep2(){
-    	let password = this.qS(".password").value.trim();
-    	if(!this.checkPassword(password))
-    		return this.setError(`At least 8 characters, one capital, one lower,
-    				one number, and one symbol`);
-    	const {encryptedMnemonic} = this.args;
-    	const wallet = await Wallet.import(password, encryptedMnemonic)
-		.catch(error=>{
-			console.log("import wallet error:", error)
-			this.setError("Incorrect passsword.");
-		});
-		if(!wallet)
-			return
-		this.wallet = wallet;
-
-		/*
-
-		const wallet2 = await Wallet.import(password, encryptedMnemonic)
-
-		window.testMnemonic = async()=>{
-			const wallet = await Wallet.import(password, encryptedMnemonic)
-			console.log("mnemonic1", wallet.mnemonic)
-			let data = await Wallet.passworder1.decrypt(password, encryptedMnemonic)
-			.catch(error=>{
-				console.log("passworder1.decrypt error:", error)
-			});
-			console.log("mnemonic2", data)
-			data = await Wallet.passworder2.decrypt(password, encryptedMnemonic)
-			.catch(error=>{
-				console.log("passworder2.decrypt error:", error)
-			});
-			console.log("mnemonic3", data)
-		}
-
-
-		console.log("walletwallet", wallet.mnemonic, wallet2.mnemonic)
-		*/
-
-		this.step = 2;
     }
     changeInputType(){
     	this.inputType = this.inputType=="password"?'text':'password';
@@ -273,7 +215,7 @@ class KDXWalletSeedsDialog extends Dialog{
     	let word = btn.dataset.word;
     	if(this.correctWords[this.varificationStep] == word){
     		if(this.varificationStep == 2){
-    			this.step = 4;
+    			this.step = 3;
     			return
     		}
     		this.varificationStepAnswered = '';

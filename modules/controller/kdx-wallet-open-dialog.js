@@ -13,7 +13,7 @@ class KDXWalletOpenDialog extends Dialog{
 
 	static get styles(){
 		return [Dialog.styles, css`
-			:host([mode="create"]) .container{max-height:320px}
+			:host([mode="create"]) .container{max-height:400px}
 			:host([mode="init"]) .container{max-height:200px}
 			:host([mode="recover"]) .container{max-height:450px}
 			.buttons{justify-content:flex-end}
@@ -36,7 +36,7 @@ class KDXWalletOpenDialog extends Dialog{
 		window.showWalletInitDialog = (args, callback)=>{
 
 			//return callback(null, {password:"Asd123###", dialog:this, mode:"open"});
-			
+			this.wallet = args.wallet;
 			this.hideable = !!args.hideable;
 			this.mode = args.mode||"open";
 			this.callback = callback;
@@ -142,8 +142,8 @@ class KDXWalletOpenDialog extends Dialog{
 		return html`
 			<flow-btn @click="${e=>this.mode='init'}">Cancel</flow-btn>
 			<flow-btn ?hidden=${this.hideOpenMode} 
-				@click="${e=>this.mode='open'}">I HAVE WALLET</flow-btn>
-			<flow-btn primary @click="${this.createWallet}">CREATE WALLET</flow-btn>
+				@click="${e=>this.mode='open'}">I have wallet</flow-btn>
+			<flow-btn primary @click="${this.showSeeds}">Next</flow-btn>
 			`;
 	}
 	renderInitButtons(){
@@ -174,7 +174,7 @@ class KDXWalletOpenDialog extends Dialog{
 
     	this.callback(null, {password, dialog:this});
     }
-    createWallet(){
+    showSeeds(){
     	let password = this.qS(".password").value.trim();
     	let password2 = this.qS(".cfm-password").value;
     	if(!this.checkPassword(password))
@@ -183,7 +183,7 @@ class KDXWalletOpenDialog extends Dialog{
     	if(password != password2)
     		return this.setError("Passwords do not match")
 
-    	this.callback(null, {password, dialog:this});
+    	this.callback(null, {mode:"create", password, dialog:this});
     }
     onSeedInput(e){
     	let input = e.target.closest("input.seed");

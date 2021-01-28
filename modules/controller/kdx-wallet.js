@@ -8,7 +8,7 @@ import {
 	setLocalWallet, getLocalWallet,
 	getLocalSetting, setLocalSetting,
 	getUniqueId, formatForMachine, KSP,
-	GetTS
+	GetTS, Deffered
 } from './wallet.js';
 
 export * from './kdx-wallet-open-dialog.js';
@@ -108,6 +108,7 @@ class KDXWallet extends BaseElement{
 	constructor() {
 		super();
 		this.txs = [];
+		this.walletSignal = Deffered()
 	}
 
 	setNetworkSettings(settings){
@@ -311,6 +312,7 @@ class KDXWallet extends BaseElement{
 	async setWallet(wallet){
 		console.log("setWallet:", wallet)
 		await this.getWalletInfo(wallet);
+		this.walletSignal.resolve();
 		await this.loadData();
 	}
 	async getWalletInfo(wallet){
@@ -410,7 +412,8 @@ class KDXWallet extends BaseElement{
 			let encryptedMnemonic = getLocalWallet();
 			if(encryptedMnemonic){
 				showWalletInitDialog({
-					mode:"open"
+					mode:"open",
+					wallet:this
 				}, (err, info)=>{
 					info.encryptedMnemonic = encryptedMnemonic;
 					this.handleInitDialogCallback(info)
@@ -418,6 +421,7 @@ class KDXWallet extends BaseElement{
 			}else{
 				showWalletInitDialog({
 					mode:"init",
+					wallet:this,
 					hideOpenMode:true
 				}, (err, info)=>{
 					console.log("showWalletInitDialog:result", info)
@@ -455,15 +459,20 @@ class KDXWallet extends BaseElement{
 			return
 		}
 		if(mode == "create"){
-
 			// TODO - GET CURRENT NETWORK TYPE
 			// TODO - CREATE CORRESPONDING RPC
-			const wallet = new Wallet(null,null,{network,rpc});
-			encryptedMnemonic = await wallet.export(password);
-			setLocalWallet(encryptedMnemonic);
-			setLocalSetting("have-backup", 0);
 			dialog.hide();
-			this.setWallet(wallet);
+			const wallet = new Wallet(null,null, {network,rpc});
+			const mnemonic = await wallet.mnemonic;
+			this.openSeedsDialog({mnemonic}, async({finished})=>{
+				if(!finished)
+					return
+
+				encryptedMnemonic = await wallet.export(password);
+				setLocalWallet(encryptedMnemonic);
+				setLocalSetting("have-backup", 1);
+				this.setWallet(wallet);
+			})
 			return
 		}
 
@@ -500,17 +509,20 @@ class KDXWallet extends BaseElement{
 	}
 	showSeedRecoveryDialog(){
 		let encryptedMnemonic = getLocalWallet();
-		if(!this.seedsDialog){
-			this.seedsDialog = document.createElement("kdx-wallet-seeds-dialog");
-			this.parentNode.appendChild(this.seedsDialog);
-		}
-		//console.log("encryptedMnemonic", encryptedMnemonic)
-		this.seedsDialog.open({encryptedMnemonic}, ({finished})=>{
+		this.openSeedsDialog({encryptedMnemonic, step:1}, ({finished})=>{
 			if(finished){
 				setLocalSetting("have-backup", 1);
 				this.requestUpdate("have-backup", null)
 			}
 		})
+	}
+	openSeedsDialog(args, callback){
+		if(!this.seedsDialog){
+			this.seedsDialog = document.createElement("kdx-wallet-seeds-dialog");
+			this.parentNode.appendChild(this.seedsDialog);
+		}
+		//console.log("encryptedMnemonic", encryptedMnemonic)
+		this.seedsDialog.open(args, callback)
 	}
 	showTxDialog(){
 		if(!this.txDialog){
@@ -540,15 +552,16 @@ class KDXWallet extends BaseElement{
 		})
 	}
 
-	getMiningAddress(){
-		if(!this.wallet){
-			FlowDialog.alert("Error", "Please unlock or create wallet.");
-			return Promise.resolve(false);
-		}
+	async getMiningAddress(){
+		await this.walletSignal
+		//if(!this.wallet){
+			//FlowDialog.alert("Error", "Please unlock or create wallet.");
+		//	return Promise.resolve(false);
+		//}
 		if(this.receiveAddress)
 			return Promise.resolve(this.receiveAddress);
 
-		FlowDialog.alert("Please wait", "Please wait, This may take few moments, The wallet is loading.");
+		//FlowDialog.alert("Please wait", "Please wait, This may take few moments, The wallet is loading.");
 		return this.wallet.receiveAddress;
 	}
 
