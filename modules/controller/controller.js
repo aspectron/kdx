@@ -156,7 +156,8 @@ class KDXApp extends FlowApp{
 
 				<h4 slot="info" class="title"><flow-i18n>Block Generation</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					The Enable Mining option starts / stops all configured Kaspaminer instances.
+					The Enable Mining option starts / stops all configured Kaspaminer instances.<br/>&nbsp;<br/>
+					The <i>Use Wallet Address for Mining</i> option will automatically configure the miner to send Kaspa to your wallet.
 				</p>
 			</flow-form-control>
 			<flow-form-control icon="fal:drafting-compass" class="advanced-tool">
