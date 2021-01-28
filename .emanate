@@ -37,6 +37,8 @@ const E = new Emanator(__dirname, {
     },
 })
 
+E.flags['with-perfmon'] = true;
+
 E.aux_dmg_files = async (root) => {
     if(fs.existsSync(path.join(E.BUILD,'apps')))
         await E.copy(path.join(E.BUILD,'apps'),path.join(root,'apps'));

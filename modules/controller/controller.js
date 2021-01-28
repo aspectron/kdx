@@ -366,6 +366,30 @@ class KDXApp extends FlowApp{
 			//});
 		});
 
+		const syncETA = [];
+		manager.on('sync-status', (data) => {
+			// console.log("daemon",daemon,"data",data);
+			let wallet = this.qS('kdx-wallet');
+			const { sync } = data;
+			wallet.sync = sync;
+			if(sync > 99.95) {
+				wallet.eta = null;
+				syncETA.length = 0;
+			} else {
+				syncETA.push({ ts : Date.now(), sync });
+				while(syncETA.length > 180)
+					syncETA.shift();
+				if(syncETA.length > 5) {
+					let t = syncETA[syncETA.length-1].ts - syncETA[0].ts;
+					let d = (syncETA[syncETA.length-1].sync - syncETA[0].sync)/100;
+					let td = t/d;
+					let r = (100 - syncETA[syncETA.length-1].sync)/100;
+					let eta = r * td;
+					wallet.eta = eta;
+				}
+			}
+		})
+
 		if(global.manager){
 			let {config:daemons} = await this.get("get-modules-config");
 			if(!daemons)
