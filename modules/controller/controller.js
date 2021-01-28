@@ -411,6 +411,11 @@ class KDXApp extends FlowApp{
 	}
 	async initWallet() {
 		let wallet = this.qS('kdx-wallet');
+		wallet.addEventListener("new-wallet", ()=>{
+			console.log("restartMining:::")
+			this.miningAddress = "";
+			this.manager?.restartMining();
+		})
 		let settings = await this.get_default_local_kaspad_settings();
 		wallet.setNetworkSettings(settings);
 		this.wallet = wallet;
