@@ -46,6 +46,7 @@ class KDXWalletSeedsDialog extends Dialog{
 		this.step = args.step||1;
 		this.callback = callback;
 		this.args = args;
+		this.hideable = !!args.hideable
 		this.show();
 	}
 	buildRenderArgs(){

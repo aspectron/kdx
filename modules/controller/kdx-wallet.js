@@ -409,7 +409,7 @@ class KDXWallet extends BaseElement{
 		super.connectedCallback();
 
 		initKaspaFramework().then(()=>{
-			let encryptedMnemonic = getLocalWallet();
+			let encryptedMnemonic = false//getLocalWallet();
 			if(encryptedMnemonic){
 				showWalletInitDialog({
 					mode:"open",
@@ -422,7 +422,7 @@ class KDXWallet extends BaseElement{
 				showWalletInitDialog({
 					mode:"init",
 					wallet:this,
-					hideOpenMode:true
+					isFresh:true
 				}, (err, info)=>{
 					console.log("showWalletInitDialog:result", info)
 					this.handleInitDialogCallback(info)
@@ -464,7 +464,7 @@ class KDXWallet extends BaseElement{
 			dialog.hide();
 			const wallet = new Wallet(null,null, {network,rpc});
 			const mnemonic = await wallet.mnemonic;
-			this.openSeedsDialog({mnemonic}, async({finished})=>{
+			this.openSeedsDialog({mnemonic, hideable:false}, async({finished})=>{
 				if(!finished)
 					return
 
