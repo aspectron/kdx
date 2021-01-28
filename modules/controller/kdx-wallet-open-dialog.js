@@ -110,7 +110,8 @@ class KDXWalletOpenDialog extends Dialog{
 		return html`
 			<div class="sub-heading">Unlock the wallet with your password</div>
 			<flow-input class="password full-width" outer-border value="${pass}"
-				type="${this.inputType}" placeholder="Password">
+				type="${this.inputType}" placeholder="Password"
+				@keyup="${this.onOpenPassKeyup}">
 				<fa-icon class="input-type-btn" slot="sufix"
 					@click="${this.changeInputType}"
 					icon="${icon}"></fa-icon>
@@ -130,7 +131,8 @@ class KDXWalletOpenDialog extends Dialog{
 			</flow-input>
 			<div class="sub-heading">Confirm password</div>
 			<flow-input class="cfm-password full-width" outer-border value="${pass}"
-				type="${this.inputType}" placeholder="Confirm Password">
+				type="${this.inputType}" placeholder="Confirm Password"
+				@keyup="${this.onCreatePassKeyup}">
 				<fa-icon class="input-type-btn" slot="sufix"
 					@click="${this.changeInputType}"
 					icon="${icon}"></fa-icon>
@@ -181,12 +183,20 @@ class KDXWalletOpenDialog extends Dialog{
     changeInputType(){
     	this.inputType = this.inputType=="password"?'text':'password';
     }
+    onOpenPassKeyup(e){
+    	if(e.which == 13)
+    		this.openWallet();
+    }
     openWallet(){
     	let password = this.qS(".password").value;
     	if(!this.checkPassword(password))
     		return this.setError("At least 8 characters, one capital, one lower, one number, and one symbol")
 
     	this.callback(null, {password, dialog:this});
+    }
+    onCreatePassKeyup(e){
+    	if(e.which == 13)
+    		this.showSeeds();
     }
     showSeeds(){
     	let password = this.qS(".password").value.trim();
