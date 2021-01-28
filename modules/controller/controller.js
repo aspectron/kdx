@@ -518,12 +518,12 @@ class KDXApp extends FlowApp{
 		},{
 			title : "SETTINGS",
 			id : "settings"
-		},{
+		}/*,{
 			title : "CONSOLE",
 			id : "console",
 			disable:true,
 			section: 'advanced'
-		}];
+		}*/];
 
 		caption["active"] = "wallet";
 	}
