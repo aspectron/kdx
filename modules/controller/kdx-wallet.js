@@ -111,6 +111,7 @@ class KDXWallet extends BaseElement{
 			.top-menu{
 				position:absolute;right:20px;top:-4px;
 			}
+			fa-icon.md{--fa-icon-size:24px}
 		`];
 	}
 	constructor() {
@@ -178,7 +179,7 @@ class KDXWallet extends BaseElement{
 
 		return html`
 		<flow-dropdown class="icon-trigger top-menu right-align">
-			<fa-icon icon="cogs" slot="trigger"></fa-icon>
+			<fa-icon class="md" icon="cog" slot="trigger"></fa-icon>
 			<flow-menu @click="${this.onMenuClick}" selector="_">
 	 			<flow-menu-item data-action="showSeeds">Get Recovery Seed</flow-menu-item>
 				<flow-menu-item data-action="showRecoverWallet">Recover Wallet From Seed</flow-menu-item>
