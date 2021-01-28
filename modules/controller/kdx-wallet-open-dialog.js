@@ -38,8 +38,9 @@ class KDXWalletOpenDialog extends Dialog{
 
 			//return callback(null, {password:"Asd123###", dialog:this, mode:"open"});
 			this.wallet = args.wallet;
-			this.hideable = !args.isFresh;
+			this.hideable = !!args.hideable;
 			this.mode = args.mode||"open";
+			this.lastMode = this.mode;
 			this.callback = callback;
 			this.isFresh = !!args.isFresh;
 
@@ -141,7 +142,7 @@ class KDXWalletOpenDialog extends Dialog{
 	}
 	renderCreateButtons(){
 		return html`
-			<flow-btn @click="${e=>this.mode='init'}">Cancel</flow-btn>
+			<flow-btn @click="${e=>this.mode=this.lastMode}">Cancel</flow-btn>
 			<flow-btn ?hidden=${this.isFresh} 
 				@click="${e=>this.mode='open'}">I have wallet</flow-btn>
 			<flow-btn primary @click="${this.showSeeds}">Next</flow-btn>

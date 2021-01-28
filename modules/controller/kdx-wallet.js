@@ -487,7 +487,8 @@ class KDXWallet extends BaseElement{
 			if(encryptedMnemonic){
 				showWalletInitDialog({
 					mode:"open",
-					wallet:this
+					wallet:this,
+					hideable:false
 				}, (err, info)=>{
 					info.encryptedMnemonic = encryptedMnemonic;
 					this.handleInitDialogCallback(info)
@@ -496,6 +497,7 @@ class KDXWallet extends BaseElement{
 				showWalletInitDialog({
 					mode:"init",
 					wallet:this,
+					hideable:false,
 					isFresh:true
 				}, (err, info)=>{
 					console.log("showWalletInitDialog:result", info)
