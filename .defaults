@@ -1,5 +1,5 @@
 {
-	"enableMining" : true,
+	"enableMining" : false,
 	"modules":{
 		"kaspad:kd0" : {
 			"reset-peers" : false,

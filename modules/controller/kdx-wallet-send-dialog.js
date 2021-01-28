@@ -40,14 +40,14 @@ class KDXWalletSendDialog extends Dialog{
 				placeholder="">
 			</flow-input>
 			<flow-input class="amount full-width" outer-border
-				label="Amount in KSP" value="0.00000001" @keyup=${this.onAmountChange}
+				label="Amount in KSP" @keyup=${this.onAmountChange}
 				placeholder="1">
 			</flow-input>
 			<flow-input class="fee full-width"
 				label="Priority Fee"
 				@keyup="${this.onNetworkFeeChange}"></flow-input>
 			<flow-input class="note full-width" outer-border label="Note"></flow-input>
-			<flow-checkbox class="calculate-network-fee"
+			<flow-checkbox class="calculate-network-fee" checked
 				@changed="${this.onCalculateFeeChange}">Automatically calculate network fee</flow-checkbox>
 			<!--flow-input class="maximum-fee full-width" label="Maximum network fee"></flow-input-->
 			<flow-checkbox class="inclusive-fee"
