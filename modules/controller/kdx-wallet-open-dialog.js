@@ -225,8 +225,10 @@ class KDXWalletOpenDialog extends Dialog{
     		title:"Password to encryt the wallet",
     		confirmBtnText:"Encrypt Wallet"
     	}, ({btn, password})=>{
-    		if(!password || btn != 'ok')
+    		console.log("btn, password", btn, password, words)
+    		if(!password || btn != 'confirm')
     			return
+
 	    	this.callback(null, {seedPhrase:words.join(" "), password, dialog:this});
 	    })
     }
