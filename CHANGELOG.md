@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0] - 2021-01-27
+This release updates KDX compatibility with kaspad `v0.8.6-dev` branch.
+After upgrading you must reset your data folders with `node kdx --purge`.
+
+As of this release, KDX has been adapted to be a wallet-centric application based on top of Kaspa's Wallet Framework subsystem.
+
+- Initial alpha-testnet release
+- Implemented UTXO-index-based wallet subsystem (Kaspa Wallet Framework that interfaces with Kaspa's Karpov subsystem)
+- Improved interface for setting the mining address
+- Removed previously supported daemons (Kasparov, MQTT, Postgres etc.)
+
 ## [1.4.0] - 2020-09-24
 ** WORK IN PROGRESS - INTERNAL POC RELEASE **
 This version updates KDX to be compatible with kaspad `v0.8.1-dev` branch (as of 2020-11-26 feature/karpov-rebase-3 branch). Before running you must reset your data folders with `node kdx --purge`.
