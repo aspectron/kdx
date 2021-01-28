@@ -149,8 +149,10 @@ class KDXWalletOpenDialog extends Dialog{
 	}
 	renderInitButtons(){
 		return html`
-			<flow-btn @click="${e=>this.mode='create'}">Create New Wallet</flow-btn>
-			<flow-btn @click="${e=>this.mode='recover'}">Recover from Seed</flow-btn>`;
+			<flow-btn class="primary"
+				@click="${e=>this.mode='create'}">Create New Wallet</flow-btn>
+			<flow-btn class="primary"
+				@click="${e=>this.mode='recover'}">Recover from Seed</flow-btn>`;
 	}
 	renderRecoverButtons(){
 		return html`

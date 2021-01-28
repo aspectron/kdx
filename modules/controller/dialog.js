@@ -29,7 +29,7 @@ export class Dialog extends BaseElement{
 			:host(.active){opacity:1;z-index:100000;display:flex;}
 			.container{
 				box-sizing:border-box;
-				width:100%;
+				width:98%;
 				height:calc(100% - 10px);
 				background-color:var(--flow-background-color, #F00);
 				z-index:1;
@@ -59,7 +59,7 @@ export class Dialog extends BaseElement{
 			.full-width{width:100%;max-width:100%;}
 			.error{
 				min-height:30px;color:#F00;padding:5px;
-				font-size:0.8rem;box-sizing:border-box;
+				font-size:0.85rem;box-sizing:border-box;
 			}
 			.input-type-btn{
 				align-self:center;margin:5px 10px;cursor:pointer;
