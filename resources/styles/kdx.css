@@ -346,6 +346,7 @@ flow-selector .menu-item{padding:2px 4px;}
 }
 flow-dialog.with-icon dialog .heading{display:flex;align-items:center;}
 flow-dialog.with-icon dialog .heading fa-icon{margin-right:10px;}
+flow-dialog flow-input{--flow-input-font-size:1rem;}
 
 fa-icon.big{--fa-icon-size:40px;}
 fa-icon.warning{--fa-icon-color:red}

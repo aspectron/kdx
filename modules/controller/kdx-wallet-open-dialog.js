@@ -29,6 +29,9 @@ class KDXWalletOpenDialog extends Dialog{
 				padding:5px;
 			}
 			:host[isFresh] .close-btn{display:none}
+			flow-input{
+				--flow-input-font-size:1rem
+			}
 		`];
 	}
 	constructor() {
