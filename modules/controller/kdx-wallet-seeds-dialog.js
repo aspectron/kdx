@@ -192,6 +192,8 @@ class KDXWalletSeedsDialog extends Dialog{
 		`
 	}
 	renderStep1Buttons(){
+		if(this.args?.showOnlySeed)
+			return html`<flow-btn primary @click="${this.finish}">Close</flow-btn>`
 		return html`<flow-btn primary @click="${e=>this.step=2}">NEXT</flow-btn>`
 	}
 	renderStep2Buttons(){

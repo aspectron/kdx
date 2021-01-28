@@ -8,7 +8,7 @@ import {
 	setLocalWallet, getLocalWallet,
 	getLocalSetting, setLocalSetting,
 	getUniqueId, formatForMachine, KSP,
-	GetTS, Deffered
+	GetTS, Deffered, askForPassword
 } from './wallet.js';
 
 export * from './kdx-wallet-open-dialog.js';
@@ -103,6 +103,14 @@ class KDXWallet extends BaseElement{
 				margin-top:10px;
 			}
 			.tx-open-icon{cursor:pointer;margin-right:10px;}
+			flow-dropdown.icon-trigger{
+				--flow-dropdown-trigger-bg:transparent;
+				--flow-dropdown-trigger-padding:5px;
+				--flow-dropdown-trigger-width:auto;
+			}
+			.top-menu{
+				position:absolute;right:20px;top:-4px;
+			}
 		`];
 	}
 	constructor() {
@@ -143,9 +151,6 @@ class KDXWallet extends BaseElement{
 	render(){
 		return html`
 			<div class="container">
-				<!--h2 class="heading">
-					
-				</h2-->
 				<fa-icon ?hidden=${!this.isLoading} 
 					class="spinner" icon="spinner" style="position:absolute"></fa-icon>
 				
@@ -160,12 +165,28 @@ class KDXWallet extends BaseElement{
 					</div>
 					<div class="divider"></div>
 					<div class="right-area">
+						${this.renderMenu()}
 						${this.renderTX()}
 					</div>
 				</div>
 			</div>
 		`
 	}
+	renderMenu(){
+		if(!this.wallet)
+			return '';
+
+		return html`
+		<flow-dropdown class="icon-trigger top-menu right-align">
+			<fa-icon icon="cogs" slot="trigger"></fa-icon>
+			<flow-menu @click="${this.onMenuClick}" selector="_">
+	 			<flow-menu-item data-action="showSeeds">Get Recovery Seed</flow-menu-item>
+				<flow-menu-item data-action="showRecoverWallet">Recover Wallet From Seed</flow-menu-item>
+				<!--flow-menu-item data-action="backupWallet">Backup This Wallet</flow-menu-item-->
+			</flow-menu>
+		</flow-dropdown>`
+	}
+	
 	renderBackupWarning(){
 		let haveBackup = getLocalSetting("have-backup") == 1;
 		let wallet = getLocalWallet();
@@ -215,25 +236,6 @@ class KDXWallet extends BaseElement{
                 </div>
             </div>
 		`;
-
-			// <!-- <flow-expandable static-icon class="balances" expand icon="wallet" no-info>
-			// 	<div slot="title">
-			// 		Balanace
-			// 		<img class="loading-img" ?hidden=${!this.isLoading} src="/resources/images/spinner.svg">
-			// 	</div>
-			// 	<div class="balance">
-			// 		<span class="label">Available:</span>
-			// 		<span class="value">${this.formatKSP(availableBalance)} KSP</span>
-			// 	</div>
-			// 	<div class="balance">
-			// 		<span class="label">Pending:</span>
-			// 		<span class="value">${this.formatKSP(pending)} KSP</span>
-			// 	</div>
-			// 	<div class="balance top-line">
-			// 		<span class="label">Total:</span>
-			// 		<span class="value">${this.formatKSP(totalBalance)} KSP</span>
-			// 	</div>
-			// </flow-expandable> -->
 	}
 
 	renderQRAndSendBtn(){
@@ -254,28 +256,11 @@ class KDXWallet extends BaseElement{
 				
 			</div>
 		`
-///				${ this.status_eta ? html`Wallet Sync ETA: ${this.status_eta}<br/>` : '' }
 	}
 
 	renderTX(){
 		if(!this.wallet)
 			return '';
-
-		/*
-		let txs = [{
-			in:1,
-			date: "2020-02-21 01:22",
-			amount:34674330000,
-			note:"Service",
-			address: "kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz"
-		},{
-			in:0,
-			date: "2020-02-21 01:22",
-			amount:54545,
-			note:"Purchase",
-			address: "kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz"
-		}]
-		*/
 
 		return html`
 		<div class="heading">
@@ -305,6 +290,53 @@ class KDXWallet extends BaseElement{
 		</div>`
 	}
 
+	onMenuClick(e){
+		let target = e.target.closest("flow-menu-item")
+		let action = target.dataset.action;
+		if(!action)
+			return
+		if(!this[action])
+			return
+		this[action]()
+	}
+
+	async showSeeds(){
+		askForPassword({confirmBtnText:"Next"}, async({btn, password})=>{
+    		console.log("btn, password", btn, password)
+    		if(btn!="confirm")
+    			return
+    		let encryptedMnemonic = getLocalWallet();
+    		let valid = await Wallet.checkPasswordValidity(password, encryptedMnemonic);
+    		if(!valid)
+    			return FlowDialog.alert("Error", "Invalid password");
+			let mnemonic = await this.wallet.mnemonic;
+			this.openSeedsDialog({mnemonic, hideable:true, showOnlySeed:true}, ()=>{
+				//
+			})
+		})
+	}
+
+	async showRecoverWallet(){
+		let title = html`<fa-icon class="big warning" icon="exclamation-triangle"></fa-icon> Attention !`;
+		let body = html`
+			<div style="min-width:300px;">
+				You already have a wallet open. <br />
+				Please make sure your current wallet <br />
+				is backed up before proceeding!
+			</div>
+		`
+		let {btn} = await FlowDialog.alert({title, body, cls:'with-icon', btns:['Cancel', 'Next:primary']})
+		if(btn != 'next')
+			return
+		showWalletInitDialog({
+			mode:"recover",
+			wallet:this,
+			backToWallet:true
+		}, (err, info)=>{
+			this.handleInitDialogCallback(info)
+		})
+	}
+
 	copyAddress(){
 		let input = this.renderRoot.querySelector("input.address");
 		input.select();
@@ -313,7 +345,7 @@ class KDXWallet extends BaseElement{
 	}
 	
 	formatKSP(value){
-		return KSP(value);//(value/1e8).toFixed(8).replace(/000000$/,'');
+		return KSP(value);
 	}
 	showError(err){
 		console.log("showError:err", err)
@@ -321,7 +353,9 @@ class KDXWallet extends BaseElement{
 	}
 	async setWallet(wallet){
 		console.log("setWallet:", wallet)
+		this.txs = [];
 		await this.getWalletInfo(wallet);
+		this.requestUpdate("txs", null)
 		this.walletSignal.resolve();
 		await this.loadData();
 	}
@@ -340,11 +374,6 @@ class KDXWallet extends BaseElement{
 	}
 
 	async getWalletInfo(wallet){
-		// Restore wallet and set store
-		// Get network
-    	//const network = LocalStorage.getItem(localSavedNetworkVar);
-    	//const selectedNetwork = network || DEFAULT_NETWORK;
-    	//await wallet.updateNetwork(selectedNetwork);
     	this.uid = getUniqueId(await wallet.mnemonic);
     	const cache = getLocalSetting(`cache-${this.uid}`);
     	const {addresses} = cache||{};
@@ -596,14 +625,9 @@ class KDXWallet extends BaseElement{
 
 	async getMiningAddress(){
 		await this.walletSignal
-		//if(!this.wallet){
-			//FlowDialog.alert("Error", "Please unlock or create wallet.");
-		//	return Promise.resolve(false);
-		//}
 		if(this.receiveAddress)
 			return Promise.resolve(this.receiveAddress);
 
-		//FlowDialog.alert("Please wait", "Please wait, This may take few moments, The wallet is loading.");
 		return this.wallet.receiveAddress;
 	}
 

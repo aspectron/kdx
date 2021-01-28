@@ -344,5 +344,10 @@ flow-selector .menu-item{padding:2px 4px;}
 	webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
 }
+flow-dialog.with-icon dialog .heading{display:flex;align-items:center;}
+flow-dialog.with-icon dialog .heading fa-icon{margin-right:10px;}
+
+fa-icon.big{--fa-icon-size:40px;}
+fa-icon.warning{--fa-icon-color:red}
 
 

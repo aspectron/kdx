@@ -155,9 +155,16 @@ class KDXWalletOpenDialog extends Dialog{
 				@click="${e=>this.mode='recover'}">Recover from Seed</flow-btn>`;
 	}
 	renderRecoverButtons(){
+		
 		return html`
-			<flow-btn @click="${e=>this.mode='init'}">Cancel</flow-btn>
+			<flow-btn @click="${this.cancelRecover}">Cancel</flow-btn>
 			<flow-btn primary @click="${this.recoverWallet}">Recover Wallet</flow-btn>`;
+	}
+	cancelRecover(){
+		if(this.args?.backToWallet){
+			return this.hide()
+		}
+		this.mode = "init";
 	}
 	updated(changes){
         super.updated(changes);
