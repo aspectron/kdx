@@ -355,6 +355,8 @@ class KDXWallet extends BaseElement{
 	async setWallet(wallet){
 		console.log("setWallet:", wallet)
 		this.txs = [];
+		this.receiveAddress = "";
+		this.fire("new-wallet")
 		await this.getWalletInfo(wallet);
 		this.requestUpdate("txs", null)
 		this.walletSignal.resolve();
