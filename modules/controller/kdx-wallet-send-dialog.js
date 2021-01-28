@@ -48,10 +48,10 @@ class KDXWalletSendDialog extends Dialog{
 				@keyup="${this.onNetworkFeeChange}"></flow-input>
 			<flow-input class="note full-width" outer-border label="Note"></flow-input>
 			<flow-checkbox class="calculate-network-fee"
-				@changed="${this.onCalculateFeeChange}">Automatically Calculate Network fee</flow-checkbox>
+				@changed="${this.onCalculateFeeChange}">Automatically calculate network fee</flow-checkbox>
 			<!--flow-input class="maximum-fee full-width" label="Maximum network fee"></flow-input-->
 			<flow-checkbox class="inclusive-fee"
-				@changed="${this.onInclusiveFeeChange}">Inclusive fee</flow-checkbox>
+				@changed="${this.onInclusiveFeeChange}">Include fee in the amount</flow-checkbox>
 			${this.renderEstimate()}
 			<div class="error">${this.errorMessage}</div>`;
 	}

@@ -24,9 +24,9 @@ window.setLocalSetting = setLocalSetting;
 class KDXApp extends FlowApp{
 	render(){
 		let list = [
-			['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
-			['PostgreSQL','PostgreSQL','Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br/>Portions Copyright © 1994, The Regents of the University of California'],
-			['Mosquitto','EDL-V10 EPL-V10','Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors'],
+			['Kaspa','MIT','Copyright (c) 2021 Kaspa Developers'],
+//			['PostgreSQL','PostgreSQL','Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br/>Portions Copyright © 1994, The Regents of the University of California'],
+//			['Mosquitto','EDL-V10 EPL-V10','Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors'],
 			['Flow-UX Framework','MIT', 'Copyright (c) ASPECTRON Inc.'],
 			['NWJS','MIT','Copyright (c) 2015 四月橘林'],
 			['Chromium','BSD', 'Copyright (c) The Chromium Authors']
@@ -67,7 +67,7 @@ class KDXApp extends FlowApp{
 			</div>
 			<div id='license-info'>
 				<flow-form-control icon="fal:copyright">
-					<flow-i18n>KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br/>
+					<flow-i18n>KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br/>
 					All Rights Reserved.</flow-i18n><br/>
 				</flow-form-control>
 				<flow-expandable no-info class="license-info" >
