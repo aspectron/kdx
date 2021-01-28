@@ -25,6 +25,9 @@ class KDXWalletSendDialog extends Dialog{
 			.estimate-tx-error{color:red}
 			.estimate-tx span{display:block}	
 			flow-checkbox{width:100%;margin:15px 0px;}
+			[col] { display:flex; flex-direction: row; }
+			[spacer] { min-width: 32px; }
+			[flex] { flex:1; }
 		`]
 	}
 	renderHeading(){
@@ -39,13 +42,17 @@ class KDXWalletSendDialog extends Dialog{
 				label="Recipient Address (Must start with 'kaspa' prefix)" value=""
 				placeholder="">
 			</flow-input>
-			<flow-input class="amount full-width" outer-border
-				label="Amount in KSP" @keyup=${this.onAmountChange}
-				placeholder="1">
-			</flow-input>
-			<flow-input class="fee full-width"
-				label="Priority Fee"
-				@keyup="${this.onNetworkFeeChange}"></flow-input>
+			<div col>
+				<flow-input class="amount full-width" outer-border
+					label="Amount in KSP" @keyup=${this.onAmountChange}
+					placeholder="">
+				</flow-input>
+				<div spacer></div>
+				<flow-input class="fee full-width"
+					label="Priority Fee"
+					@keyup="${this.onNetworkFeeChange}">
+				</flow-input>
+			</div>
 			<flow-input class="note full-width" outer-border label="Note"></flow-input>
 			<flow-checkbox class="calculate-network-fee" checked
 				@changed="${this.onCalculateFeeChange}">Automatically calculate network fee</flow-checkbox>
