@@ -430,7 +430,7 @@ class KDXWallet extends BaseElement{
 		super.connectedCallback();
 
 		initKaspaFramework().then(()=>{
-			let encryptedMnemonic = false//getLocalWallet();
+			let encryptedMnemonic = getLocalWallet();
 			if(encryptedMnemonic){
 				showWalletInitDialog({
 					mode:"open",
