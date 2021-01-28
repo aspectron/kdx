@@ -9,7 +9,7 @@ class KDXWalletSendDialog extends Dialog{
 		return [Dialog.styles, 
 		css`
 			.container{
-				max-height:710px;
+				max-height:670px;
 				--flow-input-label-font-size: 0.9rem;
 				--flow-input-label-padding: 5px 7px;
 				--flow-input-font-family: 'Consolas';
@@ -25,9 +25,16 @@ class KDXWalletSendDialog extends Dialog{
 			.estimate-tx-error{color:red}
 			.estimate-tx span{display:block}	
 			flow-checkbox{width:100%;margin:15px 0px;}
-			[col] { display:flex; flex-direction: row; }
+			[col] { display:flex; flex-direction: row;flex-wrap:wrap }
 			[spacer] { min-width: 32px; }
 			[flex] { flex:1; }
+			flow-input{min-width:100px;}
+			flow-input.amount,
+			flow-input.fee{flex:1}
+			flow-checkbox{margin:8px 0px;}
+			@media (max-width:400px){
+				[spacer] { min-width: 100%; }
+			}
 		`]
 	}
 	renderHeading(){
