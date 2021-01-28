@@ -74,9 +74,9 @@ class KDXWallet extends BaseElement{
 				*/
 			}
 			.balance{display:flex;flex-direction:column;padding:5px;}
-       		.value{font-family : "IBM Plex Sans Condensed"; font-size: 36px; margin-top: 4px;}
+       		.value{font-family : "Exo 2"; font-size: 36px; margin-top: 4px;}
 		 	.value-pending{
-		 		font-family : "IBM Plex Sans Condensed"; font-size: 20px; margin-top: 4px;
+		 		font-family : "Exo 2"; font-size: 20px; margin-top: 4px;
 		 	} 
 			.label { font-family : "Open Sans"; font-size: 20px; }
 			.label-pending { font-family : "Open Sans"; font-size: 14px; }
