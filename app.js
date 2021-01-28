@@ -148,6 +148,34 @@ class App extends FlowApp{
 		this.config.useWalletForMining = !!useWalletForMining;
 		this.setConfig(this.config);
 	}
+	setMiningAddress(address){
+		let modules = this.getModulesConfig();
+		let updated = false;
+		Object.keys(modules).forEach(key=>{
+			if(key.includes("kaspaminer:")){
+				modules[key].args = modules[key].args||{};
+				modules[key].args.miningaddr = address;
+				updated = true;
+			}
+		})
+		if(updated){
+			this.config.modules = modules;
+			this.setConfig(this.config);
+			return true
+		}
+	}
+	getMiningAddressFromConfig(config){
+		let {modules={}} = config||this.config;
+		let address = "";
+		Object.keys(modules).find(key=>{
+			if(key.includes("kaspaminer:")){
+				modules[key].args = modules[key].args||{};
+				address = modules[key].args.miningaddr;
+				return !!address
+			}
+		})
+		return address || "";
+	}
 	setEnableMetrics(enableMetrics){
 		this.config.enableMetrics = !!enableMetrics;
 		this.setConfig(this.config);

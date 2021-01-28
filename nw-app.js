@@ -95,6 +95,13 @@ class NWApp extends App{
 				return
 			this.setUseWalletForMining(useWalletForMining);
 		});
+		rpc.on("set-mining-address", (args, callback)=>{
+			let {address} = args;
+			if(address == undefined)
+				return callback({error:"Invalid address"})
+			this.setMiningAddress(address);
+			callback(null, {config:this.getModulesConfig()})
+		})
 		rpc.on("set-enable-metrics", (args)=>{
 			let {enableMetrics} = args;
 			if(enableMetrics == undefined)
