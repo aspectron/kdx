@@ -246,7 +246,12 @@ class KDXWallet extends BaseElement{
 			</div>
 			<div class="status">
 				Wallet Status: ${this.status||'Offline'}<br/>
-				DAG blue score: ${this.blueScore?FlowFormat.commas(this.blueScore):''}
+				${
+					this.blockCount == 1 ?
+					html`DAG headers: ${this.headerCount?FlowFormat.commas(this.headerCount):''}` :
+					html`DAG blue score: ${this.blueScore?FlowFormat.commas(this.blueScore):''}`
+				}
+				
 			</div>
 		`
 ///				${ this.status_eta ? html`Wallet Sync ETA: ${this.status_eta}<br/>` : '' }
@@ -320,6 +325,20 @@ class KDXWallet extends BaseElement{
 		this.walletSignal.resolve();
 		await this.loadData();
 	}
+
+	refreshStats() {
+		let status = 'Online';
+		if(this.blockCount == 1) {
+			status = `Syncing Headers`;
+		}
+		else {
+			if(this.sync && this.sync < 99.95)
+				status = `Syncing DAG ${this.sync.toFixed(2)}% `;
+		}
+		this.status = status; //'Online';//TODO
+		this.requestUpdate();
+	}
+
 	async getWalletInfo(wallet){
 		// Restore wallet and set store
 		// Get network
@@ -336,8 +355,10 @@ class KDXWallet extends BaseElement{
 
 	    wallet.on("blue-score-changed", (e)=>{
 			this.blueScore = e.blueScore;
-			
-			let status = 'Online';
+
+			this.refreshStats();
+
+			/*
 			if(this.sync && this.sync < 99.75) {
 				status = `Syncing ${this.sync.toFixed(2)}% `;
 				if(this.eta && !isNaN(this.eta) && isFinite(this.eta)) {
@@ -357,9 +378,9 @@ class KDXWallet extends BaseElement{
 					this.status_eta = null;
 			}
 			else this.status_eta = null;
+			*/
 
-	    	this.status = status; //'Online';//TODO
-	    })
+	    });
 	    wallet.on("balance-update", ()=>{
 	    	this.requestUpdate("balance", null);
 	    })

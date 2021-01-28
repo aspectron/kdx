@@ -370,8 +370,10 @@ class KDXApp extends FlowApp{
 		manager.on('sync-status', (data) => {
 			// console.log("daemon",daemon,"data",data);
 			let wallet = this.qS('kdx-wallet');
-			const { sync } = data;
+			const { sync, headerCount, blockCount } = data;
 			wallet.sync = sync;
+			wallet.headerCount = headerCount;
+			wallet.blockCount = blockCount;
 			if(sync > 99.95) {
 				wallet.eta = null;
 				syncETA.length = 0;
@@ -388,6 +390,8 @@ class KDXApp extends FlowApp{
 					wallet.eta = eta;
 				}
 			}
+
+			wallet.refreshStats();
 		})
 
 		if(global.manager){
