@@ -88,6 +88,7 @@ class KDXWallet extends BaseElement{
 			flow-qrcode{width:172px;margin-top:50px;box-shadow:var(--flow-box-shadow);}
 			.address-badge{padding:15px;}
 			.address-holder{display:flex}
+			.address-holder .copy-address{cursor:pointer}
 			input.address{
 				border:0px;-webkit-appearance:none;outline:none;margin:5px 10px 0px 0px;
 				flex:1;overflow: hidden;text-overflow:ellipsis;font-size:16px;
@@ -210,7 +211,7 @@ class KDXWallet extends BaseElement{
 			<div>Receive Address:</div>
 			<div class="address-holder">
 				<input class="address" readonly value="${this.receiveAddress||''}">
-				<fa-icon ?hidden=${!this.receiveAddress} 
+				<fa-icon ?hidden=${!this.receiveAddress} class="copy-address"
 					@click="${this.copyAddress}"
 					title="Copy to clipboard" icon="copy"></fa-icon>
 			</div>
@@ -343,6 +344,8 @@ class KDXWallet extends BaseElement{
 		input.select();
 		input.setSelectionRange(0, 99999)
 		document.execCommand("copy");
+		input.setSelectionRange(0,0)
+		input.blur();
 	}
 	
 	formatKSP(value){
