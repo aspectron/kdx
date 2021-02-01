@@ -22,7 +22,7 @@ export const GetTS = (d=null)=>{
 }
 
 /**
- * Converts from sompis to KSP
+ * Converts from sompis to KAS
  * @param val Value to convert, as string or number
  * @returns Converted value as a string
  */
@@ -31,7 +31,7 @@ export const formatForHuman = (val)=>{
 }
 
 /**
- * Converts from KSP to sompis
+ * Converts from KAS to sompis
  * @param val Value to convert, as string or number
  * @returns Converted value as a string
  */
@@ -39,7 +39,7 @@ export const formatForMachine = (val)=>{
   return Number(val) * 1e8;
 }
 
-export const KSP = (v, trailingZeros) => {
+export const KAS = (v, trailingZeros) => {
     var [int,frac] = Decimal(v).mul(1e-8).toFixed(8).split('.');
     int = int.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     if(trailingZeros)

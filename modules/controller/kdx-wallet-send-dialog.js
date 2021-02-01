@@ -1,5 +1,5 @@
 import {
-	html, css, Dialog, askForPassword, KSP,
+	html, css, Dialog, askForPassword, KAS,
 	formatForMachine, formatForHuman
 } from './dialog.js';
 const pass = "";
@@ -51,7 +51,7 @@ class KDXWalletSendDialog extends Dialog{
 			</flow-input>
 			<div col>
 				<flow-input class="amount full-width" outer-border
-					label="Amount in KSP" @keyup=${this.onAmountChange}
+					label="Amount in KAS" @keyup=${this.onAmountChange}
 					placeholder="">
 				</flow-input>
 				<div spacer></div>
@@ -75,9 +75,9 @@ class KDXWalletSendDialog extends Dialog{
 		let {dataFee, fee, totalAmount, txSize} = this.estimate;
 		return html`<div class="estimate-tx">
 			${txSize?html`<span class="tx-size">Transaction size: ${txSize.toFileSize()}<span>`:''}
-			${dataFee?html`<span class="tx-data-fee">Data fee: ${KSP(dataFee)} KSP<span>`:''}
-			${fee?html`<span class="tx-fee">Total fee: ${KSP(fee)} KSP<span>`:''}
-			${totalAmount?html`<span class="tx-total">Total: ${KSP(totalAmount)} KSP<span>`:''}
+			${dataFee?html`<span class="tx-data-fee">Data fee: ${KAS(dataFee)} KAS<span>`:''}
+			${fee?html`<span class="tx-fee">Total fee: ${KAS(fee)} KAS<span>`:''}
+			${totalAmount?html`<span class="tx-total">Total: ${KAS(totalAmount)} KAS<span>`:''}
 		</div>`
 	}
 	renderButtons(){
@@ -182,7 +182,7 @@ class KDXWalletSendDialog extends Dialog{
     		return
     	if(estimate.fee > this.alertFeeAmount){
     		let {btn} = await FlowDialog.alert("Warning", 
-    			html`Transaction Fee (${KSP(estimate.fee)} KSP) is very large.`,
+    			html`Transaction Fee (${KAS(estimate.fee)} KAS) is very large.`,
     			'',
     			['Cancel', 'Submit:primary']);
 

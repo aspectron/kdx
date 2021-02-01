@@ -1,5 +1,5 @@
 import {
-	html, css, Dialog, askForPassword, KSP,
+	html, css, Dialog, askForPassword, KAS,
 	formatForMachine, formatForHuman, paginationStyle, buildPagination, renderPagination
 } from './dialog.js';
 
@@ -80,7 +80,7 @@ class KDXWalletTXDialog extends Dialog{
 					<div class="tx-row">
 						<div class="tx-num">#${skip+i+1}</div>
 						<div class="tx-date">${tx.date}</div>
-						<div class="tx-amount">${KSP(tx.amount)} KSP</div>
+						<div class="tx-amount">${KAS(tx.amount)} KAS</div>
 						<div class="tx-id">${tx.id.split(":")[0]}</div>
 						<div class="br tx-note">${tx.note}</div>
 						<div class="tx-address">${tx.address}</div>

@@ -7,7 +7,7 @@ import {
 	initKaspaFramework, Wallet, RPC,
 	setLocalWallet, getLocalWallet,
 	getLocalSetting, setLocalSetting,
-	getUniqueId, formatForMachine, KSP,
+	getUniqueId, formatForMachine, KAS,
 	GetTS, Deffered, askForPassword
 } from './wallet.js';
 
@@ -230,11 +230,11 @@ class KDXWallet extends BaseElement{
   			<div class="balance-badge">
                 <div class="balance">
                     <span class="label">Available</span>
-                    <span class="value">${this.formatKSP(available)} KSP</span>
+                    <span class="value">${this.formatKAS(available)} KAS</span>
                 </div>
                 <div class="balance pending">
                     <span class="label-pending">Pending</span>
-                    <span class="value-pending">${this.formatKSP(pending)} KSP</span>
+                    <span class="value-pending">${this.formatKAS(pending)} KAS</span>
                 </div>
             </div>
 		`;
@@ -278,7 +278,7 @@ class KDXWallet extends BaseElement{
 					<div class="tx-title" slot="title">
 						<div class="tx-date flex">${tx.date}</div>
 						<div class="amount">
-							${tx.in?'':'-'}${this.formatKSP(tx.amount)} KSP
+							${tx.in?'':'-'}${this.formatKAS(tx.amount)} KAS
 						</div>
 					</div>
 					<div class="tx-body">
@@ -348,8 +348,8 @@ class KDXWallet extends BaseElement{
 		input.blur();
 	}
 	
-	formatKSP(value){
-		return KSP(value);
+	formatKAS(value){
+		return KAS(value);
 	}
 	showError(err){
 		console.log("showError:err", err)
