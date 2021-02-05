@@ -30,8 +30,8 @@ const E = new Emanator(__dirname, {
             }
         }
 
-        if(E.PLATFORM == 'darwin')
-            manifest.files.push('apps');
+//        if(E.PLATFORM == 'darwin')
+//            manifest.files.push('apps');
 
         return manifest;
     },
@@ -48,7 +48,7 @@ E.aux_dmg_files = async (root) => {
 
 
 
-const go = await E.modules.go('go1.14.3');
+const go = await E.modules.go('go1.15.8');
 const git = await E.modules.git();
 const gcc = await E.modules.gcc();
 const npm = await E.modules.npm({ production : true });
