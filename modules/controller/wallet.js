@@ -1,9 +1,10 @@
-const {Wallet, initKaspaFramework} = require("kaspa-wallet-worker");
+const {Wallet, initKaspaFramework, Storage} = require("kaspa-wallet-worker");
 let {Mnemonic} = Wallet;
 console.log("Wallet", Wallet)
 window.testSeed = new Mnemonic(Mnemonic.Words.ENGLISH).toString();
 console.log("test Mnemonic: ", window.testSeed)
 const crypto = require('crypto');
+const storage = new Storage({logLevel:'debug'});
 
 export const {RPC} = require("kaspa-grpc-node");
 import {html, css} from '/node_modules/@aspectron/flow-ux/src/base-element.js';
@@ -69,15 +70,20 @@ export const getLocalSetting = (name, defaults=undefined, prefix='kaspa-')=>{
 }
 
 export const getLocalWallet = ()=>{
-	return getLocalSetting("wallet")
+	let meta = storage.getWallet();
+	if(!meta)
+		return false;
+	if(meta.wallet)
+		meta.mnemonic = meta.wallet.mnemonic;
+	return meta;
 }
 
-export const setLocalWallet = (wallet)=>{
-	let oldWallet = getLocalWallet();
+export const setLocalWallet = async (wallet)=>{
+	let oldWallet = await getLocalWallet();
 	if(oldWallet)
-		setLocalSetting("wallet-"+Date.now(), oldWallet);
+		return storage.createWallet(wallet, {generator:'kdx'})
 
-	return setLocalSetting("wallet", wallet);
+	return storage.saveWallet(wallet, {generator:'kdx'});
 }
 
 

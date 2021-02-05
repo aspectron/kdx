@@ -6,7 +6,7 @@ import '/node_modules/@aspectron/flow-ux/resources/extern/decimal.js/decimal.js'
 import {
 	initKaspaFramework, Wallet, RPC,
 	setLocalWallet, getLocalWallet,
-	getLocalSetting, setLocalSetting,
+	//getLocalSetting, setLocalSetting,
 	getUniqueId, formatForMachine, KAS,
 	GetTS, Deffered, askForPassword
 } from './wallet.js';
@@ -190,7 +190,7 @@ class KDXWallet extends BaseElement{
 	}
 	
 	renderBackupWarning(){
-		let haveBackup = getLocalSetting("have-backup") == 1;
+		let haveBackup = true;//getLocalSetting("have-backup") == 1;
 		let wallet = getLocalWallet();
 		if(haveBackup || !wallet || !this.wallet)
 			return '';
@@ -307,7 +307,7 @@ class KDXWallet extends BaseElement{
     		console.log("btn, password", btn, password)
     		if(btn!="confirm")
     			return
-    		let encryptedMnemonic = getLocalWallet();
+    		let encryptedMnemonic = getLocalWallet().mnemonic;
     		let valid = await Wallet.checkPasswordValidity(password, encryptedMnemonic);
     		if(!valid)
     			return FlowDialog.alert("Error", "Invalid password");
@@ -381,7 +381,7 @@ class KDXWallet extends BaseElement{
 
 	async getWalletInfo(wallet){
     	this.uid = getUniqueId(await wallet.mnemonic);
-    	const cache = getLocalSetting(`cache-${this.uid}`);
+    	const cache = false//getLocalSetting(`cache-${this.uid}`);
     	const {addresses} = cache||{};
     	if (cache && (addresses?.receiveCounter !== 0 || addresses?.changeCounter !== 0)) {
 			wallet.restoreCache(cache);
@@ -486,7 +486,7 @@ class KDXWallet extends BaseElement{
 		super.connectedCallback();
 
 		initKaspaFramework().then(()=>{
-			let encryptedMnemonic = getLocalWallet();
+			let encryptedMnemonic = getLocalWallet()?.mnemonic
 			if(encryptedMnemonic){
 				showWalletInitDialog({
 					mode:"open",
@@ -549,7 +549,7 @@ class KDXWallet extends BaseElement{
 
 				encryptedMnemonic = await wallet.export(password);
 				setLocalWallet(encryptedMnemonic);
-				setLocalSetting("have-backup", 1);
+				//setLocalSetting("have-backup", 1);
 				this.setWallet(wallet);
 			})
 			return
@@ -580,17 +580,17 @@ class KDXWallet extends BaseElement{
 				return
 			}*/
 			setLocalWallet(encryptedMnemonic);
-			setLocalSetting("have-backup", 1);
+			//setLocalSetting("have-backup", 1);
 			dialog.hide();
 			this.setWallet(wallet);
 			return
 		}
 	}
 	showSeedRecoveryDialog(){
-		let encryptedMnemonic = getLocalWallet();
+		let encryptedMnemonic = getLocalWallet().mnemonic;
 		this.openSeedsDialog({encryptedMnemonic, step:1}, ({finished})=>{
 			if(finished){
-				setLocalSetting("have-backup", 1);
+				//setLocalSetting("have-backup", 1);
 				this.requestUpdate("have-backup", null)
 			}
 		})

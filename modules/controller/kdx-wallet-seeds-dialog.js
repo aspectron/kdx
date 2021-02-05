@@ -1,8 +1,7 @@
 import {html, css, Dialog, chunks, getRandomInt, shuffle} from './dialog.js';
 import {
 	Wallet,
-	setLocalWallet, getLocalWallet,
-	getLocalSetting, setLocalSetting
+	setLocalWallet, getLocalWallet
 } from './wallet.js';
 
 class KDXWalletSeedsDialog extends Dialog{
