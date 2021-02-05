@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.0.1] - 2021-02-04
+This release of KDX includes Kaspa build `v0.8.7`.
+
+This is a minor release and includes the following changes:
+- Removed storage rate metrics (no longer needed as the platform utilizes pruning)
+- Refactored DAG SYNC metric to use Network Median Time
+- Included Blue Score metric
+- Fixed Uptime metric to correctly display days
+- Included experimental Median Delta metric (depicts `computer time - network median time`)
+
 ## [2.0.0] - 2021-01-27
 This release updates KDX compatibility with kaspad `v0.8.6-dev` branch.
 After upgrading you must reset your data folders with `node kdx --purge`.
