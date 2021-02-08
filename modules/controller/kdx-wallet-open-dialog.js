@@ -24,9 +24,9 @@ class KDXWalletOpenDialog extends Dialog{
 			.words .row{display:flex;justify-content:center;}
 			.words .cell{flex:1;text-align:center;padding:5px}
 			input.seed{
-				border:1px solid var(--flow-primary-color);
-				border-radius:3px;
-				padding:5px;
+				border:2px solid var(--flow-primary-color);
+				border-radius:7px;padding:10px 5px;width:120px;
+				text-align:center;
 			}
 			:host[isFresh] .close-btn{display:none}
 			flow-input{
@@ -241,7 +241,7 @@ class KDXWalletOpenDialog extends Dialog{
     	if(isInvalid || !words.join("").length)
     		return this.setError("Please provide valid words");
 
-    	console.log("words", words)
+    	console.log("words", words);
     	askForPassword({
     		title:"Password to encryt the wallet",
     		confirmBtnText:"Encrypt Wallet"
