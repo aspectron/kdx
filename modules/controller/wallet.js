@@ -1,4 +1,4 @@
-const {Wallet, initKaspaFramework, Storage} = require("kaspa-wallet-worker");
+const {Wallet, initKaspaFramework, Storage} = require("@kaspa/wallet-worker");
 let {Mnemonic} = Wallet;
 console.log("Wallet", Wallet)
 window.testSeed = new Mnemonic(Mnemonic.Words.ENGLISH).toString();
@@ -6,7 +6,7 @@ console.log("test Mnemonic: ", window.testSeed)
 const crypto = require('crypto');
 const storage = new Storage({logLevel:'debug'});
 
-export const {RPC} = require("kaspa-grpc-node");
+export const {RPC} = require("@kaspa/grpc-node");
 import {html, css} from '/node_modules/@aspectron/flow-ux/src/base-element.js';
 
 
