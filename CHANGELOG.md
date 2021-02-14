@@ -1,5 +1,13 @@
 # Changelog
 
+
+## [2.0.2] - 2021-02-14
+This release of KDX includes Kaspa build `v0.8.8` and is **compatible only with TESTNET-2**.
+This is a minor release and includes the following changes:
+- Integrates DNS Seeder settings specific to Testnet 2
+- Detects and auto-purges KDX data folder if testnet network has changed
+- Improved sync status display
+
 ## [2.0.1] - 2021-02-04
 This release of KDX includes Kaspa build `v0.8.7`.
 

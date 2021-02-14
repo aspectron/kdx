@@ -1,7 +1,7 @@
 {
   "name": "kdx",
   "description": "Kaspa Desktop eXperience",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "private": true,
   "main": "kdx.js",
   "files": [
@@ -41,7 +41,7 @@
     "fs-extra": "*",
     "is-docker": "*",
     "@kaspa/grpc-node": "*",
-    "@kaspa/wallet-worker": "*",
+    "@kaspa/wallet-worker": ">=0.0.5",
     "lit-element": "*",
     "mkdirp": "*",
     "node-fetch": "^2.6.0",
