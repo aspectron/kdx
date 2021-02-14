@@ -372,7 +372,7 @@ class KDXWallet extends BaseElement{
 			status = `Syncing Headers`;
 		}
 		else {
-			if(this.sync && this.sync < 99.95)
+			if(this.sync && this.pastMedianTimeDiff > 0)
 				status = `Syncing DAG ${this.sync.toFixed(2)}% `;
 		}
 		this.status = status; //'Online';//TODO
@@ -390,31 +390,7 @@ class KDXWallet extends BaseElement{
 
 	    wallet.on("blue-score-changed", (e)=>{
 			this.blueScore = e.blueScore;
-
 			this.refreshStats();
-
-			/*
-			if(this.sync && this.sync < 99.75) {
-				status = `Syncing ${this.sync.toFixed(2)}% `;
-				if(this.eta && !isNaN(this.eta) && isFinite(this.eta)) {
-					let eta = this.eta;
-					eta = eta / 1000;
-					let sec = Math.round(eta % 60);
-					let min = Math.round(eta / 60);
-					eta = '';
-					if(sec < 10)
-						sec = '0'+sec;
-					if(min < 10) {
-						min = '0'+min;
-					}
-					this.status_eta = `${min}:${sec}`;
-					//status += eta;
-				} else 
-					this.status_eta = null;
-			}
-			else this.status_eta = null;
-			*/
-
 	    });
 	    wallet.on("balance-update", ()=>{
 	    	this.requestUpdate("balance", null);
