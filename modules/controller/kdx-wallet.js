@@ -372,8 +372,8 @@ class KDXWallet extends BaseElement{
 			status = `Syncing Headers`;
 		}
 		else {
-			if(this.sync && this.pastMedianTimeDiff > 0)
-				status = `Syncing DAG ${this.sync.toFixed(2)}% `;
+			if(this.sync && this.pastMedianTimeDiff > 45*1000)
+				status = `Syncing DAG ${this.sync.toFixed(3)}% `;
 		}
 		this.status = status; //'Online';//TODO
 		this.requestUpdate();
