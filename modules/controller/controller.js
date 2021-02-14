@@ -529,12 +529,12 @@ class KDXApp extends FlowApp{
 		caption.version = pkg.version;
 
 		caption.tabs = [{
-			title : "WALLET",
-			id : "wallet"
-		},{
 			title : "KASPA",
 			id : "home",
 			cls: "home"
+		},{
+			title : "WALLET",
+			id : "wallet"
 		},{
 			title : "SETTINGS",
 			id : "settings"
