@@ -129,7 +129,7 @@ class KDXWalletSendDialog extends Dialog{
 
     	return {
     		amount:formatForMachine(amount),
-    		fee:formatForMachine(formatForHuman(fee)),
+    		fee:formatForMachine(fee),
     		address, note, 
     		calculateNetworkFee,
     		inclusiveFee

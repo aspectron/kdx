@@ -649,7 +649,8 @@ class KDXWallet extends BaseElement{
 			fee, calculateNetworkFee, inclusiveFee, note
 		}).catch(err=>{
 			console.log("error", err)
-			error = (err+"").replace("Error:", '')
+			error = 'Unable to estimate transaction fees';
+			//error = (err+"").replace("Error:", '')
 		})
 
 		let result = {data, error}
