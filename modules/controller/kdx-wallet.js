@@ -245,7 +245,7 @@ class KDXWallet extends BaseElement{
 			return '';
 		return html`
 			<div class="qr-code-holder">
-				<flow-qrcode text="${this.receiveAddress||""}"></flow-qrcode>
+				<flow-qrcode data="${this.receiveAddress||""}"></flow-qrcode>
 				<flow-btn primary @click="${this.showSendDialog}">SEND</flow-btn>
 			</div>
 			<div class="status">
