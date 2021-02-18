@@ -250,7 +250,7 @@ class KDXWalletOpenDialog extends Dialog{
     		if(!password || btn != 'confirm')
     			return
 
-	    	this.callback(null, {seedPhrase:words.join(" "), password, dialog:this});
+	    	this.callback(null, {seedPhrase:words.join(" ").toLowerCase(), password, dialog:this});
 	    })
     }
 }
