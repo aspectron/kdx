@@ -92,7 +92,7 @@ class KDXWalletTXDialog extends Dialog{
 	renderButtons(){
 		const {loading} = this;
 		return html`
-			${loading?html`<fa-icon class="spinner" icon="spinner"></fa-icon>`:''}
+			${loading?html`<fa-icon class="spinner" icon="sync"></fa-icon>`:''}
 			<flow-btn @click="${this.hide}">Close</flow-btn>`
 	}
 	open(args, callback){

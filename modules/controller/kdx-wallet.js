@@ -154,7 +154,7 @@ class KDXWallet extends BaseElement{
 		return html`
 			<div class="container">
 				<fa-icon ?hidden=${!this.isLoading} 
-					class="spinner" icon="spinner" style="position:absolute"></fa-icon>
+					class="spinner" icon="sync" style="position:absolute"></fa-icon>
 				
 				<div class="body">
 					<div class="left-area">
