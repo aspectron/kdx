@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.0] - 2021-02-19
+This release of KDX includes Kaspa build `v0.8.9` and is **compatible only with TESTNET-2**.
+This release includes the following changes (most coming from the corresponding Kaspa Walleet Framework release):
+- Fix for missing transactions when KDX Wallet is offline (balance would update but transactions not recorded)
+- Significant speed improvement for fee estimation
+- Fix for QR code rendering that would cause QR codes not to display correctly
+- Change transactions are no longer categorized as pending and are available for immediate spending
+- Support for Kaspad running in archival mode (experimental)
 
 ## [2.0.2] - 2021-02-14
 This release of KDX includes Kaspa build `v0.8.8` and is **compatible only with TESTNET-2**.
