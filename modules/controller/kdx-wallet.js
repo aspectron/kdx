@@ -626,9 +626,13 @@ class KDXWallet extends BaseElement{
 			toAddr: address,
 			amount,
 			fee, calculateNetworkFee, inclusiveFee, note
-		}).catch(error=>{
+		}).catch(err=>{
+			let msg = err.error || err.message || err;
+			let error = (msg+"").replace("Error:", '')
 			console.log("error", error)
-			error = (error+"").replace("Error:", '')
+			//error = (error+"").replace("Error:", '')
+			if(/Invalid Argument/.test(error))
+				error = "Please provide correct address and amount";
 			FlowDialog.alert("Error", error);
 		})
 
@@ -648,8 +652,12 @@ class KDXWallet extends BaseElement{
 			amount,
 			fee, calculateNetworkFee, inclusiveFee, note
 		}).catch(err=>{
-			console.log("error", err)
-			error = 'Unable to estimate transaction fees';
+			let msg = err.error || err.message || err;
+			error = (msg+"").replace("Error:", '');
+			if(/Invalid Argument/.test(error))
+				error = "Please provide address and amount";
+			console.log("error", err);
+			// error = 'Unable to estimate transaction fees';
 			//error = (err+"").replace("Error:", '')
 		})
 

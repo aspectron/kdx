@@ -115,17 +115,22 @@ class KDXWalletSendDialog extends Dialog{
 		this.estimate = {};
 		this.alertFeeAmount = 1e8;
 		this.show();
-		this.cleanUpForm();
 	}
 	cleanUpForm(){
+		this.estimateError = "";
+		this.estimate = {};
+		this.requestUpdate("estimate", null)
 		this.qSAll("flow-input").forEach(input=>{
     		input.value = "";
 		})
 		this.qS(".inclusive-fee").checked = false;
 
 	}
+	hide(skipHistory=false){
+		this.cleanUpForm();
+		super.hide(skipHistory)
+	}
     cancel(){
-    	this.cleanUpForm();
     	this.hide();
     }
     getFormData(){
