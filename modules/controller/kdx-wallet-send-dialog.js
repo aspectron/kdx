@@ -121,6 +121,8 @@ class KDXWalletSendDialog extends Dialog{
 		this.qSAll("flow-input").forEach(input=>{
     		input.value = "";
 		})
+		this.qS(".inclusive-fee").checked = false;
+
 	}
     cancel(){
     	this.cleanUpForm();
