@@ -1,3 +1,9 @@
-<svg width="133" height="198" viewBox="0 0 133 198" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M43.382 0L0 30.5V90.5L89 149.5V179L0 120V180.5L33 157.491L94.5 198L133 172V120L110 104.252L133 89V28L100 6L43.382 45V0ZM33 67.5V22L11 38V82L66.5 119.5L77.5 127L88.5 134L99 141.5L120.5 126L99 112L88.5 104.5L55 82L120.5 36L99 22L33 67.5ZM22 150L11 142.5V157.5L22 150ZM120.5 142.5V165L100 178.76V156L120.5 142.5ZM120.5 82V51.5L77.5 82L99 96L120.5 82Z" fill="#009688"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="174" height="174" viewBox="0 0 174 174">
+  <g id="Kaspa_logo_dark_outline_big" transform="translate(-574 -75)">
+    <g id="Rectangle_9" data-name="Rectangle 9" transform="translate(574 75)" fill="none" stroke="#009688" stroke-width="11">
+      <rect width="174" height="174" rx="87" stroke="none"/>
+      <rect x="5.5" y="5.5" width="163" height="163" rx="81.5" fill="none"/>
+    </g>
+    <path id="Union_3" data-name="Union 3" d="M45.041,92V52.184L8.619,80.639,0,69.607,34.915,42.328,3,17.393,11.619,6.361,45.041,32.472V0h14V92Z" transform="translate(625 116)" fill="#009688"/>
+  </g>
 </svg>
