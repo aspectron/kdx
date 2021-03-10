@@ -9,6 +9,7 @@ const utils = require('@aspectron/flow-utils');
 const Manager = require("../../lib/manager.js");
 const Console = require("../../lib/console.js")
 const StatsD = require('node-statsd');
+const semver = require('semver');
 
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
@@ -254,15 +255,23 @@ class KDXApp extends FlowApp{
 		dpc(e=>this.init(), 200);
 	}
 	async init(){
+
+
+
 		this.taskTabs = {};
 		this.taskTerminals = {};
 		this.initWin();
+
 		this.initTrayMenu();
 		this.initRPC();
 		this.initData = await this.get("get-app-data");
 		this.initI18n();
 		this.initTheme();
 		this.initCaption();
+
+		if(await this.checkForUpdates())
+			return;
+
 		await this.initSettings();
 		await this.initWallet();
 		await this.initManager();
@@ -273,6 +282,11 @@ class KDXApp extends FlowApp{
 		this.initTemplates();
 		this.initReleaseNotes();
 		this.setUiLoading(false);
+
+		this.updateInterval = setInterval(()=>{
+			this.checkForUpdates().then();
+		}, 1000*60*15);
+//		this.checkForUpdates().then();
 	}
 	setUiLoading(loading){
 		document.body.classList.toggle("ui-loading", loading);
@@ -1006,6 +1020,11 @@ ${changelogContent}`;
 	cleanup() {
 		if(this.statsd)
 			delete this.statsd;
+
+		if(this.updateInterval) {
+			clearInterval(this.updateInterval);
+			delete this.updateInterval;
+		}
 	}
 
 	post(subject, data){
@@ -1059,7 +1078,7 @@ ${changelogContent}`;
 					btns:[i18n.t('Cancel'), i18n.t('Exit')+':warning',
 					{
 						value : 'background',
-						text : html`<span style="font-size:13.3px;">${i18n.t("Leave in the Background")}</style>`,
+						text : html`<span style="font-size:13.3px;">${i18n.t("Leave in the Background")}</span>`,
 						cls : 'primary'						
 					}]
 				});
@@ -1300,6 +1319,77 @@ ${changelogContent}`;
 		}
 
 		this.statsd.gauge(ident,value);
+	}
+
+
+	async checkForUpdates(force = false) {
+
+		if(this.updateChecked)
+			return;
+		this.updateChecked = true;
+
+		//const url = 'http://localhost:9090/version.json';
+		const url = 'https://kdx.app/version.json';
+		let resp = await fetch(url).catch((error) => {
+			alert(error.toString());
+		});
+		let data = await resp.json().catch((error) => { 
+			console.log("resp.json() ERROR", error); 
+		});
+
+		if(!data) {
+			console.log("missing version data in https://kdx.app/version.json");
+			return false;
+		}
+
+		const info = data[process.platform];
+		const version = info?.version;
+		if(!version) {
+			console.log('unable to obtain current update version');
+			return;
+		}
+		let is_gt = semver.gt(version, pkg.version);
+		console.log('UPDATE CHECK','pkg.version',pkg.version,'server version:',version);
+		console.log('UPDATE REQUIRED:', is_gt);
+		if(is_gt) {
+
+			this.setUiLoading(false);
+
+			let {btn} = await FlowDialog.show({
+				title:i18n.t("KDX Update"),
+				body:i18n.t(`Version ${version} is available, would you like to update?`),
+				btns:[i18n.t('No'), //i18n.t('Exit')+':warning',
+				{
+					value : 'ok',
+					text : 'Yes', //html`<span style="font-size:13.3px;">${i18n.t("Yes")}</span>`,
+					cls : 'primary'
+				}]
+			});
+
+			if(btn == 'ok') {
+				require('nw.gui').Shell.openExternal('https://kdx.app');
+
+				let confirm = await FlowDialog.show({
+					title:i18n.t("KDX Update"),
+					body:html`Please download the latest version from  <flow-link href="https://kdx.app" target="_blank">https://kdx.app</flow-link>
+					<br/>&nbsp;<br/>
+					KDX will now shutdown`,
+					btns:[i18n.t('Cancel'), //i18n.t('Exit')+':warning',
+					{
+						value : 'ok',
+						text : 'Ok', //html`<span style="font-size:13.3px;">${i18n.t("Ok")}</span>`,
+						cls : 'primary'
+					}]
+				});
+
+				if(confirm.btn == 'ok') {
+					this.exit();
+					return true;
+				}
+
+				return false;
+			}
+		}
 	}
 }
 

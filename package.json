@@ -44,6 +44,7 @@
     "mkdirp": "*",
     "node-fetch": "^2.6.0",
     "node-statsd": "^0.1.1",
+    "semver": "^7.3.4",
     "underscore": "*",
     "ws": "^7.2.5",
     "xterm": "*",
