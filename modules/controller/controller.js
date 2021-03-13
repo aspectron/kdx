@@ -399,18 +399,18 @@ class KDXApp extends FlowApp{
 
 		const syncETA = [];
 		manager.on('sync-status', (data) => {
-			/*
-			// console.log("daemon",daemon,"data",data);
-			let wallet = this.qS('kaspa-wallet');
-			const { sync, headerCount, blockCount, pastMedianTime, pastMedianTimeDiff } = data;
+			//console.log("sync-status:data", data);
+			let wallet = this.wallet || this.qS('kaspa-wallet');
+			const { networkName, sync, headerCount, blockCount, pastMedianTime, pastMedianTimeDiff } = data;
 			wallet.sync = sync;
+			wallet.networkName = networkName;
 			wallet.pastMedianTime = pastMedianTime;
 			wallet.pastMedianTimeDiff = pastMedianTimeDiff;
 			wallet.headerCount = headerCount;
 			wallet.blockCount = blockCount;
 
 			wallet.refreshStats();
-			*/
+			wallet.requestUpdate();
 		})
 
 		if(global.manager){
