@@ -1,4 +1,4 @@
-*{margin:0px;padding:0px;}
+*:not(dialog){margin:0px;padding:0px;}
 html{font-size:16px;}
 body{
 	background:white;display:flex;flex-direction:column;
