@@ -1,5 +1,10 @@
-false && (window.navigator.plugins.namedItem('Native Client') !== null) 
+true && (window.navigator.plugins.namedItem('Native Client') !== null) 
 	&& nw.Window.get().showDevTools();
+window.KaspaConfig = {
+	workerCorePath: "/modules/controller/wallet-worker-core.js",
+	baseUrl: "/node_modules/@kaspa/kaspa-ux/",
+	debug:true
+} 
 const os = require("os");
 const fs = require("fs");
 const path = require("path");
@@ -11,19 +16,31 @@ const Console = require("../../lib/console.js")
 const StatsD = require('node-statsd');
 const semver = require('semver');
 
+const {RPC} = require('@kaspa/grpc-node');
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
 import {
 	flow, FlowDialog, i18n, getLocalSetting, setLocalSetting, T, dpc,
 	FlowApp
 } from '/node_modules/@aspectron/flow-ux/flow-ux.js';
+window.flow = flow;
 window.testI18n = (testing)=>i18n.setTesting(!!testing);
 window.getLocalSetting = getLocalSetting;
 window.setLocalSetting = setLocalSetting;
+//TODO
+window.PWA_MODULES={};
+window.PWA_MODULES["@kaspa/wallet-pwa"] = "1.0.12";
+window.PWA_MODULES["@aspectron/flow-ux"] = "0.1.42";
+window.PWA_MODULES["@kaspa/ux"] = "1.0.9";
+window.PWA_MODULES["@kaspa/grpc-web"] = "1.0.0";
+window.PWA_MODULES["@kaspa/wallet"] = "1.0.10";
+window.PWA_MODULES["@kaspa/grpc"] = "0.0.5";
+window.PWA_MODULES["@kaspa/core-lib"] = "1.0.2";
 
 
 class KDXApp extends FlowApp{
 	render(){
+		let walletMeta = {"generator":"KDX"}
 		let list = [
 			['Kaspa','MIT','Copyright (c) 2021 Kaspa Developers'],
 //			['PostgreSQL','PostgreSQL','Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br/>Portions Copyright © 1994, The Regents of the University of California'],
@@ -229,8 +246,7 @@ class KDXApp extends FlowApp{
 			<div style="height:192px;"></div>
 		</tab-content>
 		<tab-content for="wallet" class="wallet" data-active-display="flex">
-			<kdx-wallet-open-dialog></kdx-wallet-open-dialog>
-			<kdx-wallet></kdx-wallet>
+			<kaspa-wallet .walletMeta='${walletMeta}'></kaspa-wallet>
 		</tab-content>
 		<tab-content for="console" data-active-display="flex" class="vertical-flex term">
 			<flow-terminal id="kdx-console" class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
@@ -383,8 +399,9 @@ class KDXApp extends FlowApp{
 
 		const syncETA = [];
 		manager.on('sync-status', (data) => {
+			/*
 			// console.log("daemon",daemon,"data",data);
-			let wallet = this.qS('kdx-wallet');
+			let wallet = this.qS('kaspa-wallet');
 			const { sync, headerCount, blockCount, pastMedianTime, pastMedianTimeDiff } = data;
 			wallet.sync = sync;
 			wallet.pastMedianTime = pastMedianTime;
@@ -393,6 +410,7 @@ class KDXApp extends FlowApp{
 			wallet.blockCount = blockCount;
 
 			wallet.refreshStats();
+			*/
 		})
 
 		if(global.manager){
@@ -410,15 +428,23 @@ class KDXApp extends FlowApp{
 		global.manager = manager;
 	}
 	async initWallet() {
-		let wallet = this.qS('kdx-wallet');
+		let wallet = this.qS('kaspa-wallet');
+		this.wallet = wallet;
 		wallet.addEventListener("new-wallet", ()=>{
 			console.log("restartMining:::")
 			this.miningAddress = "";
 			this.manager?.restartMining();
 		})
 		let settings = await this.get_default_local_kaspad_settings();
-		wallet.setNetworkSettings(settings);
-		this.wallet = wallet;
+		let verbose = localStorage.rpcverbose == 1;
+		this.wallet.setRPCBuilder(()=>{
+			const { network, port } = settings;
+			return {
+				rpc: new RPC({ clientConfig:{ host : `127.0.0.1:${port}` } }),
+				network
+			}
+		});
+		
 		return Promise.resolve();
 	}
 	async get_default_local_kaspad_settings() {
