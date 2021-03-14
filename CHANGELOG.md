@@ -3,13 +3,15 @@
 ## [2.2.0] - 2021-03-14
 This release of KDX includes Kaspa build `v0.9.1` and is **compatible only with TESTNET-3**.
 This release includes the following changes:
-- KaspaUX re-integrated into KDX (KaspaUX now serves all wallet projects - PWA and KDX)
+- KaspaUX integrated into KDX (KaspaUX now serves all wallet projects - PWA and KDX)
+- "Scan QR Code" now available (via KaspaUX)
 - Wallet Import / Export (via KaspaUX)
 - Various user interface enhancements in the Wallet (via KaspaUX)
 - Significant speed improvements during transaction generation (250-1000 UTXO/s depending on various factors)
 - DNS seed settings have been removed from configuration templates (as of 0.9.1 dns-seeds are hard-coded)
 - Full data folder reset (for testnet3 switch)
 - Increased pastMedianTime sync tolerance from 45 to 75 sec
+- Basic auto-update features - KDX will check if the user is running the latest version and offer to update.
 
 ## [2.1.0] - 2021-02-19
 This release of KDX includes Kaspa build `v0.8.9` and is **compatible only with TESTNET-2**.
