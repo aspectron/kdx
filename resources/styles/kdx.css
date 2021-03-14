@@ -41,12 +41,15 @@ body{
 	--flow-input-box-shadow:10px 10px 30px  rgba(0,0,0,0.05), -10px -10px 30px rgba(0,0,0,0.05);
 	--flow-input-border: 0px;
 
-	--flow-select-margin: 5px 5px;
-    --flow-select-border: var(--flow-input-border);
-    --flow-select-label-border: 0px;
-    --flow-select-label-font-size: 0.6rem;
-    --flow-select-selected-min-height: 40px;
-    --flow-select-input-height: 40px;
+	--flow-select-width:var(--flow-input-width);
+	--flow-select-margin:var(--flow-input-margin);
+	--flow-select-display:var(--flow-input-display);
+	--flow-select-border:var(--flow-input-border);
+	--flow-select-input-padding:var(--flow-input-padding);
+	--flow-select-label-border: 0px;
+	--flow-select-label-font-size:var(--flow-input-label-font-size);
+	--flow-select-selected-min-height: 40px;
+	--flow-select-input-height: 40px;
 	--flow-select-selected-min-width: 200px;
 
 	--flow-btn-font-size:1.1rem;
