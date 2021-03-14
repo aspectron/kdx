@@ -7,8 +7,7 @@
                 "args":{
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
-                    "profile": 7000,
-                    "dnsseed" : "testnet-2-dnsseed.daglabs-dev.com"
+                    "profile": 7000
                 }
             }
         }
@@ -22,8 +21,7 @@
                 "args":{
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
-                    "profile": 7000,
-                    "dnsseed" : "testnet-2-dnsseed.daglabs-dev.com"
+                    "profile": 7000
                 }
             },
             "kaspaminer:km0" : {
@@ -73,8 +71,7 @@
                     "archival" : null,
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
-                    "profile": 7000,
-                    "dnsseed" : "testnet-2-dnsseed.daglabs-dev.com"
+                    "profile": 7000
                 }
             }
         }
@@ -88,8 +85,7 @@
                     "archival" : null,
                     "rpclisten" : "0.0.0.0:16210",
                     "listen": "0.0.0.0:16211",
-                    "profile": 7000,
-                    "dnsseed" : "testnet-2-dnsseed.daglabs-dev.com"
+                    "profile": 7000
                 }
             },
             "kaspaminer:km0" : {
