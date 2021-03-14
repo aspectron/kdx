@@ -246,7 +246,7 @@ class KDXApp extends FlowApp{
 			<div style="height:192px;"></div>
 		</tab-content>
 		<tab-content for="wallet" class="wallet" data-active-display="flex">
-			<kaspa-wallet .walletMeta='${walletMeta}' hideNetwork hidefaucet></kaspa-wallet>
+			<kaspa-wallet .walletMeta='${walletMeta}' hideNetwork hidefaucet hideQRScanner></kaspa-wallet>
 		</tab-content>
 		<tab-content for="console" data-active-display="flex" class="vertical-flex term">
 			<flow-terminal id="kdx-console" class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
