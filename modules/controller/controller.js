@@ -585,9 +585,10 @@ class KDXApp extends FlowApp{
 		caption["active"] = "wallet";
 	}
 	initTrayMenu() {
+		let icon = os.platform=='darwin'?'tray-icon.tiff':'tray-icon-60.png';
 		let tray = new nw.Tray({
-			icon: 'resources/images/tray-icon.png',
-			alticon:'resources/images/tray-icon.png',
+			icon:`resources/images/${icon}`,
+			alticon:`resources/images/${icon}`,
 			iconsAreTemplates: false
 		});
 
