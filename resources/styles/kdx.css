@@ -56,7 +56,8 @@ body{
 
 	--flow-dialog-btn-padding: 7px 2px;
 	
-	--kaspa-wallet-header-margin:-20px 0px 0px;
+	--kaspa-wallet-container-padding:0px 5px 5px;
+	--kaspa-wallet-header-margin:0px;
 	--kaspa-wallet-header-border-bottom:0px;
 	--kaspa-wallet-header-padding:0px 10px 5px;
 	--kaspa-wallet-header-logo-diaplay:none;
