@@ -33,10 +33,9 @@ body{
     --flow-input-color: #585858;
     --flow-input-placeholder: #555;
     --flow-input-label-border: 0px;
-    --flow-input-height: 40px;
-    --flow-input-font-size:0.75rem;
-    --flow-input-label-font-size: 0.6rem;
-    --flow-input-font-size:0.7rem;
+    --flow-input-height:50px;
+    --flow-input-font-size:1.3rem;
+    --flow-input-label-font-size: 0.9rem;
     --flow-input-font-weight:normal;
 	--flow-input-line-height:80%;
 	--flow-input-box-shadow:10px 10px 30px  rgba(0,0,0,0.05), -10px -10px 30px rgba(0,0,0,0.05);
@@ -50,10 +49,9 @@ body{
     --flow-select-input-height: 40px;
 	--flow-select-selected-min-width: 200px;
 
-	--flow-btn-font-size: 0.9rem;
+	--flow-btn-font-size:1.1rem;
 	--flow-btn-wrapper-min-width:50px;
-	--flow-btn-padding: 7px 2px;
-
+	--flow-btn-padding:11px 8px;
 	--flow-dialog-btn-padding: 7px 2px;
 	
 	--kaspa-wallet-container-padding:0px 5px 5px;
