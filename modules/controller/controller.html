@@ -41,6 +41,12 @@
 				}
 			}
 		}
+		var KaspaConfig = {
+			workerCorePath: "/modules/controller/wallet-worker-core.js",
+			baseUrl: "/node_modules/@kaspa/kaspa-ux/",
+			debug:true,
+			dontInitiatedComponent:true
+		}
 	</script>
 
 	<script type="module" src="/node_modules/@aspectron/flow-ux/flow-ux.js"></script>
@@ -52,7 +58,7 @@
 	<script src="/resources/extern/scripts/jquery-3.1.1.normal.js"></script>
 	<!-- install xterm, xterm-addon-fit, xterm-addon-web-links node-modules -->
 	<script type="module" src="/node_modules/@aspectron/flow-ux/src/flow-terminal.js"></script>
-	<script type="module" src="/node_modules/@kaspa/ux/kaspa-ux.js"></script>
+	<script type="module" src="./kaspa-wallet.js"></script>
 	<script type="text/javascript" src="/resources/rpc.js"></script>
 	<script type="module" src="/modules/controller/controller.js"></script>
 </head>
