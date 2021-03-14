@@ -1,10 +1,5 @@
 true && (window.navigator.plugins.namedItem('Native Client') !== null) 
-	&& nw.Window.get().showDevTools();
-window.KaspaConfig = {
-	workerCorePath: "/modules/controller/wallet-worker-core.js",
-	baseUrl: "/node_modules/@kaspa/kaspa-ux/",
-	debug:true
-} 
+	&& nw.Window.get().showDevTools(); 
 const os = require("os");
 const fs = require("fs");
 const path = require("path");
@@ -246,7 +241,8 @@ class KDXApp extends FlowApp{
 			<div style="height:192px;"></div>
 		</tab-content>
 		<tab-content for="wallet" class="wallet" data-active-display="flex">
-			<kaspa-wallet .walletMeta='${walletMeta}' hideNetwork hidefaucet hideQRScanner></kaspa-wallet>
+			<kaspa-wallet .walletMeta='${walletMeta}' hideNetwork _hidefaucet 
+				_hideQRScanner hideopenwalletlogo></kaspa-wallet>
 		</tab-content>
 		<tab-content for="console" data-active-display="flex" class="vertical-flex term">
 			<flow-terminal id="kdx-console" class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
@@ -589,9 +585,10 @@ class KDXApp extends FlowApp{
 		caption["active"] = "wallet";
 	}
 	initTrayMenu() {
+		let icon = os.platform=='darwin'?'tray-icon.tiff':'tray-icon-60.png';
 		let tray = new nw.Tray({
-			icon: 'resources/images/tray-icon.png',
-			alticon:'resources/images/tray-icon.png',
+			icon:`resources/images/${icon}`,
+			alticon:`resources/images/${icon}`,
 			iconsAreTemplates: false
 		});
 
