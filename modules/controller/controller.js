@@ -1,5 +1,5 @@
-false && (window.navigator.plugins.namedItem('Native Client') !== null) 
-	&& nw.Window.get().showDevTools();
+true && (window.navigator.plugins.namedItem('Native Client') !== null) 
+	&& nw.Window.get().showDevTools(); 
 const os = require("os");
 const fs = require("fs");
 const path = require("path");
@@ -9,20 +9,33 @@ const utils = require('@aspectron/flow-utils');
 const Manager = require("../../lib/manager.js");
 const Console = require("../../lib/console.js")
 const StatsD = require('node-statsd');
+const semver = require('semver');
 
+const {RPC} = require('@kaspa/grpc-node');
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
 import {
 	flow, FlowDialog, i18n, getLocalSetting, setLocalSetting, T, dpc,
 	FlowApp
 } from '/node_modules/@aspectron/flow-ux/flow-ux.js';
+window.flow = flow;
 window.testI18n = (testing)=>i18n.setTesting(!!testing);
 window.getLocalSetting = getLocalSetting;
 window.setLocalSetting = setLocalSetting;
+//TODO
+window.PWA_MODULES={};
+window.PWA_MODULES["@kaspa/wallet-pwa"] = "1.0.12";
+window.PWA_MODULES["@aspectron/flow-ux"] = "0.1.42";
+window.PWA_MODULES["@kaspa/ux"] = "1.0.9";
+window.PWA_MODULES["@kaspa/grpc-web"] = "1.0.0";
+window.PWA_MODULES["@kaspa/wallet"] = "1.0.10";
+window.PWA_MODULES["@kaspa/grpc"] = "0.0.5";
+window.PWA_MODULES["@kaspa/core-lib"] = "1.0.2";
 
 
 class KDXApp extends FlowApp{
 	render(){
+		let walletMeta = {"generator":"KDX"}
 		let list = [
 			['Kaspa','MIT','Copyright (c) 2021 Kaspa Developers'],
 //			['PostgreSQL','PostgreSQL','Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br/>Portions Copyright © 1994, The Regents of the University of California'],
@@ -228,8 +241,8 @@ class KDXApp extends FlowApp{
 			<div style="height:192px;"></div>
 		</tab-content>
 		<tab-content for="wallet" class="wallet" data-active-display="flex">
-			<kdx-wallet-open-dialog></kdx-wallet-open-dialog>
-			<kdx-wallet></kdx-wallet>
+			<kaspa-wallet .walletMeta='${walletMeta}' hideNetwork _hidefaucet 
+				_hideQRScanner hideopenwalletlogo></kaspa-wallet>
 		</tab-content>
 		<tab-content for="console" data-active-display="flex" class="vertical-flex term">
 			<flow-terminal id="kdx-console" class="x-terminal" background="#000" foreground="#FFF"></flow-terminal>
@@ -254,15 +267,23 @@ class KDXApp extends FlowApp{
 		dpc(e=>this.init(), 200);
 	}
 	async init(){
+
+
+
 		this.taskTabs = {};
 		this.taskTerminals = {};
 		this.initWin();
+
 		this.initTrayMenu();
 		this.initRPC();
 		this.initData = await this.get("get-app-data");
 		this.initI18n();
 		this.initTheme();
 		this.initCaption();
+
+		if(await this.checkForUpdates())
+			return;
+
 		await this.initSettings();
 		await this.initWallet();
 		await this.initManager();
@@ -273,6 +294,11 @@ class KDXApp extends FlowApp{
 		this.initTemplates();
 		this.initReleaseNotes();
 		this.setUiLoading(false);
+
+		this.updateInterval = setInterval(()=>{
+			this.checkForUpdates().then();
+		}, 1000*60*15);
+//		this.checkForUpdates().then();
 	}
 	setUiLoading(loading){
 		document.body.classList.toggle("ui-loading", loading);
@@ -367,33 +393,22 @@ class KDXApp extends FlowApp{
 			//});
 		});
 
-		const syncETA = [];
+		/*
 		manager.on('sync-status', (data) => {
-			// console.log("daemon",daemon,"data",data);
-			let wallet = this.qS('kdx-wallet');
-			const { sync, headerCount, blockCount } = data;
+			//console.log("sync-status:data", data);
+			let wallet = this.wallet || this.qS('kaspa-wallet');
+			const { networkName, sync, headerCount, blockCount, pastMedianTime, pastMedianTimeDiff } = data;
 			wallet.sync = sync;
+			wallet.networkName = networkName;
+			wallet.pastMedianTime = pastMedianTime;
+			wallet.pastMedianTimeDiff = pastMedianTimeDiff;
 			wallet.headerCount = headerCount;
 			wallet.blockCount = blockCount;
-			if(sync > 99.95) {
-				wallet.eta = null;
-				syncETA.length = 0;
-			} else {
-				syncETA.push({ ts : Date.now(), sync });
-				while(syncETA.length > 180)
-					syncETA.shift();
-				if(syncETA.length > 5) {
-					let t = syncETA[syncETA.length-1].ts - syncETA[0].ts;
-					let d = (syncETA[syncETA.length-1].sync - syncETA[0].sync)/100;
-					let td = t/d;
-					let r = (100 - syncETA[syncETA.length-1].sync)/100;
-					let eta = r * td;
-					wallet.eta = eta;
-				}
-			}
 
 			wallet.refreshStats();
+			wallet.requestUpdate();
 		})
+		*/
 
 		if(global.manager){
 			let {config:daemons} = await this.get("get-modules-config");
@@ -410,15 +425,23 @@ class KDXApp extends FlowApp{
 		global.manager = manager;
 	}
 	async initWallet() {
-		let wallet = this.qS('kdx-wallet');
+		let wallet = this.qS('kaspa-wallet');
+		this.wallet = wallet;
 		wallet.addEventListener("new-wallet", ()=>{
 			console.log("restartMining:::")
 			this.miningAddress = "";
 			this.manager?.restartMining();
 		})
 		let settings = await this.get_default_local_kaspad_settings();
-		wallet.setNetworkSettings(settings);
-		this.wallet = wallet;
+		let verbose = localStorage.rpcverbose == 1;
+		this.wallet.setRPCBuilder(()=>{
+			const { network, port } = settings;
+			return {
+				rpc: new RPC({ clientConfig:{ host : `127.0.0.1:${port}` } }),
+				network
+			}
+		});
+		
 		return Promise.resolve();
 	}
 	async get_default_local_kaspad_settings() {
@@ -543,12 +566,12 @@ class KDXApp extends FlowApp{
 		caption.version = pkg.version;
 
 		caption.tabs = [{
-			title : "WALLET",
-			id : "wallet"
-		},{
 			title : "KASPA",
 			id : "home",
 			cls: "home"
+		},{
+			title : "WALLET",
+			id : "wallet"
 		},{
 			title : "SETTINGS",
 			id : "settings"
@@ -562,9 +585,10 @@ class KDXApp extends FlowApp{
 		caption["active"] = "wallet";
 	}
 	initTrayMenu() {
+		let icon = os.platform=='darwin'?'tray-icon.tiff':'tray-icon-60.png';
 		let tray = new nw.Tray({
-			icon: 'resources/images/tray-icon.png',
-			alticon:'resources/images/tray-icon.png',
+			icon:`resources/images/${icon}`,
+			alticon:`resources/images/${icon}`,
 			iconsAreTemplates: false
 		});
 
@@ -1020,6 +1044,11 @@ ${changelogContent}`;
 	cleanup() {
 		if(this.statsd)
 			delete this.statsd;
+
+		if(this.updateInterval) {
+			clearInterval(this.updateInterval);
+			delete this.updateInterval;
+		}
 	}
 
 	post(subject, data){
@@ -1073,7 +1102,7 @@ ${changelogContent}`;
 					btns:[i18n.t('Cancel'), i18n.t('Exit')+':warning',
 					{
 						value : 'background',
-						text : html`<span style="font-size:13.3px;">${i18n.t("Leave in the Background")}</style>`,
+						text : html`<span style="font-size:13.3px;">${i18n.t("Leave in the Background")}</span>`,
 						cls : 'primary'						
 					}]
 				});
@@ -1314,6 +1343,77 @@ ${changelogContent}`;
 		}
 
 		this.statsd.gauge(ident,value);
+	}
+
+
+	async checkForUpdates(force = false) {
+
+		if(this.updateChecked)
+			return;
+		this.updateChecked = true;
+
+		//const url = 'http://localhost:9090/version.json';
+		const url = 'https://kdx.app/version.json';
+		let resp = await fetch(url).catch((error) => {
+			alert(error.toString());
+		});
+		let data = await resp.json().catch((error) => { 
+			console.log("resp.json() ERROR", error); 
+		});
+
+		if(!data) {
+			console.log("missing version data in https://kdx.app/version.json");
+			return false;
+		}
+
+		const info = data[process.platform];
+		const version = info?.version;
+		if(!version) {
+			console.log('unable to obtain current update version');
+			return;
+		}
+		let is_gt = semver.gt(version, pkg.version);
+		console.log('UPDATE CHECK','pkg.version',pkg.version,'server version:',version);
+		console.log('UPDATE REQUIRED:', is_gt);
+		if(is_gt) {
+
+			this.setUiLoading(false);
+
+			let {btn} = await FlowDialog.show({
+				title:i18n.t("KDX Update"),
+				body:i18n.t(`Version ${version} is available, would you like to update?`),
+				btns:[i18n.t('No'), //i18n.t('Exit')+':warning',
+				{
+					value : 'ok',
+					text : 'Yes', //html`<span style="font-size:13.3px;">${i18n.t("Yes")}</span>`,
+					cls : 'primary'
+				}]
+			});
+
+			if(btn == 'ok') {
+				require('nw.gui').Shell.openExternal('https://kdx.app');
+
+				let confirm = await FlowDialog.show({
+					title:i18n.t("KDX Update"),
+					body:html`Please download the latest version from  <flow-link href="https://kdx.app" target="_blank">https://kdx.app</flow-link>
+					<br/>&nbsp;<br/>
+					KDX will now shutdown`,
+					btns:[i18n.t('Cancel'), //i18n.t('Exit')+':warning',
+					{
+						value : 'ok',
+						text : 'Ok', //html`<span style="font-size:13.3px;">${i18n.t("Ok")}</span>`,
+						cls : 'primary'
+					}]
+				});
+
+				if(confirm.btn == 'ok') {
+					this.exit();
+					return true;
+				}
+
+				return false;
+			}
+		}
 	}
 }
 

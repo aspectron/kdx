@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const bs58 = require('bs58');
 const colors = require('colors');
 const fs = require('fs');
+const fse = require('fs-extra');
 const os = require('os');
 const path = require('path');
 
@@ -21,6 +22,26 @@ class App extends FlowApp{
 	}
 
 	async initConfig(){
+		const currentNetworkType = 'testnet3';
+
+		const networkTagFile = path.join(this.getConfigFolderPath(), '.network-type');
+		let reset = false;
+		if(!fs.existsSync(networkTagFile)) {
+			reset = true;
+		}
+		else
+		if(fs.existsSync(networkTagFile)) {
+			let networkType = fs.readFileSync(networkTagFile,'utf8');
+			if(!networkType.includes(currentNetworkType))
+				reset = true;
+		}
+
+		if(reset) {
+			await fse.remove(this.getConfigFolderPath());
+			await fse.ensureDir(this.getConfigFolderPath());
+			fs.writeFileSync(networkTagFile, currentNetworkType, { encoding : 'utf8'});
+		}
+
 		await super.initConfig();
 		await this.initDataFolder();
 		await this.initCerts();
@@ -47,11 +68,10 @@ class App extends FlowApp{
 			this.config.dataDir = '';
 		}
 
-		if(init)
-			await this.setConfig(this.config);
-
 		this.log("DataFolder", this.dataFolder)
 		this.ensureDirSync(this.dataFolder);
+		if(init)
+			await this.setConfig(this.config);
 		this.onDataDirInit();
 	}
 

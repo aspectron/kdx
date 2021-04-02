@@ -16,3 +16,4 @@ apps/dagtps
 apps
 module_config_state.txt
 package-lock_.json
+modules/controller/xxxx
