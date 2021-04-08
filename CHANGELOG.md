@@ -1,5 +1,13 @@
 # Changelog
 
+
+## [2.3.0] - 2021-04-08
+This release of KDX includes Kaspa build `v0.9.2` and is **compatible only with TESTNET-4**.
+This release includes the following changes:
+- Disallow transactions with more than 50 inputs (upcoming kaspad v0.10.0 will address this).
+- Compound feature now uses up to 50 inputs per compound transaction.
+- Implemented a different UTXO tracking mechanism addressing UTXO reuse issues that were occurring when transactions get stuck in the mempool.
+
 ## [2.2.0] - 2021-03-14
 This release of KDX includes Kaspa build `v0.9.1` and is **compatible only with TESTNET-3**.
 This release includes the following changes:
