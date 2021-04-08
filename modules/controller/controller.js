@@ -1,5 +1,7 @@
-true && (window.navigator.plugins.namedItem('Native Client') !== null) 
-	&& nw.Window.get().showDevTools(); 
+try {
+	false && (window.navigator.plugins.namedItem('Native Client') !== null) 
+		&& nw.Window.get().showDevTools(); 
+} catch(ex) { }
 const os = require("os");
 const fs = require("fs");
 const path = require("path");

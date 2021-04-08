@@ -1,4 +1,4 @@
-true && nw.Window.get().showDevTools();
+false && nw.Window.get().showDevTools();
 const { BroadcastChannelRPC : FlowRPC } = require("@aspectron/flow-rpc");
 const os = require("os");
 const fs = require("fs");
