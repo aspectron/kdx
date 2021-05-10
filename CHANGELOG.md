@@ -1,6 +1,12 @@
 # Changelog
 
 
+## [2.4.0] - 2021-05-10
+This release of KDX includes Kaspa build `v0.10.2` and is **compatible only with TESTNET-5**.
+This release includes the following changes:
+- Kaspad now uses a single `--appdir` argument for data folder.
+- The wallet framework now limits transaction sizes using kaspad-compatible transaction weight expressed in SigOps.
+
 ## [2.3.0] - 2021-04-08
 This release of KDX includes Kaspa build `v0.9.2` and is **compatible only with TESTNET-4**.
 This release includes the following changes:

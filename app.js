@@ -22,7 +22,7 @@ class App extends FlowApp{
 	}
 
 	async initConfig(){
-		const currentNetworkType = 'testnet4';
+		const currentNetworkType = 'testnet5';
 
 		const networkTagFile = path.join(this.getConfigFolderPath(), '.network-type');
 		let reset = false;
