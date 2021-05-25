@@ -1,9 +1,12 @@
 # Changelog
 
-## [2.5.0] - 2021-05-24
+## [2.5.0] - 2021-05-25
 This release of KDX includes Kaspa build `v0.10.2` and is **compatible only with TESTNET-5**.
 
-This is an interim release - due to changes in the Kaspa address structure, the wallet framework functionality is currently disabled, instead you can use the "Console" tab to access the native Kaspa CLI wallet.
+This is an interim release - due to changes in the Kaspa project, the wallet framework functionality is currently disabled, instead you can use the "Console" tab to access the native Kaspa CLI wallet.
+
+- Support for native Kaspa CLI wallet via Console tab
+- Support for Kaspad RPC calls via Console tab
 
 ## [2.4.0] - 2021-05-10
 This release of KDX includes Kaspa build `v0.10.2` and is **compatible only with TESTNET-5**.
