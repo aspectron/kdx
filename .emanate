@@ -1,5 +1,6 @@
 "use strict";
 
+//const KASPA_DEFAULT_BRANCH = 'v0.10.2-dev'; //'master';
 const KASPA_DEFAULT_BRANCH = 'master';
 
 const E = new Emanator(__dirname, {
@@ -18,7 +19,7 @@ const E = new Emanator(__dirname, {
     standalone : true,
     production: true,
     //DMG: true,
-    nwjs : { version : '0.52.1' },
+    nwjs : { version : '0.52.2' },
     resources : 'resources/setup',
 
     manifest : (manifest) => {

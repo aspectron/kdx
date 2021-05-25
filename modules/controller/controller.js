@@ -166,8 +166,8 @@ class KDXApp extends FlowApp{
 					label="Mining address" apply-btn
 					btnText="Update">
 				</flow-input>
-				<flow-checkbox id="settings-use-wallet-address-for-mining" class="block"
-					><flow-i18n>Use Wallet Address for Mining</flow-i18n></flow-checkbox>
+				<!-- flow-checkbox id="settings-use-wallet-address-for-mining" class="block"
+					><flow-i18n>Use Wallet Address for Mining</flow-i18n></flow-checkbox -->
 
 				<h4 slot="info" class="title"><flow-i18n>Block Generation</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
@@ -175,7 +175,7 @@ class KDXApp extends FlowApp{
 					The <i>Use Wallet Address for Mining</i> option will automatically configure the miner to send Kaspa to your wallet.
 				</p>
 			</flow-form-control>
-			<flow-form-control icon="fal:drafting-compass" class="advanced-tool">
+			<!-- flow-form-control icon="fal:drafting-compass" class="advanced-tool">
 				<flow-i18n caption>Metrics</flow-i18n>
 				<flow-checkbox id="settings-enable-metrics"
 					class="block advanced-tool"
@@ -196,7 +196,7 @@ class KDXApp extends FlowApp{
 				<p slot="info" is="i18n-p">
 					You can stream KDX metrics to your own StatsD-compatible server.
 				</p>
-			</flow-form-control>
+			</flow-form-control-->
 
 			<flow-form-control id="settings-script" icon="fal:tasks">
 				<flow-i18n slot="title">Service Configuration</flow-i18n>
@@ -573,16 +573,17 @@ class KDXApp extends FlowApp{
 			cls: "home"
 		},{
 			title : "WALLET",
+			disable:true,
 			id : "wallet"
 		},{
 			title : "SETTINGS",
 			id : "settings"
-		}/*,{
+		},{
 			title : "CONSOLE",
 			id : "console",
-			disable:true,
-			section: 'advanced'
-		}*/];
+		//	disable:true,
+		//	section: 'advanced'
+		}];
 
 		caption["active"] = "wallet";
 	}
@@ -780,7 +781,7 @@ class KDXApp extends FlowApp{
 		enableMiningInput.addEventListener('changed', (e)=>{
 			this.setEnableMining(e.detail.checked);
 		});
-		useWalletForMiningInput.addEventListener('changed', (e)=>{
+		useWalletForMiningInput?.addEventListener('changed', (e)=>{
 			this.setUseWalletForMining(e.detail.checked);
 		});
 		miningAddressInput.addEventListener('btn-click', async (e)=>{
@@ -788,30 +789,36 @@ class KDXApp extends FlowApp{
 			if(address)
 				this.setMiningAddress(address)
 		})
-		statsdAddressInput.addEventListener('changed', (e)=>{
+		statsdAddressInput?.addEventListener('changed', (e)=>{
 			this.setStatsdAddress(e.detail.value);
 		});
-		statsdPrefixInput.addEventListener('changed', (e)=>{
+		statsdPrefixInput?.addEventListener('changed', (e)=>{
 			this.setStatsdPrefix(e.detail.value);
 		});
-		enableMetricsInput.addEventListener('changed', (e)=>{
+		enableMetricsInput?.addEventListener('changed', (e)=>{
 			this.setEnableMetrics(e.detail.checked);
 		});
 
 		themeInput.checked = config.theme == 'dark';
 		invertTermInput.checked = !!config.invertTerminals;
 		runInBGInput.checked = !!config.runInBG;
-		enableMetricsInput.checked = !!config.enableMetrics;
+		if(enableMetricsInput)
+			enableMetricsInput.checked = !!config.enableMetrics;
 		enableMiningInput.checked = !!config.enableMining;
-		useWalletForMiningInput.checked = !!config.useWalletForMining;
+		if(useWalletForMiningInput)
+			useWalletForMiningInput.checked = !!config.useWalletForMining;
 		console.log("config.useWalletForMining", config.useWalletForMining)
-		miningAddressInput.disabled = useWalletForMiningInput.checked;
+		if(useWalletForMiningInput)
+			miningAddressInput.disabled = useWalletForMiningInput.checked;
 		miningAddressInput.value = this.getMiningAddressFromConfig(config)
-		this.statsdAddress = statsdAddressInput.value = config.statsdAddress || "";
-		this.statsdPrefix = statsdPrefixInput.value = config.statsdPrefix || "kdx.$HOSTNAME";
+		if(statsdAddressInput)
+			this.statsdAddress = statsdAddressInput.value = config.statsdAddress || "";
+		if(statsdPrefixInput)
+			this.statsdPrefix = statsdPrefixInput.value = config.statsdPrefix || "kdx.$HOSTNAME";
 		this.runInBG = runInBGInput.checked;
 		this.enableMining = enableMiningInput.checked;
-		this.useWalletForMining = useWalletForMiningInput.checked;
+		if(useWalletForMiningInput)
+			this.useWalletForMining = useWalletForMiningInput.checked;
 		this.buildType = config.build || 'generic';
 	
 		//this.manager.setEnableMining(this.enableMining);
