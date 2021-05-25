@@ -6,6 +6,7 @@
   "main": "kdx.js",
   "files": [
     "kdx.js",
+    "pty.js",
     "node-app.js",
     "nw-app.js",
     "app.js",
