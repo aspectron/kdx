@@ -354,4 +354,8 @@ flow-dialog flow-input{--flow-input-font-size:1rem;}
 fa-icon.big{--fa-icon-size:40px;}
 fa-icon.warning{--fa-icon-color:red}
 
+[inline-info] {
+	font-family: "Open Sans";
+	font-size: 14.4px;
 
+}

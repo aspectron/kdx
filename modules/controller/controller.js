@@ -166,13 +166,20 @@ class KDXApp extends FlowApp{
 					label="Mining address" apply-btn
 					btnText="Update">
 				</flow-input>
+				<div inline-info>
+					Please use the Console tab <i>wallet</i> command to create an address.<br/>
+					Once created, please enter the address in the input above.
+				</div>
+
 				<!-- flow-checkbox id="settings-use-wallet-address-for-mining" class="block"
 					><flow-i18n>Use Wallet Address for Mining</flow-i18n></flow-checkbox -->
 
 				<h4 slot="info" class="title"><flow-i18n>Block Generation</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
 					The Enable Mining option starts / stops all configured Kaspaminer instances.<br/>&nbsp;<br/>
-					The <i>Use Wallet Address for Mining</i> option will automatically configure the miner to send Kaspa to your wallet.
+					<!--
+						The <i>Use Wallet Address for Mining</i> option will automatically configure the miner to send Kaspa to your wallet. 
+					-->
 				</p>
 			</flow-form-control>
 			<!-- flow-form-control icon="fal:drafting-compass" class="advanced-tool">
