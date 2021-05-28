@@ -580,7 +580,7 @@ class KDXApp extends FlowApp{
 			cls: "home"
 		},{
 			title : "WALLET",
-			disable:true,
+			// disable:true,
 			id : "wallet"
 		},{
 			title : "SETTINGS",
