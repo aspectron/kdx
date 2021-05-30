@@ -26,14 +26,13 @@ window.getLocalSetting = getLocalSetting;
 window.setLocalSetting = setLocalSetting;
 //TODO
 window.PWA_MODULES={};
-window.PWA_MODULES["@kaspa/wallet-pwa"] = "1.0.12";
-window.PWA_MODULES["@aspectron/flow-ux"] = "0.1.42";
-window.PWA_MODULES["@kaspa/ux"] = "1.0.9";
-window.PWA_MODULES["@kaspa/grpc-web"] = "1.0.0";
-window.PWA_MODULES["@kaspa/wallet"] = "1.0.10";
-window.PWA_MODULES["@kaspa/grpc"] = "0.0.5";
-window.PWA_MODULES["@kaspa/core-lib"] = "1.0.2";
-
+window.PWA_MODULES["@kaspa/wallet-pwa"] = "N/A";
+window.PWA_MODULES["@aspectron/flow-ux"] = "N/A";
+window.PWA_MODULES["@kaspa/ux"] = "N/A";
+window.PWA_MODULES["@kaspa/grpc-web"] = "N/A";
+window.PWA_MODULES["@kaspa/wallet"] = "N/A";
+window.PWA_MODULES["@kaspa/grpc"] = "N/A";
+window.PWA_MODULES["@kaspa/core-lib"] = "N/A";
 
 class KDXApp extends FlowApp{
 	render(){
@@ -296,6 +295,7 @@ class KDXApp extends FlowApp{
 		await this.initSettings();
 		await this.initWallet();
 		await this.initManager();
+		await this.initVersions();
 		await this.initConsole();
 		
 		
@@ -432,6 +432,20 @@ class KDXApp extends FlowApp{
 		manager.enableMining = this.enableMining;
 
 		global.manager = manager;
+	}
+	async initVersions() {
+
+		Object.keys(window.PWA_MODULES).forEach((folder) =>{
+			try { 
+				let packageFile = path.join(global.manager.appFolder,'node_modules',folder,'package.json');
+				console.log("READING MODULE VERSION FROM",packageFile);
+				let pkg = utils.readJSON(packageFile);
+				if(pkg?.version)
+					window.PWA_MODULES[folder] = pkg.version;
+			} catch(e) {
+				console.log("Error updating PWA MODULES:",e);
+			}
+		});
 	}
 	async initWallet() {
 		let wallet = this.qS('kaspa-wallet');
