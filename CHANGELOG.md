@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.6.1] - 2021-05-30
+This release of KDX includes Kaspa build `v0.10.2` and is **compatible only with TESTNET-5**.
+
+This release addresses address compatibility issues in the wallet framework that occurred during 0.9.x to 0.10.x migration.
+
 ## [2.5.0] - 2021-05-25
 This release of KDX includes Kaspa build `v0.10.2` and is **compatible only with TESTNET-5**.
 
