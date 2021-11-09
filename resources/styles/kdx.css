@@ -56,7 +56,8 @@ body{
 	--flow-btn-wrapper-min-width:50px;
 	--flow-btn-padding:11px 8px;
 	--flow-dialog-btn-padding: 7px 2px;
-	
+	--flow-markdown-icon: url(/node_modules/@aspectron/flow-ux/resources/icons/svg/link.svg);
+
 	--kaspa-wallet-container-padding:0px 5px 5px;
 	--kaspa-wallet-header-margin:0px;
 	--kaspa-wallet-header-border-bottom:0px;
@@ -65,6 +66,7 @@ body{
 }
 
 body.flow-theme-dark{
+	--flow-markdown-icon: url(/node_modules/@aspectron/flow-ux/resources/icons/svg/link.svg);
 	--flow-primary-color:  rgba(0,150,136,1);
 	--flow-border-color:  rgba(0,150,136,1);
 	--flow-data-badge-value: #fff;
@@ -185,7 +187,7 @@ flow-expandable h4[slot="info"].title{margin-bottom:10px;}
 /*flow-expandable:not([opened]) [slot="info"]{display:none;}*/
 .tabs{margin-top:32px;width:100%;}
 flow-tabs flow-tab{margin-left: -20px;margin-right: -20px;}
-flow-caption-bar{/*--flow-tab-min-width:220px;--flow-tab-max-width:320px;*/}
+/*flow-caption-bar{--flow-tab-min-width:220px;--flow-tab-max-width:320px;}*/
 tab-content{overflow:auto auto;flex:1;padding:10px;display:none;z-index:15;}
 flow-textarea{margin:4px;}
 tab-content>x-terminal{height:100%;}

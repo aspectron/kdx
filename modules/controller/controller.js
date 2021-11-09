@@ -584,7 +584,7 @@ class KDXApp extends FlowApp{
 		console.log("caption", caption)
 		this.caption = caption;
 		this.caption.close = this.closeWin;
-		this.caption.logo = `/resources/images/kaspa-logo-${this.theme}-bg.png`;
+		this.caption.logo = `/resources/images/kaspa-logo-${this.theme||"light"}-bg.png`;
 
 		caption.version = pkg.version;
 
@@ -671,7 +671,9 @@ class KDXApp extends FlowApp{
 		netEl.setAttribute('selected',this.tpl_network);
 
 		window.addEventListener('select', (e) => {
-			let { selected } = e.detail;
+			let { selected } = e.detail||{};
+			if(!selected)
+				return
 			switch(e.target.id) {
 				case 'network-list': {
 					this.tpl_network = selected;
