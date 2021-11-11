@@ -1,7 +1,7 @@
 {
   "name": "kdx",
   "description": "Kaspa Desktop eXperience",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "private": true,
   "main": "kdx.js",
   "files": [
@@ -30,6 +30,7 @@
     "@aspectron/flow-async": "*",
     "@aspectron/flow-rpc": "*",
     "@aspectron/flow-utils": "*",
+    "@aspectron/flow-logger":"*",
     "@aspectron/flow-ux": ">=0.1.14",
     "@grpc/grpc-js": "^1.2.4",
     "@grpc/proto-loader": "^0.5.6",
