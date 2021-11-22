@@ -19,7 +19,7 @@ const E = new Emanator(__dirname, {
     standalone : true,
     production: true,
     //DMG: true,
-    nwjs : { version : '0.52.2' },
+    nwjs : { version : '0.55.0' },
     resources : 'resources/setup',
 
     manifest : (manifest) => {

@@ -4,29 +4,16 @@
 		"kaspad:kd0" : {
 			"reset-peers" : false,
 			"args":{
-				"testnet" : null,
-				"rpclisten" : "0.0.0.0:16210",
-				"listen": "0.0.0.0:16211",
+				"rpclisten" : "0.0.0.0:16110",
+				"listen": "0.0.0.0:16111",
 				"profile": 7000,
-				"utxoindex" : null
-			}
-		},
-		"kaspad:kd1" : {
-			"reset-peers" : false,
-			"args":{
-				"testnet" : null,
-				"rpclisten":"0.0.0.0:16310",
-				"listen": "0.0.0.0:16311",
-				"profile": 7001,
-				"connect": "0.0.0.0:16211",
 				"utxoindex" : null
 			}
 		},
 		"kaspaminer:km0" : {
 			"args":{
-				"testnet" : null,
-				"miningaddr" : "kaspatest:qrjtaaaryx3ngg48p888e52fd6e7u4epjvh46p7rqz",
-				"rpcserver":"localhost:16210",
+				"miningaddr" : "kaspa:qr35ennsep3hxfe7lnz5ee7j5jgmkjswsslwxj42ta",
+				"rpcserver":"localhost:16110",
 				"mine-when-not-synced" : null
 			}
 		}

@@ -5,8 +5,8 @@
             "kaspad:kd0" : {
                 "reset-peers" : false,
                 "args":{
-                    "rpclisten" : "0.0.0.0:16210",
-                    "listen": "0.0.0.0:16211",
+                    "rpclisten" : "0.0.0.0:16110",
+                    "listen": "0.0.0.0:16111",
                     "profile": 7000
                 }
             }
@@ -19,15 +19,15 @@
             "kaspad:kd0" : {
                 "reset-peers" : false,
                 "args":{
-                    "rpclisten" : "0.0.0.0:16210",
-                    "listen": "0.0.0.0:16211",
+                    "rpclisten" : "0.0.0.0:16110",
+                    "listen": "0.0.0.0:16111",
                     "profile": 7000
                 }
             },
             "kaspaminer:km0" : {
                 "args":{
                     "miningaddr" : "",
-                    "rpcserver":"localhost:16210"
+                    "rpcserver":"localhost:16110"
                 }
             }
         }
@@ -39,8 +39,8 @@
             "kaspad:kd0" : {
                 "reset-peers" : false,
                 "args":{
-                    "rpclisten" : "0.0.0.0:16210",
-                    "listen": "0.0.0.0:16211",
+                    "rpclisten" : "0.0.0.0:16110",
+                    "listen": "0.0.0.0:16111",
                     "profile": 7000
                 }
             },
@@ -50,13 +50,13 @@
                     "rpclisten":"0.0.0.0:16310",
                     "listen": "0.0.0.0:16311",
                     "profile": 7001,
-                    "connect": "0.0.0.0:16211"
+                    "connect": "0.0.0.0:16111"
                 }
             },
             "kaspaminer:km0" : {
                 "args":{
                     "miningaddr" : "",
-                    "rpcserver":"localhost:16210",
+                    "rpcserver":"localhost:16110",
                     "mine-when-not-synced" : null
                 }
             }
@@ -69,8 +69,8 @@
                 "reset-peers" : false,
                 "args":{
                     "archival" : null,
-                    "rpclisten" : "0.0.0.0:16210",
-                    "listen": "0.0.0.0:16211",
+                    "rpclisten" : "0.0.0.0:16110",
+                    "listen": "0.0.0.0:16111",
                     "profile": 7000
                 }
             }
@@ -83,15 +83,15 @@
                 "reset-peers" : false,
                 "args":{
                     "archival" : null,
-                    "rpclisten" : "0.0.0.0:16210",
-                    "listen": "0.0.0.0:16211",
+                    "rpclisten" : "0.0.0.0:16110",
+                    "listen": "0.0.0.0:16111",
                     "profile": 7000
                 }
             },
             "kaspaminer:km0" : {
                 "args":{
                     "miningaddr" : "",
-                    "rpcserver":"localhost:16210"
+                    "rpcserver":"localhost:16110"
                 }
             }
         }

@@ -66,7 +66,8 @@ class Initializer{
 
 	initTemplates() {
 
-		this.tpl_network = 'testnet';
+//		this.tpl_network = 'testnet';
+		this.tpl_network = 'mainnet';
 		this.tpl_template = 'kaspad-mining';
 
 		try {

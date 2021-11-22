@@ -232,7 +232,7 @@ class KDXApp extends FlowApp{
 							selected="" class="template-list"></flow-selector>
 						<flow-selector id="network-list" label="Network"
 							mergeattributes="value" mergeinnerhtml
-							selected="testnet" class="network-list">
+							selected="mainnet" class="network-list">
 							<div class="menu-item" value="mainnet">MAINNET</div>
 							<div class="menu-item" value="testnet">TESTNET</div>
 							<div class="menu-item" value="devnet">DEVNET</div>

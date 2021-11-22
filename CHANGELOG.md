@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.8.0] - 2021-11-22
+This release of KDX includes Kaspa build `v0.11.4` and is **compatible with MAINNET**.
+
 ## [2.6.1] - 2021-05-30
 This release of KDX includes Kaspa build `v0.10.2` and is **compatible only with TESTNET-5**.
 

@@ -22,7 +22,9 @@ class App extends FlowApp{
 	}
 
 	async initConfig(){
-		const currentNetworkType = 'testnet5c';
+		// change of this argument results in the reset of the user data folder
+		// const currentNetworkType = 'testnet5c';
+		const currentNetworkType = 'mainnet1a';
 
 		const networkTagFile = path.join(this.getConfigFolderPath(), '.network-type');
 		let reset = false;
