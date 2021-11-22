@@ -17,3 +17,4 @@ apps
 module_config_state.txt
 package-lock_.json
 modules/controller/xxxx
+__package.json
