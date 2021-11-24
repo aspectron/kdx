@@ -512,6 +512,8 @@ class KDXApp extends FlowApp{
 	setRunInBG(runInBG){
 		this.runInBG = !!runInBG;
 		this.post("set-run-in-bg", {runInBG});
+		if(this.runInBGInput)
+			this.runInBGInput.value = this.runInBG
 	}
 	setEnableMining(enableMining){
 		this.enableMining = !!enableMining;
@@ -718,6 +720,7 @@ class KDXApp extends FlowApp{
 		let themeInput = qS("#settings-dark-theme");
 		let invertTermInput = qS("#settings-invert-terminal");
 		let runInBGInput = qS("#settings-run-in-bg");
+		this.runInBGInput = runInBGInput;
 		let enableMiningInput = qS("#settings-enable-mining");
 		let useWalletForMiningInput = qS("#settings-use-wallet-address-for-mining");
 		let miningAddressInput = qS("#mining-address-input");
