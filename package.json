@@ -30,7 +30,7 @@
     "@aspectron/flow-async": "*",
     "@aspectron/flow-logger": "*",
     "@aspectron/flow-rpc": "*",
-    "@aspectron/flow-utils": "*",
+    "@aspectron/flow-utils": ">=0.1.1",
     "@aspectron/flow-ux": "github:aspectron/flow-ux",
     "@grpc/grpc-js": "^1.2.4",
     "@grpc/proto-loader": "^0.5.6",
