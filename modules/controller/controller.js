@@ -889,7 +889,7 @@ class KDXApp extends FlowApp{
 `#	Welcome to KDX ${pkg.version}!
 
 Useful resources:
-- Kaspa Documentation: https://docs.kas.pa 
+- Kaspa Documentation: https://github.com/kaspanet/docs 
 - Kaspa Discord: https://discord.gg/vMT39xB
 - Kaspa GitHub: https://github.com/kaspanet/
 - KDX GitHub: https://github.com/aspectron/kdx
