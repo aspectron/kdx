@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.8.4] - 2021-12-12
+This release of KDX includes Kaspa build `v0.11.7`
+
 ## [2.8.3] - 2021-11-22
 This release of KDX includes Kaspa build `v0.11.6` and is **compatible with MAINNET**.
 
