@@ -478,7 +478,7 @@ class KDXApp extends FlowApp{
 		}).filter(o=>o.type=='kaspad').shift();
 
 		if(!kaspad)
-			return null;
+			return null;//{network:"kaspa", port:16110};
 
 		const { args } = kaspad;
 		let networkType = ['testnet','devnet','simnet'].filter(v=>args[v] !== undefined).shift() || 'mainnet';
@@ -913,7 +913,8 @@ ${changelogContent}`;
 		
 		let lastValue = caption.cloneValue(caption.tabs);
 		if(tab){
-			tab.disable = !advanced;
+			if(key != "console")
+				tab.disable = !advanced;
 			console.log("tab.disable", tab)
 		}else{
 			caption.tabs.push({
