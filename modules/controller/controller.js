@@ -604,7 +604,7 @@ class KDXApp extends FlowApp{
 		},{
 			title : "CONSOLE",
 			id : "console",
-		//	disable:true,
+			disable:true,
 		//	section: 'advanced'
 		}];
 
