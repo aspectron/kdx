@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.8.6] - 2021-12-13
+This release of KDX includes Kaspa build `v0.11.9`
+P2SH Support
+
 ## [2.8.5] - 2021-12-13
 This release of KDX includes Kaspa build `v0.11.8`
 ## [2.8.4] - 2021-12-12
