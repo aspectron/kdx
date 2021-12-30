@@ -1,8 +1,9 @@
 # Changelog
 
-## [2.8.6] - 2021-12-13
+## [2.8.6] - 2021-12-30
 This release of KDX includes Kaspa build `v0.11.9`
-P2SH Support
+This release includes the following changes:
+- P2SH address support (ability to send to multisig addresses)
 
 ## [2.8.5] - 2021-12-13
 This release of KDX includes Kaspa build `v0.11.8`
