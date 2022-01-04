@@ -1,7 +1,7 @@
 {
   "name": "kdx",
   "description": "Kaspa Desktop eXperience",
-  "version": "2.8.6",
+  "version": "2.8.7",
   "private": true,
   "main": "kdx.js",
   "files": [
@@ -36,7 +36,7 @@
     "@grpc/proto-loader": "^0.5.6",
     "@kaspa/grpc-node": ">=1.0.6",
     "@kaspa/ux": "github:aspectron/kaspa-ux",
-    "@kaspa/wallet-worker": ">=1.1.5",
+    "@kaspa/wallet-worker": ">=1.1.9",
     "@webcomponents/webcomponentsjs": "*",
     "bs58": "^4.0.1",
     "colors": "^1.4.0",
