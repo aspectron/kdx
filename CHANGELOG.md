@@ -1,4 +1,11 @@
 # Changelog
+## [2.8.7] - 2022-01-04
+This release of KDX includes Kaspa build `v0.11.9`
+This release includes the following changes:
+- Increased default address discovery extent to 150
+- Fixed multiple issues where fee estimation can cause change address derivation
+- Fixed an issue that advances change address derivation in case of transaction failures
+- Fixed an RPC-related issue in the underlying libraries that can cause occasional RPC timeouts in PWA
 
 ## [2.8.6] - 2021-12-30
 This release of KDX includes Kaspa build `v0.11.9`
