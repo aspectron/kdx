@@ -1,4 +1,7 @@
 # Changelog
+## [2.8.8] - 2022-01-28
+This release of KDX includes Kaspa build `v0.11.11
+`
 ## [2.8.7] - 2022-01-04
 This release of KDX includes Kaspa build `v0.11.9`
 This release includes the following changes:
