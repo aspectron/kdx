@@ -1,7 +1,12 @@
 # Changelog
 ## [2.8.8] - 2022-01-28
-This release of KDX includes Kaspa build `v0.11.11
-`
+This release of KDX includes Kaspa build `v0.11.11`
+This release includes the following changes:
+- Improved handling of address derivations. 
+
+NOTE: If you are mining and your wallet is not showing correct balance, 
+in the wallet panel, please switch to the DEBUG pane and click "Scan More Addresses" button.  
+
 ## [2.8.7] - 2022-01-04
 This release of KDX includes Kaspa build `v0.11.9`
 This release includes the following changes:
