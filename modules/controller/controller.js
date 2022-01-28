@@ -562,6 +562,9 @@ class KDXApp extends FlowApp{
 			return
 		this.theme = theme;
 		setTheme(theme);
+		if(this.themeInputEl){
+			this.themeInputEl.value = theme=="dark";
+		}
 		if(this.caption)
 			this.caption.logo = `/resources/images/kaspa-logo-${theme}-bg.png`
 		this.post("set-app-theme", {theme});
@@ -581,6 +584,7 @@ class KDXApp extends FlowApp{
 		}
 
 		document.body.dispatchEvent(new CustomEvent("flow-theme-changed"));
+		this.querySelector("kaspa-wallet")?.requestUpdate("theme", null)
 	}
 	initCaption(){
 		let caption = this.qS('flow-caption-bar');
@@ -719,6 +723,7 @@ class KDXApp extends FlowApp{
 		const qS = this.qS;
 		const qSA = this.qSA = doc.querySelectorAll.bind(doc);
 		let themeInput = qS("#settings-dark-theme");
+		this.themeInputEl = themeInput;
 		let invertTermInput = qS("#settings-invert-terminal");
 		let runInBGInput = qS("#settings-run-in-bg");
 		this.runInBGInput = runInBGInput;
