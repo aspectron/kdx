@@ -39,7 +39,7 @@
     "@kaspa/wallet-worker": ">=1.1.10",
     "@webcomponents/webcomponentsjs": "*",
     "bs58": "^4.0.1",
-    "colors": "^1.4.0",
+    "colors": "1.4.0",
     "commander": "^7.2.0",
     "decimal.js": "^10.2.1",
     "du": "^1.0.0",
