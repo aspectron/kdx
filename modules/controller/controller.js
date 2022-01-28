@@ -18,7 +18,7 @@ import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
 import {
 	flow, FlowDialog, i18n, getLocalSetting, setLocalSetting, T, dpc,
-	FlowApp
+	FlowApp, setTheme
 } from '/node_modules/@aspectron/flow-ux/flow-ux.js';
 window.flow = flow;
 window.testI18n = (testing)=>i18n.setTesting(!!testing);
@@ -561,6 +561,7 @@ class KDXApp extends FlowApp{
 		if(!this.rpc)
 			return
 		this.theme = theme;
+		setTheme(theme);
 		if(this.caption)
 			this.caption.logo = `/resources/images/kaspa-logo-${theme}-bg.png`
 		this.post("set-app-theme", {theme});
