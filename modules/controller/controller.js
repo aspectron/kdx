@@ -339,7 +339,7 @@ class KDXApp extends FlowApp{
 		//console.log("entries", entries)
 		//let ce = new CustomEvent("flow-i18n-entries", {detail:{entries}})
 		//window.dispatchEvent(ce)
-		i18n.setActiveLanguages(['en', 'ja']);
+		i18n.setActiveLanguages(['en', 'ja', 'zh_HANS']);
 		i18n.setEntries(entries);
 		this.post("set-app-i18n-entries", {entries:i18n.getEntries()})
 		//i18n.setTesting(true);
