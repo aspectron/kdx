@@ -1,458 +1,572 @@
 [
 	{
 		"en": "Hello",
-		"ja": "こんにちは"
+		"ja": "こんにちは",
+		"zh_HANS": "侬好"
 	},
 	{
 		"en": "KASPA RESOURCES",
-		"ja": "カスパ・リソース"
+		"ja": "カスパ・リソース",
+		"zh_HANS": "KASPA 资源"
 	},
 	{
 		"en": "LICENSE INFORMATION",
-		"ja": "ライセンス情報"
+		"ja": "ライセンス情報",
+		"zh_HANS": "许可证信息"
 	},
 	{
 		"en": "Data Folder location is used for storage by all KDX modules. In default configuration this includes Kaspad blockchain data and Kasparov API database. This location also contains process log files.",
-		"ja": "データフォルダーの場所は、すべてのKDXモジュールによるストレージに使用されます。 デフォルトの構成では、これにはKaspadブロックチェーンデータとKasparov APIデータベースが含まれます。 この場所には、プロセスログファイルも含まれます。"
+		"ja": "データフォルダーの場所は、すべてのKDXモジュールによるストレージに使用されます。 デフォルトの構成では、これにはKaspadブロックチェーンデータとKasparov APIデータベースが含まれます。 この場所には、プロセスログファイルも含まれます。",
+		"zh_HANS": "数据文件夹位置用于存储所有的KDX模块。在默认配置中，这包括Kaspad区块链数据和Kasparov API数据库。此位置还包含进程日志文件。"
 	},
 	{
 		"en": "Advanced mode allows you to manually configure, interact with and monitor KDX services.",
-		"ja": "アドバンスドモードでは、KDXサービスを手動で設定、操作、および監視できます。"
+		"ja": "アドバンスドモードでは、KDXサービスを手動で設定、操作、および監視できます。",
+		"zh_HANS": "高级模式下，您可以手动设置、操作和监控KDX服务。"
 	},
 	{
 		"en": "When enabled, KDX runs itself and it's services hidden in the background and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).",
-		"ja": "KDXを有効にするとKDXは自動で起動しサービスはバックグラウンドで非表示となり実行され、メニューバー（OSXおよびLinux）またはシステムトレイメニュー（Windows）からアクセスできるようになります。"
+		"ja": "KDXを有効にするとKDXは自動で起動しサービスはバックグラウンドで非表示となり実行され、メニューバー（OSXおよびLinux）またはシステムトレイメニュー（Windows）からアクセスできるようになります。",
+		"zh_HANS": "当你启用KDX时，它会自动启动，隐藏在后台并运行服务，你可以通过菜单栏(OSX和Linux)或系统菜单(Windows)访问。"
 	},
 	{
 		"en": "The Enable Mining option starts / stops all configured Kaspaminer instances.",
-		"ja": "[マイニングを有効にする]オプションは、構成されているすべてのKaspaminerインスタンスを開始/停止します。"
+		"ja": "[マイニングを有効にする]オプションは、構成されているすべてのKaspaminerインスタンスを開始/停止します。",
+		"zh_HANS": "[启用挖掘] 选项启动/停止所有已配置的Kaspaminer实例。"
 	},
 	{
 		"en": "You can stream KDX metrics to your own StatsD-compatible server.",
-		"ja": "KDXメトリックを独自のStatsD互換サーバーにストリーミングできます。"
+		"ja": "KDXメトリックを独自のStatsD互換サーバーにストリーミングできます。",
+		"zh_HANS": "你可以将KDX量度传输到你自己的StatsD兼容服务器。"
 	},
 	{
 		"en": "Configuration editor allows you to customize KDX environment. KDX configuration is represented in JSON by a list of application/service configuration objects. Each service configuration object is used to start the corresponding service.",
-		"ja": "設定エディターを使用すると、KDX環境をカスタマイズできます。 KDXの設定は、アプリケーション/サービス構成オブジェクトのリストによってJSONで表示されます。各サービス設定は、それぞれに対応するサービスを開始するために使用されます。"
+		"ja": "設定エディターを使用すると、KDX環境をカスタマイズできます。 KDXの設定は、アプリケーション/サービス構成オブジェクトのリストによってJSONで表示されます。各サービス設定は、それぞれに対応するサービスを開始するために使用されます。",
+		"zh_HANS": "使用设置编辑器，你可以自定义KDX环境。在应用程序/服务配置对象列表中，JSON会显示KDX的设置。每个服务设置都用来启动相应的服务。"
 	},
 	{
 		"en": "Applications",
-		"ja": "用途"
+		"ja": "用途",
+		"zh_HANS": "应用"
 	},
 	{
 		"en": "Services",
-		"ja": "サービス"
+		"ja": "サービス",
+		"zh_HANS": "服务"
 	},
 	{
 		"en": "Documentation",
-		"ja": "ドキュメンテーション"
+		"ja": "ドキュメンテーション",
+		"zh_HANS": "文档"
 	},
 	{
 		"en": "GitHub",
-		"ja": "Github"
+		"ja": "Github",
+		"zh_HANS": "Github"
 	},
 	{
 		"en": "Discord Chat",
-		"ja": "Discordチャット"
+		"ja": "Discordチャット",
+		"zh_HANS": "Discord 聊天室"
 	},
 	{
 		"en": "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
-		"ja": "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved."
+		"ja": "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
+		"zh_HANS": "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved."
 	},
 	{
 		"en": "Kaspa",
-		"ja": "Kaspa"
+		"ja": "Kaspa",
+		"zh_HANS": "Kaspa"
 	},
 	{
 		"en": "LICENSE",
-		"ja": "ソフトウェアライセンス"
+		"ja": "ソフトウェアライセンス",
+		"zh_HANS": "软件许可证"
 	},
 	{
 		"en": "MIT",
-		"ja": "MIT"
+		"ja": "MIT",
+		"zh_HANS": "MIT"
 	},
 	{
 		"en": "Copyright (c) 2020 Kaspa Developers",
-		"ja": "Copyright (c) 2020 Kaspa Developers"
+		"ja": "Copyright (c) 2020 Kaspa Developers",
+		"zh_HANS": "Copyright (c) 2020 Kaspa Developers"
 	},
 	{
 		"en": "PostgreSQL",
-		"ja": "PostgreSQL"
+		"ja": "PostgreSQL",
+		"zh_HANS": "PostgreSQL"
 	},
 	{
 		"en": "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
-		"ja": ""
+		"ja": "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
+		"zh_HANS": "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California"
 	},
 	{
 		"en": "Mosquitto",
-		"ja": "Mosquitto"
+		"ja": "Mosquitto",
+		"zh_HANS": "Mosquitto"
 	},
 	{
 		"en": "EDL-V10 EPL-V10",
-		"ja": "EDL-V10 EPL-V10"
+		"ja": "EDL-V10 EPL-V10",
+		"zh_HANS": "EDL-V10 EPL-V10"
 	},
 	{
 		"en": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors",
-		"ja": ""
+		"ja": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors",
+		"zh_HANS": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors"
 	},
 	{
 		"en": "Flow-UX Framework",
-		"ja": ""
+		"ja": "Flow-UX Framework",
+		"zh_HANS": "Flow-UX Framework"
 	},
 	{
 		"en": "Copyright (c) ASPECTRON Inc.",
-		"ja": "Copyright (c) ASPECTRON Inc."
+		"ja": "Copyright (c) ASPECTRON Inc.",
+		"zh_HANS": "Copyright (c) ASPECTRON Inc."
 	},
 	{
 		"en": "NWJS",
-		"ja": "NWJS"
+		"ja": "NWJS",
+		"zh_HANS": "NWJS"
 	},
 	{
 		"en": "Copyright (c) 2015 四月橘林",
-		"ja": "Copyright (c) 2015 四月橘林"
+		"ja": "Copyright (c) 2015 四月橘林",
+		"zh_HANS": "Copyright (c) 2015 四月橘林"
 	},
 	{
 		"en": "Chromium",
-		"ja": "Chromium"
+		"ja": "Chromium",
+		"zh_HANS": "Chromium"
 	},
 	{
 		"en": "BSD",
-		"ja": "BSD"
+		"ja": "BSD",
+		"zh_HANS": "BSD"
 	},
 	{
 		"en": "Copyright (c) The Chromium Authors",
-		"ja": ""
+		"ja": "Copyright (c) The Chromium Authors",
+		"zh_HANS": "Copyright (c) The Chromium Authors"
 	},
 	{
 		"en": "Data Folder",
-		"ja": "データフォルダ"
+		"ja": "データフォルダ",
+		"zh_HANS": "数据文件夹"
 	},
 	{
 		"en": "Reset",
-		"ja": "リセット"
+		"ja": "リセット",
+		"zh_HANS": "重置"
 	},
 	{
 		"en": "Default",
-		"ja": "デフォルト"
+		"ja": "デフォルト",
+		"zh_HANS": "默认"
 	},
 	{
 		"en": "Apply",
-		"ja": "保存して適用"
+		"ja": "保存して適用",
+		"zh_HANS": "保存并应用"
 	},
 	{
 		"en": "User Interface Color Theme",
-		"ja": "ユーザーインターフェイスのカラーテーマ"
+		"ja": "ユーザーインターフェイスのカラーテーマ",
+		"zh_HANS": "用户界面的主题"
 	},
 	{
 		"en": "Dark Theme",
-		"ja": "ダーク"
+		"ja": "ダーク",
+		"zh_HANS": "暗黑模式"
 	},
 	{
 		"en": "Invert Terminal Color",
-		"ja": "端子を反転"
+		"ja": "端子を反転",
+		"zh_HANS": "反转终端颜色"
 	},
 	{
 		"en": "Turn ON/OFF advanced settings and process control",
-		"ja": "詳細設定とプロセス制御のオン/オフ"
+		"ja": "詳細設定とプロセス制御のオン/オフ",
+		"zh_HANS": "开启/关闭详细设置和过程控制"
 	},
 	{
 		"en": "Advanced",
-		"ja": "高度な"
+		"ja": "高度な",
+		"zh_HANS": "高级"
 	},
 	{
 		"en": "Advanced mode",
-		"ja": "アドバンスドモード"
+		"ja": "アドバンスドモード",
+		"zh_HANS": "高级模式"
 	},
 	{
 		"en": "Service Control",
-		"ja": "サービス管理"
+		"ja": "サービス管理",
+		"zh_HANS": "服务管理"
 	},
 	{
 		"en": "Run in Background",
-		"ja": "バックグラウンドで実行"
+		"ja": "バックグラウンドで実行",
+		"zh_HANS": "在后台执行"
 	},
 	{
 		"en": "Background Execution",
-		"ja": "バックグラウンド実行"
+		"ja": "バックグラウンド実行",
+		"zh_HANS": "后台运行"
 	},
 	{
 		"en": "Block Generation",
-		"ja": "ブロック生成"
+		"ja": "ブロック生成",
+		"zh_HANS": "块生成"
 	},
 	{
 		"en": "Enable Mining",
-		"ja": "マイニングを有効にする"
+		"ja": "マイニングを有効にする",
+		"zh_HANS": "启用挖掘"
 	},
 	{
 		"en": "Metrics",
-		"ja": "指標"
+		"ja": "指標",
+		"zh_HANS": "指标"
 	},
 	{
 		"en": "Enable Metrics",
-		"ja": "指標を有効にする"
+		"ja": "指標を有効にする",
+		"zh_HANS": "启用指标"
 	},
 	{
 		"en": "Service Configuration",
-		"ja": "サービス設定"
+		"ja": "サービス設定",
+		"zh_HANS": "服务设置"
 	},
 	{
 		"en": "Select Folder",
-		"ja": "フォルダーを選択"
+		"ja": "フォルダーを選択",
+		"zh_HANS": "选择文件夹"
 	},
 	{
 		"en": "Flow-ux",
-		"ja": "Flow-ux"
+		"ja": "Flow-ux",
+		"zh_HANS": "Flow-ux"
 	},
 	{
 		"en": "PostreSQL",
-		"ja": "PostreSQL"
+		"ja": "PostreSQL",
+		"zh_HANS": "PostreSQL"
 	},
 	{
 		"en": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
-		"ja": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors."
+		"ja": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
+		"zh_HANS": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors."
 	},
 	{
 		"en": "Copyright (c) The Chromium Authors.",
-		"ja": "Copyright (c) The Chromium Authors."
+		"ja": "Copyright (c) The Chromium Authors.",
+		"zh_HANS": ""
 	},
 	{
 		"en": "SERVICES",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "Invert Terminals",
-		"ja": "端子を反転"
+		"ja": "端子を反転",
+		"zh_HANS": "反转终端"
 	},
 	{
 		"en": "HOME",
-		"ja": "概要"
+		"ja": "概要",
+		"zh_HANS": "概要"
 	},
 	{
 		"en": "SETTINGS",
-		"ja": "設定"
+		"ja": "設定",
+		"zh_HANS": "设置"
 	},
 	{
 		"en": "CONSOLE",
-		"ja": "コンソール"
+		"ja": "コンソール",
+		"zh_HANS": "控制台"
 	},
 	{
 		"en": "kaspad",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "kd0",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "kd1",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "pgsql",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "db0",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "kasparovsyncd",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "kvsd0",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "kasparovd",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "kvd0",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "app",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "dagviz",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "<!---->Select Folder<!---->",
-		"ja": "<!---->フォルダーを選択<!---->"
+		"ja": "<!---->フォルダーを選択<!---->",
+		"zh_HANS": "<!---->选择文件夹<!---->"
 	},
 	{
 		"en": "<!---->kd0<!---->",
-		"ja": "<!---->kd0<!---->"
+		"ja": "<!---->kd0<!---->",
+		"zh_HANS": "<!---->kd0<!---->"
 	},
 	{
 		"en": "<!---->kd1<!---->",
-		"ja": "<!---->kd1<!---->"
+		"ja": "<!---->kd1<!---->",
+		"zh_HANS": "<!---->kd1<!---->"
 	},
 	{
 		"en": "<!---->db0<!---->",
-		"ja": "<!---->db0<!---->"
+		"ja": "<!---->db0<!---->",
+		"zh_HANS": "<!---->db0<!---->"
 	},
 	{
 		"en": "<!---->kvsd0<!---->",
-		"ja": "<!---->kvsd0<!---->"
+		"ja": "<!---->kvsd0<!---->",
+		"zh_HANS": "<!---->kvsd0<!---->"
 	},
 	{
 		"en": "<!---->kvd0<!---->",
-		"ja": "<!---->kvd0<!---->"
+		"ja": "<!---->kvd0<!---->",
+		"zh_HANS": "<!---->kvd0<!---->"
 	},
 	{
 		"en": "<!---->dagviz<!---->",
-		"ja": "<!---->dagviz<!---->"
+		"ja": "<!---->dagviz<!---->",
+		"zh_HANS": "<!---->dagviz<!---->"
 	},
 	{
 		"en": "<!---->HOME<!---->",
-		"ja": "<!---->ホーム<!---->"
+		"ja": "<!---->ホーム<!---->",
+		"zh_HANS": "<!---->概要<!---->"
 	},
 	{
 		"en": "<!---->SETTINGS<!---->",
-		"ja": "<!---->設定<!---->"
+		"ja": "<!---->设置---->",
+		"zh_HANS": ""
 	},
 	{
 		"en": "<!---->CONSOLE<!---->",
-		"ja": "<!---->コンソール<!---->"
+		"ja": "<!---->控制台<!---->",
+		"zh_HANS": ""
 	},
 	{
 		"en": "<!---->kaspad<!---->",
-		"ja": "<!---->kaspad<!---->"
+		"ja": "<!---->kaspad<!---->",
+		"zh_HANS": "<!---->kaspad<!---->"
 	},
 	{
 		"en": "<!---->pgsql<!---->",
-		"ja": "<!---->pgsql<!---->"
+		"ja": "<!---->pgsql<!---->",
+		"zh_HANS": "<!---->pgsql<!---->"
 	},
 	{
 		"en": "<!---->kasparovsyncd<!---->",
-		"ja": "<!---->kasparovsyncd<!---->"
+		"ja": "<!---->kasparovsyncd<!---->",
+		"zh_HANS": "<!---->kasparovsyncd<!---->"
 	},
 	{
 		"en": "<!---->kasparovd<!---->",
-		"ja": "<!---->kasparovd<!---->"
+		"ja": "<!---->kasparovd<!---->",
+		"zh_HANS": "<!---->kasparovd<!---->"
 	},
 	{
 		"en": "<!---->app<!---->",
-		"ja": "<!---->app<!---->"
+		"ja": "<!---->app<!---->",
+		"zh_HANS": "<!---->app<!---->"
 	},
 	{
 		"en": "mqtt",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "mq0",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "simulator",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "sim0",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "KASPAD",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "MQTT",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "PGSQL",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "KASPAROVSYNCD",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "KASPAROVD",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "SIMULATOR",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "DAGVIZ",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "KD0",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "KD1",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "MQ0",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "DB0",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "KVSD0",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "KVD0",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "SIM0",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "KASPAMINER",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "KM0",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "TPS",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "<!---->mqtt<!---->",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "<!---->kaspaminer<!---->",
-		"ja": ""
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "EXIT KDX",
-		"ja": "KDXを終了"
+		"ja": "KDXを終了",
+		"zh_HANS": "退出 KDX"
 	},
 	{
 		"en": "Are you sure?",
-		"ja": "本気ですか？"
+		"ja": "本気ですか？",
+		"zh_HANS": "你确定？"
 	},
 	{
 		"en": "Cancel",
-		"ja": "キャンセル"
+		"ja": "キャンセル",
+		"zh_HANS": "取消"
 	},
 	{
 		"en": "Exit",
-		"ja": "出口"
+		"ja": "出口",
+		"zh_HANS": "退出"
 	},
 	{
 		"en": "Leave in the Background",
-		"ja": "バックグラウンドに残す"
+		"ja": "バックグラウンドに残す",
+		"zh_HANS": "留在后台"
 	},
 	{
 		"en": "Reset Configuration",
-		"ja": "構成のリセット"
+		"ja": "構成のリセット",
+		"zh_HANS": "恢复出厂设置"
 	}
 ]
