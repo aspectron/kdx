@@ -22,6 +22,7 @@ import {
 } from '/node_modules/@aspectron/flow-ux/flow-ux.js';
 window.flow = flow;
 window.testI18n = (testing)=>i18n.setTesting(!!testing);
+i18n.setTesting(true);
 window.getLocalSetting = getLocalSetting;
 window.setLocalSetting = setLocalSetting;
 //TODO
@@ -228,15 +229,15 @@ class KDXApp extends FlowApp{
 				<div slot="input" class="h-box-stretched-group" style="margin-top:16px;">
 					<div row>
 						<flow-selector style="margin-right:32px;" id="template-list" mergeattributes="value" 
-							mergeinnerhtml label="Configuration Template"
+							mergeinnerhtml label="${T('Configuration Template')}"
 							selected="" class="template-list"></flow-selector>
-						<flow-selector id="network-list" label="Network"
+						<flow-selector id="network-list" label="${T('Network')}"
 							mergeattributes="value" mergeinnerhtml
 							selected="mainnet" class="network-list">
-							<div class="menu-item" value="mainnet">MAINNET</div>
-							<div class="menu-item" value="testnet">TESTNET</div>
-							<div class="menu-item" value="devnet">DEVNET</div>
-							<div class="menu-item" value="simnet">SIMNET</div>
+							<div class="menu-item" value="mainnet">${T('MAINNET')}</div>
+							<div class="menu-item" value="testnet">${T('TESTNET')}</div>
+							<div class="menu-item" value="devnet">${T('DEVNET')}</div>
+							<div class="menu-item" value="simnet">${T('SIMNET')}</div>
 						</flow-selector>
 					</div>
 					<flow-btn id="load-config" class="load-config" primary warning><flow-i18n>RESET</flow-i18n></flow-btn>
@@ -658,7 +659,7 @@ class KDXApp extends FlowApp{
 		let tplEl = qS('#template-list');
 		let netEl = qS('#network-list');
 		let html = Object.entries(this.templates).map(([ident,tpl]) => {
-			return `<div class="menu-item" value="${ident}">${tpl.description}</div>`;
+			return `<div class="menu-item" value="${ident}">${i18n.t(tpl.description)}</div>`;
 		}).join('');
 		tplEl.innerHTML = html;
 
@@ -1141,8 +1142,14 @@ ${changelogContent}`;
 				let {btn} = await FlowDialog.show({
 					title:i18n.t("EXIT KDX"),
 					body:i18n.t("Are you sure?"),
-					btns:[i18n.t('Cancel'), i18n.t('Exit')+':warning',
-					{
+					btns:[{
+						text:i18n.t('Cancel'),
+						value:'cancel'
+					},{
+						text:i18n.t('Exit'),
+						value:'exit',
+						cls:':warning'
+					},{
 						value : 'background',
 						text : html`<span style="font-size:13.3px;">${i18n.t("Leave in the Background")}</span>`,
 						cls : 'primary'						
@@ -1424,10 +1431,12 @@ ${changelogContent}`;
 			let {btn} = await FlowDialog.show({
 				title:i18n.t("KDX Update"),
 				body:i18n.t(`Version ${version} is available, would you like to update?`),
-				btns:[i18n.t('No'), //i18n.t('Exit')+':warning',
-				{
+				btns:[{
+					text:i18n.t('No'),
+					value:'no'
+				},{
 					value : 'ok',
-					text : 'Yes', //html`<span style="font-size:13.3px;">${i18n.t("Yes")}</span>`,
+					text : i18n.t('Yes'), //html`<span style="font-size:13.3px;">${i18n.t("Yes")}</span>`,
 					cls : 'primary'
 				}]
 			});
@@ -1440,10 +1449,12 @@ ${changelogContent}`;
 					body:html`Please download the latest version from  <flow-link href="https://kdx.app" target="_blank">https://kdx.app</flow-link>
 					<br/>&nbsp;<br/>
 					KDX will now shutdown`,
-					btns:[i18n.t('Cancel'), //i18n.t('Exit')+':warning',
-					{
+					btns:[{
+						text:i18n.t('Cancel'),
+						value:'cancel'
+					},{
 						value : 'ok',
-						text : 'Ok', //html`<span style="font-size:13.3px;">${i18n.t("Ok")}</span>`,
+						text :i18n.t('Ok'), //html`<span style="font-size:13.3px;">${i18n.t("Ok")}</span>`,
 						cls : 'primary'
 					}]
 				});
