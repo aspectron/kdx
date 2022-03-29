@@ -350,79 +350,79 @@
 		"zh_HANS": ""
 	},
 	{
-		"en": "<!---->Select Folder<!---->",
-		"ja": "<!---->フォルダーを選択<!---->",
-		"zh_HANS": "<!---->选择文件夹<!---->"
+		"en": "Select Folder",
+		"ja": "フォルダーを選択",
+		"zh_HANS": "选择文件夹"
 	},
 	{
-		"en": "<!---->kd0<!---->",
-		"ja": "<!---->kd0<!---->",
-		"zh_HANS": "<!---->kd0<!---->"
+		"en": "kd0",
+		"ja": "kd0",
+		"zh_HANS": "kd0"
 	},
 	{
-		"en": "<!---->kd1<!---->",
-		"ja": "<!---->kd1<!---->",
-		"zh_HANS": "<!---->kd1<!---->"
+		"en": "kd1",
+		"ja": "kd1",
+		"zh_HANS": "kd1"
 	},
 	{
-		"en": "<!---->db0<!---->",
-		"ja": "<!---->db0<!---->",
-		"zh_HANS": "<!---->db0<!---->"
+		"en": "db0",
+		"ja": "db0",
+		"zh_HANS": "db0"
 	},
 	{
-		"en": "<!---->kvsd0<!---->",
-		"ja": "<!---->kvsd0<!---->",
-		"zh_HANS": "<!---->kvsd0<!---->"
+		"en": "kvsd0",
+		"ja": "kvsd0",
+		"zh_HANS": "kvsd0"
 	},
 	{
-		"en": "<!---->kvd0<!---->",
-		"ja": "<!---->kvd0<!---->",
-		"zh_HANS": "<!---->kvd0<!---->"
+		"en": "kvd0",
+		"ja": "kvd0",
+		"zh_HANS": "kvd0"
 	},
 	{
-		"en": "<!---->dagviz<!---->",
-		"ja": "<!---->dagviz<!---->",
-		"zh_HANS": "<!---->dagviz<!---->"
+		"en": "dagviz",
+		"ja": "dagviz",
+		"zh_HANS": "dagviz"
 	},
 	{
-		"en": "<!---->HOME<!---->",
-		"ja": "<!---->ホーム<!---->",
-		"zh_HANS": "<!---->概要<!---->"
+		"en": "HOME",
+		"ja": "ホーム",
+		"zh_HANS": "概要"
 	},
 	{
-		"en": "<!---->SETTINGS<!---->",
-		"ja": "<!---->设置---->",
+		"en": "SETTINGS",
+		"ja": "设置---->",
 		"zh_HANS": ""
 	},
 	{
-		"en": "<!---->CONSOLE<!---->",
-		"ja": "<!---->控制台<!---->",
+		"en": "CONSOLE",
+		"ja": "控制台",
 		"zh_HANS": ""
 	},
 	{
-		"en": "<!---->kaspad<!---->",
-		"ja": "<!---->kaspad<!---->",
-		"zh_HANS": "<!---->kaspad<!---->"
+		"en": "kaspad",
+		"ja": "kaspad",
+		"zh_HANS": "kaspad"
 	},
 	{
-		"en": "<!---->pgsql<!---->",
-		"ja": "<!---->pgsql<!---->",
-		"zh_HANS": "<!---->pgsql<!---->"
+		"en": "pgsql",
+		"ja": "pgsql",
+		"zh_HANS": "pgsql"
 	},
 	{
-		"en": "<!---->kasparovsyncd<!---->",
-		"ja": "<!---->kasparovsyncd<!---->",
-		"zh_HANS": "<!---->kasparovsyncd<!---->"
+		"en": "kasparovsyncd",
+		"ja": "kasparovsyncd",
+		"zh_HANS": "kasparovsyncd"
 	},
 	{
-		"en": "<!---->kasparovd<!---->",
-		"ja": "<!---->kasparovd<!---->",
-		"zh_HANS": "<!---->kasparovd<!---->"
+		"en": "kasparovd",
+		"ja": "kasparovd",
+		"zh_HANS": "kasparovd"
 	},
 	{
-		"en": "<!---->app<!---->",
-		"ja": "<!---->app<!---->",
-		"zh_HANS": "<!---->app<!---->"
+		"en": "app",
+		"ja": "app",
+		"zh_HANS": "app"
 	},
 	{
 		"en": "mqtt",
@@ -530,12 +530,12 @@
 		"zh_HANS": ""
 	},
 	{
-		"en": "<!---->mqtt<!---->",
+		"en": "mqtt",
 		"ja": "",
 		"zh_HANS": ""
 	},
 	{
-		"en": "<!---->kaspaminer<!---->",
+		"en": "kaspaminer",
 		"ja": "",
 		"zh_HANS": ""
 	},

@@ -22,7 +22,7 @@ import {
 } from '/node_modules/@aspectron/flow-ux/flow-ux.js';
 window.flow = flow;
 window.testI18n = (testing)=>i18n.setTesting(!!testing);
-i18n.setTesting(true);
+//i18n.setTesting(true);
 window.getLocalSetting = getLocalSetting;
 window.setLocalSetting = setLocalSetting;
 //TODO
