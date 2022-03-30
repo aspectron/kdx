@@ -15,7 +15,13 @@ This release includes the following changes:
 - Fixed an issue that advances change address derivation in case of transaction failures
 - Fixed an RPC-related issue in the underlying libraries that can cause occasional RPC timeouts in PWA
 
-## [2.9.0] - 2021-12-30
+## [2.9.1] - 2021-03-30
+This release of KDX includes Kaspa build `v0.11.14`
+This release includes the following changes:
+- Fixed an issue preventing application from exiting when UI is in a language other than English
+- Internal improvements to the i18n engine
+
+## [2.9.0] - 2021-03-24
 This release of KDX includes Kaspa build `v0.11.14`
 This release includes the following changes:
 - Partial Chinese language support
