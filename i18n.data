@@ -1,5 +1,10 @@
 [
 	{
+		"en": "1st",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "4th",
 		"ja": "",
 		"zh_HANS": ""
@@ -11,6 +16,11 @@
 	},
 	{
 		"en": "8th",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "9th",
 		"ja": "",
 		"zh_HANS": ""
 	},
@@ -355,9 +365,19 @@
 		"zh_HANS": "启用挖掘"
 	},
 	{
+		"en": "Encrypt Wallet",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "Enter a password",
 		"ja": "パスワードを入力します",
 		"zh_HANS": "输入密码"
+	},
+	{
+		"en": "Enter your 12-word seed phrase to recover your wallet (words are not case sensitive)",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "Error",
@@ -463,6 +483,11 @@
 		"en": "Invalid password",
 		"ja": "無効なパスワード",
 		"zh_HANS": "无效的密码"
+	},
+	{
+		"en": "Invalid seed",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "Invert Terminal Color",
@@ -750,9 +775,29 @@
 		"zh_HANS": "密码"
 	},
 	{
+		"en": "Password to encryt the wallet",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Passwords do not match",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "Pending",
 		"ja": "保留中",
 		"zh_HANS": "发送中"
+	},
+	{
+		"en": "Please provide address and amount",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Please provide valid words",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
@@ -808,6 +853,11 @@
 		"en": "Recover From Seed",
 		"ja": "シードからの回復",
 		"zh_HANS": "从助记词恢复"
+	},
+	{
+		"en": "Recover Wallet",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "Recover from Seed",
@@ -900,9 +950,19 @@
 		"zh_HANS": "扫描二维码"
 	},
 	{
+		"en": "Scan result",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "Select Folder",
 		"ja": "フォルダーを選択",
 		"zh_HANS": "选择文件夹"
+	},
+	{
+		"en": "Select cameras",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "Self-Contained Kaspad Mining",
