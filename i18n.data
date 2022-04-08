@@ -70,6 +70,11 @@
 		"zh_HANS": "至少 8 个字符，一个大写，一个小写，一个数字和一个符号（有的符号不行）"
 	},
 	{
+		"en": "Attention !",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "Automatically calculate network fee",
 		"ja": "ネットワーク料金を自動的に計算する",
 		"zh_HANS": "自动计算网络手续费用"
@@ -136,12 +141,12 @@
 	},
 	{
 		"en": "Chromium",
-		"ja": "Chromium",
-		"zh_HANS": "Chromium"
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "Clear used UTXOs",
-		"ja": "Clear used UTXOs",
+		"ja": "",
 		"zh_HANS": "清理使用过的UTXOs"
 	},
 	{
@@ -1023,6 +1028,11 @@
 		"en": "Wrong. Retry or go back",
 		"ja": "",
 		"zh_HANS": "错误.重试或返回"
+	},
+	{
+		"en": "You already have a wallet open. <br> Please make sure your current wallet <br> is backed up before proceeding!",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "You can stream KDX metrics to your own StatsD-compatible server.",
