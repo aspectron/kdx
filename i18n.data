@@ -135,6 +135,21 @@
 		"zh_HANS": "块生成"
 	},
 	{
+		"en": "Blocks",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Blue Score",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "CONNECTING...",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "CONSOLE",
 		"ja": "控制台",
 		"zh_HANS": "控制台"
@@ -143,6 +158,11 @@
 		"en": "COUNT",
 		"ja": "量",
 		"zh_HANS": "数量"
+	},
+	{
+		"en": "CPU",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "Cancel",
@@ -275,6 +295,11 @@
 		"zh_HANS": "同步进度"
 	},
 	{
+		"en": "DAG Sync",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "DAGVIZ",
 		"ja": "",
 		"zh_HANS": ""
@@ -333,6 +358,11 @@
 		"en": "Default",
 		"ja": "デフォルト",
 		"zh_HANS": "默认"
+	},
+	{
+		"en": "Difficulty",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "Discord Chat",
@@ -443,6 +473,11 @@
 		"en": "HOME",
 		"ja": "ホーム",
 		"zh_HANS": "概要"
+	},
+	{
+		"en": "Headers",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "Hello",
@@ -655,6 +690,11 @@
 		"zh_HANS": ""
 	},
 	{
+		"en": "MEMORY",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "MIT",
 		"ja": "",
 		"zh_HANS": ""
@@ -678,6 +718,21 @@
 		"en": "Make sure you wrote the phrase down correctly by answering this quick checkup.",
 		"ja": "",
 		"zh_HANS": "回答以下问题，确保助记词记录正确。"
+	},
+	{
+		"en": "Median Latency",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Median Time UTC",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Mempool Size",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "Metrics",
@@ -708,6 +763,11 @@
 		"en": "Network",
 		"ja": "",
 		"zh_HANS": "网络"
+	},
+	{
+		"en": "Network Name",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "Network:",
@@ -785,6 +845,11 @@
 		"zh_HANS": ""
 	},
 	{
+		"en": "Peers",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "Pending",
 		"ja": "保留中",
 		"zh_HANS": "发送中"
@@ -823,6 +888,11 @@
 		"en": "Priority Fee",
 		"ja": "",
 		"zh_HANS": "优先费用"
+	},
+	{
+		"en": "RAM",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "RESET",
@@ -935,6 +1005,11 @@
 		"zh_HANS": "模拟器"
 	},
 	{
+		"en": "STATUS",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "STORAGE USED",
 		"ja": "",
 		"zh_HANS": "磁盘占用"
@@ -1012,7 +1087,7 @@
 	{
 		"en": "The Enable Mining option starts / stops all configured Kaspaminer instances.<br>&nbsp;<br> <!-- The <i>Use Wallet Address for Mining</i> option will automatically configure the miner to send Kaspa to your wallet. -->",
 		"ja": "",
-		"zh_HANS": "The Enable Mining option starts / stops all configured Kaspaminer instances.<br>&nbsp;<br> <!-- The <i>Use Wallet Address for Mining</i> option will automatically configure the miner to send Kaspa to your wallet. -->"
+		"zh_HANS": ""
 	},
 	{
 		"en": "Transactions",
@@ -1048,6 +1123,11 @@
 		"en": "User Interface Color Theme",
 		"ja": "ユーザーインターフェイスのカラーテーマ",
 		"zh_HANS": "用户界面的主题"
+	},
+	{
+		"en": "VIRTUAL MEMORY",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "WALLET",
