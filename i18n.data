@@ -1,5 +1,10 @@
 [
 	{
+		"en": "1st",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "4th",
 		"ja": "",
 		"zh_HANS": ""
@@ -15,13 +20,18 @@
 		"zh_HANS": ""
 	},
 	{
+		"en": "9th",
+		"ja": "",
+		"zh_HANS": "数量"
+	},
+	{
 		"en": "AMOUNT",
 		"ja": "",
 		"zh_HANS": "数量"
 	},
 	{
 		"en": "APPLY",
-		"ja": "",
+		"ja": "申し込み",
 		"zh_HANS": "应用"
 	},
 	{
@@ -46,8 +56,8 @@
 	},
 	{
 		"en": "Amount in KAS",
-		"ja": "",
-		"zh_HANS": "数量 (KAS)"
+		"ja": "KASでの金額",
+		"zh_HANS": "KAS 数量"
 	},
 	{
 		"en": "Applications",
@@ -66,13 +76,18 @@
 	},
 	{
 		"en": "At least 8 characters, one capital, one lower, one number, and one symbol",
+		"ja": "少なくとも8文字、1つの大文字、1つの下、1つの数字、および1つの記号",
+		"zh_HANS": "至少 8 个字符，一个大写，一个小写，一个数字和一个符号（有的符号不行）"
+	},
+	{
+		"en": "Attention !",
 		"ja": "",
 		"zh_HANS": "至少8个字母，1个大写，1个小写，1个数字，及1个符号"
 	},
 	{
 		"en": "Automatically calculate network fee",
-		"ja": "",
-		"zh_HANS": "自动计算网络费用"
+		"ja": "ネットワーク料金を自動的に計算する",
+		"zh_HANS": "自动计算网络手续费用"
 	},
 	{
 		"en": "Available",
@@ -91,7 +106,7 @@
 	},
 	{
 		"en": "BLOCKS",
-		"ja": "",
+		"ja": "ブロック",
 		"zh_HANS": "块"
 	},
 	{
@@ -111,8 +126,8 @@
 	},
 	{
 		"en": "Be wary and cautious of your secret phrase. Never reveal it to anyone.",
-		"ja": "",
-		"zh_HANS": "注意保密你的助记词。不要展示给其他人。"
+		"ja": "あなたの秘密のフレーズに用心深く注意してください。 決して誰にも明かさないでください。",
+		"zh_HANS": "对你的助记词保持警惕和谨慎。 永远不要向任何人透露。"
 	},
 	{
 		"en": "Block Generation",
@@ -126,8 +141,8 @@
 	},
 	{
 		"en": "COUNT",
-		"ja": "",
-		"zh_HANS": "计数"
+		"ja": "量",
+		"zh_HANS": "数量"
 	},
 	{
 		"en": "Cancel",
@@ -146,7 +161,7 @@
 	},
 	{
 		"en": "Close",
-		"ja": "",
+		"ja": "閉",
 		"zh_HANS": "关闭"
 	},
 	{
@@ -157,12 +172,12 @@
 	{
 		"en": "Configuration Template",
 		"ja": "",
-		"zh_HANS": "配置模版"
+		"zh_HANS": "配置模板"
 	},
 	{
 		"en": "Configuration Templates",
 		"ja": "",
-		"zh_HANS": "配置模版"
+		"zh_HANS": "配置模板"
 	},
 	{
 		"en": "Configuration editor allows you to customize KDX environment. KDX configuration is represented in JSON by a list of application/service configuration objects. Each service configuration object is used to start the corresponding service.",
@@ -176,12 +191,12 @@
 	},
 	{
 		"en": "Confirm Password",
-		"ja": "",
+		"ja": "パスワードを認証する",
 		"zh_HANS": "确认密码"
 	},
 	{
 		"en": "Confirm password",
-		"ja": "",
+		"ja": "パスワードを認証する",
 		"zh_HANS": "确认密码"
 	},
 	{
@@ -236,18 +251,18 @@
 	},
 	{
 		"en": "Create New Wallet",
-		"ja": "",
-		"zh_HANS": "创建新钱包"
+		"ja": "新しいウォレットを作成する",
+		"zh_HANS": "创建一个新钱包"
 	},
 	{
 		"en": "Create Wallet",
-		"ja": "",
+		"ja": "ウォレットを作成する",
 		"zh_HANS": "创建钱包"
 	},
 	{
 		"en": "Create a password for your new wallet",
-		"ja": "",
-		"zh_HANS": "创建新钱包密码"
+		"ja": "新しいウォレットのパスワードを設定します",
+		"zh_HANS": "为你的新钱包设置密码"
 	},
 	{
 		"en": "DAA score:",
@@ -256,8 +271,8 @@
 	},
 	{
 		"en": "DAG SYNC",
-		"ja": "",
-		"zh_HANS": "同步状态"
+		"ja": "同期の進行状況",
+		"zh_HANS": "同步进度"
 	},
 	{
 		"en": "DAGVIZ",
@@ -282,16 +297,16 @@
 	{
 		"en": "DEVNET",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "开发网"
 	},
 	{
 		"en": "DIFFICULTY",
-		"ja": "",
+		"ja": "困難",
 		"zh_HANS": "难度"
 	},
 	{
 		"en": "DONE",
-		"ja": "",
+		"ja": "終了",
 		"zh_HANS": "完成"
 	},
 	{
@@ -350,13 +365,23 @@
 		"zh_HANS": "启用挖掘"
 	},
 	{
+		"en": "Encrypt Wallet",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "Enter a password",
 		"ja": "パスワードを入力します",
 		"zh_HANS": "输入密码"
 	},
 	{
-		"en": "Error",
+		"en": "Enter your 12-word seed phrase to recover your wallet (words are not case sensitive)",
 		"ja": "",
+		"zh_HANS": "错误"
+	},
+	{
+		"en": "Error",
+		"ja": "間違い",
 		"zh_HANS": "错误"
 	},
 	{
@@ -366,13 +391,13 @@
 	},
 	{
 		"en": "Export Wallet Seed File (KPK)",
-		"ja": "",
-		"zh_HANS": "导出KPK钱包文件"
+		"ja": "KPKウォレットファイルをエクスポートする",
+		"zh_HANS": "导出你的钱包备份 (KPK)"
 	},
 	{
 		"en": "Export Wallet Seed File(KPK)",
 		"ja": "KPKウォレットファイルをエクスポートする",
-		"zh_HANS": "导出KPK钱包文件"
+		"zh_HANS": "导出KPK钱包文件(KPK)"
 	},
 	{
 		"en": "Faucet",
@@ -402,17 +427,17 @@
 	{
 		"en": "Good job! Two more checks to go",
 		"ja": "",
-		"zh_HANS": "很棒！还有两步"
+		"zh_HANS": "好样的！ 还有2个步骤"
 	},
 	{
 		"en": "Great Success!",
 		"ja": "",
-		"zh_HANS": "很成功"
+		"zh_HANS": "成功！"
 	},
 	{
 		"en": "HEADERS",
 		"ja": "",
-		"zh_HANS": "标题"
+		"zh_HANS": ""
 	},
 	{
 		"en": "HOME",
@@ -427,42 +452,47 @@
 	{
 		"en": "I have wallet",
 		"ja": "",
-		"zh_HANS": "我有钱包"
+		"zh_HANS": "我有一个钱包"
 	},
 	{
 		"en": "IN USE UTXOS",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "使用中的UTXOS"
 	},
 	{
 		"en": "Import Wallet Seed File (KPK)",
 		"ja": "",
-		"zh_HANS": "导入KPK钱包文件"
+		"zh_HANS": "导入钱包备份文件 (KPK)"
 	},
 	{
 		"en": "Import Wallet Seed File(KPK)",
 		"ja": "KPKウォレットファイルをインポートする",
-		"zh_HANS": "导入KPK钱包文件"
+		"zh_HANS": "导入钱包备份文件(KPK)"
 	},
 	{
 		"en": "Include fee in the amount",
-		"ja": "",
-		"zh_HANS": "金额包含转账费"
+		"ja": "振込金額に手数料を含める",
+		"zh_HANS": "把手续费包含到转账金额中"
 	},
 	{
 		"en": "Incorrect password.",
-		"ja": "",
+		"ja": "間違ったパスワード",
 		"zh_HANS": "错误的密码"
 	},
 	{
 		"en": "Invalid password",
+		"ja": "無効なパスワード",
+		"zh_HANS": "无效的密码"
+	},
+	{
+		"en": "Invalid seed",
 		"ja": "",
 		"zh_HANS": "无效的密码"
 	},
 	{
 		"en": "Invert Terminal Color",
 		"ja": "端子を反転",
-		"zh_HANS": "反转终端颜色"
+		"zh_HANS": "反转终端的颜色"
 	},
 	{
 		"en": "Invert Terminals",
@@ -701,27 +731,27 @@
 	},
 	{
 		"en": "OFFLINE",
-		"ja": "",
+		"ja": "オフライン",
 		"zh_HANS": "离线"
 	},
 	{
 		"en": "ONLINE",
-		"ja": "",
+		"ja": "オンライン",
 		"zh_HANS": "在线"
 	},
 	{
 		"en": "OPEN WALLET",
-		"ja": "",
+		"ja": "オープンウォレット",
 		"zh_HANS": "打开钱包"
 	},
 	{
 		"en": "Offline",
-		"ja": "",
+		"ja": "オフライン",
 		"zh_HANS": "离线"
 	},
 	{
 		"en": "Online",
-		"ja": "可用的",
+		"ja": "オンライン",
 		"zh_HANS": "在线"
 	},
 	{
@@ -745,9 +775,29 @@
 		"zh_HANS": "密码"
 	},
 	{
+		"en": "Password to encryt the wallet",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Passwords do not match",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "Pending",
 		"ja": "保留中",
 		"zh_HANS": "发送中"
+	},
+	{
+		"en": "Please provide address and amount",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Please provide valid words",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
@@ -772,7 +822,7 @@
 	{
 		"en": "Priority Fee",
 		"ja": "",
-		"zh_HANS": "优先费"
+		"zh_HANS": "优先费用"
 	},
 	{
 		"en": "RESET",
@@ -805,6 +855,11 @@
 		"zh_HANS": "从助记词恢复"
 	},
 	{
+		"en": "Recover Wallet",
+		"ja": "",
+		"zh_HANS": "从助记词恢复"
+	},
+	{
 		"en": "Recover from Seed",
 		"ja": "",
 		"zh_HANS": "从助记词恢复"
@@ -812,12 +867,12 @@
 	{
 		"en": "Recovery Seed",
 		"ja": "",
-		"zh_HANS": "助记词"
+		"zh_HANS": "恢复助记词"
 	},
 	{
 		"en": "Release Notes",
 		"ja": "",
-		"zh_HANS": "发布日志"
+		"zh_HANS": "发行说明"
 	},
 	{
 		"en": "Remember...<br> Anyone with this 12-word phrase can access your wallet your funds. Keep it safe!",
@@ -832,7 +887,7 @@
 	{
 		"en": "Request funds",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "申请资金"
 	},
 	{
 		"en": "Reset",
@@ -861,7 +916,7 @@
 	},
 	{
 		"en": "SETTINGS",
-		"ja": "设置",
+		"ja": "設定",
 		"zh_HANS": "设置"
 	},
 	{
@@ -895,14 +950,24 @@
 		"zh_HANS": "扫描二维码"
 	},
 	{
+		"en": "Scan result",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "Select Folder",
 		"ja": "フォルダーを選択",
 		"zh_HANS": "选择文件夹"
 	},
 	{
-		"en": "Self-Contained Kaspad Mining",
+		"en": "Select cameras",
 		"ja": "",
 		"zh_HANS": "内置 KASPAD 挖矿"
+	},
+	{
+		"en": "Self-Contained Kaspad Mining",
+		"ja": "",
+		"zh_HANS": "独立的 Kaspad 挖矿"
 	},
 	{
 		"en": "Service Configuration",
@@ -927,7 +992,7 @@
 	{
 		"en": "TESTNET",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "测试网"
 	},
 	{
 		"en": "TPS",
@@ -952,12 +1017,12 @@
 	{
 		"en": "Transactions",
 		"ja": "",
-		"zh_HANS": "交易记录"
+		"zh_HANS": "交易"
 	},
 	{
 		"en": "Transactions under process",
 		"ja": "",
-		"zh_HANS": "交易记录处理中"
+		"zh_HANS": "正在进行的交易"
 	},
 	{
 		"en": "Turn ON/OFF advanced settings and process control",
@@ -972,12 +1037,12 @@
 	{
 		"en": "Unlock the wallet with your password:",
 		"ja": "",
-		"zh_HANS": "解锁钱包密码:"
+		"zh_HANS": "使用密码解锁钱包:"
 	},
 	{
 		"en": "Update",
 		"ja": "",
-		"zh_HANS": "更新"
+		"zh_HANS": "升级"
 	},
 	{
 		"en": "User Interface Color Theme",
@@ -991,7 +1056,7 @@
 	},
 	{
 		"en": "Wallet",
-		"ja": "",
+		"ja": "財布",
 		"zh_HANS": "钱包"
 	},
 	{
@@ -1007,12 +1072,12 @@
 	{
 		"en": "Welcome to Kaspa Wallet",
 		"ja": "",
-		"zh_HANS": "欢迎使用 Kaspa 钱包"
+		"zh_HANS": "欢迎使用钱包"
 	},
 	{
 		"en": "What is the [x] word?",
 		"ja": "",
-		"zh_HANS": "第 [x] 个词是什么?"
+		"zh_HANS": "第 [x] 个单词是?"
 	},
 	{
 		"en": "When enabled, KDX runs itself and it's services hidden in the background and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).",
@@ -1022,7 +1087,12 @@
 	{
 		"en": "Wrong. Retry or go back",
 		"ja": "",
-		"zh_HANS": "错了. 重试或返回"
+		"zh_HANS": "错误.重试或返回"
+	},
+	{
+		"en": "You already have a wallet open. <br> Please make sure your current wallet <br> is backed up before proceeding!",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "You can stream KDX metrics to your own StatsD-compatible server.",
@@ -1032,7 +1102,7 @@
 	{
 		"en": "You can't request more than [n] KAS.",
 		"ja": "",
-		"zh_HANS": "不能请求多余 [n] 的 KAS."
+		"zh_HANS": "您不能请求超过 [n] 个 KAS。"
 	},
 	{
 		"en": "You have <b>[n] KAS</b> available.",
