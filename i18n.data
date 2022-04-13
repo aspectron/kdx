@@ -22,7 +22,7 @@
 	{
 		"en": "9th",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "数量"
 	},
 	{
 		"en": "AMOUNT",
@@ -37,7 +37,7 @@
 	{
 		"en": "Additional funds will be<br/>available in [n]",
 		"ja": "",
-		"zh_HANS": "额外的资金将可用"
+		"zh_HANS": "更多资金将会在<br/> [n] 可用"
 	},
 	{
 		"en": "Advanced",
@@ -82,7 +82,7 @@
 	{
 		"en": "Attention !",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "至少8个字母，1个大写，1个小写，1个数字，及1个符号"
 	},
 	{
 		"en": "Automatically calculate network fee",
@@ -96,13 +96,13 @@
 	},
 	{
 		"en": "Awesome, one more to go!",
-		"ja": "素晴らしい、あと1つ！",
-		"zh_HANS": "厉害了，还有一个！"
+		"ja": "",
+		"zh_HANS": "棒，还有一步！"
 	},
 	{
 		"en": "BACK TO THE WORDS",
-		"ja": "言葉に戻る",
-		"zh_HANS": "回到原词"
+		"ja": "",
+		"zh_HANS": "返回词表"
 	},
 	{
 		"en": "BLOCKS",
@@ -136,7 +136,7 @@
 	},
 	{
 		"en": "CONSOLE",
-		"ja": "コンソール",
+		"ja": "控制台",
 		"zh_HANS": "控制台"
 	},
 	{
@@ -157,7 +157,7 @@
 	{
 		"en": "Clear used UTXOs",
 		"ja": "",
-		"zh_HANS": "清理使用过的UTXOs"
+		"zh_HANS": "清除已用 UTXO"
 	},
 	{
 		"en": "Close",
@@ -187,7 +187,7 @@
 	{
 		"en": "Configuration templates allow you to load pre-made KDX configurations.",
 		"ja": "",
-		"zh_HANS": "配置模板允许您加载预先制作的 KDX 配置。"
+		"zh_HANS": "加载预设KDX配置模版"
 	},
 	{
 		"en": "Confirm Password",
@@ -202,12 +202,12 @@
 	{
 		"en": "Cool fact: there are more 12-word phrase combinations than nanoseconds since the big bang!",
 		"ja": "",
-		"zh_HANS": "很酷的事实：自宇宙大爆炸以来，12 个单词的短语组合比地球上的沙子还多！"
+		"zh_HANS": "至酷提示:  12个助记词的组合超过宇宙大爆炸至今的纳秒数！"
 	},
 	{
 		"en": "Copy to clipboard",
 		"ja": "",
-		"zh_HANS": "复制到粘贴板"
+		"zh_HANS": "复制到剪切板"
 	},
 	{
 		"en": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors",
@@ -267,7 +267,7 @@
 	{
 		"en": "DAA score:",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "DAA 分:"
 	},
 	{
 		"en": "DAG SYNC",
@@ -377,7 +377,7 @@
 	{
 		"en": "Enter your 12-word seed phrase to recover your wallet (words are not case sensitive)",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "错误"
 	},
 	{
 		"en": "Error",
@@ -487,7 +487,7 @@
 	{
 		"en": "Invalid seed",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "无效的密码"
 	},
 	{
 		"en": "Invert Terminal Color",
@@ -502,7 +502,7 @@
 	{
 		"en": "It is recommended to keep several copies of your secret seed hidden away in different places.",
 		"ja": "",
-		"zh_HANS": "建议将您的助记词备份到你老婆（老公）找不到的地方。"
+		"zh_HANS": "建议在不同地方多存几分助记词，并藏好。"
 	},
 	{
 		"en": "KASPA",
@@ -672,12 +672,12 @@
 	{
 		"en": "Make sure no one is looking, as anyone with your seed phrase can access your wallet your funds. Write it down and keep it safe.",
 		"ja": "",
-		"zh_HANS": "确保没有人在看，因为任何拥有您的助记词的人都可以访问您的钱包。 写下来并妥善保管。"
+		"zh_HANS": "确保无人窥视，因为任何人通过你的助记词都可以访问你的钱包。小心记录并安全保存。"
 	},
 	{
 		"en": "Make sure you wrote the phrase down correctly by answering this quick checkup.",
 		"ja": "",
-		"zh_HANS": "通过回答这些提问，确保您正确的保管了助记词。"
+		"zh_HANS": "回答以下问题，确保助记词记录正确。"
 	},
 	{
 		"en": "Metrics",
@@ -687,7 +687,7 @@
 	{
 		"en": "Mosquitto",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "蚊子"
 	},
 	{
 		"en": "NEW WALLET",
@@ -707,12 +707,12 @@
 	{
 		"en": "Network",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "网络"
 	},
 	{
 		"en": "Network:",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "网络:"
 	},
 	{
 		"en": "Next",
@@ -722,12 +722,12 @@
 	{
 		"en": "No Transactions",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "无交易"
 	},
 	{
 		"en": "Note",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "笔记"
 	},
 	{
 		"en": "OFFLINE",
@@ -817,7 +817,7 @@
 	{
 		"en": "Preparing transaction for [n] KAS ....",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "为 [n] KAS 准备交易"
 	},
 	{
 		"en": "Priority Fee",
@@ -832,22 +832,22 @@
 	{
 		"en": "Receive Address",
 		"ja": "受信アドレス",
-		"zh_HANS": "钱包地址"
+		"zh_HANS": "接收地址"
 	},
 	{
 		"en": "Receive Address:",
 		"ja": "",
-		"zh_HANS": "钱包地址"
+		"zh_HANS": "接收地址:"
 	},
 	{
 		"en": "Recent Transactions",
 		"ja": "",
-		"zh_HANS": "最近的交易"
+		"zh_HANS": "最新交易"
 	},
 	{
 		"en": "Recipient Address (Must start with 'kaspa' prefix)",
 		"ja": "",
-		"zh_HANS": "收件人地址（必须有 'kaspa:' 前缀"
+		"zh_HANS": "接受地址 (必须为 'kaspa' 开头)"
 	},
 	{
 		"en": "Recover From Seed",
@@ -857,7 +857,7 @@
 	{
 		"en": "Recover Wallet",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "从助记词恢复"
 	},
 	{
 		"en": "Recover from Seed",
@@ -877,7 +877,7 @@
 	{
 		"en": "Remember...<br> Anyone with this 12-word phrase can access your wallet your funds. Keep it safe!",
 		"ja": "",
-		"zh_HANS": "记住...<br> 任何拥有这个 12 字词组的人都可以访问您的钱包和您的资金。 注意安全！"
+		"zh_HANS": "谨记...<br> 任何人都可以通过这组 12 个词条访问你的钱包。一定安全保存！"
 	},
 	{
 		"en": "Request Funds from Faucet",
@@ -932,7 +932,7 @@
 	{
 		"en": "SIMULATOR",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "模拟器"
 	},
 	{
 		"en": "STORAGE USED",
@@ -962,7 +962,7 @@
 	{
 		"en": "Select cameras",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "内置 KASPAD 挖矿"
 	},
 	{
 		"en": "Self-Contained Kaspad Mining",
@@ -987,7 +987,7 @@
 	{
 		"en": "Status:",
 		"ja": "",
-		"zh_HANS": "状态"
+		"zh_HANS": "状态:"
 	},
 	{
 		"en": "TESTNET",
@@ -1012,7 +1012,7 @@
 	{
 		"en": "The Enable Mining option starts / stops all configured Kaspaminer instances.<br>&nbsp;<br> <!-- The <i>Use Wallet Address for Mining</i> option will automatically configure the miner to send Kaspa to your wallet. -->",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "The Enable Mining option starts / stops all configured Kaspaminer instances.<br>&nbsp;<br> <!-- The <i>Use Wallet Address for Mining</i> option will automatically configure the miner to send Kaspa to your wallet. -->"
 	},
 	{
 		"en": "Transactions",
@@ -1107,17 +1107,17 @@
 	{
 		"en": "You have <b>[n] KAS</b> available.",
 		"ja": "",
-		"zh_HANS": "您有 <b>[n] KAS</b> 可用。"
+		"zh_HANS": "可用余额 <b>[n] KAS</b> ."
 	},
 	{
 		"en": "Your IP is [n]",
 		"ja": "",
-		"zh_HANS": "您的 IP 是 [n]"
+		"zh_HANS": "你的 IP 是 [n]"
 	},
 	{
 		"en": "Your wallet is accessible by a seed phrase. The seed phrase is an ordered 12-word secret phrase.",
 		"ja": "",
-		"zh_HANS": "您的钱包可以通过助记词访问。 助记词是由 12 个单词组成。"
+		"zh_HANS": "你的钱包可通过助记词访问。助记词是一组12个有序单词。"
 	},
 	{
 		"en": "app",
