@@ -1,4 +1,9 @@
 # Changelog
+## [2.9.2] - 2021-04-14
+This release of KDX includes Kaspa build `v0.12.00`
+This release includes the following changes:
+- Improved Chinese language support
+
 ## [2.9.1] - 2021-03-30
 This release of KDX includes Kaspa build `v0.11.14`
 This release includes the following changes:
