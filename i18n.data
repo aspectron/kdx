@@ -362,7 +362,7 @@
 	{
 		"en": "Delete Data Folder",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "删除数据文件夹"
 	},
 	{
 		"en": "Difficulty",
@@ -547,7 +547,7 @@
 	{
 		"en": "It will delete datadir (Data Folder) and restart kaspad node to re-sync",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "它将删除 datadir（数据文件夹）并重新启动 kaspad 节点以重新同步"
 	},
 	{
 		"en": "KASPA",
@@ -982,7 +982,7 @@
 	{
 		"en": "Reset Data Folder",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "重置数据文件夹"
 	},
 	{
 		"en": "Run in Background",
@@ -1187,7 +1187,7 @@
 	{
 		"en": "Yes delete data folder and resync",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "是的，删除数据文件夹并重新同步"
 	},
 	{
 		"en": "You already have a wallet open. <br> Please make sure your current wallet <br> is backed up before proceeding!",
