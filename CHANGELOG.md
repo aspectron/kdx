@@ -1,6 +1,11 @@
 # Changelog
+## [2.10.1] - 2021-04-14
+This release of KDX includes Kaspa build `v0.12.0`
+This release includes the following changes:
+- Implemented "Delete Data Folder and Resync" feature in the Settings panel. (if upgrading to Kaspad `v0.12.0` please use this to facilitate a faster resync).
+
 ## [2.10.0] - 2021-04-14
-This release of KDX includes Kaspa build `v0.12.00`
+This release of KDX includes Kaspa build `v0.12.0`
 This release includes the following changes:
 - Internal improvements to the i18n engine
 - Improved Chinese language support
