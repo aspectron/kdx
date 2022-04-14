@@ -360,6 +360,11 @@
 		"zh_HANS": "默认"
 	},
 	{
+		"en": "Delete Data Folder",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "Difficulty",
 		"ja": "",
 		"zh_HANS": "难度"
@@ -538,6 +543,11 @@
 		"en": "It is recommended to keep several copies of your secret seed hidden away in different places.",
 		"ja": "",
 		"zh_HANS": "建议在不同地方多存几份助记词，并藏好。"
+	},
+	{
+		"en": "It will delete datadir (Data Folder) and restart kaspad node to re-sync",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "KASPA",
@@ -970,6 +980,11 @@
 		"zh_HANS": "恢复出厂设置"
 	},
 	{
+		"en": "Reset Data Folder",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "Run in Background",
 		"ja": "バックグラウンドで実行",
 		"zh_HANS": "在后台执行"
@@ -1168,6 +1183,11 @@
 		"en": "Wrong. Retry or go back",
 		"ja": "",
 		"zh_HANS": "错误.重试或返回"
+	},
+	{
+		"en": "Yes delete data folder and resync",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "You already have a wallet open. <br> Please make sure your current wallet <br> is backed up before proceeding!",
