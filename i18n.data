@@ -1,198 +1,43 @@
 [
 	{
-		"en": "Hello",
-		"ja": "こんにちは",
-		"zh_HANS": "侬好"
+		"en": "1st",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
-		"en": "KASPA RESOURCES",
-		"ja": "カスパ・リソース",
-		"zh_HANS": "KASPA 资源"
+		"en": "4th",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
-		"en": "LICENSE INFORMATION",
-		"ja": "ライセンス情報",
-		"zh_HANS": "许可证信息"
+		"en": "7th",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
-		"en": "Data Folder location is used for storage by all KDX modules. In default configuration this includes Kaspad blockchain data and Kasparov API database. This location also contains process log files.",
-		"ja": "データフォルダーの場所は、すべてのKDXモジュールによるストレージに使用されます。 デフォルトの構成では、これにはKaspadブロックチェーンデータとKasparov APIデータベースが含まれます。 この場所には、プロセスログファイルも含まれます。",
-		"zh_HANS": "数据文件夹位置用于存储所有的KDX模块。在默认配置中，这包括Kaspad区块链数据和Kasparov API数据库。此位置还包含进程日志文件。"
+		"en": "8th",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
-		"en": "Advanced mode allows you to manually configure, interact with and monitor KDX services.",
-		"ja": "アドバンスドモードでは、KDXサービスを手動で設定、操作、および監視できます。",
-		"zh_HANS": "高级模式下，您可以手动设置、操作和监控KDX服务。"
+		"en": "9th",
+		"ja": "",
+		"zh_HANS": "数量"
 	},
 	{
-		"en": "When enabled, KDX runs itself and it's services hidden in the background and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).",
-		"ja": "KDXを有効にするとKDXは自動で起動しサービスはバックグラウンドで非表示となり実行され、メニューバー（OSXおよびLinux）またはシステムトレイメニュー（Windows）からアクセスできるようになります。",
-		"zh_HANS": "当你启用KDX时，它会自动启动，隐藏在后台并运行服务，你可以通过菜单栏(OSX和Linux)或系统菜单(Windows)访问。"
+		"en": "AMOUNT",
+		"ja": "",
+		"zh_HANS": "数量"
 	},
 	{
-		"en": "The Enable Mining option starts / stops all configured Kaspaminer instances.",
-		"ja": "[マイニングを有効にする]オプションは、構成されているすべてのKaspaminerインスタンスを開始/停止します。",
-		"zh_HANS": "[启用挖掘] 选项启动/停止所有已配置的Kaspaminer实例。"
-	},
-	{
-		"en": "You can stream KDX metrics to your own StatsD-compatible server.",
-		"ja": "KDXメトリックを独自のStatsD互換サーバーにストリーミングできます。",
-		"zh_HANS": "你可以将KDX量度传输到你自己的StatsD兼容服务器。"
-	},
-	{
-		"en": "Configuration editor allows you to customize KDX environment. KDX configuration is represented in JSON by a list of application/service configuration objects. Each service configuration object is used to start the corresponding service.",
-		"ja": "設定エディターを使用すると、KDX環境をカスタマイズできます。 KDXの設定は、アプリケーション/サービス構成オブジェクトのリストによってJSONで表示されます。各サービス設定は、それぞれに対応するサービスを開始するために使用されます。",
-		"zh_HANS": "使用设置编辑器，你可以自定义KDX环境。在应用程序/服务配置对象列表中，JSON会显示KDX的设置。每个服务设置都用来启动相应的服务。"
-	},
-	{
-		"en": "Applications",
-		"ja": "用途",
+		"en": "APPLY",
+		"ja": "申し込み",
 		"zh_HANS": "应用"
 	},
 	{
-		"en": "Services",
-		"ja": "サービス",
-		"zh_HANS": "服务"
-	},
-	{
-		"en": "Documentation",
-		"ja": "ドキュメンテーション",
-		"zh_HANS": "文档"
-	},
-	{
-		"en": "GitHub",
-		"ja": "Github",
-		"zh_HANS": "Github"
-	},
-	{
-		"en": "Discord Chat",
-		"ja": "Discordチャット",
-		"zh_HANS": "Discord 聊天室"
-	},
-	{
-		"en": "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
-		"ja": "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
-		"zh_HANS": "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved."
-	},
-	{
-		"en": "Kaspa",
-		"ja": "Kaspa",
-		"zh_HANS": "Kaspa"
-	},
-	{
-		"en": "LICENSE",
-		"ja": "ソフトウェアライセンス",
-		"zh_HANS": "软件许可证"
-	},
-	{
-		"en": "MIT",
-		"ja": "MIT",
-		"zh_HANS": "MIT"
-	},
-	{
-		"en": "Copyright (c) 2020 Kaspa Developers",
-		"ja": "Copyright (c) 2020 Kaspa Developers",
-		"zh_HANS": "Copyright (c) 2020 Kaspa Developers"
-	},
-	{
-		"en": "PostgreSQL",
-		"ja": "PostgreSQL",
-		"zh_HANS": "PostgreSQL"
-	},
-	{
-		"en": "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
-		"ja": "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
-		"zh_HANS": "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California"
-	},
-	{
-		"en": "Mosquitto",
-		"ja": "Mosquitto",
-		"zh_HANS": "Mosquitto"
-	},
-	{
-		"en": "EDL-V10 EPL-V10",
-		"ja": "EDL-V10 EPL-V10",
-		"zh_HANS": "EDL-V10 EPL-V10"
-	},
-	{
-		"en": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors",
-		"ja": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors",
-		"zh_HANS": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors"
-	},
-	{
-		"en": "Flow-UX Framework",
-		"ja": "Flow-UX Framework",
-		"zh_HANS": "Flow-UX Framework"
-	},
-	{
-		"en": "Copyright (c) ASPECTRON Inc.",
-		"ja": "Copyright (c) ASPECTRON Inc.",
-		"zh_HANS": "Copyright (c) ASPECTRON Inc."
-	},
-	{
-		"en": "NWJS",
-		"ja": "NWJS",
-		"zh_HANS": "NWJS"
-	},
-	{
-		"en": "Copyright (c) 2015 四月橘林",
-		"ja": "Copyright (c) 2015 四月橘林",
-		"zh_HANS": "Copyright (c) 2015 四月橘林"
-	},
-	{
-		"en": "Chromium",
-		"ja": "Chromium",
-		"zh_HANS": "Chromium"
-	},
-	{
-		"en": "BSD",
-		"ja": "BSD",
-		"zh_HANS": "BSD"
-	},
-	{
-		"en": "Copyright (c) The Chromium Authors",
-		"ja": "Copyright (c) The Chromium Authors",
-		"zh_HANS": "Copyright (c) The Chromium Authors"
-	},
-	{
-		"en": "Data Folder",
-		"ja": "データフォルダ",
-		"zh_HANS": "数据文件夹"
-	},
-	{
-		"en": "Reset",
-		"ja": "リセット",
-		"zh_HANS": "重置"
-	},
-	{
-		"en": "Default",
-		"ja": "デフォルト",
-		"zh_HANS": "默认"
-	},
-	{
-		"en": "Apply",
-		"ja": "保存して適用",
-		"zh_HANS": "保存并应用"
-	},
-	{
-		"en": "User Interface Color Theme",
-		"ja": "ユーザーインターフェイスのカラーテーマ",
-		"zh_HANS": "用户界面的主题"
-	},
-	{
-		"en": "Dark Theme",
-		"ja": "ダーク",
-		"zh_HANS": "暗黑模式"
-	},
-	{
-		"en": "Invert Terminal Color",
-		"ja": "端子を反転",
-		"zh_HANS": "反转终端颜色"
-	},
-	{
-		"en": "Turn ON/OFF advanced settings and process control",
-		"ja": "詳細設定とプロセス制御のオン/オフ",
-		"zh_HANS": "开启/关闭详细设置和过程控制"
+		"en": "Additional funds will be<br/>available in [n]",
+		"ja": "",
+		"zh_HANS": "更多资金将会在<br/> [n] 可用"
 	},
 	{
 		"en": "Advanced",
@@ -205,14 +50,69 @@
 		"zh_HANS": "高级模式"
 	},
 	{
-		"en": "Service Control",
-		"ja": "サービス管理",
-		"zh_HANS": "服务管理"
+		"en": "Advanced mode allows you to manually configure, interact with and monitor KDX services.",
+		"ja": "アドバンスドモードでは、KDXサービスを手動で設定、操作、および監視できます。",
+		"zh_HANS": "高级模式下，您可以手动设置、操作和监控KDX服务。"
 	},
 	{
-		"en": "Run in Background",
-		"ja": "バックグラウンドで実行",
-		"zh_HANS": "在后台执行"
+		"en": "Amount in KAS",
+		"ja": "KASでの金額",
+		"zh_HANS": "KAS 数量"
+	},
+	{
+		"en": "Applications",
+		"ja": "用途",
+		"zh_HANS": "应用"
+	},
+	{
+		"en": "Apply",
+		"ja": "保存して適用",
+		"zh_HANS": "保存并应用"
+	},
+	{
+		"en": "Are you sure?",
+		"ja": "本気ですか？",
+		"zh_HANS": "你确定？"
+	},
+	{
+		"en": "At least 8 characters, one capital, one lower, one number, and one symbol",
+		"ja": "少なくとも8文字、1つの大文字、1つの下、1つの数字、および1つの記号",
+		"zh_HANS": "至少 8 个字符，一个大写，一个小写，一个数字和一个符号（有的符号不行）"
+	},
+	{
+		"en": "Attention !",
+		"ja": "",
+		"zh_HANS": "至少8个字母，1个大写，1个小写，1个数字，及1个符号"
+	},
+	{
+		"en": "Automatically calculate network fee",
+		"ja": "ネットワーク料金を自動的に計算する",
+		"zh_HANS": "自动计算网络手续费用"
+	},
+	{
+		"en": "Available",
+		"ja": "額",
+		"zh_HANS": "余额"
+	},
+	{
+		"en": "Awesome, one more to go!",
+		"ja": "",
+		"zh_HANS": "棒，还有一步！"
+	},
+	{
+		"en": "BACK TO THE WORDS",
+		"ja": "",
+		"zh_HANS": "返回词表"
+	},
+	{
+		"en": "BLOCKS",
+		"ja": "ブロック",
+		"zh_HANS": "块"
+	},
+	{
+		"en": "BSD",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "Background Execution",
@@ -220,19 +120,269 @@
 		"zh_HANS": "后台运行"
 	},
 	{
+		"en": "Backup Seed",
+		"ja": "バックアップシード",
+		"zh_HANS": "备份助记词"
+	},
+	{
+		"en": "Be wary and cautious of your secret phrase. Never reveal it to anyone.",
+		"ja": "あなたの秘密のフレーズに用心深く注意してください。 決して誰にも明かさないでください。",
+		"zh_HANS": "对你的助记词保持警惕和谨慎。 永远不要向任何人透露。"
+	},
+	{
 		"en": "Block Generation",
 		"ja": "ブロック生成",
 		"zh_HANS": "块生成"
 	},
 	{
-		"en": "Enable Mining",
-		"ja": "マイニングを有効にする",
-		"zh_HANS": "启用挖掘"
+		"en": "Blocks",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
-		"en": "Metrics",
-		"ja": "指標",
-		"zh_HANS": "指标"
+		"en": "Blue Score",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "CONNECTING...",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "CONSOLE",
+		"ja": "控制台",
+		"zh_HANS": "控制台"
+	},
+	{
+		"en": "COUNT",
+		"ja": "量",
+		"zh_HANS": "数量"
+	},
+	{
+		"en": "CPU",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Cancel",
+		"ja": "キャンセル",
+		"zh_HANS": "取消"
+	},
+	{
+		"en": "Chromium",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Clear used UTXOs",
+		"ja": "",
+		"zh_HANS": "清除已用 UTXO"
+	},
+	{
+		"en": "Close",
+		"ja": "閉",
+		"zh_HANS": "关闭"
+	},
+	{
+		"en": "Compound Transactions",
+		"ja": "複合トランザクション",
+		"zh_HANS": "合成交易"
+	},
+	{
+		"en": "Configuration Template",
+		"ja": "",
+		"zh_HANS": "配置模板"
+	},
+	{
+		"en": "Configuration Templates",
+		"ja": "",
+		"zh_HANS": "配置模板"
+	},
+	{
+		"en": "Configuration editor allows you to customize KDX environment. KDX configuration is represented in JSON by a list of application/service configuration objects. Each service configuration object is used to start the corresponding service.",
+		"ja": "設定エディターを使用すると、KDX環境をカスタマイズできます。 KDXの設定は、アプリケーション/サービス構成オブジェクトのリストによってJSONで表示されます。各サービス設定は、それぞれに対応するサービスを開始するために使用されます。",
+		"zh_HANS": "使用设置编辑器，你可以自定义KDX环境。在应用程序/服务配置对象列表中，JSON会显示KDX的设置。每个服务设置都用来启动相应的服务。"
+	},
+	{
+		"en": "Configuration templates allow you to load pre-made KDX configurations.",
+		"ja": "",
+		"zh_HANS": "加载预设KDX配置模版"
+	},
+	{
+		"en": "Confirm Password",
+		"ja": "パスワードを認証する",
+		"zh_HANS": "确认密码"
+	},
+	{
+		"en": "Confirm password",
+		"ja": "パスワードを認証する",
+		"zh_HANS": "确认密码"
+	},
+	{
+		"en": "Cool fact: there are more 12-word phrase combinations than nanoseconds since the big bang!",
+		"ja": "",
+		"zh_HANS": "至酷提示:  12个助记词的组合超过宇宙大爆炸至今的纳秒数！"
+	},
+	{
+		"en": "Copy to clipboard",
+		"ja": "",
+		"zh_HANS": "复制到剪切板"
+	},
+	{
+		"en": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Copyright (c) 2015 四月橘林",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Copyright (c) 2020 Kaspa Developers",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Copyright (c) 2021 Kaspa Developers",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Copyright (c) ASPECTRON Inc.",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Copyright (c) The Chromium Authors",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Copyright (c) The Chromium Authors.",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Create New Wallet",
+		"ja": "新しいウォレットを作成する",
+		"zh_HANS": "创建一个新钱包"
+	},
+	{
+		"en": "Create Wallet",
+		"ja": "ウォレットを作成する",
+		"zh_HANS": "创建钱包"
+	},
+	{
+		"en": "Create a password for your new wallet",
+		"ja": "新しいウォレットのパスワードを設定します",
+		"zh_HANS": "为你的新钱包设置密码"
+	},
+	{
+		"en": "DAA score:",
+		"ja": "",
+		"zh_HANS": "DAA 分:"
+	},
+	{
+		"en": "DAG SYNC",
+		"ja": "同期の進行状況",
+		"zh_HANS": "同步进度"
+	},
+	{
+		"en": "DAG Sync",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "DAGVIZ",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "DB0",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "DEBUG",
+		"ja": "",
+		"zh_HANS": "除错"
+	},
+	{
+		"en": "DEVELOPER INFO",
+		"ja": "",
+		"zh_HANS": "开发信息"
+	},
+	{
+		"en": "DEVNET",
+		"ja": "",
+		"zh_HANS": "开发网"
+	},
+	{
+		"en": "DIFFICULTY",
+		"ja": "困難",
+		"zh_HANS": "难度"
+	},
+	{
+		"en": "DONE",
+		"ja": "終了",
+		"zh_HANS": "完成"
+	},
+	{
+		"en": "Dark Theme",
+		"ja": "ダーク",
+		"zh_HANS": "暗黑模式"
+	},
+	{
+		"en": "Data Folder",
+		"ja": "データフォルダ",
+		"zh_HANS": "数据文件夹"
+	},
+	{
+		"en": "Data Folder location is used for storage by all KDX modules. In default configuration this includes Kaspad blockchain data and Kasparov API database. This location also contains process log files.",
+		"ja": "データフォルダーの場所は、すべてのKDXモジュールによるストレージに使用されます。 デフォルトの構成では、これにはKaspadブロックチェーンデータとKasparov APIデータベースが含まれます。 この場所には、プロセスログファイルも含まれます。",
+		"zh_HANS": "数据文件夹位置用于存储所有的KDX模块。在默认配置中，这包括Kaspad区块链数据和Kasparov API数据库。此位置还包含进程日志文件。"
+	},
+	{
+		"en": "Debug",
+		"ja": "",
+		"zh_HANS": "除错"
+	},
+	{
+		"en": "Default",
+		"ja": "デフォルト",
+		"zh_HANS": "默认"
+	},
+	{
+		"en": "Difficulty",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Discord Chat",
+		"ja": "Discordチャット",
+		"zh_HANS": "Discord 聊天室"
+	},
+	{
+		"en": "Documentation",
+		"ja": "ドキュメンテーション",
+		"zh_HANS": "文档"
+	},
+	{
+		"en": "EDL-V10 EPL-V10",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "EXIT KDX",
+		"ja": "KDXを終了",
+		"zh_HANS": "退出 KDX"
 	},
 	{
 		"en": "Enable Metrics",
@@ -240,149 +390,84 @@
 		"zh_HANS": "启用指标"
 	},
 	{
-		"en": "Service Configuration",
-		"ja": "サービス設定",
-		"zh_HANS": "服务设置"
+		"en": "Enable Mining",
+		"ja": "マイニングを有効にする",
+		"zh_HANS": "启用挖掘"
 	},
 	{
-		"en": "Select Folder",
-		"ja": "フォルダーを選択",
-		"zh_HANS": "选择文件夹"
+		"en": "Encrypt Wallet",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Enter a password",
+		"ja": "パスワードを入力します",
+		"zh_HANS": "输入密码"
+	},
+	{
+		"en": "Enter your 12-word seed phrase to recover your wallet (words are not case sensitive)",
+		"ja": "",
+		"zh_HANS": "错误"
+	},
+	{
+		"en": "Error",
+		"ja": "間違い",
+		"zh_HANS": "错误"
+	},
+	{
+		"en": "Exit",
+		"ja": "出口",
+		"zh_HANS": "退出"
+	},
+	{
+		"en": "Export Wallet Seed File (KPK)",
+		"ja": "KPKウォレットファイルをエクスポートする",
+		"zh_HANS": "导出你的钱包备份 (KPK)"
+	},
+	{
+		"en": "Export Wallet Seed File(KPK)",
+		"ja": "KPKウォレットファイルをエクスポートする",
+		"zh_HANS": "导出KPK钱包文件(KPK)"
+	},
+	{
+		"en": "Faucet",
+		"ja": "",
+		"zh_HANS": "水龙头"
+	},
+	{
+		"en": "Flow UX:",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Flow-UX Framework",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "Flow-ux",
-		"ja": "Flow-ux",
-		"zh_HANS": "Flow-ux"
-	},
-	{
-		"en": "PostreSQL",
-		"ja": "PostreSQL",
-		"zh_HANS": "PostreSQL"
-	},
-	{
-		"en": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
-		"ja": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
-		"zh_HANS": "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors."
-	},
-	{
-		"en": "Copyright (c) The Chromium Authors.",
-		"ja": "Copyright (c) The Chromium Authors.",
-		"zh_HANS": ""
-	},
-	{
-		"en": "SERVICES",
 		"ja": "",
 		"zh_HANS": ""
 	},
 	{
-		"en": "Invert Terminals",
-		"ja": "端子を反転",
-		"zh_HANS": "反转终端"
+		"en": "GitHub",
+		"ja": "Github",
+		"zh_HANS": "Github"
 	},
 	{
-		"en": "HOME",
-		"ja": "概要",
-		"zh_HANS": "概要"
+		"en": "Good job! Two more checks to go",
+		"ja": "",
+		"zh_HANS": "好样的！ 还有2个步骤"
 	},
 	{
-		"en": "SETTINGS",
-		"ja": "設定",
-		"zh_HANS": "设置"
+		"en": "Great Success!",
+		"ja": "",
+		"zh_HANS": "成功！"
 	},
 	{
-		"en": "CONSOLE",
-		"ja": "コンソール",
-		"zh_HANS": "控制台"
-	},
-	{
-		"en": "kaspad",
+		"en": "HEADERS",
 		"ja": "",
 		"zh_HANS": ""
-	},
-	{
-		"en": "kd0",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "kd1",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "pgsql",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "db0",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "kasparovsyncd",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "kvsd0",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "kasparovd",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "kvd0",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "app",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "dagviz",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "Select Folder",
-		"ja": "フォルダーを選択",
-		"zh_HANS": "选择文件夹"
-	},
-	{
-		"en": "kd0",
-		"ja": "kd0",
-		"zh_HANS": "kd0"
-	},
-	{
-		"en": "kd1",
-		"ja": "kd1",
-		"zh_HANS": "kd1"
-	},
-	{
-		"en": "db0",
-		"ja": "db0",
-		"zh_HANS": "db0"
-	},
-	{
-		"en": "kvsd0",
-		"ja": "kvsd0",
-		"zh_HANS": "kvsd0"
-	},
-	{
-		"en": "kvd0",
-		"ja": "kvd0",
-		"zh_HANS": "kvd0"
-	},
-	{
-		"en": "dagviz",
-		"ja": "dagviz",
-		"zh_HANS": "dagviz"
 	},
 	{
 		"en": "HOME",
@@ -390,59 +475,89 @@
 		"zh_HANS": "概要"
 	},
 	{
-		"en": "SETTINGS",
-		"ja": "设置",
-		"zh_HANS": ""
-	},
-	{
-		"en": "CONSOLE",
-		"ja": "控制台",
-		"zh_HANS": ""
-	},
-	{
-		"en": "kaspad",
-		"ja": "kaspad",
-		"zh_HANS": "kaspad"
-	},
-	{
-		"en": "pgsql",
-		"ja": "pgsql",
-		"zh_HANS": "pgsql"
-	},
-	{
-		"en": "kasparovsyncd",
-		"ja": "kasparovsyncd",
-		"zh_HANS": "kasparovsyncd"
-	},
-	{
-		"en": "kasparovd",
-		"ja": "kasparovd",
-		"zh_HANS": "kasparovd"
-	},
-	{
-		"en": "app",
-		"ja": "app",
-		"zh_HANS": "app"
-	},
-	{
-		"en": "mqtt",
+		"en": "Headers",
 		"ja": "",
 		"zh_HANS": ""
 	},
 	{
-		"en": "mq0",
+		"en": "Hello",
+		"ja": "こんにちは",
+		"zh_HANS": "侬好"
+	},
+	{
+		"en": "I have wallet",
+		"ja": "",
+		"zh_HANS": "我有一个钱包"
+	},
+	{
+		"en": "IN USE UTXOS",
+		"ja": "",
+		"zh_HANS": "使用中的UTXOS"
+	},
+	{
+		"en": "Import Wallet Seed File (KPK)",
+		"ja": "",
+		"zh_HANS": "导入钱包备份文件 (KPK)"
+	},
+	{
+		"en": "Import Wallet Seed File(KPK)",
+		"ja": "KPKウォレットファイルをインポートする",
+		"zh_HANS": "导入钱包备份文件(KPK)"
+	},
+	{
+		"en": "Include fee in the amount",
+		"ja": "振込金額に手数料を含める",
+		"zh_HANS": "把手续费包含到转账金额中"
+	},
+	{
+		"en": "Incorrect password.",
+		"ja": "間違ったパスワード",
+		"zh_HANS": "错误的密码"
+	},
+	{
+		"en": "Invalid password",
+		"ja": "無効なパスワード",
+		"zh_HANS": "无效的密码"
+	},
+	{
+		"en": "Invalid seed",
+		"ja": "",
+		"zh_HANS": "无效的密码"
+	},
+	{
+		"en": "Invert Terminal Color",
+		"ja": "端子を反転",
+		"zh_HANS": "反转终端的颜色"
+	},
+	{
+		"en": "Invert Terminals",
+		"ja": "端子を反転",
+		"zh_HANS": "反转终端"
+	},
+	{
+		"en": "It is recommended to keep several copies of your secret seed hidden away in different places.",
+		"ja": "",
+		"zh_HANS": "建议在不同地方多存几分助记词，并藏好。"
+	},
+	{
+		"en": "KASPA",
 		"ja": "",
 		"zh_HANS": ""
 	},
 	{
-		"en": "simulator",
+		"en": "KASPA FAUCET",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "KASPA 水龙头"
 	},
 	{
-		"en": "sim0",
+		"en": "KASPA RESOURCES",
+		"ja": "カスパ・リソース",
+		"zh_HANS": "KASPA 资源"
+	},
+	{
+		"en": "KASPA WALLET",
 		"ja": "",
-		"zh_HANS": ""
+		"zh_HANS": "KASPA 钱包"
 	},
 	{
 		"en": "KASPAD",
@@ -450,17 +565,7 @@
 		"zh_HANS": ""
 	},
 	{
-		"en": "MQTT",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "PGSQL",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "KASPAROVSYNCD",
+		"en": "KASPAMINER",
 		"ja": "",
 		"zh_HANS": ""
 	},
@@ -470,12 +575,7 @@
 		"zh_HANS": ""
 	},
 	{
-		"en": "SIMULATOR",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "DAGVIZ",
+		"en": "KASPAROVSYNCD",
 		"ja": "",
 		"zh_HANS": ""
 	},
@@ -490,32 +590,12 @@
 		"zh_HANS": ""
 	},
 	{
-		"en": "MQ0",
+		"en": "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
 		"ja": "",
 		"zh_HANS": ""
 	},
 	{
-		"en": "DB0",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "KVSD0",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "KVD0",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "SIM0",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
-		"en": "KASPAMINER",
+		"en": "KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br> All Rights Reserved.",
 		"ja": "",
 		"zh_HANS": ""
 	},
@@ -525,12 +605,617 @@
 		"zh_HANS": ""
 	},
 	{
+		"en": "KVD0",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "KVSD0",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Kaspa",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Kaspa Core:",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Kaspa UX:",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Kaspa Wallet Framework:",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Kaspa gRPC Relay:",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Kaspa gRPC:",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Kaspad Archival Node",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Kaspad Archival Node + Miner",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Kaspad Node",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Kaspad Node + Miner",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "LICENSE",
+		"ja": "ソフトウェアライセンス",
+		"zh_HANS": "软件许可证"
+	},
+	{
+		"en": "LICENSE INFORMATION",
+		"ja": "ライセンス情報",
+		"zh_HANS": "许可证信息"
+	},
+	{
+		"en": "Leave in the Background",
+		"ja": "バックグラウンドに残す",
+		"zh_HANS": "留在后台"
+	},
+	{
+		"en": "MAINNET",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "MAX",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "MEMORY",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "MIT",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "MQ0",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "MQTT",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Make sure no one is looking, as anyone with your seed phrase can access your wallet your funds. Write it down and keep it safe.",
+		"ja": "",
+		"zh_HANS": "确保无人窥视，因为任何人通过你的助记词都可以访问你的钱包。小心记录并安全保存。"
+	},
+	{
+		"en": "Make sure you wrote the phrase down correctly by answering this quick checkup.",
+		"ja": "",
+		"zh_HANS": "回答以下问题，确保助记词记录正确。"
+	},
+	{
+		"en": "Median Latency",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Median Time UTC",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Mempool Size",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Metrics",
+		"ja": "指標",
+		"zh_HANS": "指标"
+	},
+	{
+		"en": "Mosquitto",
+		"ja": "",
+		"zh_HANS": "蚊子"
+	},
+	{
+		"en": "NEW WALLET",
+		"ja": "",
+		"zh_HANS": "创建新钱包"
+	},
+	{
+		"en": "NEXT",
+		"ja": "",
+		"zh_HANS": "下一步"
+	},
+	{
+		"en": "NWJS",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Network",
+		"ja": "",
+		"zh_HANS": "网络"
+	},
+	{
+		"en": "Network Name",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Network:",
+		"ja": "",
+		"zh_HANS": "网络:"
+	},
+	{
+		"en": "Next",
+		"ja": "次のステップ",
+		"zh_HANS": "下一步"
+	},
+	{
+		"en": "No Transactions",
+		"ja": "",
+		"zh_HANS": "无交易"
+	},
+	{
+		"en": "Note",
+		"ja": "",
+		"zh_HANS": "笔记"
+	},
+	{
+		"en": "OFFLINE",
+		"ja": "オフライン",
+		"zh_HANS": "离线"
+	},
+	{
+		"en": "ONLINE",
+		"ja": "オンライン",
+		"zh_HANS": "在线"
+	},
+	{
+		"en": "OPEN WALLET",
+		"ja": "オープンウォレット",
+		"zh_HANS": "打开钱包"
+	},
+	{
+		"en": "Offline",
+		"ja": "オフライン",
+		"zh_HANS": "离线"
+	},
+	{
+		"en": "Online",
+		"ja": "オンライン",
+		"zh_HANS": "在线"
+	},
+	{
+		"en": "Open Wallet",
+		"ja": "オープンウォレット",
+		"zh_HANS": "打开钱包"
+	},
+	{
+		"en": "PEERS",
+		"ja": "",
+		"zh_HANS": "节点数"
+	},
+	{
+		"en": "PGSQL",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Password",
+		"ja": "パスワード",
+		"zh_HANS": "密码"
+	},
+	{
+		"en": "Password to encryt the wallet",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Passwords do not match",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Peers",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Pending",
+		"ja": "保留中",
+		"zh_HANS": "发送中"
+	},
+	{
+		"en": "Please provide address and amount",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Please provide valid words",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "PostgreSQL",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "PostreSQL",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Preparing transaction for [n] KAS ....",
+		"ja": "",
+		"zh_HANS": "为 [n] KAS 准备交易"
+	},
+	{
+		"en": "Priority Fee",
+		"ja": "",
+		"zh_HANS": "优先费用"
+	},
+	{
+		"en": "RAM",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "RESET",
+		"ja": "",
+		"zh_HANS": "重置"
+	},
+	{
+		"en": "Receive Address",
+		"ja": "受信アドレス",
+		"zh_HANS": "接收地址"
+	},
+	{
+		"en": "Receive Address:",
+		"ja": "",
+		"zh_HANS": "接收地址:"
+	},
+	{
+		"en": "Recent Transactions",
+		"ja": "",
+		"zh_HANS": "最新交易"
+	},
+	{
+		"en": "Recipient Address (Must start with 'kaspa' prefix)",
+		"ja": "",
+		"zh_HANS": "接受地址 (必须为 'kaspa' 开头)"
+	},
+	{
+		"en": "Recover From Seed",
+		"ja": "シードからの回復",
+		"zh_HANS": "从助记词恢复"
+	},
+	{
+		"en": "Recover Wallet",
+		"ja": "",
+		"zh_HANS": "从助记词恢复"
+	},
+	{
+		"en": "Recover from Seed",
+		"ja": "",
+		"zh_HANS": "从助记词恢复"
+	},
+	{
+		"en": "Recovery Seed",
+		"ja": "",
+		"zh_HANS": "恢复助记词"
+	},
+	{
+		"en": "Release Notes",
+		"ja": "",
+		"zh_HANS": "发行说明"
+	},
+	{
+		"en": "Remember...<br> Anyone with this 12-word phrase can access your wallet your funds. Keep it safe!",
+		"ja": "",
+		"zh_HANS": "谨记...<br> 任何人都可以通过这组 12 个词条访问你的钱包。一定安全保存！"
+	},
+	{
+		"en": "Request Funds from Faucet",
+		"ja": "",
+		"zh_HANS": "从水龙头领取空投"
+	},
+	{
+		"en": "Request funds",
+		"ja": "",
+		"zh_HANS": "申请资金"
+	},
+	{
+		"en": "Reset",
+		"ja": "リセット",
+		"zh_HANS": "重置"
+	},
+	{
+		"en": "Reset Configuration",
+		"ja": "構成のリセット",
+		"zh_HANS": "恢复出厂设置"
+	},
+	{
+		"en": "Run in Background",
+		"ja": "バックグラウンドで実行",
+		"zh_HANS": "在后台执行"
+	},
+	{
+		"en": "SEND",
+		"ja": "送信",
+		"zh_HANS": "发送"
+	},
+	{
+		"en": "SERVICES",
+		"ja": "",
+		"zh_HANS": "服务"
+	},
+	{
+		"en": "SETTINGS",
+		"ja": "設定",
+		"zh_HANS": "设置"
+	},
+	{
+		"en": "SIM0",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "SIMNET",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "SIMULATOR",
+		"ja": "",
+		"zh_HANS": "模拟器"
+	},
+	{
+		"en": "STATUS",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "STORAGE USED",
+		"ja": "",
+		"zh_HANS": "磁盘占用"
+	},
+	{
+		"en": "Scan More Addresses",
+		"ja": "",
+		"zh_HANS": "扫描更多地址"
+	},
+	{
+		"en": "Scan QR code",
+		"ja": "QRスキャン",
+		"zh_HANS": "扫描二维码"
+	},
+	{
+		"en": "Scan result",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Select Folder",
+		"ja": "フォルダーを選択",
+		"zh_HANS": "选择文件夹"
+	},
+	{
+		"en": "Select cameras",
+		"ja": "",
+		"zh_HANS": "内置 KASPAD 挖矿"
+	},
+	{
+		"en": "Self-Contained Kaspad Mining",
+		"ja": "",
+		"zh_HANS": "独立的 Kaspad 挖矿"
+	},
+	{
+		"en": "Service Configuration",
+		"ja": "サービス設定",
+		"zh_HANS": "服务设置"
+	},
+	{
+		"en": "Service Control",
+		"ja": "サービス管理",
+		"zh_HANS": "服务管理"
+	},
+	{
+		"en": "Services",
+		"ja": "サービス",
+		"zh_HANS": "服务"
+	},
+	{
+		"en": "Status:",
+		"ja": "",
+		"zh_HANS": "状态:"
+	},
+	{
+		"en": "TESTNET",
+		"ja": "",
+		"zh_HANS": "测试网"
+	},
+	{
 		"en": "TPS",
 		"ja": "",
 		"zh_HANS": ""
 	},
 	{
-		"en": "mqtt",
+		"en": "TRANSACTIONS",
+		"ja": "トランザクション",
+		"zh_HANS": "交易记录"
+	},
+	{
+		"en": "The Enable Mining option starts / stops all configured Kaspaminer instances.",
+		"ja": "[マイニングを有効にする]オプションは、構成されているすべてのKaspaminerインスタンスを開始/停止します。",
+		"zh_HANS": "[启用挖掘] 选项启动/停止所有已配置的Kaspaminer实例。"
+	},
+	{
+		"en": "The Enable Mining option starts / stops all configured Kaspaminer instances.<br>&nbsp;<br> <!-- The <i>Use Wallet Address for Mining</i> option will automatically configure the miner to send Kaspa to your wallet. -->",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "Transactions",
+		"ja": "",
+		"zh_HANS": "交易"
+	},
+	{
+		"en": "Transactions under process",
+		"ja": "",
+		"zh_HANS": "正在进行的交易"
+	},
+	{
+		"en": "Turn ON/OFF advanced settings and process control",
+		"ja": "詳細設定とプロセス制御のオン/オフ",
+		"zh_HANS": "开启/关闭详细设置和过程控制"
+	},
+	{
+		"en": "UPTIME",
+		"ja": "",
+		"zh_HANS": "在线时间"
+	},
+	{
+		"en": "Unlock the wallet with your password:",
+		"ja": "",
+		"zh_HANS": "使用密码解锁钱包:"
+	},
+	{
+		"en": "Update",
+		"ja": "",
+		"zh_HANS": "升级"
+	},
+	{
+		"en": "User Interface Color Theme",
+		"ja": "ユーザーインターフェイスのカラーテーマ",
+		"zh_HANS": "用户界面的主题"
+	},
+	{
+		"en": "VIRTUAL MEMORY",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "WALLET",
+		"ja": "財布",
+		"zh_HANS": "钱包"
+	},
+	{
+		"en": "Wallet",
+		"ja": "財布",
+		"zh_HANS": "钱包"
+	},
+	{
+		"en": "Wallet Status",
+		"ja": "ウォレットのステータス",
+		"zh_HANS": "钱包状态"
+	},
+	{
+		"en": "Wallet Status:",
+		"ja": "",
+		"zh_HANS": "钱包状态:"
+	},
+	{
+		"en": "Welcome to Kaspa Wallet",
+		"ja": "",
+		"zh_HANS": "欢迎使用钱包"
+	},
+	{
+		"en": "What is the [x] word?",
+		"ja": "",
+		"zh_HANS": "第 [x] 个单词是?"
+	},
+	{
+		"en": "When enabled, KDX runs itself and it's services hidden in the background and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).",
+		"ja": "KDXを有効にするとKDXは自動で起動しサービスはバックグラウンドで非表示となり実行され、メニューバー（OSXおよびLinux）またはシステムトレイメニュー（Windows）からアクセスできるようになります。",
+		"zh_HANS": "当你启用KDX时，它会自动启动，隐藏在后台并运行服务，你可以通过菜单栏(OSX和Linux)或系统菜单(Windows)访问。"
+	},
+	{
+		"en": "Wrong. Retry or go back",
+		"ja": "",
+		"zh_HANS": "错误.重试或返回"
+	},
+	{
+		"en": "You already have a wallet open. <br> Please make sure your current wallet <br> is backed up before proceeding!",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "You can stream KDX metrics to your own StatsD-compatible server.",
+		"ja": "KDXメトリックを独自のStatsD互換サーバーにストリーミングできます。",
+		"zh_HANS": "你可以将KDX量度传输到你自己的StatsD兼容服务器。"
+	},
+	{
+		"en": "You can't request more than [n] KAS.",
+		"ja": "",
+		"zh_HANS": "您不能请求超过 [n] 个 KAS。"
+	},
+	{
+		"en": "You have <b>[n] KAS</b> available.",
+		"ja": "",
+		"zh_HANS": "可用余额 <b>[n] KAS</b> ."
+	},
+	{
+		"en": "Your IP is [n]",
+		"ja": "",
+		"zh_HANS": "你的 IP 是 [n]"
+	},
+	{
+		"en": "Your wallet is accessible by a seed phrase. The seed phrase is an ordered 12-word secret phrase.",
+		"ja": "",
+		"zh_HANS": "你的钱包可通过助记词访问。助记词是一组12个有序单词。"
+	},
+	{
+		"en": "app",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "dagviz",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "db0",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "kaspad",
 		"ja": "",
 		"zh_HANS": ""
 	},
@@ -540,33 +1225,63 @@
 		"zh_HANS": ""
 	},
 	{
-		"en": "EXIT KDX",
-		"ja": "KDXを終了",
-		"zh_HANS": "退出 KDX"
+		"en": "kasparovd",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
-		"en": "Are you sure?",
-		"ja": "本気ですか？",
-		"zh_HANS": "你确定？"
+		"en": "kasparovsyncd",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
-		"en": "Cancel",
-		"ja": "キャンセル",
-		"zh_HANS": "取消"
+		"en": "kd0",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
-		"en": "Exit",
-		"ja": "出口",
-		"zh_HANS": "退出"
+		"en": "kd1",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
-		"en": "Leave in the Background",
-		"ja": "バックグラウンドに残す",
-		"zh_HANS": "留在后台"
+		"en": "kvd0",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
-		"en": "Reset Configuration",
-		"ja": "構成のリセット",
-		"zh_HANS": "恢复出厂设置"
+		"en": "kvsd0",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "mq0",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "mqtt",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "password",
+		"ja": "パスワード",
+		"zh_HANS": "密码"
+	},
+	{
+		"en": "pgsql",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "sim0",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "simulator",
+		"ja": "",
+		"zh_HANS": ""
 	}
 ]

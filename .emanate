@@ -221,6 +221,13 @@ E.flags.docker && E.task('docker', null, async () => {
     console.log('Docker build took'.brightBlue,`${((ts1-ts0)/1000/60).toFixed(1)}`.brightWhite,'minutes'.brightBlue)
 });
 
+if(E.flags.i18n){
+    E.task('i18n', null, async () => {
+        E.utils.sortAndSaveI18nFiles();
+        E.utils.mergeI18nEntries2Data();
+    })
+}
+
 
 if(E.flags['local-binaries'] || E.flags['kaspa']) {
     E.BIN = path.join(E.appFolder,'bin', E.PLATFORM_ARCH);
@@ -235,11 +242,11 @@ if(E.flags.link) {
         await npm.link(`@aspectron/${ident}`, { cwd : __dirname, stdio : 'inherit' });
     }
 }
-else 
-if(E.flags.docker) {
+else if(E.flags.docker) {
     E.runTask('docker');
-}
-else if(E.flags['kaspa']) 
+}else if(E.flags.i18n) {
+    E.runTask('i18n');
+}else if(E.flags['kaspa']) 
     await kaspad();
 else if(E.flags['local-binaries']) {
     E.runTask('kaspad');

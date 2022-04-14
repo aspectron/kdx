@@ -362,7 +362,7 @@ class KDXApp extends FlowApp{
 
 			let {task} = daemon;
 
-			let info = await daemon.renderModuleInfo({html});
+			let info = await daemon.renderModuleInfo({html, i18n});
 			let section = html`<div class="task-info">${info}</div>`;
 			this.renderModuleInfo(task, section);
 		})
