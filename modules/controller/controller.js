@@ -18,7 +18,7 @@ import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
 import {
 	flow, FlowDialog, i18n, getLocalSetting, setLocalSetting, T, dpc,
-	FlowApp, setTheme
+	FlowApp, setTheme, deferred
 } from '/node_modules/@aspectron/flow-ux/flow-ux.js';
 window.flow = flow;
 window.testI18n = (testing)=>i18n.setTesting(!!testing);
@@ -128,6 +128,14 @@ class KDXApp extends FlowApp{
 					Data Folder location is used for storage by all KDX modules. 
 					In default configuration this includes Kaspad blockchain data and Kasparov API database.
 					This location also contains process log files.
+				</p>
+			</flow-form-control>
+			<flow-form-control icon="fal:database">
+				<flow-i18n slot="title">Delete Data Folder</flow-i18n>
+				<flow-btn slot="input" id="reset-data-folder-btn" class="warning">Delete data directory and resync</flow-btn>
+				<h4 slot="info" class="title"><flow-i18n>Reset Data Folder</flow-i18n></h4>
+				<p slot="info" is="i18n-p">
+					It will delete datadir (Data Folder) and restart kaspad node to re-sync
 				</p>
 			</flow-form-control>
 			<flow-form-control icon="fal:palette">
@@ -781,6 +789,9 @@ class KDXApp extends FlowApp{
 		let folderInput = $folderInput[0];
 		let originalValue = config.dataDir || configFolder;
 		folderInput.value = originalValue;
+		$("#reset-data-folder-btn").on("click", e=>{
+			this.confirmDeleteAndResync();
+		});
 		$(".reset-data-dir").on("click", e=>{
 			folderInput.setValue(originalValue);
 		});
@@ -858,6 +869,35 @@ class KDXApp extends FlowApp{
 		flow.samplers.registerSink(this.sampler_sink.bind(this));
 		this.initStatsdServer(this.statsdAddress,this.statsdPrefix);
 
+	}
+	async confirmDeleteAndResync(){
+		let {btn} = await FlowDialog.show({
+			title:i18n.t("Delete Data Folder"),
+			body:i18n.t("Are you sure?"),
+			btns:[{
+				text:i18n.t('Cancel'),
+				value:'cancel'
+			},{
+				text:i18n.t('Yes delete data folder and resync'),
+				value:'resync',
+				cls:'warning'
+			}]
+		});
+		if(btn != 'resync')
+			return
+		this.setUiDisabled(true)
+		let beforeStartCB = async ()=>{
+			let promise = deferred();
+			dpc(5000, async()=>{
+				let result = await this.get("remove-datadir", {});
+				console.log("remove-datadir:result", result)
+				promise.resolve();
+			})
+			
+			await promise;
+			this.setUiDisabled(false)
+		}
+		this.restartDaemons(false, beforeStartCB);
 	}
 	async getMiningAddress(){
 		if(this.miningAddress)
@@ -1051,7 +1091,7 @@ ${changelogContent}`;
 		})
 	}
 	
-	async restartDaemons(daemons){
+	async restartDaemons(daemons, beforeStartCB){
 
 		if(!daemons) {
 			let {config} = await this.get("get-modules-config");
@@ -1062,12 +1102,16 @@ ${changelogContent}`;
 		try{
 			await this.manager.stop();
 			console.log("initDaemons....")
-			dpc(1000, ()=>{
+			dpc(1000, async()=>{
+				if(beforeStartCB)
+					await beforeStartCB();
 				this.initDaemons(daemons);
 			});
 		}catch(e){
 			console.log("restartDaemons:error", e)
-			dpc(1000, ()=>{
+			dpc(1000, async()=>{
+				if(beforeStartCB)
+					await beforeStartCB();
 				this.initDaemons(daemons);
 			});
 		}
@@ -1148,7 +1192,7 @@ ${changelogContent}`;
 					},{
 						text:i18n.t('Exit'),
 						value:'exit',
-						cls:':warning'
+						cls:'warning'
 					},{
 						value : 'background',
 						text : html`<span style="font-size:13.3px;">${i18n.t("Leave in the Background")}</span>`,

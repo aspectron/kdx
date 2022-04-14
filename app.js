@@ -122,6 +122,23 @@ class App extends FlowApp{
 		}
 	}
 
+	async removeDataDir(){
+		try {
+			let datadir2path = path.join(this.dataFolder, "kaspad-kd0", "kaspa-mainnet", "datadir2");
+			console.log("removeDataDir: datadir2path", datadir2path)
+			if(fs.existsSync(datadir2path)){
+				await fse.remove(datadir2path);
+				return !fs.existsSync(datadir2path);
+			}else{
+				return true;
+			}
+		} catch(err) {
+			console.log("removeDataDir: error:", err)
+		}
+
+		return false;
+	}
+
 	/**
 	* @return {String} path to Binaries Folder 
 	*/

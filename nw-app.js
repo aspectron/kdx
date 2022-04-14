@@ -142,6 +142,11 @@ class NWApp extends App{
 			callback(null, {config:this.getModulesConfig()})
 		});
 
+		rpc.on("remove-datadir", async (args, callback)=>{
+			let removed = await this.removeDataDir();
+			callback(null, {removed})
+		})
+
 		rpc.on("set-config-template", (args, callback)=>{
 			let { defaults, network } = args;
 			if(defaults && network)
