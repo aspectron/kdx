@@ -1,7 +1,8 @@
 # Changelog
-## [2.9.2] - 2021-04-14
+## [2.10.0] - 2021-04-14
 This release of KDX includes Kaspa build `v0.12.00`
 This release includes the following changes:
+- Internal improvements to the i18n engine
 - Improved Chinese language support
 
 ## [2.9.1] - 2021-03-30
