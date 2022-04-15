@@ -1,14 +1,12 @@
-const App = require("./app.js");
-const fs = require("fs");
-const path = require("path");
-const { dpc } = require("@aspectron/flow-async");
-
-
 false && chrome.developerPrivate.openDevTools({
 	renderViewId: -1,
 	renderProcessId: -1,
 	extensionId: chrome.runtime.id,
 });
+const App = require("./app.js");
+const fs = require("fs");
+const path = require("path");
+const { dpc } = require("@aspectron/flow-async");
 
 class NWApp extends App{
 
@@ -145,6 +143,11 @@ class NWApp extends App{
 		rpc.on("remove-datadir", async (args, callback)=>{
 			let removed = await this.removeDataDir();
 			callback(null, {removed})
+		})
+		rpc.on("set-skip-utxoindex", async (args, callback)=>{
+			this.setSkipUTXOIndex(args.skipIndex);
+			let skipUTXOIndex = this.getSkipUTXOIndex();
+			callback(null, {skipUTXOIndex, config:this.getModulesConfig()})
 		})
 
 		rpc.on("set-config-template", (args, callback)=>{

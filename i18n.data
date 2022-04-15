@@ -950,6 +950,11 @@
 		"zh_HANS": "恢复助记词"
 	},
 	{
+		"en": "Reindex UTXO",
+		"ja": "",
+		"zh_HANS": "重新索引 UTXO"
+	},
+	{
 		"en": "Release Notes",
 		"ja": "",
 		"zh_HANS": "发行说明"
@@ -1075,6 +1080,11 @@
 		"zh_HANS": "服务"
 	},
 	{
+		"en": "Starts kapsad node without '--utxoindex', after node sync restarts node with '--utxoindex'",
+		"ja": "",
+		"zh_HANS": "在节点同步重新启动节点后使用'--utxoindex'启动不带'--utxoindex'的 kapsad 节点"
+	},
+	{
 		"en": "Status:",
 		"ja": "",
 		"zh_HANS": "状态:"
@@ -1188,6 +1198,11 @@
 		"en": "Yes delete data folder and resync",
 		"ja": "",
 		"zh_HANS": "是的，删除数据文件夹并重新同步"
+	},
+	{
+		"en": "Yes stop and reindex.",
+		"ja": "",
+		"zh_HANS": "是的，停止并重新索引"
 	},
 	{
 		"en": "You already have a wallet open. <br> Please make sure your current wallet <br> is backed up before proceeding!",

@@ -138,6 +138,14 @@ class KDXApp extends FlowApp{
 					It will delete datadir (Data Folder) and restart kaspad node to re-sync
 				</p>
 			</flow-form-control>
+			<flow-form-control icon="fal:database">
+				<flow-i18n slot="title">Reindex UTXO</flow-i18n>
+				<flow-btn slot="input" id="reindex-utxo-btn" class="warning">Reindex UTXO</flow-btn>
+				<h4 slot="info" class="title"><flow-i18n>Reindex UTXO</flow-i18n></h4>
+				<p slot="info" is="i18n-p">
+					Starts kapsad node without '--utxoindex', after node sync restarts node with '--utxoindex'
+				</p>
+			</flow-form-control>
 			<flow-form-control icon="fal:palette">
 				<flow-i18n slot="title">User Interface Color Theme</flow-i18n>
 				<flow-checkbox id="settings-dark-theme" 
@@ -410,6 +418,19 @@ class KDXApp extends FlowApp{
 				terminal.term.write(data.toString('utf8').replace(/\n/g,'\r\n')); //(d.trim());
 			//});
 		});
+
+		let skipingUTXOIndex = null;
+		manager.on('sync-status', (data) => {
+			//console.log("sync-status:data", data);
+			console.log("sync:", this.pickUTXOIndexFromStatus, data.skipUTXOIndex, data.sync)
+			if(this.pickUTXOIndexFromStatus){
+				skipingUTXOIndex = data.skipUTXOIndex;
+				this.pickUTXOIndexFromStatus = false;
+			}else if(skipingUTXOIndex && data.sync == 100){
+				skipingUTXOIndex = false;
+				this.setSkipUTXOIndex(false);
+			}
+		})
 
 		/*
 		manager.on('sync-status', (data) => {
@@ -792,6 +813,10 @@ class KDXApp extends FlowApp{
 		$("#reset-data-folder-btn").on("click", e=>{
 			this.confirmDeleteAndResync();
 		});
+		$("#reindex-utxo-btn").on("click", e=>{
+			this.confirmAndReindexUTXO();
+		});
+		
 		$(".reset-data-dir").on("click", e=>{
 			folderInput.setValue(originalValue);
 		});
@@ -891,6 +916,41 @@ class KDXApp extends FlowApp{
 			dpc(5000, async()=>{
 				let result = await this.get("remove-datadir", {});
 				console.log("remove-datadir:result", result)
+				promise.resolve();
+			})
+			
+			await promise;
+			this.setUiDisabled(false)
+		}
+		this.restartDaemons(false, beforeStartCB);
+	}
+	async confirmAndReindexUTXO(){
+		let {btn} = await FlowDialog.show({
+			title:i18n.t("Reindex UTXO"),
+			body:i18n.t("Are you sure?"),
+			btns:[{
+				text:i18n.t('Cancel'),
+				value:'cancel'
+			},{
+				text:i18n.t('Yes stop and reindex.'),
+				value:'reindex',
+				cls:'warning'
+			}]
+		});
+		if(btn != 'reindex')
+			return
+		this.setSkipUTXOIndex(true);
+	}
+	setSkipUTXOIndex(skipIndex){
+		this.setUiDisabled(true)
+		let beforeStartCB = async ()=>{
+			let promise = deferred();
+			dpc(5000, async()=>{
+				let {skipUTXOIndex, config} = await this.get("set-skip-utxoindex", {skipIndex});
+				console.log("set-skip-utxoindex:result", skipUTXOIndex)
+				if(skipUTXOIndex == skipIndex  && config){
+					this.setModuleConfigEditorValue(config);
+				}
 				promise.resolve();
 			})
 			
@@ -1081,6 +1141,7 @@ ${changelogContent}`;
 		this.showApps(daemons);
 		
 		console.log("initDaemons", daemons);
+		this.pickUTXOIndexFromStatus = true;
 		this.manager.start(daemons);
 	}
 

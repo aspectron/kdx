@@ -183,6 +183,14 @@ class App extends FlowApp{
 		this.config.runInBG = !!runInBG;
 		this.setConfig(this.config);
 	}
+	setSkipUTXOIndex(skipUTXOIndex){
+		skipUTXOIndex = !!skipUTXOIndex;
+		return this.setModuleArgs("kaspad:", {}, {"skip-utxoindex":skipUTXOIndex})
+	}
+	getSkipUTXOIndex(){
+		let {args, params} = this.getModuleArgs("kaspad:");
+		return !!params["skip-utxoindex"];
+	}
 	setEnableMining(enableMining){
 		this.config.enableMining = !!enableMining;
 		this.setConfig(this.config);
@@ -192,20 +200,38 @@ class App extends FlowApp{
 		this.setConfig(this.config);
 	}
 	setMiningAddress(address){
+		this.setModuleArgs("kaspaminer:", {miningaddr: address})
+	}
+	setModuleArgs(search, args={}, params={}){
 		let modules = this.getModulesConfig();
 		let updated = false;
 		Object.keys(modules).forEach(key=>{
-			if(key.includes("kaspaminer:")){
-				modules[key].args = modules[key].args||{};
-				modules[key].args.miningaddr = address;
-				updated = true;
-			}
+			if(!key.includes(search))
+				return
+			args = {...(modules[key].args || {}), ...args};
+			modules[key] = {...modules[key], ...params, args};
+
+			updated = true;
 		})
 		if(updated){
 			this.config.modules = modules;
 			this.setConfig(this.config);
 			return true
 		}
+		return false
+	}
+	getModuleArgs(search){
+		let args = {};
+		let params = {};
+		let modules = this.getModulesConfig();
+		Object.keys(modules).find(key=>{
+			if(!key.includes(search))
+				return
+			args = {...(modules[key].args || {}), ...args};
+			params = {...modules[key], ...params, args};
+			return true;
+		})
+		return {args, params};
 	}
 	getMiningAddressFromConfig(config){
 		let {modules={}} = config||this.config;
