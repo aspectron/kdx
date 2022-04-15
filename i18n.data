@@ -547,7 +547,7 @@
 	{
 		"en": "It will delete datadir (Data Folder) and restart kaspad node to re-sync",
 		"ja": "",
-		"zh_HANS": "它将删除 datadir（数据文件夹）并重新启动 kaspad 节点以重新同步"
+		"zh_HANS": "将删除 datadir（数据文件夹）并重新启动 kaspad 节点并重新同步"
 	},
 	{
 		"en": "KASPA",
