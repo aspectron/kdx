@@ -20,3 +20,4 @@ modules/controller/xxxx
 __package.json
 i18n-sorted.data
 i18n-sorted.entries
+i18n-merge.data

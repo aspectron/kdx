@@ -365,6 +365,11 @@
 		"zh_HANS": "删除数据文件夹"
 	},
 	{
+		"en": "Delete data directory and resync",
+		"ja": "",
+		"zh_HANS": "删除数据目录并重新同步"
+	},
+	{
 		"en": "Difficulty",
 		"ja": "",
 		"zh_HANS": "难度"

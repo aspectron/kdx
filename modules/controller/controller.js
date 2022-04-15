@@ -132,7 +132,7 @@ class KDXApp extends FlowApp{
 			</flow-form-control>
 			<flow-form-control icon="fal:database">
 				<flow-i18n slot="title">Delete Data Folder</flow-i18n>
-				<flow-btn slot="input" id="reset-data-folder-btn" class="warning">Delete data directory and resync</flow-btn>
+				<flow-btn slot="input" id="reset-data-folder-btn" class="warning" i18n>Delete data directory and resync</flow-btn>
 				<h4 slot="info" class="title"><flow-i18n>Reset Data Folder</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
 					It will delete datadir (Data Folder) and restart kaspad node to re-sync
@@ -140,7 +140,7 @@ class KDXApp extends FlowApp{
 			</flow-form-control>
 			<flow-form-control icon="fal:database">
 				<flow-i18n slot="title">Reindex UTXO</flow-i18n>
-				<flow-btn slot="input" id="reindex-utxo-btn" class="warning">Reindex UTXO</flow-btn>
+				<flow-btn slot="input" id="reindex-utxo-btn" class="warning" i18n>Reindex UTXO</flow-btn>
 				<h4 slot="info" class="title"><flow-i18n>Reindex UTXO</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
 					Starts kapsad node without '--utxoindex', after node sync restarts node with '--utxoindex'
