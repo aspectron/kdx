@@ -1115,11 +1115,6 @@
 		"zh_HANS": "[启用挖掘] 选项启动/停止所有已配置的Kaspaminer实例。"
 	},
 	{
-		"en": "The Enable Mining option starts / stops all configured Kaspaminer instances.<br>&nbsp;<br> <!-- The <i>Use Wallet Address for Mining</i> option will automatically configure the miner to send Kaspa to your wallet. -->",
-		"ja": "",
-		"zh_HANS": ""
-	},
-	{
 		"en": "Transactions",
 		"ja": "",
 		"zh_HANS": "交易"

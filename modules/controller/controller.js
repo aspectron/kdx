@@ -192,10 +192,7 @@ class KDXApp extends FlowApp{
 
 				<h4 slot="info" class="title"><flow-i18n>Block Generation</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					The Enable Mining option starts / stops all configured Kaspaminer instances.<br/>&nbsp;<br/>
-					<!--
-						The <i>Use Wallet Address for Mining</i> option will automatically configure the miner to send Kaspa to your wallet. 
-					-->
+					The Enable Mining option starts / stops all configured Kaspaminer instances.
 				</p>
 			</flow-form-control>
 			<!-- flow-form-control icon="fal:drafting-compass" class="advanced-tool">
@@ -422,7 +419,7 @@ class KDXApp extends FlowApp{
 		let skipingUTXOIndex = null;
 		manager.on('sync-status', (data) => {
 			//console.log("sync-status:data", data);
-			console.log("sync:", this.pickUTXOIndexFromStatus, data.skipUTXOIndex, data.sync)
+			//console.log("sync:", this.pickUTXOIndexFromStatus, data.skipUTXOIndex, data.sync)
 			if(this.pickUTXOIndexFromStatus){
 				skipingUTXOIndex = data.skipUTXOIndex;
 				this.pickUTXOIndexFromStatus = false;
