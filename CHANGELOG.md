@@ -1,4 +1,8 @@
 # Changelog
+## [2.10.3] - 2021-04-20
+Disabled UTXO index warning during reindex UTXO
+Some typo and i18n improvement
+
 ## [2.10.2] - 2021-04-20
 Fixed a memory leakage issue due to grpc dependencies.
 
