@@ -1085,9 +1085,9 @@
 		"zh_HANS": "服务"
 	},
 	{
-		"en": "Starts kapsad node without '--utxoindex', after node sync restarts node with '--utxoindex'",
+		"en": "Start the kaspad node without enabling the '--utxoindex' parameter until the synchronization is complete, then re-enable this parameter. (Can be used to fix inaccurate balance display)",
 		"ja": "",
-		"zh_HANS": "在节点同步重新启动节点后使用'--utxoindex'启动不带'--utxoindex'的 kapsad 节点"
+		"zh_HANS": "启动 kaspad 节点不启用 '--utxoindex'参数，直到同步完成，重新启用这个参数。（可以用于修复余额显示不准确）"
 	},
 	{
 		"en": "Status:",
