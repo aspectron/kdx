@@ -143,7 +143,7 @@ class KDXApp extends FlowApp{
 				<flow-btn slot="input" id="reindex-utxo-btn" class="warning" i18n>Reindex UTXO</flow-btn>
 				<h4 slot="info" class="title"><flow-i18n>Reindex UTXO</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
-					Starts kapsad node without '--utxoindex', after node sync restarts node with '--utxoindex'
+					Start the kaspad node without enabling the '--utxoindex' parameter until the synchronization is complete, re-enable this parameter. (Can be used to fix inaccurate balance display)
 				</p>
 			</flow-form-control>
 			<flow-form-control icon="fal:palette">
