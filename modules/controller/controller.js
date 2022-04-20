@@ -1138,8 +1138,27 @@ ${changelogContent}`;
 		this.showApps(daemons);
 		
 		console.log("initDaemons", daemons);
+		let {params} = this.getModuleArgs('kaspad:', daemons);
+		let skipUTXOIndexCheck = !!(params?.["skip-utxoindex"])
+		if(skipUTXOIndexCheck)
+			this.wallet.setAttribute('skiputxoindexcheck', true)
+		else
+			this.wallet.removeAttribute('skiputxoindexcheck')
 		this.pickUTXOIndexFromStatus = true;
 		this.manager.start(daemons);
+	}
+
+	getModuleArgs(search, modules){
+		let args = {};
+		let params = {};
+		Object.keys(modules).find(key=>{
+			if(!key.includes(search))
+				return
+			args = {...(modules[key].args || {}), ...args};
+			params = {...modules[key], ...params, args};
+			return true;
+		})
+		return {args, params};
 	}
 
 	refreshApps() {
