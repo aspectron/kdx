@@ -1,6 +1,6 @@
 # Changelog
 ## [2.10.2] - 2021-04-20
-Fixed a memory leakage issue due to grpc dependencies.
+- Fixed a memory leak issue caused by GRPC dependencies.
 
 ## [2.10.1] - 2021-04-14
 This release of KDX includes Kaspa build `v0.12.0`
