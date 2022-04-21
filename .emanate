@@ -1,7 +1,9 @@
 "use strict";
+//sudo emanate --miner --miner-debug
 
 //const KASPA_DEFAULT_BRANCH = 'v0.11.7-dev'; //'master';
 const KASPA_DEFAULT_BRANCH = 'master';
+const MINER_DEFAULT_BRANCH = 'main';
 
 const E = new Emanator(__dirname, {
     type : argv.includes('build') || flags.innosetup ? 'NODE+NWJS' : 'UTIL',
@@ -40,6 +42,11 @@ const E = new Emanator(__dirname, {
 
 E.flags['with-perfmon'] = true;
 
+if(E.flags.miner){
+    E.flags.nonpm = true;
+    E.options.nonpm = true;
+}
+
 E.aux_dmg_files = async (root) => {
     if(fs.existsSync(path.join(E.BUILD,'apps')))
         await E.copy(path.join(E.BUILD,'apps'),path.join(root,'apps'));
@@ -50,6 +57,7 @@ E.aux_dmg_files = async (root) => {
 
 
 const go = await E.modules.go('go1.16.0');
+const cargo = await E.modules.cargo('1.59.0');
 const git = await E.modules.git();
 const gcc = await E.modules.gcc();
 const npm = await E.modules.npm({ production : true });
@@ -184,6 +192,88 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
     //E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
 });
 
+const miner = E.task('miner', ['origin'], async () => {
+
+    //return true;
+    if(E.PLATFORM == 'windows') {
+        process.env.PATH = ['C:\\TDM-GCC-64\\bin', ...process.env.PATH.split(';')].join(';');
+    }
+
+    let dest = path.join(cargo.SRCGITHUB, 'tmrlvi/');
+    if((E.flags.reset || E.flags.clean) && fs.existsSync(dest))
+        await E.emptyDir(dest);
+
+    const branch = E.flags['miner-branch'] || MINER_DEFAULT_BRANCH || 'main';
+    
+    console.log('miner branch:', branch);
+    console.log('miner dest:', dest);
+    
+    //const repos = { };
+    const repos = [`kaspa-miner:${branch}`];
+    console.log("REPOS:".brightMagenta,repos);
+
+    for(const repo of repos) {
+        let [name, git_branch] = repo.split(':');
+        console.log(`git clone https://github.com/tmrlvi/${name} branch: ${git_branch || 'master'}`.brightYellow);
+        await git.clone(`https://github.com/tmrlvi/${name}`, dest, {branch : git_branch || 'master'});
+    }
+
+    let minerDest = path.join(dest, "kaspa-miner");
+    console.log('Starting miner build processing...')
+    let p = ['kaspa-miner'];
+    if(E.PLATFORM != 'darwin')
+        p.push('kaspacuda', 'kaspaopencl');
+
+    let release = !E.flags['miner-debug'];
+    let args = {
+        release,
+        p
+    }
+
+    await cargo.build(minerDest, args);
+    
+    let targetFolder = path.join(minerDest, 'target', release?'release':'debug');
+
+    let file = 'kaspa-miner';
+    let name = `${E.title} ${file}`;
+    
+
+    file += E.PLATFORM_BINARY_EXTENSION;
+    let rename = "gpuminer"+E.PLATFORM_BINARY_EXTENSION;
+
+    let files = new Map();
+    files.set(file, rename)
+
+    if(E.PLATFORM != 'darwin'){
+        files.set('kaspacuda.dll', 0)
+        files.set('kaspaopencl.dll', 0)
+    }
+
+    files.forEach((destName, srcName)=>{
+        if(!destName)
+            destName = srcName;
+
+        let src = path.join(targetFolder, srcName);
+        let dest = path.join(E.BIN, destName);
+
+        //console.log("src", src)
+        //console.log("dest", dest)
+        
+        if(!fs.existsSync(src)) {
+            console.log(`Unable to locate source file: ${src}`);
+            console.log(`...giving up`);
+            process.exit(1);
+        }
+        
+        console.log("E.copy:", src, " -> ", dest)
+        E.copy(src, dest);
+        E.registerFirewallRule({ name, file : destName, binary : true });
+    })
+
+
+    //E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
+});
+
 E.task('remote', ['origin'], async () => {
 
     let files = (E.manifest.files||[]).map(f=>{
@@ -197,9 +287,11 @@ E.task('remote', ['origin'], async () => {
     console.log(`i18n.lock`);
 })
 
-const aux_deps = E.flags.auxiliary ? ['kaspad','remote'] : ['kaspad']
-E.task('done', aux_deps, async () => {
-})
+if(!E.flags.miner){
+    const aux_deps = E.flags.auxiliary ? ['kaspad','remote'] : ['kaspad', 'miner']
+    E.task('done', aux_deps, async () => {
+    })
+}
 
 E.task('aptitude', null, async () => {
     if(E.PLATFORM != 'linux')
@@ -229,7 +321,7 @@ if(E.flags.i18n){
 }
 
 
-if(E.flags['local-binaries'] || E.flags['kaspa']) {
+if(E.flags['local-binaries'] || E.flags['kaspa'] || E.flags.miner) {
     E.BIN = path.join(E.appFolder,'bin', E.PLATFORM_ARCH);
     mkdirp.sync(E.BIN);
 }
@@ -246,8 +338,11 @@ else if(E.flags.docker) {
     E.runTask('docker');
 }else if(E.flags.i18n) {
     E.runTask('i18n');
-}else if(E.flags['kaspa']) 
+}else if(E.flags['kaspa']) {
     await kaspad();
+}else if(E.flags.miner){
+    await miner();
+}
 else if(E.flags['local-binaries']) {
     E.runTask('kaspad');
     E.runTask('aptitude');
