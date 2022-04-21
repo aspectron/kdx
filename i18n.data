@@ -1,5 +1,10 @@
 [
 	{
+		"en": "'utxoindex' flag is missing from KASPAD config.<br /> Please inform the wallet administrator.<br />",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "1st",
 		"ja": "",
 		"zh_HANS": ""
@@ -1085,7 +1090,7 @@
 		"zh_HANS": "服务"
 	},
 	{
-		"en": "Start the kaspad node without enabling the '--utxoindex' parameter until the synchronization is complete, then re-enable this parameter. (Can be used to fix inaccurate balance display)",
+		"en": "Start the kaspad node without enabling the '--utxoindex' parameter until the synchronization is complete, re-enable this parameter. (Can be used to fix inaccurate balance display)",
 		"ja": "",
 		"zh_HANS": "启动 kaspad 节点不启用 '--utxoindex'参数，直到同步完成，重新启用这个参数。（可以用于修复余额显示不准确）"
 	},
