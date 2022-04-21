@@ -199,7 +199,9 @@ const miner = E.task('miner', ['origin'], async () => {
         process.env.PATH = ['C:\\TDM-GCC-64\\bin', ...process.env.PATH.split(';')].join(';');
     }
 
-    let dest = path.join(cargo.SRCGITHUB, 'tmrlvi/');
+    let account = 'aspectron';//'tmrlvi';
+
+    let dest = path.join(cargo.SRCGITHUB, account);
     if((E.flags.reset || E.flags.clean) && fs.existsSync(dest))
         await E.emptyDir(dest);
 
@@ -214,8 +216,8 @@ const miner = E.task('miner', ['origin'], async () => {
 
     for(const repo of repos) {
         let [name, git_branch] = repo.split(':');
-        console.log(`git clone https://github.com/tmrlvi/${name} branch: ${git_branch || 'master'}`.brightYellow);
-        await git.clone(`https://github.com/tmrlvi/${name}`, dest, {branch : git_branch || 'master'});
+        console.log(`git clone https://github.com/${account}/${name} branch: ${git_branch || 'master'}`.brightYellow);
+        await git.clone(`https://github.com/${account}/${name}`, dest, {branch : git_branch || 'master'});
     }
 
     let minerDest = path.join(dest, "kaspa-miner");
