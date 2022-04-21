@@ -246,9 +246,12 @@ const miner = E.task('miner', ['origin'], async () => {
     let files = new Map();
     files.set(file, rename)
 
-    if(E.PLATFORM != 'darwin'){
+    if(E.PLATFORM == 'windows'){
         files.set('kaspacuda.dll', 0)
         files.set('kaspaopencl.dll', 0)
+    }else if(E.PLATFORM == 'linux'){
+        files.set('kaspacuda.so', 0)
+        files.set('kaspaopencl.so', 0)
     }
 
     files.forEach((destName, srcName)=>{
