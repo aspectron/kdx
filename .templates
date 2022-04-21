@@ -24,10 +24,12 @@
                     "profile": 7000
                 }
             },
-            "kaspaminer:km0" : {
+            "gpuminer:km0" : {
                 "args":{
-                    "miningaddr" : "",
-                    "rpcserver":"localhost:16110"
+                    "mining-address" : "",
+                    "t": 1,
+                    "kaspad-address": "localhost",
+			        "port": "16110"
                 }
             }
         }
@@ -53,11 +55,12 @@
                     "connect": "0.0.0.0:16111"
                 }
             },
-            "kaspaminer:km0" : {
+            "gpuminer:km0" : {
                 "args":{
-                    "miningaddr" : "",
-                    "rpcserver":"localhost:16110",
-                    "mine-when-not-synced" : null
+                    "mining-address" : "",
+                    "t": 1,
+                    "kaspad-address": "localhost",
+			        "port": "16110"
                 }
             }
         }
@@ -88,10 +91,12 @@
                     "profile": 7000
                 }
             },
-            "kaspaminer:km0" : {
+            "gpuminer:km0" : {
                 "args":{
-                    "miningaddr" : "",
-                    "rpcserver":"localhost:16110"
+                    "mining-address" : "",
+                    "t": 1,
+                    "kaspad-address": "localhost",
+			        "port": "16110"
                 }
             }
         }

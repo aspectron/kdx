@@ -200,7 +200,7 @@ class App extends FlowApp{
 		this.setConfig(this.config);
 	}
 	setMiningAddress(address){
-		this.setModuleArgs("kaspaminer:", {miningaddr: address})
+		this.setModuleArgs("gpuminer:", {"mining-address": address})
 	}
 	setModuleArgs(search, args={}, params={}){
 		let modules = this.getModulesConfig();
@@ -237,9 +237,9 @@ class App extends FlowApp{
 		let {modules={}} = config||this.config;
 		let address = "";
 		Object.keys(modules).find(key=>{
-			if(key.includes("kaspaminer:")){
+			if(key.includes("gpuminer:")){
 				modules[key].args = modules[key].args||{};
-				address = modules[key].args.miningaddr;
+				address = modules[key].args["mining-address"];
 				return !!address
 			}
 		})

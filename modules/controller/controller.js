@@ -171,10 +171,10 @@ class KDXApp extends FlowApp{
 				<p slot="info" is="i18n-p">
 					When enabled, KDX runs itself and it's services hidden in the background
 					and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).
-				</p><!-- '-->
+				</p>
 			</flow-form-control>
-			<flow-form-control icon="fal:cube" _expandable
-				class="xadvanced-tool" id="block-generation">
+			<flow-form-control icon="fal:cube" class="advanced-tool"
+				id="block-generation">
 				<flow-i18n slot="title">Block Generation</flow-i18n>
 				<flow-checkbox id="settings-enable-mining" class="block"
 					><flow-i18n>Enable Mining</flow-i18n></flow-checkbox>
@@ -182,14 +182,12 @@ class KDXApp extends FlowApp{
 					label="Mining address" apply-btn
 					btnText="Update">
 				</flow-input>
-				<div inline-info>
+				<!--div inline-info>
 					Please use the Console tab <i>wallet</i> command to create an address.<br/>
 					Once created, please enter the address in the input above.
-				</div>
-
-				<!-- flow-checkbox id="settings-use-wallet-address-for-mining" class="block"
-					><flow-i18n>Use Wallet Address for Mining</flow-i18n></flow-checkbox -->
-
+				</div-->
+				<flow-checkbox id="settings-use-wallet-address-for-mining"
+					class="block"><flow-i18n>Use Wallet Address for Mining</flow-i18n></flow-checkbox>
 				<h4 slot="info" class="title"><flow-i18n>Block Generation</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
 					The Enable Mining option starts / stops all configured Kaspaminer instances.
@@ -478,9 +476,11 @@ class KDXApp extends FlowApp{
 		let wallet = this.qS('kaspa-wallet');
 		this.wallet = wallet;
 		wallet.addEventListener("new-wallet", ()=>{
-			console.log("restartMining:::")
-			this.miningAddress = "";
-			this.manager?.restartMining();
+			if(this.useWalletForMining){
+				console.log("restartMining:::")
+				this.miningAddress = "";
+				this.manager?.restartMining();
+			}
 		})
 		let settings = await this.get_default_local_kaspad_settings();
 		let verbose = localStorage.rpcverbose == 1;
@@ -547,11 +547,12 @@ class KDXApp extends FlowApp{
 		this.post("set-enable-mining", {enableMining});
 		this.manager.setEnableMining(this.enableMining);
 	}
-	setUseWalletForMining(useWalletForMining){
+	async setUseWalletForMining(useWalletForMining){
+		console.log("setUseWalletForMining", useWalletForMining)
 		this.useWalletForMining = !!useWalletForMining;
 		if(this.miningAddressInput)
 			this.miningAddressInput.disabled = this.useWalletForMining;
-		this.post("set-use-wallet-for-mining", {useWalletForMining});
+		await this.get("set-use-wallet-for-mining", {useWalletForMining});
 		this.miningAddress = false;
 		this.manager.restartMining();
 	}
@@ -696,7 +697,7 @@ class KDXApp extends FlowApp{
 			this.tpl_template = config.ident;
 			this.tpl_network = config.network;
 
-			let miner = Object.keys(config.modules).filter(v=>/^kaspaminer/.test(v));
+			let miner = Object.keys(config.modules).filter(v=>/^(kaspa|gpu)miner/.test(v));
 			if(!miner.length)
 				$(blockgenEl).addClass('no-mining');
 		}
@@ -729,7 +730,7 @@ class KDXApp extends FlowApp{
 			config = await this.setConfigTemplate(config, network);
 			this.configEditor.session.setValue(JSON.stringify(config.modules, null, "\t"));
 
-			let miner = Object.keys(config.modules).filter(v=>/^kaspaminer/.test(v));
+			let miner = Object.keys(config.modules).filter(v=>/^(kaspa|gpu)miner/.test(v));
 			if(miner.length)
 				$(blockgenEl).removeClass('no-mining');
 			else
@@ -844,13 +845,13 @@ class KDXApp extends FlowApp{
 		runInBGInput.addEventListener('changed', (e)=>{
 			this.setRunInBG(e.detail.checked);
 		});
-		enableMiningInput.addEventListener('changed', (e)=>{
+		enableMiningInput?.addEventListener('changed', (e)=>{
 			this.setEnableMining(e.detail.checked);
 		});
 		useWalletForMiningInput?.addEventListener('changed', (e)=>{
 			this.setUseWalletForMining(e.detail.checked);
 		});
-		miningAddressInput.addEventListener('btn-click', async (e)=>{
+		miningAddressInput?.addEventListener('btn-click', async (e)=>{
 			let address = miningAddressInput.value;
 			if(address)
 				this.setMiningAddress(address)
@@ -870,21 +871,22 @@ class KDXApp extends FlowApp{
 		runInBGInput.checked = !!config.runInBG;
 		if(enableMetricsInput)
 			enableMetricsInput.checked = !!config.enableMetrics;
-		enableMiningInput.checked = !!config.enableMining;
+		if(enableMiningInput)
+			enableMiningInput.checked = !!config.enableMining;
+		this.useWalletForMining = !!config.useWalletForMining
 		if(useWalletForMiningInput)
-			useWalletForMiningInput.checked = !!config.useWalletForMining;
-		console.log("config.useWalletForMining", config.useWalletForMining)
-		if(useWalletForMiningInput)
-			miningAddressInput.disabled = useWalletForMiningInput.checked;
-		miningAddressInput.value = this.getMiningAddressFromConfig(config)
+			useWalletForMiningInput.checked = this.useWalletForMining;
+		console.log("config.useWalletForMining", this.useWalletForMining)
+		if(miningAddressInput){
+			miningAddressInput.disabled = this.useWalletForMining;
+			miningAddressInput.value = this.getMiningAddressFromConfig(config)
+		}
 		if(statsdAddressInput)
 			this.statsdAddress = statsdAddressInput.value = config.statsdAddress || "";
 		if(statsdPrefixInput)
 			this.statsdPrefix = statsdPrefixInput.value = config.statsdPrefix || "kdx.$HOSTNAME";
 		this.runInBG = runInBGInput.checked;
-		this.enableMining = enableMiningInput.checked;
-		if(useWalletForMiningInput)
-			this.useWalletForMining = useWalletForMiningInput.checked;
+		this.enableMining = enableMiningInput?.checked||!!config.enableMining;
 		this.buildType = config.build || 'generic';
 	
 		//this.manager.setEnableMining(this.enableMining);
@@ -957,13 +959,15 @@ class KDXApp extends FlowApp{
 		this.restartDaemons(false, beforeStartCB);
 	}
 	async getMiningAddress(){
-		if(this.miningAddress)
+		if(this.miningAddress){
+			console.log("getMiningAddress: returning", this.miningAddress)
 			return this.miningAddress;
-		console.log("address: this.useWalletForMining", this.useWalletForMining)
+		}
+		console.log("getMiningAddress: useWalletForMining", this.useWalletForMining)
 		if(this.useWalletForMining && this.wallet){
 			let address = await this.wallet.getMiningAddress();
 			this.miningAddress = address;
-			console.log("address: this.useWalletForMining, address", this.useWalletForMining, address)
+			console.log("getMiningAddress: useWalletForMining, address", this.useWalletForMining, address)
 			if(address)
 				this.setMiningAddress(address, true)
 			return address;
@@ -971,15 +975,16 @@ class KDXApp extends FlowApp{
 		let {config} = await this.get("get-modules-config")
 		let address = this.getMiningAddressFromConfig({modules:config});
 		this.miningAddress = address;
+		console.log("getMiningAddress:miningAddress:", this.miningAddress)
 		return address;
 	}
 	getMiningAddressFromConfig(config){
 		let {modules={}} = config;
 		let address = "";
 		Object.keys(modules).find(key=>{
-			if(key.includes("kaspaminer:")){
+			if(key.includes("gpuminer:")){
 				modules[key].args = modules[key].args||{};
-				address = modules[key].args.miningaddr;
+				address = modules[key].args["mining-address"];
 				return !!address
 			}
 		})
@@ -987,7 +992,7 @@ class KDXApp extends FlowApp{
 	}
 	initReleaseNotes(){
 		let dialog = this.qS("#release-notes-dialog");
-		let readmeContent = fs.readFileSync(path.join(this.manager.appFolder, 'README.md'))+"";
+		//let readmeContent = fs.readFileSync(path.join(this.manager.appFolder, 'README.md'))+"";
 		let changelogContent = fs.readFileSync(path.join(this.manager.appFolder, 'CHANGELOG.md'))+"";
 		dialog.content = 
 `#	Welcome to KDX ${pkg.version}!

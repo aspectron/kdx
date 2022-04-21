@@ -87,11 +87,12 @@ class NWApp extends App{
 				return
 			this.setEnableMining(enableMining);
 		});
-		rpc.on("set-use-wallet-for-mining", (args)=>{
+		rpc.on("set-use-wallet-for-mining", (args, callback)=>{
 			let {useWalletForMining} = args;
-			if(useWalletForMining == undefined)
-				return
-			this.setUseWalletForMining(useWalletForMining);
+			if(useWalletForMining !== undefined){
+				this.setUseWalletForMining(useWalletForMining);
+			}
+			callback()
 		});
 		rpc.on("set-mining-address", (args, callback)=>{
 			let {address} = args;

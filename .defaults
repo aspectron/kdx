@@ -6,15 +6,7 @@
 			"args":{
 				"rpclisten" : "0.0.0.0:16110",
 				"listen": "0.0.0.0:16111",
-				"profile": 7000,
-				"utxoindex" : null
-			}
-		},
-		"kaspaminer:km0" : {
-			"args":{
-				"miningaddr" : "kaspa:qr35ennsep3hxfe7lnz5ee7j5jgmkjswsslwxj42ta",
-				"rpcserver":"localhost:16110",
-				"mine-when-not-synced" : null
+				"profile": 7000
 			}
 		}
 	}
