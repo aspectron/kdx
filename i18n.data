@@ -5,6 +5,16 @@
 		"zh_HANS": ""
 	},
 	{
+		"en": "/ MIN",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
+		"en": "/ SEC",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "1st",
 		"ja": "",
 		"zh_HANS": ""
@@ -110,9 +120,19 @@
 		"zh_HANS": "返回词表"
 	},
 	{
+		"en": "BLOCK RATE",
+		"ja": "",
+		"zh_HANS": ""
+	},
+	{
 		"en": "BLOCKS",
 		"ja": "ブロック",
 		"zh_HANS": "块"
+	},
+	{
+		"en": "BLOCKS RATE (AVG)",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "BSD",
@@ -478,6 +498,11 @@
 		"en": "Great Success!",
 		"ja": "",
 		"zh_HANS": "成功！"
+	},
+	{
+		"en": "HASH RATE",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "HEADERS",
@@ -1148,6 +1173,11 @@
 		"en": "Update",
 		"ja": "",
 		"zh_HANS": "升级"
+	},
+	{
+		"en": "Use Wallet Address for Mining",
+		"ja": "",
+		"zh_HANS": ""
 	},
 	{
 		"en": "User Interface Color Theme",
