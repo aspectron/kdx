@@ -1,30 +1,30 @@
 # Changelog
-## [2.10.3] - 2021-04-20
+## [2.10.3] - 2022-04-20
 This release includes the following changes:
 - Disabled UTXO index warning during UTXO reindex
 - Internal improvements to the i18n engine
 
-## [2.10.2] - 2021-04-20
+## [2.10.2] - 2022-04-20
 - Fixed a memory leak issue caused by GRPC dependencies.
 
-## [2.10.1] - 2021-04-14
+## [2.10.1] - 2022-04-14
 This release of KDX includes Kaspa build `v0.12.0`
 This release includes the following changes:
 - Implemented "Delete Data Folder and Resync" feature in the Settings panel. (if upgrading to Kaspad `v0.12.0` please use this to facilitate a faster resync).
 
-## [2.10.0] - 2021-04-14
+## [2.10.0] - 2022-04-14
 This release of KDX includes Kaspa build `v0.12.0`
 This release includes the following changes:
 - Internal improvements to the i18n engine
 - Improved Chinese language support
 
-## [2.9.1] - 2021-03-30
+## [2.9.1] - 2022-03-30
 This release of KDX includes Kaspa build `v0.11.14`
 This release includes the following changes:
 - Fixed an issue preventing application from exiting when UI is in a language other than English
 - Internal improvements to the i18n engine
 
-## [2.9.0] - 2021-03-24
+## [2.9.0] - 2022-03-24
 This release of KDX includes Kaspa build `v0.11.14`
 This release includes the following changes:
 - Partial Chinese language support
