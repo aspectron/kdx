@@ -1,4 +1,8 @@
 # Changelog
+## [2.10.4] - 2022-04-22
+GPU miner support
+- Internal improvements to the i18n engine
+
 ## [2.10.3] - 2022-04-20
 This release includes the following changes:
 - Disabled UTXO index warning during UTXO reindex
