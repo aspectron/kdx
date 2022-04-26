@@ -222,14 +222,17 @@ const miner = E.task('miner', ['origin'], async () => {
 
     let minerDest = path.join(dest, "kaspa-miner");
     console.log('Starting miner build processing...')
-    let p = ['kaspa-miner'];
-    if(E.PLATFORM != 'darwin')
-        p.push('kaspacuda', 'kaspaopencl');
 
     let release = !E.flags['miner-debug'];
     let args = {
         release,
-        p
+        p:['kaspa-miner']
+    }
+
+    if(E.PLATFORM != 'darwin'){
+        args.p.push('kaspacuda', 'kaspaopencl');
+        if(E.flags['miner-overclock'])
+            args.features = "default,kaspacuda/overclock";
     }
 
     await cargo.build(minerDest, args);
