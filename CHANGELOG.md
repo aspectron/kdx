@@ -1,4 +1,10 @@
 # Changelog
+## [2.10.5] - 2022-05-23
+This release of KDX includes Kaspa build `v0.12.1-rc3`
+This release includes the following changes:
+- Disabling GPU support in the KDX user interface as it affects the mining software.
+- This kaspad release `v0.12.1-rc3` includes fixes related to the UTXO index subsystem. 
+
 ## [2.10.4] - 2022-04-22
 GPU miner support
 - Internal improvements to the i18n engine
