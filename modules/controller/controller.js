@@ -130,22 +130,6 @@ class KDXApp extends FlowApp{
 					This location also contains process log files.
 				</p>
 			</flow-form-control>
-			<flow-form-control icon="fal:database">
-				<flow-i18n slot="title">Delete Data Folder</flow-i18n>
-				<flow-btn slot="input" id="reset-data-folder-btn" class="warning" i18n>Delete data directory and resync</flow-btn>
-				<h4 slot="info" class="title"><flow-i18n>Reset Data Folder</flow-i18n></h4>
-				<p slot="info" is="i18n-p">
-					It will delete datadir (Data Folder) and restart kaspad node to re-sync
-				</p>
-			</flow-form-control>
-			<flow-form-control icon="fal:database">
-				<flow-i18n slot="title">Reindex UTXO</flow-i18n>
-				<flow-btn slot="input" id="reindex-utxo-btn" class="warning" i18n>Reindex UTXO</flow-btn>
-				<h4 slot="info" class="title"><flow-i18n>Reindex UTXO</flow-i18n></h4>
-				<p slot="info" is="i18n-p">
-					Start the kaspad node without enabling the '--utxoindex' parameter until the synchronization is complete, re-enable this parameter. (Can be used to fix inaccurate balance display)
-				</p>
-			</flow-form-control>
 			<flow-form-control icon="fal:palette">
 				<flow-i18n slot="title">User Interface Color Theme</flow-i18n>
 				<flow-checkbox id="settings-dark-theme" 
@@ -256,6 +240,22 @@ class KDXApp extends FlowApp{
 				<h4 slot="info" class="title"><flow-i18n>Configuration Templates</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
 					Configuration templates allow you to load pre-made KDX configurations.
+				</p>
+			</flow-form-control>
+			<flow-form-control icon="fal:database">
+				<flow-i18n slot="title">Delete Data Folder</flow-i18n>
+				<flow-btn slot="input" id="reset-data-folder-btn" class="primary" i18n>Delete data directory and resync</flow-btn>
+				<h4 slot="info" class="title"><flow-i18n>Reset Data Folder</flow-i18n></h4>
+				<p slot="info" is="i18n-p">
+					It will delete datadir (Data Folder) and restart kaspad node to re-sync
+				</p>
+			</flow-form-control>
+			<flow-form-control icon="fal:database">
+				<flow-i18n slot="title">Reindex UTXO</flow-i18n>
+				<flow-btn slot="input" id="reindex-utxo-btn" class="primary" i18n>Reindex UTXO</flow-btn>
+				<h4 slot="info" class="title"><flow-i18n>Reindex UTXO</flow-i18n></h4>
+				<p slot="info" is="i18n-p">
+					Start the kaspad node without enabling the '--utxoindex' parameter until the synchronization is complete, re-enable this parameter. (Can be used to fix inaccurate balance display)
 				</p>
 			</flow-form-control>
 			<div style="height:192px;"></div>
