@@ -1,6 +1,7 @@
 # Changelog
 ## [2.10.7] - 2022-06-07
 This release of KDX includes Kaspa build `v0.12.1`
+- Korean language support
 
 ## [2.10.5] - 2022-05-23
 This release of KDX includes Kaspa build `v0.12.1-rc3`

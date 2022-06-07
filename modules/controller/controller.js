@@ -351,7 +351,7 @@ class KDXApp extends FlowApp{
 		//console.log("entries", entries)
 		//let ce = new CustomEvent("flow-i18n-entries", {detail:{entries}})
 		//window.dispatchEvent(ce)
-		i18n.setActiveLanguages(['en', 'ja', 'zh_HANS', 'kr']);
+		i18n.setActiveLanguages(['en', 'ja', 'zh_HANS', 'ko']);
 		i18n.setEntries(entries);
 		this.post("set-app-i18n-entries", {entries:i18n.getEntries()})
 		//i18n.setTesting(true);
@@ -477,7 +477,7 @@ class KDXApp extends FlowApp{
 		this.wallet = wallet;
 		wallet.addEventListener("new-wallet", ()=>{
 			if(this.useWalletForMining){
-				console.log("restartMining:::")
+				//console.log("restartMining:::")
 				this.miningAddress = "";
 				this.manager?.restartMining();
 			}
