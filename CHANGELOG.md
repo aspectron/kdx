@@ -1,4 +1,9 @@
 # Changelog
+
+## [2.10.8] - 2022-06-14
+- Fix incorrect handling of transaction lock times
+- Reduce transaction confirmation time in UX
+
 ## [2.10.7] - 2022-06-07
 This release of KDX includes Kaspa build `v0.12.1`
 - bug fix: No-balance after the initial wallet import
