@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.10.9] - 2022-06-15
+- This release addresses different number of confirmations requirement for regular vs. mining transactions.
+
 ## [2.10.8] - 2022-06-14
 - Fix incorrect handling of transaction lock times
 - Reduce transaction confirmation time in UX
