@@ -1,5 +1,5 @@
 const mod = require("@kaspa/wallet-worker");
-//let keys = Object.keys(mod).join(", ")
-//console.log("sssssssssss keys:1:", keys)
-export const {Wallet, initKaspaFramework, log, workerLog, Core, Storage, helper, CONFIRMATION_COUNT} = mod;
-//console.log("sssssssssss keys:2:", keys)
+export const {
+    Wallet, initKaspaFramework, log, workerLog, Core, Storage, helper,
+    CONFIRMATION_COUNT, COINBASE_CFM_COUNT
+} = mod;
