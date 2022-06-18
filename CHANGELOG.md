@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.10.10] - 2022-06-18
+This release of KDX includes Kaspa build `v0.12.2
+
 ## [2.10.9] - 2022-06-15
 - This release addresses different number of confirmations requirement for regular vs. mining transactions.
 
