@@ -33,8 +33,8 @@
             }
         }
     },
-    "gpu-rtx-3090" : {
-        "description" : "RTX 3090 Miner",
+    "gpu-miner" : {
+        "description" : "GPU Miner",
         "modules":{
             "kaspad:kd0" : {
                 "reset-peers" : false,

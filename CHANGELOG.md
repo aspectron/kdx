@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.10.11] - 2022-07-05
+This release of KDX includes Kaspa build `v0.12.3`
+This release includes the following changes:
+- German language support
+
 ## [2.10.10] - 2022-06-18
 This release of KDX includes Kaspa build `v0.12.2`
 - faucet support removed
