@@ -84,17 +84,8 @@ npm install emanator@latest
 git clone git@github.com:aspectron/kdx
 cd kdx
 npm install
-emanate --local-binaries --with-extras
+emanate --local-binaries
 nw .
-```
-
-Passing `--with-extras` to `emanate` will add `txgen` to the list of binaries being built (`txgen` is not included in distributions by default)
-
-**NOTE:** On LINUX systems, you need to have mosquitto and postgresql installed on the machine. This can be accomplished using aptitude, packman or other package managers:
-```
-sudo apt-get install posgresql mosquitto
-# or
-apk add postgresql mosquitto 
 ```
 
 #### Building installers from specific Kaspa Git branches
