@@ -157,6 +157,18 @@ class KDXApp extends FlowApp{
 					and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).
 				</p>
 			</flow-form-control>
+			<flow-form-control icon="fal:cog" class="advanced-tool">
+				<flow-i18n slot="title">Compound UTXOs</flow-i18n>
+				<flow-checkbox id="settings-auto-compound" class="block advanced-tool"
+					slot="input"><flow-i18n>Auto compound</flow-i18n></flow-checkbox>
+				<flow-checkbox id="settings-compound-with-latest-change-addr" class="block advanced-tool"
+					slot="input"><flow-i18n>Use latest Change address</flow-i18n></flow-checkbox>
+				<h4 slot="info" class="title"><flow-i18n>Compounding UTXOs</flow-i18n></h4>
+				<p slot="info" is="i18n-p">
+					When Autocompound enabled, KDX compound UTXOs when there will be compoundable count of unspent transaction outputs (UTXOs).
+					"Use latest Change address" will compund UTXOs using current/latest change address instead of first change address. 
+				</p>
+			</flow-form-control>
 			<flow-form-control icon="fal:cube" class="advanced-tool"
 				id="block-generation">
 				<flow-i18n slot="title">Block Generation</flow-i18n>
@@ -475,6 +487,7 @@ class KDXApp extends FlowApp{
 	async initWallet() {
 		let wallet = this.qS('kaspa-wallet');
 		this.wallet = wallet;
+		this.applyCompoundConfig();
 		wallet.addEventListener("new-wallet", ()=>{
 			if(this.useWalletForMining){
 				//console.log("restartMining:::")
@@ -505,7 +518,7 @@ class KDXApp extends FlowApp{
 		}).filter(o=>o.type=='kaspad').shift();
 
 		if(!kaspad)
-			return null;//{network:"kaspa", port:16110};
+			return null;//{network:"kaspatest", port:16110};
 
 		const { args } = kaspad;
 		let networkType = ['testnet','devnet','simnet'].filter(v=>args[v] !== undefined).shift() || 'mainnet';
@@ -584,6 +597,35 @@ class KDXApp extends FlowApp{
 	setBuildType(build){
 		this.buildType = build;
 		this.post("set-build-type", {build});
+	}
+	setAutoCompounding(autoCompound=true){
+		let compounding = this.compondingConfig||this.getDefaultCompoundConfig();
+		compounding.auto = !!autoCompound;
+		this.compondingConfig = compounding;
+		this.post("set-compounding", {compounding});
+		this.applyCompoundConfig();
+	}
+	useLatestAddressForCompounding(useLatestAddress=false){
+		let compounding = this.compondingConfig||this.getDefaultCompoundConfig();
+		compounding.useLatestAddress = !!useLatestAddress;
+		this.compondingConfig = compounding;
+		this.post("set-compounding", {compounding});
+		this.applyCompoundConfig();
+	}
+	applyCompoundConfig(){
+		let componding = this.compondingConfig||this.getDefaultCompoundConfig();
+		if(componding.useLatestAddress)
+			this.wallet?.setAttribute('useLatestAddressForCompound', true)
+		else
+			this.wallet?.removeAttribute('useLatestAddressForCompound')
+		
+		if(componding.auto)
+			this.wallet?.setAttribute('autoCompound', true)
+		else
+			this.wallet?.removeAttribute('autoCompound')
+	}
+	getDefaultCompoundConfig(){
+		return {auto:true, useLatestAddress:false}
 	}
 	setTheme(theme){
 		if(!this.rpc)
@@ -763,6 +805,8 @@ class KDXApp extends FlowApp{
 		let statsdAddressInput = qS('#settings-statsd-address');
 		let statsdPrefixInput = qS('#settings-statsd-prefix');
 		let enableMetricsInput = qS('#settings-enable-metrics');
+		let compoundAutoInput = qS("#settings-auto-compound");
+		let compoundUseLatestAddressInput = qS("#settings-compound-with-latest-change-addr");
 		this.miningAddressInput = miningAddressInput;
 		advancedInput.addEventListener('changed', (e)=>{
 			let advanced = this.advanced = e.detail.checked;
@@ -864,6 +908,24 @@ class KDXApp extends FlowApp{
 		});
 		enableMetricsInput?.addEventListener('changed', (e)=>{
 			this.setEnableMetrics(e.detail.checked);
+		});
+		let {
+			auto:autoCompound=true,
+			useLatestAddress=false
+		} = config.compounding || {};
+		this.compondingConfig = Object.assign(config.compounding || {}, {
+			auto:autoCompound,
+			useLatestAddress
+		});
+		compoundAutoInput.checked = !!autoCompound;
+		compoundUseLatestAddressInput.checked = !!useLatestAddress;
+		this.setAutoCompounding(compoundAutoInput.checked);
+		this.useLatestAddressForCompounding(!!useLatestAddress);
+		compoundAutoInput.addEventListener('changed', (e)=>{
+			this.setAutoCompounding(e.detail.checked);
+		});
+		compoundUseLatestAddressInput.addEventListener('changed', (e)=>{
+			this.useLatestAddressForCompounding(e.detail.checked);
 		});
 
 		themeInput.checked = config.theme == 'dark';
