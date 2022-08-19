@@ -4,10 +4,10 @@
 
 This release includes the following changes:
 - Improved *Scan more addresses* functionality where selecting the function again will resume from the last address scan position (not restart from the current address).
-- Support for auto-compounding. If you are a miner or receive a lot of transactions, you can go to setting and activate *Auto compound*.
-- Now UTXO componding uses first change address as destination unless changed via *Use latest Change address*
+- Support for auto-compounding. If you are a miner or receive a lot of transactions, you can go to settings and activate *Auto compound*.
+- Now UTXO componding uses the first change address as the destination unless changed via *Use latest Change address*
 - Fix incorrect handling of transaction mass
-- Extra debug info on transaction submit error
+- Extra debug info when transaction submission results in an error
 - UTXO list tab (primarily for debuging)
 
 ## [2.10.14] - 2022-08-20
