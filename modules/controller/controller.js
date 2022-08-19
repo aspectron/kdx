@@ -625,7 +625,7 @@ class KDXApp extends FlowApp{
 			this.wallet?.removeAttribute('autoCompound')
 	}
 	getDefaultCompoundConfig(){
-		return {auto:true, useLatestAddress:false}
+		return {auto:false, useLatestAddress:false}
 	}
 	setTheme(theme){
 		if(!this.rpc)
@@ -910,7 +910,7 @@ class KDXApp extends FlowApp{
 			this.setEnableMetrics(e.detail.checked);
 		});
 		let {
-			auto:autoCompound=true,
+			auto:autoCompound=false,
 			useLatestAddress=false
 		} = config.compounding || {};
 		this.compondingConfig = Object.assign(config.compounding || {}, {
