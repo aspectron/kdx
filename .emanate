@@ -3,7 +3,7 @@
 
 //const KASPA_DEFAULT_BRANCH = 'v0.11.7-dev'; //'master';
 const KASPA_DEFAULT_BRANCH = 'master';
-const MINER_DEFAULT_BRANCH = 'master';
+const MINER_DEFAULT_BRANCH = 'main';
 
 const E = new Emanator(__dirname, {
     type : argv.includes('build') || flags.innosetup ? 'NODE+NWJS' : 'UTIL',
