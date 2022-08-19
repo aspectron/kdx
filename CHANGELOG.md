@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.10.14] - 2022-08-20
+
+This release includes the following changes:
+- Support for auto-compounding, Go to setting and activate "Auto compound".
+- Now UTXO componding uses first change address as destination unless changed via "Use latest Change address"
+- Fix incorrect handling of transaction mass
+- Extra debug info while transaction submit
+- UTXO list for debuging
+
 ## [2.10.12] - 2022-07-18
 This release of KDX includes Kaspa build `v0.12.4`
 
