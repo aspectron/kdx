@@ -35,6 +35,7 @@
     "@grpc/grpc-js": "1.6.10",
     "@grpc/proto-loader": "0.6.13",
     "@kaspa/grpc-node": ">=1.0.6",
+    "protobufjs":"7.0.0",
     "@kaspa/ux": "github:aspectron/kaspa-ux",
     "@kaspa/wallet-worker": ">=1.1.17",
     "@webcomponents/webcomponentsjs": "2.6.0",
