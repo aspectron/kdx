@@ -19,6 +19,8 @@ KDX is built using [NWJS](https://nwjs.io) and is compatible Windows, Linux and 
 
 - [Node.js 14.0.0+](https://nodejs.org/)
 - Emanator - `npm install emanator@latest`
+- Rust (latest, used for building kaspa miner at https://github.com/aspectron/kaspa-miner)
+- Cuda linraries for kaspa miner (depends on the platform)
 
 **NOTE:** KDX build process builds and includes latest Kaspa binaries from Git master branches. 
 To build from specific branches, you can use `--branch...` flags (see below).
@@ -38,12 +40,23 @@ cd kdx
 #  --reset		`--clean` + deletes downloaded/cached NWJS and NODE binaries
 emanate [--portable | --innosetup | --dmg | --all]
 ```
-DMG - Building DMG images on Mac OS requires `sudo` access in order to use system tools such as `diskutil` to generate images: `sudo emanate --dmg`
 
-To generate installer with kMetrics and DAGViz you can add `--full` argument to emanate:
+
+DMG - Building DMG images on Mac OS requires `sudo` access in order to use system tools such as `diskutil` to generate images: 
 ```
-emanate --full --portable -innosetup
+sudo emanate --dmg
 ```
+
+To build the windows portable deployment, run the following command:
+```
+emanate --portable
+```
+
+To build the Windows installer, you need to install [Innosetup](https://jrsoftware.org/isdl.php) and run:
+```
+emanate --innosetup
+```
+
 
 Emanator stores build files in the `~/emanator` folder
 
@@ -88,15 +101,6 @@ emanate --local-binaries --with-extras
 nw .
 ```
 
-Passing `--with-extras` to `emanate` will add `txgen` to the list of binaries being built (`txgen` is not included in distributions by default)
-
-**NOTE:** On LINUX systems, you need to have mosquitto and postgresql installed on the machine. This can be accomplished using aptitude, packman or other package managers:
-```
-sudo apt-get install posgresql mosquitto
-# or
-apk add postgresql mosquitto 
-```
-
 #### Building installers from specific Kaspa Git branches
 
 `--branch` argument specifies common branch name for kaspa and kasparov, for example:
@@ -110,8 +114,6 @@ emanate --branch-miningsimulator=v0.1.2-dev
 ```
 
 **NOTE:** KDX `build` command in KDX console operates in the same manner and accepts `--branch...` arguments.
-
-
 
 
 ## KDX Process Manager
