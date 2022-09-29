@@ -97,7 +97,7 @@ npm install emanator@latest
 git clone git@github.com:aspectron/kdx
 cd kdx
 npm install
-emanate --local-binaries --with-extras
+emanate --local-binaries
 nw .
 ```
 

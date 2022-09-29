@@ -129,6 +129,11 @@ class NWApp extends App{
 			this.setBuildType(build);
 		});
 
+		rpc.on("set-compounding", ({compounding})=>{
+			this.config.compounding = compounding;
+			this.setConfig(this.config);
+		})
+
 		rpc.on("set-modules-config", (args, callback)=>{
 			let {config} = args;
 			if(!config)

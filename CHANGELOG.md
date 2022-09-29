@@ -1,4 +1,64 @@
 # Changelog
+
+## [2.11.2] - 2022-09-21
+This release of KDX includes Kaspa build `v0.12.7`
+
+## [2.11.1] - 2022-09-10
+This release of KDX includes Kaspa build `v0.12.6`
+
+## [2.11.0] - 2022-08-20
+
+This release includes the following changes:
+- Improved *Scan more addresses* functionality where selecting the function again will resume from the last address scan position (not restart from the current address).
+- Support for auto-compounding. If you are a miner or receive a lot of transactions, you can go to settings and activate *Auto compound*.
+- Now UTXO componding uses the first change address as the destination unless changed via *Use latest Change address*
+- Fix incorrect handling of transaction mass
+- Extra debug info when transaction submission results in an error
+- UTXO list tab (primarily for debuging)
+
+## [2.10.14] - 2022-08-20
+
+This release includes the following changes:
+- Support for auto-compounding, Go to setting and activate "Auto compound".
+- Now UTXO componding uses first change address as destination unless changed via "Use latest Change address"
+- Fix incorrect handling of transaction mass
+- Extra debug info while transaction submit
+- UTXO list for debuging
+
+## [2.10.12] - 2022-07-18
+This release of KDX includes Kaspa build `v0.12.4`
+
+## [2.10.11] - 2022-07-05
+This release of KDX includes Kaspa build `v0.12.3`
+This release includes the following changes:
+- German language support
+
+## [2.10.10] - 2022-06-18
+This release of KDX includes Kaspa build `v0.12.2`
+- faucet support removed
+
+## [2.10.9] - 2022-06-15
+- This release addresses different number of confirmations requirement for regular vs. mining transactions.
+
+## [2.10.8] - 2022-06-14
+- Fix incorrect handling of transaction lock times
+- Reduce transaction confirmation time in UX
+
+## [2.10.7] - 2022-06-07
+This release of KDX includes Kaspa build `v0.12.1`
+- bug fix: No-balance after the initial wallet import
+- Korean language support
+
+## [2.10.5] - 2022-05-23
+This release of KDX includes Kaspa build `v0.12.1-rc3`
+This release includes the following changes:
+- Disabling GPU support in the KDX user interface as it affects the mining software.
+- This kaspad release `v0.12.1-rc3` includes fixes related to the UTXO index subsystem. 
+
+## [2.10.4] - 2022-04-22
+GPU miner support
+- Internal improvements to the i18n engine
+
 ## [2.10.3] - 2022-04-20
 This release includes the following changes:
 - Disabled UTXO index warning during UTXO reindex

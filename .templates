@@ -12,9 +12,8 @@
             }
         }
     },
-
-    "kaspad-mining" : {
-        "description" : "Kaspad Node + Miner",
+    "cpu-miner" : {
+        "description" : "CPU Miner",
         "modules":{
             "kaspad:kd0" : {
                 "reset-peers" : false,
@@ -27,9 +26,30 @@
             "gpuminer:km0" : {
                 "args":{
                     "mining-address" : "",
-                    "t": 1,
+                    "threads": 1,
                     "kaspad-address": "localhost",
-			        "port": "16110"
+                    "port": "16110"
+                }
+            }
+        }
+    },
+    "gpu-miner" : {
+        "description" : "GPU Miner",
+        "modules":{
+            "kaspad:kd0" : {
+                "reset-peers" : false,
+                "args":{
+                    "rpclisten" : "0.0.0.0:16110",
+                    "listen": "0.0.0.0:16111",
+                    "profile": 7000
+                }
+            },
+            "gpuminer:km0" : {
+                "args":{
+                    "mining-address" : "",
+                    "cuda-workload": 512,
+                    "kaspad-address": "localhost",
+                    "port": "16110"
                 }
             }
         }
