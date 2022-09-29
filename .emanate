@@ -62,58 +62,8 @@ const git = await E.modules.git();
 const gcc = await E.modules.gcc();
 const npm = await E.modules.npm({ production : true });
 
-if(E.flags.full || E.flags.all) {
-    E.flags['with-dagviz'] = true;
-    E.flags['with-kmetrics'] = true;
-    E.flags['with-perfmon'] = true;
-    E.flags['with-extras'] = true;
-}
 
-E.flags['with-dagviz'] && E.task('dagviz', ['remote'], async () => {
-    const dest = path.join(E.BUILD,'apps');
-    mkdirp.sync(dest);
 
-    const dagvizFolder = path.join(dest,'dagviz');
-    await E.remove(dagvizFolder);
-    await git.clone('git@github.com:kaspanet/dagviz', dest, { branch : E.flags['dagviz-branch'] || 'master' });
-    await E.remove(path.join(dagvizFolder,'.git'));
-    await npm.install({ cwd : dagvizFolder});
-    //await E.spawn('emanate', ['--local-binaries'], { cwd : dagvizFolder, stdio: 'inherit' });
-
-    execSync('emanate --local-binaries', { cwd : dagvizFolder, stdio : 'inherit' });
-    await E.copy(process.argv[0],path.join(dagvizFolder,path.basename(process.argv[0])));
-    //await E.spawn('emanate', ['--local-binaries'], { cwd : dagvizFolder, stdio: 'inherit' });
-
-    // sine dagviz carries a lot of modules already included with kdx
-    // scan for duplicates and remove them from dagviz as require() will
-    // scan parent folders (kdx) for node_module
-    // --- this doesn't work properly - breaks dependency resolution in the deployment
-    // let dagvizModules = fs.readdirSync(path.join(dagvizFolder,'node_modules'));
-    // let kdxModules = fs.readdirSync(path.join(E.BUILD,'node_modules'));
-    // let duplicates = dagvizModules.filter(f => kdxModules.includes(f) && !/^\.\.?$/.test(f));
-    // let jobs = duplicates.map(f => E.remove(path.join(dagvizFolder,'node_modules',f)));
-    // await Promise.all(jobs);
-});
-
-/*
-E.flags['with-ksandbox'] && E.task('ksandbox', ['remote'], async () => {
-    const dest = path.join(E.BUILD,'apps')
-    mkdirp.sync(dest);
-    const ksandboxFolder = path.join(dest,'ksandbox');
-    return Promise.resolve();
-});
-*/
-
-E.flags['with-kmetrics'] && E.task('kmetrics', ['remote'], async () => {
-    const dest = path.join(E.BUILD,'apps')
-    mkdirp.sync(dest);
-    const kmetricsFolder = path.join(dest,'kmetrics');
-    await E.remove(kmetricsFolder);
-    await git.clone('git@github.com:aspectron/kmetrics', dest, { branch : E.flags['kmetrics-branch'] || 'master' });
-    await E.remove(path.join(kmetricsFolder,'.git'));
-
-    return Promise.resolve();
-});
 
 const kaspad = E.task('kaspad', ['origin'], async () => {
 
@@ -135,9 +85,6 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
     if(E.flags['with-extras']) {
         repos.push(`txgen:${branch}`,`kasparov:${KASPA_DEFAULT_BRANCH}`);
     }
-    else if(E.flags['with-kmetrics'] || E.flags['with-txgen']) {
-        repos.push(`txgen:${branch}`);
-    }
 
     console.log("REPOS:".brightMagenta,repos);
 
@@ -152,13 +99,6 @@ const kaspad = E.task('kaspad', ['origin'], async () => {
         ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`),
     ];
 
-    if(E.flags['with-extras'] || E.flags['with-txgen']) {
-        targets = [
-            ...targets,
-            // 'miningsimulator',
-            'txgen',
-        ];
-    }
 
     let rename = {}
     console.log('Starting target processing...')
