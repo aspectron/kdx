@@ -518,7 +518,7 @@ class KDXApp extends FlowApp{
 		}).filter(o=>o.type=='kaspad').shift();
 
 		if(!kaspad)
-			return null;//{network:"kaspatest", port:16110};
+			return null;//{network:"kaspa", port:16110};//{network:"kaspatest", port:16110};
 
 		const { args } = kaspad;
 		let networkType = ['testnet','devnet','simnet'].filter(v=>args[v] !== undefined).shift() || 'mainnet';
@@ -1666,6 +1666,13 @@ ${changelogContent}`;
 }
 
 KDXApp.define("kdx-app")
+
+nw.Window.get().on('new-win-policy', function(frame, url, policy) {
+	// do not open the window
+	policy.ignore();
+	// and open it in external browser
+	nw.Shell.openExternal(url);
+});
 
 console.log("global.manager ->", global.manager)
 /*
