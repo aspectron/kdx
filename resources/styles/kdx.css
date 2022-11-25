@@ -346,7 +346,7 @@ flow-selector .menu-item{padding:2px 4px;}
 
 @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(359deg)}}
 .spin{
-	webkit-animation: spin 2s linear infinite;
+	-webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
 }
 flow-dialog.with-icon dialog .heading{display:flex;align-items:center;}
@@ -360,4 +360,28 @@ fa-icon.warning{--fa-icon-color:red}
 	font-family: "Open Sans";
 	font-size: 14.4px;
 
+}
+
+.donation-addresses .donation-address-box{
+	margin:2px 0px;
+}
+.donation-addresses .donation-address-box fa-icon{
+	cursor:pointer
+}
+.donation-addresses .donation-address-box .address{
+
+    border: 0px;
+    appearance: none;
+    outline: none;
+    margin: 5px 5px 0px 0px;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    max-width: 500px;
+    min-width: var(--kaspa-wallet-address-input-min-width, 460px);
+    background-color: transparent;
+    color: var(--flow-primary-color);
+    font-family: "Exo 2";
+    overflow-wrap: break-word;
+    _height: 110px;
+    resize: none;
 }

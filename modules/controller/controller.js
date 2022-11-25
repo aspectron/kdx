@@ -48,6 +48,11 @@ class KDXApp extends FlowApp{
 			// ['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
 			// ['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
 		];
+		let donationAddresses = [
+			["Devfund donations", "kaspa:precqv0krj3r6uyyfa36ga7s0u9jct0v4wg8ctsfde2gkrsgwgw8jgxfzfc98"],
+			["Mining address", "kaspa:pzhh76qc82wzduvsrd9xh4zde9qhp0xc8rl7qu2mvl2e42uvdqt75zrcgpm00"],
+			["KDX/WebWallet donations", "kaspa:qrncjga8hej9q59q85ge5js6m4y97el6ahp3m87hyzqdtaq6pf0v7xek7x900"],
+		]
 		return html`
 		<flow-caption-bar
 			logo="/resources/images/kaspa-logo-light-bg.png">KDX</flow-caption-bar>
@@ -80,17 +85,14 @@ class KDXApp extends FlowApp{
 					</ul>
 				</flow-expandable>
 			</div>
+			<flow-form-control icon="fal:copyright">
+				<flow-i18n>KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br/>
+				All Rights Reserved.</flow-i18n><br/>
+			</flow-form-control>
 			<div id='license-info'>
-				<flow-form-control icon="fal:copyright">
-					<flow-i18n>KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br/>
-					All Rights Reserved.</flow-i18n><br/>
-				</flow-form-control>
 				<flow-expandable no-info class="license-info" >
-					
 					<div slot="title" is="i18n-div" caption>LICENSE INFORMATION</div>
-
 					<div style="font-weight:bold;font-size: 0.85rem;">
-
 						<div id="license-text">
 							${list.map((t) => {
 								let [name, license, copy] = t;
@@ -104,11 +106,27 @@ class KDXApp extends FlowApp{
 								</project>`;
 							})}
 						</div>
-
 					</div>
-
 				</flow-expandable>
 			</div>
+			<flow-expandable class="donation-addresses" no-info static-icon _icon="fal:donate">
+				<div slot="title" is="i18n-div" caption>DONATIONS</div>
+				<p is="i18n-p">
+					if you wish to further the development of the kaspa ecosystem, we accept kaspa donations at the following addresses:
+				</p>
+				${
+					donationAddresses.map((t) => {
+						let [title, address] = t;
+						return html`
+						<div class="donation-address-box">
+							<flow-i18n>${title}:</flow-i18n>
+							<input class="address" value="${address}" />
+							<fa-icon @click="${this.copyDonationAddress}"
+								icon="copy" title="${i18n.t("Copy to clipboard")}"></fa-icon>
+						</div>`
+					})
+				}
+			</flow-expandable>
 		</tab-content>
 		<tab-content for="settings">
 			<flow-form-control icon="fal:database">
@@ -288,6 +306,26 @@ class KDXApp extends FlowApp{
 		//testDialogs();
 		this.debug = getLocalSetting('debug-ctx')==1;
 		//this.init();
+	}
+
+	copyDonationAddress(e){
+		let el = e.target?.closest(".donation-address-box");
+		let input = el?.querySelector("input.address");
+		if (!input){
+			return
+		}
+		/*
+		input.select();
+		input.setSelectionRange(0, 99999)
+		document.execCommand("copy");
+		input.setSelectionRange(0,0)
+		input.blur();
+		*/
+		navigator.clipboard.writeText(input.value).then(()=>{
+
+		}, ()=>{
+			//
+		})
 	}
 
 	createRenderRoot(){
