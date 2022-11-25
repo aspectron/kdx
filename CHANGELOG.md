@@ -5,6 +5,7 @@ This release of KDX includes Kaspa build `v0.12.10`
 - Support for locking wallet UI [issue#28](https://github.com/aspectron/kdx/issues/28)
 - Transactions export as CSV [issue#19](https://github.com/aspectron/kdx/issues/19)
 - Transactions and addresses are linked to https://explorer.kaspa.org/
+- Transaction time update by getting transaction time from kaspa api https://api.kaspa.org/
 
 
 ## [2.11.2] - 2022-09-21
