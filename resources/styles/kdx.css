@@ -166,11 +166,13 @@ body.ui-loading{
 kdx-app{flex:1;display:flex;flex-direction:column;overflow:hidden;}
 
 tab-content::-webkit-scrollbar-track{
-    -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);background-color:#F5F5F5;
+    -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);
+	box-shadow:inset 0 0 6px rgba(0,0,0,0.3);background-color:#F5F5F5;
 }
 tab-content::-webkit-scrollbar{width:16px;background-color:#F5F5F5;}
 tab-content::-webkit-scrollbar-thumb{
     -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);
+	box-shadow:inset 0 0 6px rgba(0,0,0,.3);
     background-color:#888;
 }
 flow-form-control,
@@ -382,6 +384,5 @@ fa-icon.warning{--fa-icon-color:red}
     color: var(--flow-primary-color);
     font-family: "Exo 2";
     overflow-wrap: break-word;
-    _height: 110px;
     resize: none;
 }
