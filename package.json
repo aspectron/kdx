@@ -31,7 +31,7 @@
     "@aspectron/flow-logger": "*",
     "@aspectron/flow-rpc": "*",
     "@aspectron/flow-utils": ">=0.1.1",
-    "@aspectron/flow-ux": "github:aspectron/flow-ux",
+    "@aspectron/flow-ux": "1.1.0",
     "@grpc/grpc-js": "1.6.10",
     "@grpc/proto-loader": "0.7.2",
     "@kaspa/grpc-node": ">=1.0.8",
