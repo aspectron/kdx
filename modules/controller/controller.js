@@ -49,9 +49,9 @@ class KDXApp extends FlowApp{
 			// ['Kaspa','MIT','Copyright (c) 2020 Kaspa Developers'],
 		];
 		let donationAddresses = [
-			["Devfund donations", "kaspa:precqv0krj3r6uyyfa36ga7s0u9jct0v4wg8ctsfde2gkrsgwgw8jgxfzfc98"],
-			["Mining address", "kaspa:pzhh76qc82wzduvsrd9xh4zde9qhp0xc8rl7qu2mvl2e42uvdqt75zrcgpm00"],
-			["KDX/WebWallet donations", "kaspa:qrncjga8hej9q59q85ge5js6m4y97el6ahp3m87hyzqdtaq6pf0v7xek7x900"],
+			["Devfund donations:", "kaspa:precqv0krj3r6uyyfa36ga7s0u9jct0v4wg8ctsfde2gkrsgwgw8jgxfzfc98"],
+			["Mining address:", "kaspa:pzhh76qc82wzduvsrd9xh4zde9qhp0xc8rl7qu2mvl2e42uvdqt75zrcgpm00"],
+			//["KDX/WebWallet donations:", "kaspa:qrncjga8hej9q59q85ge5js6m4y97el6ahp3m87hyzqdtaq6pf0v7xek7x900"],
 		]
 		return html`
 		<flow-caption-bar
@@ -119,7 +119,7 @@ class KDXApp extends FlowApp{
 						let [title, address] = t;
 						return html`
 						<div class="donation-address-box">
-							<flow-i18n>${title}:</flow-i18n>
+							<flow-i18n text="${title}"></flow-i18n>
 							<input class="address" value="${address}" />
 							<fa-icon @click="${this.copyDonationAddress}"
 								icon="copy" title="${i18n.t("Copy to clipboard")}"></fa-icon>
