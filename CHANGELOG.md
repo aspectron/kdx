@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.11.3] - 2022-11-23
+## [2.12.0] - 2022-11-23
 This release of KDX includes Kaspa build `v0.12.10`
 - Support for locking wallet UI [issue#28](https://github.com/aspectron/kdx/issues/28)
 - Transactions export as CSV [issue#19](https://github.com/aspectron/kdx/issues/19)
