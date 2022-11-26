@@ -85,6 +85,24 @@ class KDXApp extends FlowApp{
 					</ul>
 				</flow-expandable>
 			</div>
+			<flow-expandable class="donation-addresses" no-info _icon="fal:donate">
+				<div slot="title" is="i18n-div" caption>DONATIONS</div>
+				<p is="i18n-p">
+					if you wish to further the development of the kaspa ecosystem, we accept kaspa donations at the following addresses:
+				</p>
+				${
+					donationAddresses.map((t) => {
+						let [title, address] = t;
+						return html`
+						<div class="donation-address-box">
+							<flow-i18n text="${title}"></flow-i18n>
+							<input class="address" value="${address}" />
+							<fa-icon @click="${this.copyDonationAddress}"
+								icon="copy" title="${i18n.t("Copy to clipboard")}"></fa-icon>
+						</div>`
+					})
+				}
+			</flow-expandable>
 			<flow-form-control icon="fal:copyright">
 				<flow-i18n>KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br/>
 				All Rights Reserved.</flow-i18n><br/>
@@ -109,24 +127,6 @@ class KDXApp extends FlowApp{
 					</div>
 				</flow-expandable>
 			</div>
-			<flow-expandable class="donation-addresses" no-info static-icon _icon="fal:donate">
-				<div slot="title" is="i18n-div" caption>DONATIONS</div>
-				<p is="i18n-p">
-					if you wish to further the development of the kaspa ecosystem, we accept kaspa donations at the following addresses:
-				</p>
-				${
-					donationAddresses.map((t) => {
-						let [title, address] = t;
-						return html`
-						<div class="donation-address-box">
-							<flow-i18n text="${title}"></flow-i18n>
-							<input class="address" value="${address}" />
-							<fa-icon @click="${this.copyDonationAddress}"
-								icon="copy" title="${i18n.t("Copy to clipboard")}"></fa-icon>
-						</div>`
-					})
-				}
-			</flow-expandable>
 		</tab-content>
 		<tab-content for="settings">
 			<flow-form-control icon="fal:database">
