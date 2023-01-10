@@ -1,0 +1,93 @@
+[application]
+name = "kdx"
+title = "KDX"
+version = "package.json::version"
+organization = "ASPECTRON Inc"
+
+[description]
+short = "Desktop Node and Wallet for Kaspa"
+long = """
+KDX is a desktop wallet and a p2p network node instance. This application
+allows you to participate in the Kaspa network by running a local node
+instance and offers access to a local wallet, compatible with the web
+wallet available at https://wallet.kaspanet.io
+"""
+
+[package]
+archive = { include = true }
+signatures = ["SHA256"]
+build = [
+    { NPM = { clean = true } }
+]
+# wasm = "root/wasm"
+resources = "resources/setup"
+output = "setup/$PLATFORM-$ARCH"
+include = [{ glob = ["bin/*","/*.js","i18n.*","modules/*","lib/*","node_modules/*","package.json"]}]
+
+[[dependency]]
+name = "kaspad"
+git = { url = "https://github.com/kaspanet/kaspad", branch = "master" }
+run = [
+    { cmd = "go build" },
+    { cmd = "go build", folder = "cmd/genkeypair" },
+    { cmd = "go build", folder = "cmd/kaspactl" },
+    { cmd = "go build", folder = "cmd/kaspawallet" },
+]
+copy = [
+    { regex = [
+        "kaspad(.exe)?$",
+        "genkeypair(.exe)?$",
+        "kaspactl(.exe)?$",
+        "kaspawallet(.exe)?$",
+    ], to = "bin/$PLATFORM-$ARCH", flatten = true },
+]
+
+[[dependency]]
+name = "kaspa-miner"
+platform = ["windows", "linux"]
+git = { url = "https://github.com/aspectron/kaspa-miner", branch = "main" }
+run = [{ argv = ["cargo","build","--release","-p","kaspacuda"] }]
+copy = [
+    { regex = [
+        "target/release/kaspacuda(.so|.dll)$",
+        "target/release/kaspaopencl(.so|.dll)$",
+        "target/release/kaspa-miner(.exe)?$",
+    ], to = "bin/$PLATFORM-$ARCH", flatten = true },
+    # { file = "target/release/kaspa-miner$EXE", to = "bin/$PLATFORM-$ARCH/gpuminer$EXE" },
+]
+
+[node-webkit]
+version = "0.70.1"
+ffmpeg = false
+
+[macos-disk-image]
+window_caption_height = 60
+window_position = [400,100]
+window_size = [485,330]
+icon_size = 72
+application_icon_position = [100,158]
+system_applications_folder_position = [385,158]
+
+[windows]
+uuid = "c1072045-6d98-44d8-9aa5-e9be6c79bd01"
+group = "Kaspa"
+# run_on_startup = "everyone"
+run_after_setup = true
+
+[images]
+application="logo.png"
+macos-application="Icon1024.png"
+macos-disk-image="kdx-dmg.png"
+innosetup-icon="logo.png"
+innosetup-wizard-small="kdx-55x58.bmp"
+innosetup-wizard-large="kdx-164x314.bmp"
+
+[languages]
+languages = ["english","french"]
+
+[firewall]
+application = { direction = "in+out" }
+rules = [
+    { name = "Kaspa Node", program = "bin/windows-x64/kaspad.exe", direction="in+out" },
+    { name = "Kaspa GPU Miner", program = "bin/windows-x64/gpuminer.exe", direction="out" }
+]
