@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.12.1] - 2022-12-01
+This release of KDX includes Kaspa build `v0.12.11`
+- Fix Date and text escaping issue in transactions export as CSV
+
 ## [2.12.0] - 2022-11-25
 This release of KDX includes Kaspa build `v0.12.10`
 - Support for wallet UI lock [issue#28](https://github.com/aspectron/kdx/issues/28)
