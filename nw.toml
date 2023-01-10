@@ -22,16 +22,38 @@ build = [
 # wasm = "root/wasm"
 resources = "resources/setup"
 output = "setup/$PLATFORM-$ARCH"
-include = [{ glob = ["bin/*","/*.js","i18n.*","modules/*","lib/*","node_modules/*","package.json"]}]
+include = [
+    { glob = [
+            "bin/*",
+            "*.js",
+            "resources/**.css",
+            "resources/images/*.*",
+            "resources/**.ttf",
+            "resources/**.woff",
+            "resources/**.svg",
+            "i18n.*",
+            "modules/*",
+            "lib/*",
+            "node_modules/*",
+            "package.json"
+        ]},
+]
+
+[[action]]
+items = [{ copy = { glob = [
+        ".templates",
+        ".defaults",
+        "CHANGELOG.md"
+    ], to = "$TARGET", hidden = true}}]
 
 [[dependency]]
 name = "kaspad"
 git = { url = "https://github.com/kaspanet/kaspad", branch = "master" }
 run = [
     { cmd = "go build" },
-    { cmd = "go build", folder = "cmd/genkeypair" },
-    { cmd = "go build", folder = "cmd/kaspactl" },
-    { cmd = "go build", folder = "cmd/kaspawallet" },
+    { cmd = "go build", cwd = "cmd/genkeypair" },
+    { cmd = "go build", cwd = "cmd/kaspactl" },
+    { cmd = "go build", cwd = "cmd/kaspawallet" },
 ]
 copy = [
     { regex = [
