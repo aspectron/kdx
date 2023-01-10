@@ -8,6 +8,7 @@ const path = require("path");
 const pkg = require("../../package");
 const { BroadcastChannelRPC : FlowRPC } = require("@aspectron/flow-rpc");
 const utils = require('@aspectron/flow-utils');
+const util = require('../../lib/utils.js');
 const Manager = require("../../lib/manager.js");
 const Console = require("../../lib/console.js")
 const StatsD = require('node-statsd');
@@ -1578,7 +1579,7 @@ ${changelogContent}`;
 
 
 	getBinaryFolder(){
-		return path.join(this.appFolder, 'bin', utils.platform);
+		return path.join(this.appFolder, 'bin', util.platform);
 	}
 
 	handleBrowserLink(event, href) {
@@ -1648,7 +1649,7 @@ ${changelogContent}`;
 			return false;
 		}
 
-		const info = data[process.platform];
+		const info = data[util.platform_name];
 		const version = info?.version;
 		if(!version) {
 			console.log('unable to obtain current update version');

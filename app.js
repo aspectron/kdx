@@ -1,5 +1,6 @@
 const { App : FlowApp } = require('@aspectron/flow-app');
 const utils = require('@aspectron/flow-utils');
+const util = require('./lib/utils.js');
 const crypto = require('crypto');
 const bs58 = require('bs58');
 const colors = require('colors');
@@ -113,7 +114,7 @@ class App extends FlowApp{
 		if(!this.dataFolder)
 			return
 		if(!fs.existsSync(path.join(this.dataFolder,'rpc.cert'))) {
-			const gencerts = path.join(__dirname,'bin',utils.platform,'gencerts'+(utils.platform == 'windows-x64'?'.exe':''));
+			const gencerts = path.join(__dirname,'bin',util.platform,'gencerts'+(util.platform == 'windows-x64'?'.exe':''));
 			if(fs.existsSync(gencerts)) {
 				await utils.spawn(gencerts,[],{cwd : this.dataFolder});
 			} else {
@@ -143,7 +144,7 @@ class App extends FlowApp{
 	* @return {String} path to Binaries Folder 
 	*/
 	getBinaryFolder(){
-		return path.join(this.appFolder, 'bin', utils.platform);
+		return path.join(this.appFolder, 'bin', util.platform);
 	}
 
 	randomBytes() {
