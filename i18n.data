@@ -9,21 +9,22 @@
 	{
 		"en": "/ MIN",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "/ 分",
+		"ko": ""
 		"ko": "",
 		"it": ""
 	},
 	{
 		"en": "/ SEC",
 		"ja": "",
-		"zh_HANS": "",
-		"ko": "",
+		"zh_HANS": "/ 秒",
+		"ko": ""
 		"it": ""
 	},
 	{
 		"en": "1st",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "第1个",
 		"ko": "",
 		"de": "1.",
 		"it": "prima"
@@ -45,7 +46,7 @@
 	{
 		"en": "4th",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "第4个",
 		"ko": "",
 		"de": "4."
 	},
@@ -66,7 +67,7 @@
 	{
 		"en": "7th",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "第7个",
 		"ko": "",
 		"de": "7.",
 		"it": "settima"
@@ -74,7 +75,7 @@
 	{
 		"en": "8th",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "第8个",
 		"ko": "",
 		"de": "8.",
 		"it": "ottava"
@@ -82,7 +83,7 @@
 	{
 		"en": "9th",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "第9个",
 		"ko": "",
 		"de": "9.",
 		"it": "nona"
@@ -261,8 +262,8 @@
 	{
 		"en": "BLOCK RATE",
 		"ja": "",
-		"zh_HANS": "",
-		"ko": "블록 레이트",
+		"zh_HANS": "出块速率",
+		"ko": "블록 레이트"
 		"it": "FREQUENZA DEI BLOCCHI"
 	},
 	{
@@ -276,8 +277,8 @@
 	{
 		"en": "BLOCKS RATE (AVG)",
 		"ja": "",
-		"zh_HANS": "",
-		"ko": "블록 레이트(평균)",
+		"zh_HANS": "出块速率(平均)",
+		"ko": "블록 레이트(평균)"
 		"it": "FREQUENZA DEI BLOCCHI (MEDIA)"
 	},
 	{
@@ -403,7 +404,7 @@
 	{
 		"en": "Compound Transactions",
 		"ja": "複合トランザクション",
-		"zh_HANS": "合成交易",
+		"zh_HANS": "合并交易 (化零为整)",
 		"ko": "복합 거래",
 		"de": "Compound Transaktions",
 		"it": "Raggruppa Transazioni"
@@ -451,7 +452,7 @@
 	{
 		"en": "Configuration templates allow you to load pre-made KDX configurations.",
 		"ja": "",
-		"zh_HANS": "加载预设KDX配置模版",
+		"zh_HANS": "加载预设 KDX 配置模版",
 		"ko": "템플릿 구성을 사용하면 미리 만들어진 KDX 구성을 로드할 수 있습니다.",
 		"de": "Konfigurationstemplates ermöglichen es dir vorgefertigte KDX Konfigurationen zu laden.",
 		"it": "I modelli di configurazione ti consentono di caricare configurazioni KDX predefinite."
@@ -917,7 +918,7 @@
 	{
 		"en": "HASH RATE",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "哈希率",
 		"ko": "해시레이트",
 		"it": ""
 	},
@@ -963,7 +964,7 @@
 	{
 		"en": "I have wallet",
 		"ja": "",
-		"zh_HANS": "我有一个钱包",
+		"zh_HANS": "已有钱包",
 		"ko": "지갑을 가지고 있습니다",
 		"de": "Ich habe ein Wallet",
 		"it": "Ho un wallet"
@@ -978,7 +979,7 @@
 	{
 		"en": "IN USE UTXOS",
 		"ja": "",
-		"zh_HANS": "使用中的UTXOS",
+		"zh_HANS": "使用中的UTXO",
 		"ko": "",
 		"de": "UTXOS in Verwendung",
 		"it": "UTXO IN USO"
@@ -1002,7 +1003,7 @@
 	{
 		"en": "Include fee in the amount",
 		"ja": "振込金額に手数料を含める",
-		"zh_HANS": "把手续费包含到转账金额中",
+		"zh_HANS": "转账金额包含手续费",
 		"ko": "송금금액에 수수료 포함",
 		"de": "Gebühr im Betrag inkludieren",
 		"it": "Includi le commissioni di rete (fee) nell'importo"
@@ -1034,7 +1035,7 @@
 	{
 		"en": "Invert Terminal Color",
 		"ja": "端子を反転",
-		"zh_HANS": "反转终端的颜色",
+		"zh_HANS": "反转终端颜色",
 		"ko": "터미널 색상 반전",
 		"de": "Terminal Farben umkehren",
 		"it": "Inverti il colore del Terminale"
@@ -1290,7 +1291,7 @@
 	{
 		"en": "MAINNET",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "主网",
 		"ko": "",
 		"de": "",
 		"it": ""
@@ -1298,7 +1299,7 @@
 	{
 		"en": "MAX",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "最大",
 		"ko": "",
 		"de": "MAXIMUM",
 		"it": "MASSIMO"
@@ -1306,7 +1307,7 @@
 	{
 		"en": "MEMORY",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "内存",
 		"ko": "",
 		"de": "",
 		"it": "MEMORIA"
@@ -1370,7 +1371,7 @@
 	{
 		"en": "Mempool Size",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "内存池大小",
 		"ko": "",
 		"de": "",
 		"it": "Dimensioni Mempool"
@@ -1633,7 +1634,7 @@
 	{
 		"en": "RAM",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "内存",
 		"ko": "",
 		"de": "",
 		"it": ""
@@ -1689,7 +1690,7 @@
 	{
 		"en": "Recover Wallet",
 		"ja": "",
-		"zh_HANS": "从助记词恢复",
+		"zh_HANS": "恢复钱包",
 		"ko": "지갑 복구",
 		"de": "Wallet wiederherstellen",
 		"it": "Ripristina wallet"
@@ -1840,7 +1841,7 @@
 	{
 		"en": "STATUS",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "状态",
 		"ko": "",
 		"de": "",
 		"it": "STATO"
@@ -1896,7 +1897,7 @@
 	{
 		"en": "Self-Contained Kaspad Mining",
 		"ja": "",
-		"zh_HANS": "独立的 Kaspad 挖矿",
+		"zh_HANS": "内置 Kaspad 挖矿",
 		"ko": "",
 		"de": "",
 		"it": "Mining Kaspad autonomo"
@@ -1929,14 +1930,8 @@
 		"en": "Start the kaspad node without enabling the '--utxoindex' parameter until the synchronization is complete, re-enable this parameter. (Can be used to fix inaccurate balance display)",
 		"ja": "",
 		"zh_HANS": "启动 kaspad 节点不启用 '--utxoindex'参数，直到同步完成，重新启用这个参数。（可以用于修复余额显示不准确）",
-		"ko": "동기화가 완료될 때까지 '--utxoindex' 매개변수를 활성화 없이 kaspad 노드를 시작하고, 그 다음 이 매개변수를 다시 활성화합니다. (정확하지 않은 잔액 표시를 수정하는 데 사용할 수 있음)",
-		"it": "Avvia il nodo kaspad senza abilitare il parametro '--utxoindex', fino al completamento della sincronizzazione; poi riabilita il parametro (Può essere utilizzato per correggere la visualizzazione imprecisa del saldo)."
-	},
-	{
-		"en": "Start the kaspad node without enabling the '--utxoindex' parameter until the synchronization is complete, then re-enable this parameter. (Can be used to fix inaccurate balance display)",
-		"ja": "",
-		"zh_HANS": "启动 kaspad 节点不启用 '--utxoindex'参数，直到同步完成，重新启用这个参数。（可以用于修复余额显示不准确）",
-		"de": "Starte das Kaspar Node ohne '--utxoindex' Parameter zu aktivieren bis die Synchronisierung abgeschlossen ist. Danach diese Einstellungen aktivieren. (Kann ungenaue Kontostände / Anzeigen reparieren",
+		"ko": "동기화가 완료될 때까지 '--utxoindex' 매개변수를 활성화 없이 kaspad 노드를 시작하고, 그 다음 이 매개변수를 다시 활성화합니다. (정확하지 않은 잔액 표시를 수정하는 데 사용할 수 있음)"
+		"de": "Starte das Kaspar Node ohne '--utxoindex' Parameter zu aktivieren bis die Synchronisierung abgeschlossen ist. Danach diese Einstellungen aktivieren. (Kann ungenaue Kontostände / Anzeigen reparieren"
 		"it": "Avvia il nodo kaspad senza abilitare il parametro '--utxoindex', fino al completamento della sincronizzazione; poi riabilita il parametro (Può essere utilizzato per correggere la visualizzazione imprecisa del saldo)."
 	},
 	{
@@ -1957,7 +1952,7 @@
 	{
 		"en": "TESTNET",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "测试网",
 		"ko": "",
 		"de": "",
 		"it": ""
@@ -1965,7 +1960,7 @@
 	{
 		"en": "TPS",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "每秒交易量",
 		"ko": "",
 		"de": "",
 		"it": ""
@@ -2058,7 +2053,7 @@
 	{
 		"en": "Use Wallet Address for Mining",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "使用钱包地址挖矿",
 		"ko": "",
 		"it": "Usa l'indirizzo del wallet per il mining"
 	},
