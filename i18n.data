@@ -167,7 +167,7 @@
 	{
 		"en": "BLOCK RATE",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "出块速率",
 		"ko": "블록 레이트"
 	},
 	{
@@ -180,7 +180,7 @@
 	{
 		"en": "BLOCKS RATE (AVG)",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "出块速率(平均)",
 		"ko": "블록 레이트(평균)"
 	},
 	{
@@ -291,7 +291,7 @@
 	{
 		"en": "Compound Transactions",
 		"ja": "複合トランザクション",
-		"zh_HANS": "合成交易",
+		"zh_HANS": "合成交易(化零为整)",
 		"ko": "복합 거래",
 		"de": "Compound Transaktions"
 	},
@@ -319,7 +319,7 @@
 	{
 		"en": "Configuration templates allow you to load pre-made KDX configurations.",
 		"ja": "",
-		"zh_HANS": "加载预设KDX配置模版",
+		"zh_HANS": "加载预设 KDX 配置模版",
 		"ko": "템플릿 구성을 사용하면 미리 만들어진 KDX 구성을 로드할 수 있습니다.",
 		"de": "Konfigurationstemplates ermöglichen es dir vorgefertigte KDX Konfigurationen zu laden."
 	},
@@ -697,7 +697,7 @@
 	{
 		"en": "HASH RATE",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "哈希率",
 		"ko": "해시레이트"
 	},
 	{
@@ -731,14 +731,14 @@
 	{
 		"en": "I have wallet",
 		"ja": "",
-		"zh_HANS": "我有一个钱包",
+		"zh_HANS": "已有钱包",
 		"ko": "지갑을 가지고 있습니다",
 		"de": "Ich habe ein Wallet"
 	},
 	{
 		"en": "IN USE UTXOS",
 		"ja": "",
-		"zh_HANS": "使用中的UTXOS",
+		"zh_HANS": "使用中的UTXO",
 		"ko": "",
 		"de": "UTXOS in Verwendung"
 	},
@@ -759,7 +759,7 @@
 	{
 		"en": "Include fee in the amount",
 		"ja": "振込金額に手数料を含める",
-		"zh_HANS": "把手续费包含到转账金额中",
+		"zh_HANS": "转账金额包含手续费",
 		"ko": "송금금액에 수수료 포함",
 		"de": "Gebühr im Betrag inkludieren"
 	},
@@ -787,7 +787,7 @@
 	{
 		"en": "Invert Terminal Color",
 		"ja": "端子を反転",
-		"zh_HANS": "反转终端的颜色",
+		"zh_HANS": "反转终端颜色",
 		"ko": "터미널 색상 반전",
 		"de": "Terminal Farben umkehren"
 	},
@@ -1011,7 +1011,7 @@
 	{
 		"en": "MAINNET",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "主网",
 		"ko": "",
 		"de": ""
 	},
@@ -1081,7 +1081,7 @@
 	{
 		"en": "Mempool Size",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "内存池大小",
 		"ko": "",
 		"de": ""
 	},
@@ -1305,7 +1305,7 @@
 	{
 		"en": "RAM",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "内存",
 		"ko": "",
 		"de": ""
 	},
@@ -1354,7 +1354,7 @@
 	{
 		"en": "Recover Wallet",
 		"ja": "",
-		"zh_HANS": "从助记词恢复",
+		"zh_HANS": "恢复钱包",
 		"ko": "지갑 복구",
 		"de": "Wallet wiederherstellen"
 	},
@@ -1480,7 +1480,7 @@
 	{
 		"en": "STATUS",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "状态",
 		"ko": "",
 		"de": ""
 	},
@@ -1529,7 +1529,7 @@
 	{
 		"en": "Self-Contained Kaspad Mining",
 		"ja": "",
-		"zh_HANS": "独立的 Kaspad 挖矿",
+		"zh_HANS": "Kaspad 内置挖矿",
 		"ko": "",
 		"de": ""
 	},
@@ -1576,14 +1576,14 @@
 	{
 		"en": "TESTNET",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "测试网",
 		"ko": "",
 		"de": ""
 	},
 	{
 		"en": "TPS",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "每秒交易量",
 		"ko": "",
 		"de": ""
 	},
@@ -1646,7 +1646,7 @@
 	{
 		"en": "Use Wallet Address for Mining",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "使用钱包地址挖矿",
 		"ko": ""
 	},
 	{
