@@ -8,47 +8,47 @@
 	{
 		"en": "/ MIN",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "/ 分",
 		"ko": ""
 	},
 	{
 		"en": "/ SEC",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "/ 秒",
 		"ko": ""
 	},
 	{
 		"en": "1st",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "第1个",
 		"ko": "",
 		"de": "1."
 	},
 	{
 		"en": "4th",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "第4个",
 		"ko": "",
 		"de": "4."
 	},
 	{
 		"en": "7th",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "第7个",
 		"ko": "",
 		"de": "7."
 	},
 	{
 		"en": "8th",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "第8个",
 		"ko": "",
 		"de": "8."
 	},
 	{
 		"en": "9th",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "第9个",
 		"ko": "",
 		"de": "9."
 	},
@@ -291,7 +291,7 @@
 	{
 		"en": "Compound Transactions",
 		"ja": "複合トランザクション",
-		"zh_HANS": "合成交易(化零为整)",
+		"zh_HANS": "合并交易 (化零为整)",
 		"ko": "복합 거래",
 		"de": "Compound Transaktions"
 	},
@@ -1018,14 +1018,14 @@
 	{
 		"en": "MAX",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "最大",
 		"ko": "",
 		"de": "MAXIMUM"
 	},
 	{
 		"en": "MEMORY",
 		"ja": "",
-		"zh_HANS": "",
+		"zh_HANS": "内存",
 		"ko": "",
 		"de": ""
 	},
@@ -1529,7 +1529,7 @@
 	{
 		"en": "Self-Contained Kaspad Mining",
 		"ja": "",
-		"zh_HANS": "Kaspad 内置挖矿",
+		"zh_HANS": "内置 Kaspad 挖矿",
 		"ko": "",
 		"de": ""
 	},
@@ -1559,11 +1559,6 @@
 		"ja": "",
 		"zh_HANS": "启动 kaspad 节点不启用 '--utxoindex'参数，直到同步完成，重新启用这个参数。（可以用于修复余额显示不准确）",
 		"ko": "동기화가 완료될 때까지 '--utxoindex' 매개변수를 활성화 없이 kaspad 노드를 시작하고, 그 다음 이 매개변수를 다시 활성화합니다. (정확하지 않은 잔액 표시를 수정하는 데 사용할 수 있음)"
-	},
-	{
-		"en": "Start the kaspad node without enabling the '--utxoindex' parameter until the synchronization is complete, then re-enable this parameter. (Can be used to fix inaccurate balance display)",
-		"ja": "",
-		"zh_HANS": "启动 kaspad 节点不启用 '--utxoindex'参数，直到同步完成，重新启用这个参数。（可以用于修复余额显示不准确）",
 		"de": "Starte das Kaspar Node ohne '--utxoindex' Parameter zu aktivieren bis die Synchronisierung abgeschlossen ist. Danach diese Einstellungen aktivieren. (Kann ungenaue Kontostände / Anzeigen reparieren"
 	},
 	{
