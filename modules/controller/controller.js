@@ -183,10 +183,7 @@ class KDXApp extends FlowApp{
 				<flow-checkbox id="settings-compound-with-latest-change-addr" class="block advanced-tool"
 					slot="input"><flow-i18n>Use latest Change address</flow-i18n></flow-checkbox>
 				<h4 slot="info" class="title"><flow-i18n>Compounding UTXOs</flow-i18n></h4>
-				<p slot="info" is="i18n-p">
-					When Autocompound enabled, KDX compound UTXOs when there will be compoundable count of unspent transaction outputs (UTXOs).
-					"Use latest Change address" will compund UTXOs using current/latest change address instead of first change address. 
-				</p>
+				<p slot="info" is="i18n-p">When Autocompound enabled, KDX compound UTXOs when there will be compoundable count of unspent transaction outputs (UTXOs).'Use latest Change address' will compund UTXOs using current/latest change address instead of first change address. </p>
 			</flow-form-control>
 			<flow-form-control icon="fal:cube" class="advanced-tool"
 				id="block-generation">
@@ -402,7 +399,7 @@ class KDXApp extends FlowApp{
 		//console.log("entries", entries)
 		//let ce = new CustomEvent("flow-i18n-entries", {detail:{entries}})
 		//window.dispatchEvent(ce)
-		i18n.setActiveLanguages(['en', 'ja', 'zh_HANS', 'ko', 'de']);
+		i18n.setActiveLanguages(['en', 'ja', 'zh_HANS', 'ko', 'de', 'it']);
 		i18n.setEntries(entries);
 		this.post("set-app-i18n-entries", {entries:i18n.getEntries()})
 		//i18n.setTesting(true);
