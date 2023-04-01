@@ -1005,6 +1005,7 @@
 		"zh_HANS": "",
 		"ko": "",
 		"it": "Aggiorna orario delle transazioni"
+		"id": "Paksakan pembaruan waktu transaksi"
 	},
 	{
 		"en": "GitHub",
@@ -1199,7 +1200,7 @@
 		"ko": "datadir(데이터 폴더)을 삭제하고 kaspad 노드를 다시 시작하여 다시 동기화합니다.",
 		"de": "Es wird datadir (Daten-ordnet) löschen und das Kaspar Node zum Re-Sync neu starten",
 		"it": "Elimina la cartella datadir e riavvia il servizio per risincronizzare il nodo KASPAD.",
-		"id": "Ini akan menghapus datadir (Folder Data) dan memulai ulang kaspad node untuk menyinkronkan ulang
+		"id": "Ini akan menghapus datadir (Folder Data) dan memulai ulang kaspad node untuk menyinkronkan ulang."
 	},
 	{
 		"en": "KASPA",
@@ -1370,7 +1371,7 @@
 		"ko": "",
 		"de": "",
 		"it": "",
-		"id": "Kerangka Dompet Kaspa :"
+		"id": "Kerangka Dompet Kaspa:"
 	},
 	{
 		"en": "Kaspa gRPC Relay:",
@@ -1712,7 +1713,7 @@
 		"ko": "피어",
 		"de": "",
 		"it": "",
-		"id": "PEER"
+		"id": "PEERS"
 	},
 	{
 		"en": "PGSQL",
