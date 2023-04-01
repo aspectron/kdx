@@ -596,7 +596,7 @@
 		"ko": "",
 		"de": "",
 		"it": "",
-		"id": "Hak Cipta (c) 2021 Kaspa Developers"
+		"id": "Hak Cipta (c) 2020 Kaspa Developers"
 	},
 	{
 		"en": "Copyright (c) 2021 Kaspa Developers",
@@ -668,7 +668,7 @@
 		"ko": "DAA 스코어",
 		"de": "DAA Score",
 		"it": "",
-		"id": "skor DAA:"
+		"id": "Skor DAA:"
 	},
 	{
 		"en": "DAG SYNC",
@@ -686,7 +686,7 @@
 		"ko": "DAG 싱크",
 		"de": "DAG SYNC",
 		"it": "Sincronizzazione DAG",
-		"id": "SINKRONISASI DAG"
+		"id": "Sinkronisasi DAG"
 	},
 	{
 		"en": "DAGVIZ",
