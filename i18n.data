@@ -5,7 +5,7 @@
 		"zh_HANS": "",
 		"ko": "",
 		"it": "Nella configurazione di KASPAD manca il flag 'utxoindex'.<br /> Si prega di informare l'amministratore del wallet.<br /> ",
-		"id": "tanda ' utxoindex ' hilang dari konfigurasi KASPAD.< br /> Harap beri tahu administrator dompetnya.< br />"
+		"id": "tanda 'utxoindex' hilang dari konfigurasi KASPAD.< br /> Harap beri tahu administrator dompetnya.< br />"
 
 	},
 	{
@@ -515,7 +515,8 @@
 		"zh_HANS": "加载预设 KDX 配置模版",
 		"ko": "템플릿 구성을 사용하면 미리 만들어진 KDX 구성을 로드할 수 있습니다.",
 		"de": "Konfigurationstemplates ermöglichen es dir vorgefertigte KDX Konfigurationen zu laden.",
-		"it": "I modelli di configurazione ti consentono di caricare configurazioni KDX predefinite."
+		"it": "I modelli di configurazione ti consentono di caricare configurazioni KDX predefinite.",
+		"id": "Templat konfigurasi memungkinkan Anda memuat konfigurasi KDX yang telah dibuat sebelumnya."
 	},
 	{
 		"en": "Confirm Password",
