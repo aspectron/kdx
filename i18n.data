@@ -5,7 +5,7 @@
 		"zh_HANS": "",
 		"ko": "",
 		"it": "Nella configurazione di KASPAD manca il flag 'utxoindex'.<br /> Si prega di informare l'amministratore del wallet.<br /> ",
-		"id": "tanda ' utxoindex ' hilang dari konfigurasi KASPAD.< br /> Harap beri tahu administrator dompetnya.< br />"
+		"id": "tanda 'utxoindex' hilang dari konfigurasi KASPAD.< br /> Harap beri tahu administrator dompetnya.< br />"
 
 	},
 	{
@@ -515,7 +515,8 @@
 		"zh_HANS": "加载预设 KDX 配置模版",
 		"ko": "템플릿 구성을 사용하면 미리 만들어진 KDX 구성을 로드할 수 있습니다.",
 		"de": "Konfigurationstemplates ermöglichen es dir vorgefertigte KDX Konfigurationen zu laden.",
-		"it": "I modelli di configurazione ti consentono di caricare configurazioni KDX predefinite."
+		"it": "I modelli di configurazione ti consentono di caricare configurazioni KDX predefinite.",
+		"id": "Templat konfigurasi memungkinkan Anda memuat konfigurasi KDX yang telah dibuat sebelumnya."
 	},
 	{
 		"en": "Confirm Password",
@@ -595,7 +596,7 @@
 		"ko": "",
 		"de": "",
 		"it": "",
-		"id": "Hak Cipta (c) 2021 Kaspa Developers"
+		"id": "Hak Cipta (c) 2020 Kaspa Developers"
 	},
 	{
 		"en": "Copyright (c) 2021 Kaspa Developers",
@@ -667,7 +668,7 @@
 		"ko": "DAA 스코어",
 		"de": "DAA Score",
 		"it": "",
-		"id": "skor DAA:"
+		"id": "Skor DAA:"
 	},
 	{
 		"en": "DAG SYNC",
@@ -685,7 +686,7 @@
 		"ko": "DAG 싱크",
 		"de": "DAG SYNC",
 		"it": "Sincronizzazione DAG",
-		"id": "SINKRONISASI DAG"
+		"id": "Sinkronisasi DAG"
 	},
 	{
 		"en": "DAGVIZ",
@@ -1004,6 +1005,7 @@
 		"zh_HANS": "",
 		"ko": "",
 		"it": "Aggiorna orario delle transazioni"
+		"id": "Paksakan pembaruan waktu transaksi"
 	},
 	{
 		"en": "GitHub",
@@ -1198,7 +1200,7 @@
 		"ko": "datadir(데이터 폴더)을 삭제하고 kaspad 노드를 다시 시작하여 다시 동기화합니다.",
 		"de": "Es wird datadir (Daten-ordnet) löschen und das Kaspar Node zum Re-Sync neu starten",
 		"it": "Elimina la cartella datadir e riavvia il servizio per risincronizzare il nodo KASPAD.",
-		"id": "Ini akan menghapus datadir (Folder Data) dan memulai ulang kaspad node untuk menyinkronkan ulang
+		"id": "Ini akan menghapus datadir (Folder Data) dan memulai ulang kaspad node untuk menyinkronkan ulang."
 	},
 	{
 		"en": "KASPA",
@@ -1369,7 +1371,7 @@
 		"ko": "",
 		"de": "",
 		"it": "",
-		"id": "Kerangka Dompet Kaspa :"
+		"id": "Kerangka Dompet Kaspa:"
 	},
 	{
 		"en": "Kaspa gRPC Relay:",
@@ -1711,7 +1713,7 @@
 		"ko": "피어",
 		"de": "",
 		"it": "",
-		"id": "PEER"
+		"id": "PEERS"
 	},
 	{
 		"en": "PGSQL",
