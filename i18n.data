@@ -12,7 +12,6 @@
 		"en": "/ MIN",
 		"ja": "",
 		"zh_HANS": "/ 分",
-		"ko": ""
 		"ko": "",
 		"it": "",
 		"id": "/MENIT"
@@ -21,7 +20,7 @@
 		"en": "/ SEC",
 		"ja": "",
 		"zh_HANS": "/ 秒",
-		"ko": ""
+		"ko": "",
 		"it": "",
 		 "id": "/DETIK"
 	},
@@ -238,7 +237,7 @@
 		"ko": "8개의 문자 이상 / 심볼, 대문자, 소문자, 숫자 한 개 이상",
 		"de": "Mindestens 8 Zeichen, ein Großbuchstabe, ein Kleinbuchstabe, eine Nummer und ein Symbol.",
 		"it": "Almeno 8 caratteri, uno maiuscolo, uno minuscolo, un numero e un simbolo",
-		"id": "Setidaknya 8 karakter, satu huruf kapital, satu huruf kecil, satu angka, dan satu simbol",
+		"id": "Setidaknya 8 karakter, satu huruf kapital, satu huruf kecil, satu angka, dan satu simbol"
 	},
 	{
 		"en": "Attention !",
@@ -247,7 +246,7 @@
 		"ko": "주의",
 		"de": "Achtung !",
 		"it": "Attenzione !",
-		"id": "Perhatian !",
+		"id": "Perhatian !"
 	},
 	{
 		"en": "Auto compound",
@@ -256,7 +255,7 @@
 		"ko": "",
 		"de": "",
 		"it": "Raggruppa automaticamente",
-		"id": "Otomatis menggabungkan",
+		"id": "Otomatis menggabungkan"
 	},
 	{
 		"en": "Automatically calculate network fee",
@@ -274,7 +273,7 @@
 		"ko": "이용가능",
 		"de": "Verfügbar",
 		"it": "Disponibile",
-		"id": "Tersedia",
+		"id": "Tersedia"
 	},
 	{
 		"en": "Awesome, one more to go!",
@@ -298,7 +297,7 @@
 		"en": "BLOCK RATE",
 		"ja": "",
 		"zh_HANS": "出块速率",
-		"ko": "블록 레이트"
+		"ko": "블록 레이트",
 		"it": "FREQUENZA DEI BLOCCHI",
 		"id": "TINGKAT BLOK"
 	},
@@ -315,9 +314,9 @@
 		"en": "BLOCKS RATE (AVG)",
 		"ja": "",
 		"zh_HANS": "出块速率(平均)",
-		"ko": "블록 레이트(평균)"
+		"ko": "블록 레이트(평균)",
 		"it": "FREQUENZA DEI BLOCCHI (MEDIA)",
-		"id": "TINGKAT BLOK (RERATA)",
+		"id": "TINGKAT BLOK (RERATA)"
 	},
 	{
 		"en": "BSD",
@@ -335,7 +334,7 @@
 		"ko": "백그라운드 실행",
 		"de": "Ausführung im Hintergrund",
 		"it": "Esecuzione in Background",
-		"id": "Eksekusi di Latar Belakang",
+		"id": "Eksekusi di Latar Belakang"
 	},
 	{
 		"en": "Backup Seed",
@@ -344,7 +343,7 @@
 		"ko": "시드 구문 백업",
 		"de": "Backup-Seed",
 		"it": "Esegui backup della tua seed phrase",
-		"id": "Cadangkan Seed",
+		"id": "Cadangkan Seed"
 	},
 	{
 		"en": "Be wary and cautious of your secret phrase. Never reveal it to anyone.",
@@ -362,7 +361,7 @@
 		"ko": "블록 생성",
 		"de": "Blockgenerierung",
 		"it": "Generazione dei blocchi",
-		"id": "Generasi Blok",
+		"id": "Generasi Blok"
 	},
 	{
 		"en": "Blocks",
@@ -371,7 +370,7 @@
 		"ko": "블록",
 		"de": "Blöcke",
 		"it": "Blocchi",
-		"id": "Blok",
+		"id": "Blok"
 	},
 	{
 		"en": "Blue Score",
@@ -479,7 +478,7 @@
 		"ko": "",
 		"de": "",
 		"it": "Raggruppamento UTXO",
-		"id": "Menggabungkan UTXO",
+		"id": "Menggabungkan UTXO"
 
 	},
 	{
@@ -489,7 +488,7 @@
 		"ko": "",
 		"de": "Konfigurationstemplate",
 		"it": "Modello di configurazione",
-		"id": "Konfigurasi Template",
+		"id": "Konfigurasi Template"
 	},
 	{
 		"en": "Configuration Templates",
@@ -498,7 +497,7 @@
 		"ko": "템플릿 구성",
 		"de": "Konfigurationstemplate",
 		"it": "Modelli di configurazione",
-		"id": "Konfigurasi Template",
+		"id": "Konfigurasi Template"
 	},
 	{
 		"en": "Configuration editor allows you to customize KDX environment. KDX configuration is represented in JSON by a list of application/service configuration objects. Each service configuration object is used to start the corresponding service.",
@@ -713,7 +712,7 @@
 		"ko": "디버그",
 		"de": "",
 		"it": "",
-		"id": "DEBUG",
+		"id": "DEBUG"
 	},
 	{
 		"en": "DEVELOPER INFO",
@@ -969,7 +968,7 @@
 		"ja": "",
 		"zh_HANS": "",
 		"ko": "",
-		"it": "Indice finale".
+		"it": "Indice finale",
 		"id": "Indeks akhir"
 	},
 	{
@@ -1004,7 +1003,7 @@
 		"ja": "",
 		"zh_HANS": "",
 		"ko": "",
-		"it": "Aggiorna orario delle transazioni"
+		"it": "Aggiorna orario delle transazioni",
 		"id": "Paksakan pembaruan waktu transaksi"
 	},
 	{
@@ -1014,7 +1013,7 @@
 		"ko": "",
 		"de": "",
 		"it": "",
-		"id": "GitHub",
+		"id": "GitHub"
 	},
 	{
 		"en": "Good job! Two more checks to go",
@@ -1110,7 +1109,7 @@
 		"ko": "",
 		"de": "UTXOS in Verwendung",
 		"it": "UTXO IN USO",
-		"id": "UTXOS DI PAKAI",
+		"id": "UTXOS DI PAKAI"
 	},
 	{
 		"en": "Import Wallet Seed File (KPK)",
@@ -1866,7 +1865,7 @@
 		"ko": "수신 주소",
 		"de": "Empfänger Adresse",
 		"it": "Indirizzo di ricezione",
-		"id": "Alamat Penerima",
+		"id": "Alamat Penerima"
 	},
 	{
 		"en": "Receive Address:",
@@ -1875,7 +1874,7 @@
 		"ko": "수신 주소 :",
 		"de": "Empfänger Adresse:",
 		"it": "Indirizzo di ricezione",
-		"id": "Alamat Penerima:",
+		"id": "Alamat Penerima:"
 	},
 	{
 		"en": "Recent Transactions",
@@ -1956,7 +1955,7 @@
 		"ko": "주의하세요...<br> 이 12 단어 구문을 가진 사람은 누구나 지갑에 액세스할 수 있습니다. 안전하게 보관하세요!",
 		"de": "Beachte...<br> Jeder mit deinem 12 Wörter Seed hat Zugang zu deiner Wallet und deinen Mitteln. Schütze es!",
 		"it": "Ricorda...<br> Chiunque può accedere al tuo wallet e ai tuoi fondi con questa seed phrase di 12 parole. Tienila al sicuro!",
-		"id": "Ingat...< br > Siapa pun dengan frasa 12 kata ini dapat mengakses dompet Anda dana Anda. Tetap aman!",
+		"id": "Ingat...< br > Siapa pun dengan frasa 12 kata ini dapat mengakses dompet Anda dana Anda. Tetap aman!"
 	},
 	{
 		"en": "Request Funds from Faucet",
@@ -2177,8 +2176,8 @@
 		"en": "Start the kaspad node without enabling the '--utxoindex' parameter until the synchronization is complete, re-enable this parameter. (Can be used to fix inaccurate balance display)",
 		"ja": "",
 		"zh_HANS": "启动 kaspad 节点不启用 '--utxoindex'参数，直到同步完成，重新启用这个参数。（可以用于修复余额显示不准确）",
-		"ko": "동기화가 완료될 때까지 '--utxoindex' 매개변수를 활성화 없이 kaspad 노드를 시작하고, 그 다음 이 매개변수를 다시 활성화합니다. (정확하지 않은 잔액 표시를 수정하는 데 사용할 수 있음)"
-		"de": "Starte das Kaspar Node ohne '--utxoindex' Parameter zu aktivieren bis die Synchronisierung abgeschlossen ist. Danach diese Einstellungen aktivieren. (Kann ungenaue Kontostände / Anzeigen reparieren"
+		"ko": "동기화가 완료될 때까지 '--utxoindex' 매개변수를 활성화 없이 kaspad 노드를 시작하고, 그 다음 이 매개변수를 다시 활성화합니다. (정확하지 않은 잔액 표시를 수정하는 데 사용할 수 있음)",
+		"de": "Starte das Kaspar Node ohne '--utxoindex' Parameter zu aktivieren bis die Synchronisierung abgeschlossen ist. Danach diese Einstellungen aktivieren. (Kann ungenaue Kontostände / Anzeigen reparieren",
 		"it": "Avvia il nodo kaspad senza abilitare il parametro '--utxoindex', fino al completamento della sincronizzazione; poi riabilita il parametro (Può essere utilizzato per correggere la visualizzazione imprecisa del saldo).",
 		"id": "Mulai simpul kaspad tanpa mengaktifkan parameter '-- utxoindex ' hingga sinkronisasi selesai, aktifkan kembali parameter ini. (Dapat digunakan untuk memperbaiki tampilan saldo yang tidak akurat)"
 	},
@@ -2553,7 +2552,7 @@
 		"ko": "",
 		"de": "",
 		"it": "",
-		"en": "kasparovsyncd"
+		"id": ""
 	},
 	{
 		"en": "kd0",
@@ -2562,7 +2561,7 @@
 		"ko": "",
 		"de": "",
 		"it": "",
-		"en": "kd0"
+		"id": ""
 	},
 	{
 		"en": "kd1",
