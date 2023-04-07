@@ -1,7 +1,7 @@
 [ {
   "en" : "PostreSQL",
   "cmn" : "",
-  "de" : "PostreSQL",
+  "de" : "PostgreSQL",
   "fr" : "",
   "id" : "PostreSQL",
   "it" : "PostreSQL",
@@ -100,7 +100,7 @@
 }, {
   "en" : "Import Wallet Seed File(KPK)",
   "cmn" : "",
-  "de" : "Wallet Seed Datei importieren(KPK)",
+  "de" : "Wallet Seed Datei importieren (KPK)",
   "fr" : "",
   "id" : "Impor Seed File Dompet(KPK)",
   "it" : "Importa il file contenente il seed del wallet (KPK)",
@@ -111,7 +111,7 @@
 }, {
   "en" : "Flow-ux",
   "cmn" : "",
-  "de" : "Flow-ux",
+  "de" : "Flow-UX",
   "fr" : "",
   "id" : "Flow-ux",
   "it" : "Flow-ux",
@@ -122,7 +122,7 @@
 }, {
   "en" : "Make sure no one is looking, as anyone with your seed phrase can access your wallet your funds. Write it down and keep it safe.",
   "cmn" : "",
-  "de" : "Stelle sicher, dass niemand zusieht. Denn jeder mit deiner Seed Phrase hat Zugang zu deiner Wallet und deinen Mitteln. Schreibe sie auf und halte sie sicher.",
+  "de" : "Stellen Sie sicher, dass niemand zusieht. Jeder mit Ihrer Seed Phrase hat Zugang zu Ihrem Wallet und Ihren Mitteln. Schreiben Sie sie auf und halten sie sicher.",
   "fr" : "",
   "id" : "Pastikan tidak ada yang melihat, karena siapa pun dengan frasa benih Anda dapat mengakses dompet dana Anda. Catat dan simpan dengan aman.",
   "it" : "Assicurati che nessuno stia guardando, perché chiunque abbia la tua seed phrase può accedere al tuo wallet e ai tuoi fondi. Scrivitela e tienila al sicuro.",
@@ -144,7 +144,7 @@
 }, {
   "en" : "Advanced mode",
   "cmn" : "",
-  "de" : "Fortgeschrittener Modus",
+  "de" : "Erweiterter Modus",
   "fr" : "",
   "id" : "Mode lanjutan",
   "it" : "Modalità avanzata",
@@ -232,7 +232,7 @@
 }, {
   "en" : "Kaspad Node + Miner",
   "cmn" : "",
-  "de" : "Kaspad Node + Miner",
+  "de" : "Kaspad-Knoten und Miner",
   "fr" : "",
   "id" : "Kaspad Node + Penambang",
   "it" : "Nodo Kaspad + Miner",
@@ -287,7 +287,7 @@
 }, {
   "en" : "app",
   "cmn" : "",
-  "de" : "app",
+  "de" : "Applikation",
   "fr" : "",
   "id" : "aplikasi",
   "it" : "app",
@@ -342,7 +342,7 @@
 }, {
   "en" : "Discord Chat",
   "cmn" : "",
-  "de" : "Discord Chat",
+  "de" : "Discord-Unterhaltung",
   "fr" : "",
   "id" : "Obrolan Discord",
   "it" : "Chat Discord",
@@ -353,7 +353,7 @@
 }, {
   "en" : "Show UTXOs",
   "cmn" : "",
-  "de" : "Show UTXOs",
+  "de" : "UTXOs anzeigen",
   "fr" : "",
   "id" : "Tampilkan UTXO",
   "it" : "Visualizza UTXO",
@@ -397,7 +397,7 @@
 }, {
   "en" : "Kaspa Wallet Framework:",
   "cmn" : "",
-  "de" : "Kaspa Wallet Framework:",
+  "de" : "Kaspa-Wallet-Framework:",
   "fr" : "",
   "id" : "Kerangka Dompet Kaspa:",
   "it" : "Kaspa Wallet Framework:",
@@ -430,7 +430,7 @@
 }, {
   "en" : "12th",
   "cmn" : "",
-  "de" : "12th",
+  "de" : "12.",
   "fr" : "",
   "id" : "Kedua belas",
   "it" : "dodicesima",
@@ -452,7 +452,7 @@
 }, {
   "en" : "It will delete datadir (Data Folder) and restart kaspad node to re-sync",
   "cmn" : "",
-  "de" : "Es wird datadir (Daten-ordnet) löschen und das Kaspar Node zum Re-Sync neu starten",
+  "de" : "Das Datenverzeichnis wird gelöscht und der Kaspa-Node zum Resync neu gestartet.",
   "fr" : "",
   "id" : "Ini akan menghapus datadir (Folder Data) dan memulai ulang kaspad node untuk menyinkronkan ulang.",
   "it" : "Elimina la cartella datadir e riavvia il servizio per risincronizzare il nodo KASPAD.",
@@ -474,7 +474,7 @@
 }, {
   "en" : "Configuration Template",
   "cmn" : "",
-  "de" : "Konfigurationstemplate",
+  "de" : "Konfigurationsvorlage",
   "fr" : "",
   "id" : "Konfigurasi Template",
   "it" : "Modello di configurazione",
@@ -540,7 +540,7 @@
 }, {
   "en" : "MEMORY",
   "cmn" : "",
-  "de" : "MEMORY",
+  "de" : "ARBEITSSPEICHER",
   "fr" : "",
   "id" : "MEMORI",
   "it" : "MEMORIA",
@@ -551,7 +551,7 @@
 }, {
   "en" : "Kaspa gRPC Relay:",
   "cmn" : "",
-  "de" : "Kaspa gRPC Relay:",
+  "de" : "Kaspa-gRPC-Relay:",
   "fr" : "",
   "id" : "Kaspa gRPC Relay:",
   "it" : "Kaspa gRPC Relay:",
@@ -573,7 +573,7 @@
 }, {
   "en" : "Self-Contained Kaspad Mining",
   "cmn" : "",
-  "de" : "Self-Contained Kaspad Mining",
+  "de" : "Eigenständiges Kaspad-Mining",
   "fr" : "",
   "id" : "Penambangan Kaspad Secara Mandiri",
   "it" : "Mining Kaspad autonomo",
@@ -584,7 +584,7 @@
 }, {
   "en" : "Recipient Address (Must start with 'kaspa' prefix)",
   "cmn" : "",
-  "de" : "Empfänger Adresse (Muss immer mit 'Kasba' beginnen)",
+  "de" : "Empfänger Adresse (Muss immer mit Prefix 'Kaspa' beginnen)",
   "fr" : "",
   "id" : "Alamat Penerima (Harus dimulai dengan awalan 'kaspa')",
   "it" : "Indirizzo del destinatario (deve iniziare con il prefisso 'kaspa')",
@@ -606,7 +606,7 @@
 }, {
   "en" : "Progress",
   "cmn" : "",
-  "de" : "Progress",
+  "de" : "Fortschritt",
   "fr" : "",
   "id" : "Kelanjutan",
   "it" : "Avanzamento",
@@ -617,7 +617,7 @@
 }, {
   "en" : "CONFIRM SEND",
   "cmn" : "",
-  "de" : "CONFIRM SEND",
+  "de" : "SENDEN BESTÄTIGEN",
   "fr" : "",
   "id" : "KONFIRMASI PENGIRIMAN",
   "it" : "CONFERMA INVIO",
@@ -639,7 +639,7 @@
 }, {
   "en" : "HASH RATE",
   "cmn" : "",
-  "de" : "HASH RATE",
+  "de" : "HASH-RATE",
   "fr" : "",
   "id" : "Kekuatan HASH",
   "it" : "HASH RATE",
@@ -705,7 +705,7 @@
 }, {
   "en" : "Remember...<br> Anyone with this 12-word phrase can access your wallet your funds. Keep it safe!",
   "cmn" : "",
-  "de" : "Beachte...<br> Jeder mit deinem 12 Wörter Seed hat Zugang zu deiner Wallet und deinen Mitteln. Schütze es!",
+  "de" : "Beachte...<br> Jeder mit Ihrem 12 Wörter Seed hat Zugang zu Ihrem Wallet und Ihren Mitteln. Schützen Sie sie!",
   "fr" : "",
   "id" : "Ingat...< br > Siapa pun dengan frasa 12 kata ini dapat mengakses dompet Anda dana Anda. Tetap aman!",
   "it" : "Ricorda...<br> Chiunque può accedere al tuo wallet e ai tuoi fondi con questa seed phrase di 12 parole. Tienila al sicuro!",
@@ -771,7 +771,7 @@
 }, {
   "en" : "Attention !",
   "cmn" : "",
-  "de" : "Achtung !",
+  "de" : "Achtung!",
   "fr" : "",
   "id" : "Perhatian !",
   "it" : "Attenzione !",
@@ -815,7 +815,7 @@
 }, {
   "en" : "Please provide valid words",
   "cmn" : "",
-  "de" : "Bitte gib Wörter an",
+  "de" : "Bitte gib gültige Wörter an",
   "fr" : "",
   "id" : "Harap berikan kata-kata yang valid",
   "it" : "Indicare parole valide",
@@ -826,7 +826,7 @@
 }, {
   "en" : "Use Wallet Address for Mining",
   "cmn" : "",
-  "de" : "Use Wallet Address for Mining",
+  "de" : "Wallet-Adresse für das Mining verwenden",
   "fr" : "",
   "id" : "Gunakan Alamat Dompet untuk Menambang",
   "it" : "Usa l'indirizzo del wallet per il mining",
@@ -837,7 +837,7 @@
 }, {
   "en" : "Recover From Seed",
   "cmn" : "",
-  "de" : "Mit Seed wiederherstellen",
+  "de" : "Von Seed wiederherstellen",
   "fr" : "",
   "id" : "Pulihkan Dari Benih",
   "it" : "Ripristina da seed phrase",
@@ -859,7 +859,7 @@
 }, {
   "en" : "Be wary and cautious of your secret phrase. Never reveal it to anyone.",
   "cmn" : "",
-  "de" : "Sei vorsichtig mit deiner Secret Phrase. Teile sie niemals mit jemandem.",
+  "de" : "Seien Sie vorsichtig mit Ihrer Secret Phrase! Teilen Sie sie niemals mit jemand anderem.",
   "fr" : "",
   "id" : "Berhati-hatilah dan hati-hati dengan frasa rahasia Anda. Jangan pernah mengungkapkannya kepada siapa pun.",
   "it" : "Fai attenzione con la tua seed phrase. Non rivelarla mai a nessuno.",
@@ -870,7 +870,7 @@
 }, {
   "en" : "11th",
   "cmn" : "",
-  "de" : "11th",
+  "de" : "11.",
   "fr" : "",
   "id" : "Kesebelas",
   "it" : "undicesima",
@@ -947,7 +947,7 @@
 }, {
   "en" : "Configuration Templates",
   "cmn" : "",
-  "de" : "Konfigurationstemplate",
+  "de" : "Konfigurationsvorlagen",
   "fr" : "",
   "id" : "Konfigurasi Template",
   "it" : "Modelli di configurazione",
@@ -1013,7 +1013,7 @@
 }, {
   "en" : "KASPA FAUCET",
   "cmn" : "",
-  "de" : "KASPA FAUCET",
+  "de" : "KASPA-FAUCET",
   "fr" : "",
   "id" : "FAUCET KASPA",
   "it" : "KASPA FAUCET",
@@ -1024,7 +1024,7 @@
 }, {
   "en" : "KASPA WALLET",
   "cmn" : "",
-  "de" : "KASPA WALLET",
+  "de" : "KASPA-WALLET",
   "fr" : "",
   "id" : "DOMPET KASPA",
   "it" : "WALLET KASPA",
@@ -1068,7 +1068,7 @@
 }, {
   "en" : "Export Wallet Seed File(KPK)",
   "cmn" : "",
-  "de" : "Wallet Seed Datei exportieren(KPK)",
+  "de" : "Wallet Seed Datei exportieren (KPK)",
   "fr" : "",
   "id" : "Ekspor File Benih Dompet(KPK)",
   "it" : "Esporta il file contenente il seed del wallet (KPK)",
@@ -1079,7 +1079,7 @@
 }, {
   "en" : "Blue Score",
   "cmn" : "",
-  "de" : "Blue Score",
+  "de" : "Blaue Wertung",
   "fr" : "",
   "id" : "Skor Biru",
   "it" : "Blue Score",
@@ -1123,7 +1123,7 @@
 }, {
   "en" : "Recover from Seed",
   "cmn" : "",
-  "de" : "Mit Seed wiederherstellen",
+  "de" : "Von Seed wiederherstellen",
   "fr" : "",
   "id" : "Pulihkan dari Benih",
   "it" : "Ripristina da seed phrase",
@@ -1134,7 +1134,7 @@
 }, {
   "en" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors",
   "cmn" : "",
-  "de" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors",
+  "de" : "Copyright (c) 2007, Eclipse Foundation, Inc. und ihren Lizenzgebern",
   "fr" : "",
   "id" : "Hak Cipta (c) 2007, Eclipse Foundation, Inc. dan pemberi lisensinya",
   "it" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors",
@@ -1266,7 +1266,7 @@
 }, {
   "en" : "10th",
   "cmn" : "",
-  "de" : "10th",
+  "de" : "10.",
   "fr" : "",
   "id" : "Kesepuluh",
   "it" : "decima",
@@ -1277,7 +1277,7 @@
 }, {
   "en" : "Configuration editor allows you to customize KDX environment. KDX configuration is represented in JSON by a list of application/service configuration objects. Each service configuration object is used to start the corresponding service.",
   "cmn" : "",
-  "de" : "In der Konfiguration können Sie die KDX-Umgebung anpassen. Die KDX-Konfiguration ist in einem JSON zu finden, das eine Liste der Konfigurationen/Applikationskonfigurationen enthält. Jede Servicekonfiguration wird dazu verwendet den jeweiligen Service zu starten.",
+  "de" : "In der Konfiguration können Sie die KDX-Umgebung anpassen. Die KDX-Konfiguration ist eine JSON-Datei, welche eine Liste der Konfigurationen resp. Applikationseinstellungen enthält. Jede Servicekonfiguration wird dazu verwendet, den jeweiligen Service zu starten.",
   "fr" : "",
   "id" : "Editor konfigurasi memungkinkan Anda menyesuaikan lingkungan KDX. Konfigurasi KDX direpresentasikan dalam JSON oleh daftar objek konfigurasi aplikasi/layanan. Setiap objek konfigurasi layanan digunakan untuk memulai layanan terkait.",
   "it" : "L'editor di configurazione consente di personalizzare l'ambiente KDX. La configurazione di KDX è rappresentata in JSON da un elenco di oggetti per configurare l'applicazione e i servizi. Ciascun oggetto di configurazione del servizio viene utilizzato per avviare il servizio corrispondente.",
@@ -1310,7 +1310,7 @@
 }, {
   "en" : "DAG SYNC",
   "cmn" : "",
-  "de" : "DAG SYNC",
+  "de" : "DAG-SYNCHRONISATION",
   "fr" : "",
   "id" : "SINKRONISASI DAG",
   "it" : "SINCRONIZZAZIONE DAG",
@@ -1365,7 +1365,7 @@
 }, {
   "en" : "When Autocompound enabled, KDX compound UTXOs when there will be compoundable count of unspent transaction outputs (UTXOs).'Use latest Change address' will compund UTXOs using current/latest change address instead of first change address.",
   "cmn" : "",
-  "de" : "When Autocompound enabled, KDX compound UTXOs when there will be compoundable count of unspent transaction outputs (UTXOs).'Use latest Change address' will compund UTXOs using current/latest change address instead of first change address.",
+  "de" : "Wenn das automatische Zusammenführen aktiviert ist, wird KDX die UTXOs zusammenführen, sobald eine entsprechende Anzahl UTXOs vorhanden ist. Die Funktion 'Letzte Wechselgeld-Adresse verwenden' wird UTXOs unter Verwendung der aktuellen bzw. letzten anstelle der ersten Wechselgeld-Adresse zusammenführen.",
   "fr" : "",
   "id" : "Ketika Autocompound diaktifkan, KDX menggabungkan UTXO ketika akan ada jumlah output transaksi yang tidak digunakan (UTXO) yang dapat digabungkan. 'Gunakan Ubah alamat terbaru' akan menggabungkan UTXO menggunakan alamat perubahan saat ini/terbaru alih-alih alamat perubahan pertama.",
   "it" : "Quando il raggruppamento automatico è abilitato, KDX raggruppa gli UTXO, se ci sono più Output di transazione non spesi (UTXO) disponibili. 'Utilizza ultimo indirizzo di resto' raggrupperà gli UTXO nell'indirizzo di resto attuale/più recente, anziché nell'indirizzo di resto iniziale.",
@@ -1376,7 +1376,7 @@
 }, {
   "en" : "Kaspad Archival Node + Miner",
   "cmn" : "",
-  "de" : "Kaspad Archival Node + Miner",
+  "de" : "Kaspad-Archiv-Knoten und Miner",
   "fr" : "",
   "id" : "Kaspad Archival Node + Miner",
   "it" : "Nodo archivio Kaspad + Miner",
@@ -1398,7 +1398,7 @@
 }, {
   "en" : "Cool fact: there are more 12-word phrase combinations than nanoseconds since the big bang!",
   "cmn" : "",
-  "de" : "Cooler Fakt: Es gibt mehr Kombinationen von 12-Wörter Phrasen als die Summer aller Nanosekunden seit dem Urknall!",
+  "de" : "Cooler Fakt: Es gibt mehr Kombinationen von 12-Wörter Phrasen als die Summe aller Nanosekunden seit dem Urknall!",
   "fr" : "",
   "id" : "Fakta keren: ada lebih banyak kombinasi frase 12 kata daripada nanodetik sejak big bang!",
   "it" : "Curiosità: ci sono più combinazioni di frasi di 12 parole che nanosecondi dal big bang!",
@@ -1431,7 +1431,7 @@
 }, {
   "en" : "Wallet Status:",
   "cmn" : "",
-  "de" : "Wallet Status:",
+  "de" : "Wallet-Status:",
   "fr" : "",
   "id" : "Status Dompet:",
   "it" : "Stato del wallet:",
@@ -1442,7 +1442,7 @@
 }, {
   "en" : "Compound Transactions",
   "cmn" : "",
-  "de" : "Compound Transaktions",
+  "de" : "Transaktionen zusammenführen",
   "fr" : "",
   "id" : "Gabungan Transaksi",
   "it" : "Raggruppa Transazioni",
@@ -1464,7 +1464,7 @@
 }, {
   "en" : "PGSQL",
   "cmn" : "",
-  "de" : "PGSQL",
+  "de" : "PQSQL",
   "fr" : "",
   "id" : "PGSQL",
   "it" : "PGSQL",
@@ -1497,7 +1497,7 @@
 }, {
   "en" : "DAG Sync",
   "cmn" : "",
-  "de" : "DAG SYNC",
+  "de" : "DAG-Synchronisation",
   "fr" : "",
   "id" : "Sinkronisasi DAG",
   "it" : "Sincronizzazione DAG",
@@ -1519,7 +1519,7 @@
 }, {
   "en" : "Make sure you wrote the phrase down correctly by answering this quick checkup.",
   "cmn" : "",
-  "de" : "Indem du diesen schnellen Check absolvierst, kannst du sicherstellen, dass deine Phrase korrekt abgeschrieben hast.",
+  "de" : "Indem Sie diesen schnellen Check absolvieren, können Sie sicherstellen, dass Sie die Phrase korrekt abgeschrieben haben.",
   "fr" : "",
   "id" : "Pastikan Anda menuliskan kalimat dengan benar dengan menjawab pemeriksaan singkat ini.",
   "it" : "Assicurati di aver scritto correttamente la seed phrase rispondendo a questo rapido controllo.",
@@ -1607,7 +1607,7 @@
 }, {
   "en" : "Use latest Change address",
   "cmn" : "",
-  "de" : "Use latest Change address",
+  "de" : "Letzte Wechselgeld-Adresse verwenden",
   "fr" : "",
   "id" : "Gunakan alamat pengubahan terbaru",
   "it" : "Utilizza ultimo indirizzo di resto",
@@ -1640,7 +1640,7 @@
 }, {
   "en" : "Address",
   "cmn" : "",
-  "de" : "Address",
+  "de" : "Adresse",
   "fr" : "",
   "id" : "Alamat",
   "it" : "Indirizzo",
@@ -1651,7 +1651,7 @@
 }, {
   "en" : "Compound UTXOs",
   "cmn" : "",
-  "de" : "Compound UTXOs",
+  "de" : "Zusammengeführte UTXOs",
   "fr" : "",
   "id" : "UTXO Majemuk",
   "it" : "Raggruppa UTXO",
@@ -1695,7 +1695,7 @@
 }, {
   "en" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
   "cmn" : "",
-  "de" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
+  "de" : "Copyright (c) 2007, Eclipse Foundation, Inc. und ihren Lizenzgebern",
   "fr" : "",
   "id" : "Hak Cipta (c) 2007, Eclipse Foundation, Inc. dan pemberi lisensinya.",
   "it" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
@@ -1750,7 +1750,7 @@
 }, {
   "en" : "Kaspa UX:",
   "cmn" : "",
-  "de" : "Kaspa UX:",
+  "de" : "Kaspa-UX:",
   "fr" : "",
   "id" : "Kaspa UX",
   "it" : "Kaspa UX:",
@@ -1805,7 +1805,7 @@
 }, {
   "en" : "Mempool Size",
   "cmn" : "",
-  "de" : "Mempool Size",
+  "de" : "Grösse des Speicherpools",
   "fr" : "",
   "id" : "Ukuran Mempool",
   "it" : "Dimensioni Mempool",
@@ -1816,7 +1816,7 @@
 }, {
   "en" : "Auto compound",
   "cmn" : "",
-  "de" : "Auto compound",
+  "de" : "Automatisches Zusammenführen",
   "fr" : "",
   "id" : "Otomatis menggabungkan",
   "it" : "Raggruppa automaticamente",
@@ -1838,7 +1838,7 @@
 }, {
   "en" : "Exit",
   "cmn" : "",
-  "de" : "Schließen",
+  "de" : "Beenden",
   "fr" : "",
   "id" : "Keluar",
   "it" : "Esci",
@@ -1893,7 +1893,7 @@
 }, {
   "en" : "6th",
   "cmn" : "",
-  "de" : "6th",
+  "de" : "6.",
   "fr" : "",
   "id" : "Keenam",
   "it" : "sesta",
@@ -1926,7 +1926,7 @@
 }, {
   "en" : "if you wish to further the development of the kaspa ecosystem, we accept kaspa donations at the following addresses:",
   "cmn" : "",
-  "de" : "if you wish to further the development of the kaspa ecosystem, we accept kaspa donations at the following addresses:",
+  "de" : "Für die Weiterentwicklung des Kaspa-Ökosystems können Kaspa-Spenden an die folgenden Adressen gesendet werden:",
   "fr" : "",
   "id" : "jika Anda ingin lebih mengembangkan ekosistem kaspa , kami menerima donasi kaspa di alamat berikut:",
   "it" : "Se desiderate contribuire allo sviluppo dell'ecosistema Kaspa, accettiamo donazioni Kaspa ai seguenti indirizzi:",
@@ -1937,7 +1937,7 @@
 }, {
   "en" : "It is recommended to keep several copies of your secret seed hidden away in different places.",
   "cmn" : "",
-  "de" : "Es wird empfohlen, mehrere Kopien deines geheimen Seeds in unterschiedlichen Plätzen zu verstecken.",
+  "de" : "Es wird empfohlen, mehrere Kopien Ihres geheimen Seeds an unterschiedlichen Plätzen zu verstecken.",
   "fr" : "",
   "id" : "Direkomendasikan untuk menyembunyikan beberapa salinan benih rahasia Anda di tempat yang berbeda.",
   "it" : "Si consiglia di conservare diverse copie della seed phrase segreta, nascoste in luoghi diversi.",
@@ -1948,7 +1948,7 @@
 }, {
   "en" : "Recent Transactions",
   "cmn" : "",
-  "de" : "Kürzlich Transaktionen",
+  "de" : "Letzte Transaktionen",
   "fr" : "",
   "id" : "Transaksi Terbaru",
   "it" : "Transazioni recenti",
@@ -1981,7 +1981,7 @@
 }, {
   "en" : "Delete data directory and resync",
   "cmn" : "",
-  "de" : "Datenverzeichnis löschen und neu Synchronisieren",
+  "de" : "Datenverzeichnis löschen und neu synchronisieren",
   "fr" : "",
   "id" : "Hapus direktori data dan sinkronisasi ulang",
   "it" : "Elimina la directory dei dati e risincronizza",
@@ -1992,7 +1992,7 @@
 }, {
   "en" : "Compounding UTXOs",
   "cmn" : "",
-  "de" : "Compounding UTXOs",
+  "de" : "Führe UTXOs zusammen",
   "fr" : "",
   "id" : "Menggabungkan UTXO",
   "it" : "Raggruppamento UTXO",
@@ -2014,7 +2014,7 @@
 }, {
   "en" : "Median Time UTC",
   "cmn" : "",
-  "de" : "Median Time UTC",
+  "de" : "Mittlere UTC-Zeit",
   "fr" : "",
   "id" : "Waktu Median UTC",
   "it" : "Orario medio UTC",
@@ -2036,7 +2036,7 @@
 }, {
   "en" : "are you sure?",
   "cmn" : "",
-  "de" : "are you sure?",
+  "de" : "sind Sie sicher?",
   "fr" : "",
   "id" : "Apakah Anda yakin?",
   "it" : "vuoi procedere?",
@@ -2080,7 +2080,7 @@
 }, {
   "en" : "Advanced",
   "cmn" : "",
-  "de" : "Fortgeschritten",
+  "de" : "Erweitert",
   "fr" : "",
   "id" : "Lanjutan",
   "it" : "Avanzato",
@@ -2091,7 +2091,7 @@
 }, {
   "en" : "Data Folder location is used for storage by all KDX modules. In default configuration this includes Kaspad blockchain data and Kasparov API database. This location also contains process log files.",
   "cmn" : "",
-  "de" : "Der Daten Ordner wird von allen KDX Modulen als Speicherort genutzt. In der Standardkonfiguration inkludiert das die Kaspar Blockchain Daten und die Kasparov API Datenbank. Dieser Speicherort enthält auch Logs/Protokolle.",
+  "de" : "Das Datenverzeichnis wird von allen KDX Modulen als Speicherort genutzt. In der Standardkonfiguration enthält es die Kaspa Blockchain Daten und die Kasparov API Datenbank. Dieser Speicherort enthält auch Logs/Protokolle.",
   "fr" : "",
   "id" : "Lokasi Folder Data digunakan untuk penyimpanan oleh semua modul KDX. Dalam konfigurasi default, ini mencakup data blockchain Kaspad dan basis data API Kasparov. Lokasi ini juga berisi file log proses.",
   "it" : "Il percorso della cartella dati viene utilizzata da tutti i moduli KDX per l'archiviazione. Nella configurazione predefinita, sono inclusi i dati della blockchain di Kaspad e il database dell'API Kasparov. Questa cartella contiene anche i file di log del processo.",
@@ -2124,7 +2124,7 @@
 }, {
   "en" : "BLOCKS RATE (AVG)",
   "cmn" : "",
-  "de" : "BLOCKS RATE (AVG)",
+  "de" : "BLOCK RATE (DURCHSCHNITT)",
   "fr" : "",
   "id" : "TINGKAT BLOK (RERATA)",
   "it" : "FREQUENZA DEI BLOCCHI (MEDIA)",
@@ -2146,7 +2146,7 @@
 }, {
   "en" : "Update transaction times",
   "cmn" : "",
-  "de" : "Update transaction times",
+  "de" : "Transaktionszeiten aktualisieren",
   "fr" : "",
   "id" : "Perbarui waktu transaksinya",
   "it" : "Aggiorna orario delle transazioni",
@@ -2179,7 +2179,7 @@
 }, {
   "en" : "Create a password for your new wallet",
   "cmn" : "",
-  "de" : "Erstelle ein Passwort für dein neues Wallet",
+  "de" : "Ein Passwort für Ihr neues Wallet erstellen",
   "fr" : "",
   "id" : "Buat kata sandi untuk dompet baru Anda",
   "it" : "Crea una password per il tuo nuovo wallet",
@@ -2300,7 +2300,7 @@
 }, {
   "en" : "2nd",
   "cmn" : "",
-  "de" : "2nd",
+  "de" : "2.",
   "fr" : "",
   "id" : "Kedua",
   "it" : "seconda",
@@ -2311,7 +2311,7 @@
 }, {
   "en" : "KASPA RESOURCES",
   "cmn" : "",
-  "de" : "KASPA RESOURCES",
+  "de" : "KASPA-RESOURCEN",
   "fr" : "",
   "id" : "SUMBER DAYA KASPA",
   "it" : "RISORSE KASPA",
@@ -2322,7 +2322,7 @@
 }, {
   "en" : "5th",
   "cmn" : "",
-  "de" : "5th",
+  "de" : "5.",
   "fr" : "",
   "id" : "Kelima",
   "it" : "quinta",
@@ -2355,7 +2355,7 @@
 }, {
   "en" : "'utxoindex' flag is missing from KASPAD config.<br /> Please inform the wallet administrator.<br />",
   "cmn" : "",
-  "de" : "'utxoindex' flag is missing from KASPAD config.<br /> Please inform the wallet administrator.<br />",
+  "de" : "'utxoindex'-Setting fehlt in der KASPAD-Konfiguration<br />Bitte den Wallet-Administrator informieren.<br />",
   "fr" : "",
   "id" : "tanda 'utxoindex' hilang dari konfigurasi KASPAD.< br /> Harap beri tahu administrator dompetnya.< br />",
   "it" : "Nella configurazione di KASPAD manca il flag 'utxoindex'.<br /> Si prega di informare l'amministratore del wallet.<br /> ",
@@ -2410,7 +2410,7 @@
 }, {
   "en" : "Delete Data Folder",
   "cmn" : "",
-  "de" : "Datenordner löschen",
+  "de" : "Datenverzeichnis löschen",
   "fr" : "",
   "id" : "Hapus Folder Data",
   "it" : "Elimina cartella dati",
@@ -2421,7 +2421,7 @@
 }, {
   "en" : "DONATIONS",
   "cmn" : "",
-  "de" : "DONATIONS",
+  "de" : "SPENDEN",
   "fr" : "",
   "id" : "DONASI",
   "it" : "DONAZIONI",
@@ -2465,7 +2465,7 @@
 }, {
   "en" : "Advanced mode allows you to manually configure, interact with and monitor KDX services.",
   "cmn" : "",
-  "de" : "Der Erweiterte Modus ermöglicht das manuelle konfigurieren, interagieren und überwachen der KDX Services.",
+  "de" : "Der erweiterte Modus ermöglicht das manuelle konfigurieren, interagieren und überwachen der KDX Services.",
   "fr" : "",
   "id" : "Mode lanjutan memungkinkan Anda mengonfigurasi, berinteraksi dengan, dan memantau layanan KDX secara manual.",
   "it" : "La modalità avanzata consente di configurare, interagire e monitorare manualmente i servizi KDX.",
@@ -2487,7 +2487,7 @@
 }, {
   "en" : "Median Latency",
   "cmn" : "",
-  "de" : "Median Latency",
+  "de" : "Durchschnittliche Verzögerung",
   "fr" : "",
   "id" : "Latensi Median",
   "it" : "Latenza media",
@@ -2509,7 +2509,7 @@
 }, {
   "en" : "Export transactions as CSV",
   "cmn" : "",
-  "de" : "Export transactions as CSV",
+  "de" : "Transaktionen als CSV exportieren",
   "fr" : "",
   "id" : "Ekspor transaksi sebagai CSV",
   "it" : "Esporta transazioni in formato CSV",
@@ -2542,7 +2542,7 @@
 }, {
   "en" : "RESET",
   "cmn" : "",
-  "de" : "RESET",
+  "de" : "ZURÜCKSETZEN",
   "fr" : "",
   "id" : "PULIHKAN",
   "it" : "RESET",
@@ -2553,7 +2553,7 @@
 }, {
   "en" : "Update",
   "cmn" : "",
-  "de" : "Update",
+  "de" : "Aktualisieren",
   "fr" : "",
   "id" : "Perbarui",
   "it" : "Aggiorna",
@@ -2564,7 +2564,7 @@
 }, {
   "en" : "Preparing transaction for [n] KAS ....",
   "cmn" : "",
-  "de" : "Transaktion für [n] KAS wird vorbereitet ....",
+  "de" : "Transaktion für [n] KAS wird vorbereitet...",
   "fr" : "",
   "id" : "Menyiapkan transaksi untuk [n] KAS....",
   "it" : "Transazione per [n] KAS in preparazione....",
@@ -2586,7 +2586,7 @@
 }, {
   "en" : "Final index",
   "cmn" : "",
-  "de" : "Final index",
+  "de" : "Finaler Index",
   "fr" : "",
   "id" : "Indeks akhir",
   "it" : "Indice finale",
@@ -2597,7 +2597,7 @@
 }, {
   "en" : "Force transaction times update",
   "cmn" : "",
-  "de" : "Force transaction times update",
+  "de" : "Transaktionszeit-Update forcieren",
   "fr" : "",
   "id" : "Paksakan pembaruan waktu transaksi",
   "it" : "Aggiorna orario delle transazioni",
@@ -2608,7 +2608,7 @@
 }, {
   "en" : "Kaspad Node",
   "cmn" : "",
-  "de" : "Kaspad Node",
+  "de" : "Kaspad Knoten",
   "fr" : "",
   "id" : "Node Kaspad",
   "it" : "Nodo Kaspad",
@@ -2641,7 +2641,7 @@
 }, {
   "en" : "Incorrect password.",
   "cmn" : "",
-  "de" : "Falsches Passwort",
+  "de" : "Falsches Passwort.",
   "fr" : "",
   "id" : "Kata sandi salah.",
   "it" : "Password non corretta.",
@@ -2652,7 +2652,7 @@
 }, {
   "en" : "Reset",
   "cmn" : "",
-  "de" : "Reset",
+  "de" : "Zurücksetzen",
   "fr" : "",
   "id" : "Setel ulang",
   "it" : "Reset",
@@ -2663,7 +2663,7 @@
 }, {
   "en" : "DAA score:",
   "cmn" : "",
-  "de" : "DAA Score",
+  "de" : "DAA Wert",
   "fr" : "",
   "id" : "Skor DAA:",
   "it" : "DAA score:",
@@ -2707,7 +2707,7 @@
 }, {
   "en" : "Configuration templates allow you to load pre-made KDX configurations.",
   "cmn" : "",
-  "de" : "Konfigurationstemplates ermöglichen es dir vorgefertigte KDX Konfigurationen zu laden.",
+  "de" : "Konfigurationsvorlagen ermöglichen es Ihnen, vorgefertigte KDX Konfigurationen zu laden.",
   "fr" : "",
   "id" : "Templat konfigurasi memungkinkan Anda memuat konfigurasi KDX yang telah dibuat sebelumnya.",
   "it" : "I modelli di configurazione ti consentono di caricare configurazioni KDX predefinite.",
@@ -2718,7 +2718,7 @@
 }, {
   "en" : "Enter your 12-word seed phrase to recover your wallet (words are not case sensitive)",
   "cmn" : "",
-  "de" : "Gib deine 12-Wörter Seed Phrase ein um dein Wallet wiederherzustellen (Groß- und Kleinschreibung wird NICHT beachtet)",
+  "de" : "Geben Sie Ihre 12-Wörter Seed Phrase ein, um das Wallet wiederherzustellen (Groß- und Kleinschreibung wird NICHT beachtet)",
   "fr" : "",
   "id" : "Masukkan seed frase 12 kata Anda untuk memulihkan dompet Anda (kata-kata tidak peka huruf besar/kecil)",
   "it" : "Inserisci la tua seed phrase di 12 parole per recuperare il wallet (lettere maiuscole o minuscole non fanno differenza)",
@@ -2729,7 +2729,7 @@
 }, {
   "en" : "3rd",
   "cmn" : "",
-  "de" : "3rd",
+  "de" : "3.",
   "fr" : "",
   "id" : "Ketiga",
   "it" : "terza",
@@ -2773,7 +2773,7 @@
 }, {
   "en" : "Wallet Status",
   "cmn" : "",
-  "de" : "Wallet Status",
+  "de" : "Wallet-Status",
   "fr" : "",
   "id" : "Status Dompet",
   "it" : "Stato del wallet",
@@ -2872,7 +2872,7 @@
 }, {
   "en" : "Are you sure?",
   "cmn" : "",
-  "de" : "Sind du dir sicher?",
+  "de" : "Sind Sie sicher?",
   "fr" : "",
   "id" : "Apakah Anda yakin?",
   "it" : "Vuoi procedere?",
@@ -2905,7 +2905,7 @@
 }, {
   "en" : "I have a wallet",
   "cmn" : "",
-  "de" : "I have a wallet",
+  "de" : "Ich habe ein Wallet",
   "fr" : "",
   "id" : "Saya punya sebuah dompet",
   "it" : "Ho un wallet",
@@ -3004,7 +3004,7 @@
 }, {
   "en" : "DEVELOPER INFO",
   "cmn" : "",
-  "de" : "Entwickler Info",
+  "de" : "ENTWICKLER INFORMATION",
   "fr" : "",
   "id" : "INFO PENGEMBANG",
   "it" : "INFORMAZIONI PER SVILUPPATORI",
@@ -3037,7 +3037,7 @@
 }, {
   "en" : "Data Folder",
   "cmn" : "",
-  "de" : "Daten Ordner",
+  "de" : "Datenverzeichnis",
   "fr" : "",
   "id" : "Folder Data",
   "it" : "Cartella dati",
@@ -3048,7 +3048,7 @@
 }, {
   "en" : "Debug",
   "cmn" : "",
-  "de" : "Debuggen",
+  "de" : "Fehlersuche",
   "fr" : "",
   "id" : "Debug",
   "it" : "Debug",
@@ -3070,7 +3070,7 @@
 }, {
   "en" : "simulator",
   "cmn" : "",
-  "de" : "simulator",
+  "de" : "Simulator",
   "fr" : "",
   "id" : "simulator",
   "it" : "simulatore",
@@ -3136,7 +3136,7 @@
 }, {
   "en" : "Kaspad Archival Node",
   "cmn" : "",
-  "de" : "Kaspad Archival Node",
+  "de" : "Kaspad-Archiv-Knoten",
   "fr" : "",
   "id" : "Node Arsip Kaspad",
   "it" : "Nodo archivio Kaspad",
@@ -3147,7 +3147,7 @@
 }, {
   "en" : "Started from",
   "cmn" : "",
-  "de" : "Started from",
+  "de" : "Gestartet am",
   "fr" : "",
   "id" : "Dimulai dari",
   "it" : "Inizia da",
@@ -3191,7 +3191,7 @@
 }, {
   "en" : "Kaspa Core:",
   "cmn" : "",
-  "de" : "Kaspa Core:",
+  "de" : "Kaspa-Kern:",
   "fr" : "",
   "id" : "Kaspa Core",
   "it" : "Kaspa Core:",
@@ -3202,7 +3202,7 @@
 }, {
   "en" : "Updating transaction times may take time if you have a lot of transactions,",
   "cmn" : "",
-  "de" : "Updating transaction times may take time if you have a lot of transactions,",
+  "de" : "Das Aktualisieren der Transaktionszeiten kann bei vielen Transaktionen lange dauern.",
   "fr" : "",
   "id" : "Memperbarui waktu transaksi mungkin memakan waktu lama jika Anda memiliki banyak transaksi,",
   "it" : "L'aggiornamento dell'orario delle transazioni può richiedere tempo se le transazioni sono numerose,",
@@ -3257,7 +3257,7 @@
 }, {
   "en" : "RAM",
   "cmn" : "",
-  "de" : "RAM",
+  "de" : "Arbeitsspeicher",
   "fr" : "",
   "id" : "RAM",
   "it" : "RAM",
