@@ -1,11 +1,11 @@
 [
 	{
-		"en": "'utxoindex' flag is missing from KASPAD config.<br /> Please inform the wallet administrator.<br />",
+		"en": "'utxoindex' flag is missing from KASPAD config.<br/> Please inform the wallet administrator.<br/>",
 		"ja": "",
 		"zh_HANS": "",
 		"ko": "",
-		"it": "Nella configurazione di KASPAD manca il flag 'utxoindex'.<br /> Si prega di informare l'amministratore del wallet.<br /> ",
-		"id": "tanda 'utxoindex' hilang dari konfigurasi KASPAD.< br /> Harap beri tahu administrator dompetnya.< br />"
+		"it": "Nella configurazione di KASPAD manca il flag 'utxoindex'.<br/> Si prega di informare l'amministratore del wallet.<br/> ",
+		"id": "tanda 'utxoindex' hilang dari konfigurasi KASPAD.<br/> Harap beri tahu administrator dompetnya.<br/>"
 
 	},
 	{
@@ -157,7 +157,7 @@
 		"ko": "",
 		"de": "Zusätzliche Mittel werden<br/>in [n] verfügbar",
 		"it": "Ulteriori fondi saranno<br/> disponibili in [n]",
-		"id": "Dana tambahan akan< br />tersedia di [n]"
+		"id": "Dana tambahan akan<br/>tersedia di [n]"
 	},
 	{
 		"en": "Advanced",
@@ -1298,7 +1298,7 @@
 		"ko": "",
 		"de": "",
 		"it": "",
-		"id": "KDX &amp; Kaspa Hak Cipta (c) 2020 Kaspa Developers< br > Hak Cipta Dilindungi Undang-Undang."
+		"id": "KDX &amp; Kaspa Hak Cipta (c) 2020 Kaspa Developers<br> Hak Cipta Dilindungi Undang-Undang."
 	},
 	{
 		"en": "KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br> All Rights Reserved.",
@@ -1307,7 +1307,7 @@
 		"ko": "",
 		"de": "",
 		"it": "",
-		 "id": "KDX &amp; Kaspa Hak Cipta (c) 2021 Kaspa Developers< br > Hak Cipta Dilindungi Undang-Undang."
+		 "id": "KDX &amp; Kaspa Hak Cipta (c) 2021 Kaspa Developers<br> Hak Cipta Dilindungi Undang-Undang."
 	},
 	{
 		"en": "KM0",
@@ -1793,7 +1793,7 @@
 		"ko": "",
 		"de": "",
 		"it": "",
-		"id": "Hak Cipta Bagian © 1996-2020, Grup Pengembangan Global PostgreSQL< br >Hak Cipta Bagian © 1994, Bupati Universitas California"
+		"id": "Hak Cipta Bagian © 1996-2020, Grup Pengembangan Global PostgreSQL<br>Hak Cipta Bagian © 1994, Bupati Universitas California"
 	},
 	{
 		"en": "PostgreSQL",
@@ -1955,7 +1955,7 @@
 		"ko": "주의하세요...<br> 이 12 단어 구문을 가진 사람은 누구나 지갑에 액세스할 수 있습니다. 안전하게 보관하세요!",
 		"de": "Beachte...<br> Jeder mit deinem 12 Wörter Seed hat Zugang zu deiner Wallet und deinen Mitteln. Schütze es!",
 		"it": "Ricorda...<br> Chiunque può accedere al tuo wallet e ai tuoi fondi con questa seed phrase di 12 parole. Tienila al sicuro!",
-		"id": "Ingat...< br > Siapa pun dengan frasa 12 kata ini dapat mengakses dompet Anda dana Anda. Tetap aman!"
+		"id": "Ingat...<br> Siapa pun dengan frasa 12 kata ini dapat mengakses dompet Anda dana Anda. Tetap aman!"
 	},
 	{
 		"en": "Request Funds from Faucet",
@@ -2444,7 +2444,7 @@
 		"ko": "이미 지갑이 열려 있습니다. <br> 진행하기 전에 현재 지갑이 <br> 백업되어 있는지 확인하십시오!",
 		"de": "Du hast bereits ein Wallet geöffnet. <br> Bitte stelle sicher, dass dein aktuelles Wallet <br> gesichert ist, bevor du weiter machst!",
 		"it": "Hai già un wallet aperto. <br> Assicurati che il tuo portafoglio attuale <br> sia stato sottoposto a backup prima di procedere!",
-		"id": "Dompet Anda sudah terbuka. < br > Harap pastikan dompet Anda saat ini < br > telah dicadangkan sebelum melanjutkan!"
+		"id": "Dompet Anda sudah terbuka. <br> Harap pastikan dompet Anda saat ini <br> telah dicadangkan sebelum melanjutkan!"
 	},
 	{
 		"en": "You can stream KDX metrics to your own StatsD-compatible server.",
