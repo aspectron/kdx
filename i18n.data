@@ -1,8 +1,7 @@
 [ {
   "en" : "PostreSQL",
-  "cmn" : "",
   "de" : "PostgreSQL",
-  "fr" : "",
+  "fr" : "PostreSQL",
   "id" : "PostreSQL",
   "it" : "PostreSQL",
   "ja" : "PostreSQL",
@@ -11,9 +10,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "KASPAROVD",
-  "cmn" : "",
   "de" : "KASPAROVD",
-  "fr" : "",
+  "fr" : "KASPAROVD",
   "id" : "KASPAROVD",
   "it" : "KASPAROVD",
   "ja" : "KASPAROVD",
@@ -22,9 +20,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Difficulty",
-  "cmn" : "",
   "de" : "Schwierigkeit",
-  "fr" : "",
+  "fr" : "Difficulté",
   "id" : "Kesulitan",
   "it" : "Difficoltà",
   "ja" : "Difficulty",
@@ -33,9 +30,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "PostgreSQL",
-  "cmn" : "",
   "de" : "PostgreSQL",
-  "fr" : "",
+  "fr" : "PostgreSQL",
   "id" : "PostgreSQL",
   "it" : "PostgreSQL",
   "ja" : "PostgreSQL",
@@ -44,9 +40,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Please provide address and amount",
-  "cmn" : "",
   "de" : "Bitte gib Adresse und Betrag an",
-  "fr" : "",
+  "fr" : "Merci de renseigner une adresse ainsi qu'un montant",
   "id" : "Harap berikan alamat dan jumlah",
   "it" : "Indicare correttamente indirizzo e importo",
   "ja" : "Please provide address and amount",
@@ -55,9 +50,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "EXIT KDX",
-  "cmn" : "",
   "de" : "KDX schließen",
-  "fr" : "",
+  "fr" : "FERMER KDX",
   "id" : "KELUAR KDX",
   "it" : "ESCI DA KDX",
   "ja" : "KDXを終了",
@@ -66,9 +60,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "SETTINGS",
-  "cmn" : "",
   "de" : "EINSTELLUNGEN",
-  "fr" : "",
+  "fr" : "SETTINGS",
   "id" : "PENGATURAN",
   "it" : "OPZIONI",
   "ja" : "設定",
@@ -77,9 +70,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "sim0",
-  "cmn" : "",
   "de" : "sim0",
-  "fr" : "",
+  "fr" : "sim0",
   "id" : "sim0",
   "it" : "sim0",
   "ja" : "sim0",
@@ -88,9 +80,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Transactions under process",
-  "cmn" : "",
   "de" : "Transaktionen in Bearbeitung",
-  "fr" : "",
+  "fr" : "Transactions under process",
   "id" : "Transaksi dalam proses",
   "it" : "Transazioni in fase di elaborazione",
   "ja" : "Transactions under process",
@@ -99,9 +90,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Import Wallet Seed File(KPK)",
-  "cmn" : "",
   "de" : "Wallet Seed Datei importieren (KPK)",
-  "fr" : "",
+  "fr" : "Importer la seed du portefeuille(KPK)",
   "id" : "Impor Seed File Dompet(KPK)",
   "it" : "Importa il file contenente il seed del wallet (KPK)",
   "ja" : "KPKウォレットファイルをインポートする",
@@ -110,9 +100,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Flow-ux",
-  "cmn" : "",
   "de" : "Flow-UX",
-  "fr" : "",
+  "fr" : "Flow-ux",
   "id" : "Flow-ux",
   "it" : "Flow-ux",
   "ja" : "Flow-ux",
@@ -121,9 +110,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Make sure no one is looking, as anyone with your seed phrase can access your wallet your funds. Write it down and keep it safe.",
-  "cmn" : "",
   "de" : "Stellen Sie sicher, dass niemand zusieht. Jeder mit Ihrer Seed Phrase hat Zugang zu Ihrem Wallet und Ihren Mitteln. Schreiben Sie sie auf und halten sie sicher.",
-  "fr" : "",
+  "fr" : "Vérifier que personne ne vous surveille, car n'importe qui avec votre seed pourrait accéder à votre portefeuille ainsi qu'à son contenu. Écrivez-les et gardez-les en sécurité.",
   "id" : "Pastikan tidak ada yang melihat, karena siapa pun dengan frasa benih Anda dapat mengakses dompet dana Anda. Catat dan simpan dengan aman.",
   "it" : "Assicurati che nessuno stia guardando, perché chiunque abbia la tua seed phrase può accedere al tuo wallet e ai tuoi fondi. Scrivitela e tienila al sicuro.",
   "ja" : "Make sure no one is looking, as anyone with your seed phrase can access your wallet your funds. Write it down and keep it safe.",
@@ -132,9 +120,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Wrong. Retry or go back",
-  "cmn" : "",
   "de" : "Falsch. Bitte nochmal versuchen oder zurückgehen",
-  "fr" : "",
+  "fr" : "Wrong. Retry or go back",
   "id" : "Salah. Coba lagi atau kembali",
   "it" : "Sbagliato. Riprovare o tornare indietro",
   "ja" : "Wrong. Retry or go back",
@@ -143,9 +130,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Advanced mode",
-  "cmn" : "",
   "de" : "Erweiterter Modus",
-  "fr" : "",
+  "fr" : "Mode avancé",
   "id" : "Mode lanjutan",
   "it" : "Modalità avanzata",
   "ja" : "アドバンスドモード",
@@ -154,9 +140,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "BSD",
-  "cmn" : "",
   "de" : "BSD",
-  "fr" : "",
+  "fr" : "BSD",
   "id" : "BSD",
   "it" : "BSD",
   "ja" : "BSD",
@@ -165,9 +150,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "password",
-  "cmn" : "",
   "de" : "Passwort",
-  "fr" : "",
+  "fr" : "password",
   "id" : "kata sandi",
   "it" : "password",
   "ja" : "パスワード",
@@ -176,9 +160,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Run in Background",
-  "cmn" : "",
   "de" : "Im Hintergrund laufen lassen",
-  "fr" : "",
+  "fr" : "Run in Background",
   "id" : "Jalankan di Latar Belakang",
   "it" : "Esegui in background",
   "ja" : "バックグラウンドで実行",
@@ -187,20 +170,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "At least 8 characters, one capital, one lower, one number, and one symbol",
-  "cmn" : "",
   "de" : "Mindestens 8 Zeichen, ein Großbuchstabe, ein Kleinbuchstabe, eine Nummer und ein Symbol.",
-  "fr" : "",
+  "fr" : "Au minimum 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre et 1 symbole",
   "id" : "Setidaknya 8 karakter, satu huruf kapital, satu huruf kecil, satu angka, dan satu simbol",
   "it" : "Almeno 8 caratteri, uno maiuscolo, uno minuscolo, un numero e un simbolo",
   "ja" : "少なくとも8文字、1つの大文字、1つの下、1つの数字、および1つの記号",
   "ko" : "8개의 문자 이상 / 심볼, 대문자, 소문자, 숫자 한 개 이상",
-  "zh" : "至少 8 个字符，一个大写，一个小写，一个数字和一个符号（有的符号不行）",
+  "zh" : "至少 8 个字符，一个大写，一个小写，一个数字和一个符号。",
   "zh_HANS" : ""
 }, {
   "en" : "Clear used UTXOs",
-  "cmn" : "",
   "de" : "Bereinige verwendete UTXOs",
-  "fr" : "",
+  "fr" : "Effacer les UTXOs utilisés",
   "id" : "Hapus UTXO yang terpakai",
   "it" : "Elimina gli UTXO utilizzati",
   "ja" : "Clear used UTXOs",
@@ -209,9 +190,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Faucet",
-  "cmn" : "",
   "de" : "Faucet",
-  "fr" : "",
+  "fr" : "Faucet",
   "id" : "Keran",
   "it" : "Faucet",
   "ja" : "Faucet",
@@ -220,9 +200,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Welcome to Kaspa Wallet",
-  "cmn" : "",
   "de" : "Willkommen zur Kaspa Wallet",
-  "fr" : "",
+  "fr" : "Welcome to Kaspa Wallet",
   "id" : "Selamat datang di Dompet Kaspa",
   "it" : "Benvenuto nel wallet Kaspa",
   "ja" : "Welcome to Kaspa Wallet",
@@ -231,31 +210,28 @@
   "zh_HANS" : ""
 }, {
   "en" : "Kaspad Node + Miner",
-  "cmn" : "",
   "de" : "Kaspad-Knoten und Miner",
-  "fr" : "",
+  "fr" : "Nœud Kaspad + Miner",
   "id" : "Kaspad Node + Penambang",
   "it" : "Nodo Kaspad + Miner",
   "ja" : "Kaspad Node + Miner",
   "ko" : "Kaspad Node + Miner",
-  "zh" : "Kaspad Node + Miner",
+  "zh" : "Kaspad 节点 + 矿工软件",
   "zh_HANS" : ""
 }, {
   "en" : "SIMULATOR",
-  "cmn" : "",
   "de" : "SIMULATOR",
-  "fr" : "",
+  "fr" : "SIMULATOR",
   "id" : "SIMULATOR",
   "it" : "SIMULATORE",
   "ja" : "SIMULATOR",
   "ko" : "SIMULATOR",
-  "zh" : "SIMULATOR",
+  "zh" : "模拟器",
   "zh_HANS" : ""
 }, {
   "en" : "Select Folder",
-  "cmn" : "",
   "de" : "Ordner auswählen",
-  "fr" : "",
+  "fr" : "Select Folder",
   "id" : "Pilih Folder",
   "it" : "Seleziona cartella",
   "ja" : "フォルダーを選択",
@@ -264,9 +240,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "KASPAD",
-  "cmn" : "",
   "de" : "KASPAD",
-  "fr" : "",
+  "fr" : "KASPAD",
   "id" : "KASPAD",
   "it" : "KASPAD",
   "ja" : "KASPAD",
@@ -275,9 +250,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Kaspa",
-  "cmn" : "",
   "de" : "Kaspa",
-  "fr" : "",
+  "fr" : "Kaspa",
   "id" : "Kaspa",
   "it" : "Kaspa",
   "ja" : "Kaspa",
@@ -286,9 +260,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "app",
-  "cmn" : "",
   "de" : "Applikation",
-  "fr" : "",
+  "fr" : "app",
   "id" : "aplikasi",
   "it" : "app",
   "ja" : "app",
@@ -297,9 +270,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Request funds",
-  "cmn" : "",
   "de" : "Mittel anfordern",
-  "fr" : "",
+  "fr" : "Request funds",
   "id" : "Minta dana",
   "it" : "Richiedi fondi",
   "ja" : "Request funds",
@@ -308,9 +280,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Block Generation",
-  "cmn" : "",
   "de" : "Blockgenerierung",
-  "fr" : "",
+  "fr" : "Génération de blocs",
   "id" : "Generasi Blok",
   "it" : "Generazione dei blocchi",
   "ja" : "ブロック生成",
@@ -319,9 +290,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Invert Terminals",
-  "cmn" : "",
   "de" : "Terminal umkehren",
-  "fr" : "",
+  "fr" : "Invert Terminals",
   "id" : "Balik Terminal",
   "it" : "Inverti Terminali",
   "ja" : "端子を反転",
@@ -330,9 +300,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "pgsql",
-  "cmn" : "",
   "de" : "pgsql",
-  "fr" : "",
+  "fr" : "pgsql",
   "id" : "pgsql",
   "it" : "pgsql",
   "ja" : "pgsql",
@@ -341,9 +310,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Discord Chat",
-  "cmn" : "",
   "de" : "Discord-Unterhaltung",
-  "fr" : "",
+  "fr" : "Discord",
   "id" : "Obrolan Discord",
   "it" : "Chat Discord",
   "ja" : "Discordチャット",
@@ -352,20 +320,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Show UTXOs",
-  "cmn" : "",
   "de" : "UTXOs anzeigen",
-  "fr" : "",
+  "fr" : "Show UTXOs",
   "id" : "Tampilkan UTXO",
   "it" : "Visualizza UTXO",
   "ja" : "Show UTXOs",
   "ko" : "Show UTXOs",
-  "zh" : "Show UTXOs",
+  "zh" : "显示 UTXO",
   "zh_HANS" : ""
 }, {
   "en" : "Note",
-  "cmn" : "",
   "de" : "Notiz",
-  "fr" : "",
+  "fr" : "Note",
   "id" : "Catatan",
   "it" : "Note",
   "ja" : "Note",
@@ -374,9 +340,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "MIT",
-  "cmn" : "",
   "de" : "MIT",
-  "fr" : "",
+  "fr" : "MIT",
   "id" : "MIT",
   "it" : "MIT",
   "ja" : "MIT",
@@ -385,9 +350,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Close",
-  "cmn" : "",
   "de" : "Schließen",
-  "fr" : "",
+  "fr" : "Fermer",
   "id" : "Tutup",
   "it" : "Chiudi",
   "ja" : "閉",
@@ -396,20 +360,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Kaspa Wallet Framework:",
-  "cmn" : "",
   "de" : "Kaspa-Wallet-Framework:",
-  "fr" : "",
+  "fr" : "Kaspa Wallet Framework:",
   "id" : "Kerangka Dompet Kaspa:",
   "it" : "Kaspa Wallet Framework:",
   "ja" : "Kaspa Wallet Framework:",
   "ko" : "Kaspa Wallet Framework:",
-  "zh" : "Kaspa Wallet Framework:",
+  "zh" : "Kaspa 钱包框架:",
   "zh_HANS" : ""
 }, {
   "en" : "kasparovd",
-  "cmn" : "",
   "de" : "kasparovd",
-  "fr" : "",
+  "fr" : "kasparovd",
   "id" : "kasparovd",
   "it" : "kasparovd",
   "ja" : "kasparovd",
@@ -418,9 +380,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Encrypt Wallet",
-  "cmn" : "",
   "de" : "Wallet verschlüsseln",
-  "fr" : "",
+  "fr" : "Chiffrer le portefeuille",
   "id" : "Enkripsi Dompet",
   "it" : "Proteggi il wallet",
   "ja" : "Encrypt Wallet",
@@ -429,31 +390,28 @@
   "zh_HANS" : ""
 }, {
   "en" : "12th",
-  "cmn" : "",
   "de" : "12.",
-  "fr" : "",
+  "fr" : "12ème",
   "id" : "Kedua belas",
   "it" : "dodicesima",
   "ja" : "12th",
   "ko" : "12th",
-  "zh" : "12th",
+  "zh" : "第12个",
   "zh_HANS" : ""
 }, {
   "en" : "Copyright (c) 2015 四月橘林",
-  "cmn" : "",
   "de" : "Copyright (c) 2015 四月橘林",
-  "fr" : "",
+  "fr" : "Copyright (c) 2015 四月橘林",
   "id" : "Hak Cipta (c) 2015四月橘林",
   "it" : "Copyright (c) 2015 四月橘林",
   "ja" : "Copyright (c) 2015 四月橘林",
   "ko" : "Copyright (c) 2015 四月橘林",
-  "zh" : "Copyright (c) 2015 四月橘林",
+  "zh" : "版权所有 (c) 2015 四月橘林",
   "zh_HANS" : ""
 }, {
   "en" : "It will delete datadir (Data Folder) and restart kaspad node to re-sync",
-  "cmn" : "",
   "de" : "Das Datenverzeichnis wird gelöscht und der Kaspa-Node zum Resync neu gestartet.",
-  "fr" : "",
+  "fr" : "Le dossier de configuration sera supprimé et le nœud kaspad redémarré pour resynchroniser",
   "id" : "Ini akan menghapus datadir (Folder Data) dan memulai ulang kaspad node untuk menyinkronkan ulang.",
   "it" : "Elimina la cartella datadir e riavvia il servizio per risincronizzare il nodo KASPAD.",
   "ja" : "It will delete datadir (Data Folder) and restart kaspad node to re-sync",
@@ -462,20 +420,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
-  "cmn" : "",
   "de" : "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
-  "fr" : "",
+  "fr" : "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
   "id" : "KDX &amp; Kaspa Hak Cipta (c) 2020 Kaspa Developers< br > Hak Cipta Dilindungi Undang-Undang.",
   "it" : "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
   "ja" : "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
   "ko" : "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
-  "zh" : "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
+  "zh" : "KDX &amp; Kaspa 版权所有 (c) 2020 Kaspa 开发者 <br> 保留所有权利。",
   "zh_HANS" : ""
 }, {
   "en" : "Configuration Template",
-  "cmn" : "",
   "de" : "Konfigurationsvorlage",
-  "fr" : "",
+  "fr" : "Modèle",
   "id" : "Konfigurasi Template",
   "it" : "Modello di configurazione",
   "ja" : "Configuration Template",
@@ -484,9 +440,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Service Configuration",
-  "cmn" : "",
   "de" : "Servicekonfiguration",
-  "fr" : "",
+  "fr" : "Service Configuration",
   "id" : "Konfigurasi Layanan",
   "it" : "Configurazione del servizio",
   "ja" : "サービス設定",
@@ -495,9 +450,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Status:",
-  "cmn" : "",
   "de" : "Status",
-  "fr" : "",
+  "fr" : "Status:",
   "id" : "Status:",
   "it" : "Stato:",
   "ja" : "Status:",
@@ -506,9 +460,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "DIFFICULTY",
-  "cmn" : "",
   "de" : "SCHWIERIGKEIT",
-  "fr" : "",
+  "fr" : "DIFFICULTÉ",
   "id" : "KESULITAN",
   "it" : "DIFFICOLTÀ",
   "ja" : "困難",
@@ -517,9 +470,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "KASPA",
-  "cmn" : "",
   "de" : "KASPA",
-  "fr" : "",
+  "fr" : "KASPA",
   "id" : "KASPA",
   "it" : "KASPA",
   "ja" : "KASPA",
@@ -528,9 +480,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "1st",
-  "cmn" : "",
   "de" : "1.",
-  "fr" : "",
+  "fr" : "1er",
   "id" : "Pertama",
   "it" : "prima",
   "ja" : "1st",
@@ -539,9 +490,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "MEMORY",
-  "cmn" : "",
   "de" : "ARBEITSSPEICHER",
-  "fr" : "",
+  "fr" : "MÉMOIRE",
   "id" : "MEMORI",
   "it" : "MEMORIA",
   "ja" : "MEMORY",
@@ -550,20 +500,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Kaspa gRPC Relay:",
-  "cmn" : "",
   "de" : "Kaspa-gRPC-Relay:",
-  "fr" : "",
+  "fr" : "Kaspa gRPC Relay:",
   "id" : "Kaspa gRPC Relay:",
   "it" : "Kaspa gRPC Relay:",
   "ja" : "Kaspa gRPC Relay:",
   "ko" : "Kaspa gRPC Relay:",
-  "zh" : "Kaspa gRPC Relay:",
+  "zh" : "Kaspa gRPC 中继:",
   "zh_HANS" : ""
 }, {
   "en" : "Additional funds will be<br/>available in [n]",
-  "cmn" : "",
   "de" : "Zusätzliche Mittel werden<br/>in [n] verfügbar",
-  "fr" : "",
+  "fr" : "Des fonds additionnels seront <br/>disponibles dans [n]",
   "id" : "Dana tambahan akan< br />tersedia di [n]",
   "it" : "Ulteriori fondi saranno<br/> disponibili in [n]",
   "ja" : "Additional funds will be<br/>available in [n]",
@@ -572,9 +520,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Self-Contained Kaspad Mining",
-  "cmn" : "",
   "de" : "Eigenständiges Kaspad-Mining",
-  "fr" : "",
+  "fr" : "Self-Contained Kaspad Mining",
   "id" : "Penambangan Kaspad Secara Mandiri",
   "it" : "Mining Kaspad autonomo",
   "ja" : "Self-Contained Kaspad Mining",
@@ -583,9 +530,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Recipient Address (Must start with 'kaspa' prefix)",
-  "cmn" : "",
   "de" : "Empfänger Adresse (Muss immer mit Prefix 'Kaspa' beginnen)",
-  "fr" : "",
+  "fr" : "Recipient Address (Must start with 'kaspa' prefix)",
   "id" : "Alamat Penerima (Harus dimulai dengan awalan 'kaspa')",
   "it" : "Indirizzo del destinatario (deve iniziare con il prefisso 'kaspa')",
   "ja" : "Recipient Address (Must start with 'kaspa' prefix)",
@@ -594,9 +540,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "You have <b>[n] KAS</b> available.",
-  "cmn" : "",
   "de" : "Du hast <b>[n] KAS</b> zur Verfügung.",
-  "fr" : "",
+  "fr" : "Vous avez <b>[n] KAS</b> disponibles.",
   "id" : "Anda memiliki <b>[n] KAS</b> tersedia.",
   "it" : "Hai <b>[n] KAS</b> disponibili.",
   "ja" : "You have <b>[n] KAS</b> available.",
@@ -605,31 +550,28 @@
   "zh_HANS" : ""
 }, {
   "en" : "Progress",
-  "cmn" : "",
   "de" : "Fortschritt",
-  "fr" : "",
+  "fr" : "Progress",
   "id" : "Kelanjutan",
   "it" : "Avanzamento",
   "ja" : "Progress",
   "ko" : "Progress",
-  "zh" : "Progress",
+  "zh" : "进度",
   "zh_HANS" : ""
 }, {
   "en" : "CONFIRM SEND",
-  "cmn" : "",
   "de" : "SENDEN BESTÄTIGEN",
-  "fr" : "",
+  "fr" : "CONFIRMER L'ENVOI",
   "id" : "KONFIRMASI PENGIRIMAN",
   "it" : "CONFERMA INVIO",
   "ja" : "CONFIRM SEND",
   "ko" : "CONFIRM SEND",
-  "zh" : "CONFIRM SEND",
+  "zh" : "确认发送",
   "zh_HANS" : ""
 }, {
   "en" : "Enable Metrics",
-  "cmn" : "",
   "de" : "Statistiken aktivieren",
-  "fr" : "",
+  "fr" : "Activer la télémétrie",
   "id" : "Aktifkan Metrik",
   "it" : "Abilita metriche",
   "ja" : "指標を有効にする",
@@ -638,9 +580,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "HASH RATE",
-  "cmn" : "",
   "de" : "HASH-RATE",
-  "fr" : "",
+  "fr" : "Taux de hash",
   "id" : "Kekuatan HASH",
   "it" : "HASH RATE",
   "ja" : "HASH RATE",
@@ -649,9 +590,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Network Name",
-  "cmn" : "",
   "de" : "Netzwerkname",
-  "fr" : "",
+  "fr" : "Nom du réseau",
   "id" : "Nama jaringan",
   "it" : "Nome network",
   "ja" : "Network Name",
@@ -660,9 +600,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "/ SEC",
-  "cmn" : "",
   "de" : "/ SEC",
-  "fr" : "",
+  "fr" : "/ SEC",
   "id" : "/DETIK",
   "it" : "/ SEC",
   "ja" : "/ SEC",
@@ -671,9 +610,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "/ MIN",
-  "cmn" : "",
   "de" : "/ MIN",
-  "fr" : "",
+  "fr" : "/ MIN",
   "id" : "/MENIT",
   "it" : "/ MIN",
   "ja" : "/ MIN",
@@ -682,20 +620,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Copyright (c) 2020 Kaspa Developers",
-  "cmn" : "",
   "de" : "Copyright (c) 2020 Kaspa Developers",
-  "fr" : "",
+  "fr" : "Copyright (c) 2020 Kaspa Developers",
   "id" : "Hak Cipta (c) 2020 Kaspa Developers",
   "it" : "Copyright (c) 2020 Kaspa Developers",
   "ja" : "Copyright (c) 2020 Kaspa Developers",
   "ko" : "Copyright (c) 2020 Kaspa Developers",
-  "zh" : "Copyright (c) 2020 Kaspa Developers",
+  "zh" : "版权所有 (c) 2020 Kaspa 开发者",
   "zh_HANS" : ""
 }, {
   "en" : "LICENSE INFORMATION",
-  "cmn" : "",
   "de" : "Lizenzinformationen",
-  "fr" : "",
+  "fr" : "INFORMATIONS CONCERNANT LA LICENCE",
   "id" : "INFORMASI LISENSI",
   "it" : "INFORMAZIONI SULLA LICENZA",
   "ja" : "ライセンス情報",
@@ -704,9 +640,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Remember...<br> Anyone with this 12-word phrase can access your wallet your funds. Keep it safe!",
-  "cmn" : "",
   "de" : "Beachte...<br> Jeder mit Ihrem 12 Wörter Seed hat Zugang zu Ihrem Wallet und Ihren Mitteln. Schützen Sie sie!",
-  "fr" : "",
+  "fr" : "Remember...<br> Anyone with this 12-word phrase can access your wallet your funds. Keep it safe!",
   "id" : "Ingat...< br > Siapa pun dengan frasa 12 kata ini dapat mengakses dompet Anda dana Anda. Tetap aman!",
   "it" : "Ricorda...<br> Chiunque può accedere al tuo wallet e ai tuoi fondi con questa seed phrase di 12 parole. Tienila al sicuro!",
   "ja" : "Remember...<br> Anyone with this 12-word phrase can access your wallet your funds. Keep it safe!",
@@ -715,9 +650,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "9th",
-  "cmn" : "",
   "de" : "9.",
-  "fr" : "",
+  "fr" : "9ème",
   "id" : "Kesembilan",
   "it" : "nona",
   "ja" : "9th",
@@ -726,9 +660,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Password to encryt the wallet",
-  "cmn" : "",
   "de" : "Passwort um das Wallet zu verschlüsseln",
-  "fr" : "",
+  "fr" : "Mot de passe pour chiffrer le portefeuille",
   "id" : "Kata Sandi untuk mengenkripsi dompet",
   "it" : "Password per proteggere il wallet",
   "ja" : "Password to encryt the wallet",
@@ -737,9 +670,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Services",
-  "cmn" : "",
   "de" : "Services",
-  "fr" : "",
+  "fr" : "Services",
   "id" : "Layanan",
   "it" : "Servizi",
   "ja" : "サービス",
@@ -748,9 +680,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "dagviz",
-  "cmn" : "",
   "de" : "dagviz",
-  "fr" : "",
+  "fr" : "dagviz",
   "id" : "dagviz",
   "it" : "dagviz",
   "ja" : "dagviz",
@@ -759,9 +690,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "UPTIME",
-  "cmn" : "",
   "de" : "BETRIEBSZEIT",
-  "fr" : "",
+  "fr" : "UPTIME",
   "id" : "WAKTU AKTIF",
   "it" : "TEMPO DI ATTIVITÀ",
   "ja" : "UPTIME",
@@ -770,9 +700,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Attention !",
-  "cmn" : "",
   "de" : "Achtung!",
-  "fr" : "",
+  "fr" : "Attention !",
   "id" : "Perhatian !",
   "it" : "Attenzione !",
   "ja" : "Attention !",
@@ -781,9 +710,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Kaspa gRPC:",
-  "cmn" : "",
   "de" : "Kaspa gRPC:",
-  "fr" : "",
+  "fr" : "Kaspa gRPC:",
   "id" : "Kaspa gRPC:",
   "it" : "Kaspa gRPC:",
   "ja" : "Kaspa gRPC:",
@@ -792,9 +720,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "User Interface Color Theme",
-  "cmn" : "",
   "de" : "Benutzeroberflächenfarben",
-  "fr" : "",
+  "fr" : "User Interface Color Theme",
   "id" : "Tema Warna Antarmuka Pengguna",
   "it" : "Tema colore dell'interfaccia utente",
   "ja" : "ユーザーインターフェイスのカラーテーマ",
@@ -803,9 +730,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Leave in the Background",
-  "cmn" : "",
   "de" : "Im Hintergrund laufen lassen",
-  "fr" : "",
+  "fr" : "Laisser en arrière-plan",
   "id" : "Tinggalkan di Latar Belakang",
   "it" : "Esegui in background",
   "ja" : "バックグラウンドに残す",
@@ -814,9 +740,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Please provide valid words",
-  "cmn" : "",
   "de" : "Bitte gib gültige Wörter an",
-  "fr" : "",
+  "fr" : "Please provide valid words",
   "id" : "Harap berikan kata-kata yang valid",
   "it" : "Indicare parole valide",
   "ja" : "Please provide valid words",
@@ -825,9 +750,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Use Wallet Address for Mining",
-  "cmn" : "",
   "de" : "Wallet-Adresse für das Mining verwenden",
-  "fr" : "",
+  "fr" : "Use Wallet Address for Mining",
   "id" : "Gunakan Alamat Dompet untuk Menambang",
   "it" : "Usa l'indirizzo del wallet per il mining",
   "ja" : "Use Wallet Address for Mining",
@@ -836,9 +760,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Recover From Seed",
-  "cmn" : "",
   "de" : "Von Seed wiederherstellen",
-  "fr" : "",
+  "fr" : "Recover From Seed",
   "id" : "Pulihkan Dari Benih",
   "it" : "Ripristina da seed phrase",
   "ja" : "シードからの回復",
@@ -847,9 +770,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "SIM0",
-  "cmn" : "",
   "de" : "SIM0",
-  "fr" : "",
+  "fr" : "SIM0",
   "id" : "SIM0",
   "it" : "SIM0",
   "ja" : "SIM0",
@@ -858,9 +780,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Be wary and cautious of your secret phrase. Never reveal it to anyone.",
-  "cmn" : "",
   "de" : "Seien Sie vorsichtig mit Ihrer Secret Phrase! Teilen Sie sie niemals mit jemand anderem.",
-  "fr" : "",
+  "fr" : "Faites attention avec votre phrase secrète. Ne la révélez jamais à personne.",
   "id" : "Berhati-hatilah dan hati-hati dengan frasa rahasia Anda. Jangan pernah mengungkapkannya kepada siapa pun.",
   "it" : "Fai attenzione con la tua seed phrase. Non rivelarla mai a nessuno.",
   "ja" : "あなたの秘密のフレーズに用心深く注意してください。 決して誰にも明かさないでください。",
@@ -869,20 +790,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "11th",
-  "cmn" : "",
   "de" : "11.",
-  "fr" : "",
+  "fr" : "11ème",
   "id" : "Kesebelas",
   "it" : "undicesima",
   "ja" : "11th",
   "ko" : "11th",
-  "zh" : "11th",
+  "zh" : "第11个",
   "zh_HANS" : ""
 }, {
   "en" : "Enter a password",
-  "cmn" : "",
   "de" : "Passwort eingeben",
-  "fr" : "",
+  "fr" : "Entrer le mot de passe",
   "id" : "Masukkan kata sandi",
   "it" : "Inserisci una password",
   "ja" : "パスワードを入力します",
@@ -891,9 +810,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "SERVICES",
-  "cmn" : "",
   "de" : "SERVICES",
-  "fr" : "",
+  "fr" : "SERVICES",
   "id" : "LAYANAN",
   "it" : "SERVIZI",
   "ja" : "SERVICES",
@@ -902,9 +820,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Apply",
-  "cmn" : "",
   "de" : "Anwenden",
-  "fr" : "",
+  "fr" : "Confirmer",
   "id" : "Terapkan",
   "it" : "Applica",
   "ja" : "保存して適用",
@@ -913,9 +830,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Copy to clipboard",
-  "cmn" : "",
   "de" : "In die Zwischenablage kopieren",
-  "fr" : "",
+  "fr" : "Copier dans le presse papier",
   "id" : "Salin ke papan klip",
   "it" : "Copia negli appunti",
   "ja" : "Copy to clipboard",
@@ -924,9 +840,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Confirm Password",
-  "cmn" : "",
   "de" : "Passwort bestätigen",
-  "fr" : "",
+  "fr" : "Confirmer le mot de passe",
   "id" : "Konfirmasi Kata Sandi",
   "it" : "Conferma password",
   "ja" : "パスワードを認証する",
@@ -935,9 +850,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Create Wallet",
-  "cmn" : "",
   "de" : "Wallet erstellen",
-  "fr" : "",
+  "fr" : "Créer un portefeuille",
   "id" : "Buat Dompet",
   "it" : "Crea wallet",
   "ja" : "ウォレットを作成する",
@@ -946,9 +860,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Configuration Templates",
-  "cmn" : "",
   "de" : "Konfigurationsvorlagen",
-  "fr" : "",
+  "fr" : "Modèles",
   "id" : "Konfigurasi Template",
   "it" : "Modelli di configurazione",
   "ja" : "Configuration Templates",
@@ -957,9 +870,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Metrics",
-  "cmn" : "",
   "de" : "Statistiken",
-  "fr" : "",
+  "fr" : "Métriques",
   "id" : "Metrik",
   "it" : "Metriche",
   "ja" : "指標",
@@ -968,9 +880,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "KASPAMINER",
-  "cmn" : "",
   "de" : "KASPAMINER",
-  "fr" : "",
+  "fr" : "MINEUR KASPA",
   "id" : "KASPAMINER",
   "it" : "KASPAMINER",
   "ja" : "KASPAMINER",
@@ -979,9 +890,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Hello",
-  "cmn" : "",
   "de" : "Hallo",
-  "fr" : "",
+  "fr" : "Bonjour",
   "id" : "Halo",
   "it" : "Ciao",
   "ja" : "こんにちは",
@@ -990,9 +900,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "DEVNET",
-  "cmn" : "",
   "de" : "DEVNET",
-  "fr" : "",
+  "fr" : "DEVNET",
   "id" : "DEVNET",
   "it" : "DEVNET",
   "ja" : "DEVNET",
@@ -1001,9 +910,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Service Control",
-  "cmn" : "",
   "de" : "Serivceeinstellungen",
-  "fr" : "",
+  "fr" : "Service Control",
   "id" : "Kontrol Layanan",
   "it" : "Controllo del servizio",
   "ja" : "サービス管理",
@@ -1012,9 +920,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "KASPA FAUCET",
-  "cmn" : "",
   "de" : "KASPA-FAUCET",
-  "fr" : "",
+  "fr" : "KASPA FAUCET",
   "id" : "FAUCET KASPA",
   "it" : "KASPA FAUCET",
   "ja" : "KASPA FAUCET",
@@ -1023,9 +930,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "KASPA WALLET",
-  "cmn" : "",
   "de" : "KASPA-WALLET",
-  "fr" : "",
+  "fr" : "PORTEFEUILLE KASPA",
   "id" : "DOMPET KASPA",
   "it" : "WALLET KASPA",
   "ja" : "KASPA WALLET",
@@ -1034,9 +940,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Flow UX:",
-  "cmn" : "",
   "de" : "Flow UX:",
-  "fr" : "",
+  "fr" : "Flow UX:",
   "id" : "Flow UX:",
   "it" : "Flow UX:",
   "ja" : "Flow UX:",
@@ -1045,9 +950,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "LICENSE",
-  "cmn" : "",
   "de" : "Lizenz",
-  "fr" : "",
+  "fr" : "LICENCE",
   "id" : "LISENSI",
   "it" : "LICENZA",
   "ja" : "ソフトウェアライセンス",
@@ -1056,9 +960,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "kasparovsyncd",
-  "cmn" : "",
   "de" : "kasparovsyncd",
-  "fr" : "",
+  "fr" : "kasparovsyncd",
   "id" : "kasparovsyncd",
   "it" : "kasparovsyncd",
   "ja" : "kasparovsyncd",
@@ -1067,9 +970,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Export Wallet Seed File(KPK)",
-  "cmn" : "",
   "de" : "Wallet Seed Datei exportieren (KPK)",
-  "fr" : "",
+  "fr" : "Exporter la seed du portefeuille(KPK)",
   "id" : "Ekspor File Benih Dompet(KPK)",
   "it" : "Esporta il file contenente il seed del wallet (KPK)",
   "ja" : "KPKウォレットファイルをエクスポートする",
@@ -1078,20 +980,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Blue Score",
-  "cmn" : "",
   "de" : "Blaue Wertung",
-  "fr" : "",
+  "fr" : "Score blue",
   "id" : "Skor Biru",
   "it" : "Blue Score",
   "ja" : "Blue Score",
   "ko" : "블루스코어",
-  "zh" : "Blue Score",
+  "zh" : "蓝分",
   "zh_HANS" : ""
 }, {
   "en" : "Invalid seed",
-  "cmn" : "",
   "de" : "Ungültiger Seed",
-  "fr" : "",
+  "fr" : "Seed invalide",
   "id" : "Benih tidak sah",
   "it" : "Seed non valido",
   "ja" : "Invalid seed",
@@ -1100,20 +1000,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Copyright (c) The Chromium Authors.",
-  "cmn" : "",
   "de" : "Copyright (c) The Chromium Authors.",
-  "fr" : "",
+  "fr" : "Copyright (c) The Chromium Authors.",
   "id" : "Hak Cipta (c) Penulis Chromium",
   "it" : "Copyright (c) The Chromium Authors.",
   "ja" : "Copyright (c) The Chromium Authors.",
   "ko" : "Copyright (c) The Chromium Authors.",
-  "zh" : "Copyright (c) The Chromium Authors.",
+  "zh" : "版权所有 (c) Chromium 开发者",
   "zh_HANS" : ""
 }, {
   "en" : "Documentation",
-  "cmn" : "",
   "de" : "Dokumentation",
-  "fr" : "",
+  "fr" : "Documentation",
   "id" : "Dokumentasi",
   "it" : "Documentazione",
   "ja" : "ドキュメンテーション",
@@ -1122,9 +1020,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Recover from Seed",
-  "cmn" : "",
   "de" : "Von Seed wiederherstellen",
-  "fr" : "",
+  "fr" : "Recover from Seed",
   "id" : "Pulihkan dari Benih",
   "it" : "Ripristina da seed phrase",
   "ja" : "Recover from Seed",
@@ -1133,20 +1030,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors",
-  "cmn" : "",
   "de" : "Copyright (c) 2007, Eclipse Foundation, Inc. und ihren Lizenzgebern",
-  "fr" : "",
+  "fr" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors",
   "id" : "Hak Cipta (c) 2007, Eclipse Foundation, Inc. dan pemberi lisensinya",
   "it" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors",
   "ja" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors",
   "ko" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors",
-  "zh" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors",
+  "zh" : "版权所有 (c) 2007, Eclipse 基金会和证书颁布者",
   "zh_HANS" : ""
 }, {
   "en" : "8th",
-  "cmn" : "",
   "de" : "8.",
-  "fr" : "",
+  "fr" : "8ème",
   "id" : "Kedelapan",
   "it" : "ottava",
   "ja" : "8th",
@@ -1155,20 +1050,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "SIMNET",
-  "cmn" : "",
   "de" : "SIMNET",
-  "fr" : "",
+  "fr" : "SIMNET",
   "id" : "SIMNET",
   "it" : "SIMNET",
   "ja" : "SIMNET",
   "ko" : "SIMNET",
-  "zh" : "SIMNET",
+  "zh" : "模拟网",
   "zh_HANS" : ""
 }, {
   "en" : "Backup Seed",
-  "cmn" : "",
   "de" : "Backup-Seed",
-  "fr" : "",
+  "fr" : "Sauvegarder la seed",
   "id" : "Cadangkan Seed",
   "it" : "Esegui backup della tua seed phrase",
   "ja" : "バックアップシード",
@@ -1177,9 +1070,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "kvsd0",
-  "cmn" : "",
   "de" : "kvsd0",
-  "fr" : "",
+  "fr" : "kvsd0",
   "id" : "kvsd0",
   "it" : "kvsd0",
   "ja" : "kvsd0",
@@ -1188,9 +1080,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Yes delete data folder and resync",
-  "cmn" : "",
   "de" : "Ja, Daten Ordner löschen und neu synchronisieren",
-  "fr" : "",
+  "fr" : "Yes delete data folder and resync",
   "id" : "Ya, hapus folder data dan sinkronkan ulang",
   "it" : "Sì, elimina la cartella dati e risincronizza",
   "ja" : "Yes delete data folder and resync",
@@ -1199,9 +1090,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "IN USE UTXOS",
-  "cmn" : "",
   "de" : "UTXOS in Verwendung",
-  "fr" : "",
+  "fr" : "UTXOS utilisés",
   "id" : "UTXOS DI PAKAI",
   "it" : "UTXO IN USO",
   "ja" : "IN USE UTXOS",
@@ -1210,9 +1100,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "CONSOLE",
-  "cmn" : "",
   "de" : "KONSOLE",
-  "fr" : "",
+  "fr" : "CONSOLE",
   "id" : "KONSOL",
   "it" : "CONSOLE",
   "ja" : "控制台",
@@ -1221,20 +1110,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Copyright (c) The Chromium Authors",
-  "cmn" : "",
   "de" : "Copyright (c) The Chromium Authors",
-  "fr" : "",
+  "fr" : "Copyright (c) The Chromium Authors",
   "id" : "Hak Cipta (c) Penulis Chromium",
   "it" : "Copyright (c) The Chromium Authors",
   "ja" : "Copyright (c) The Chromium Authors",
   "ko" : "Copyright (c) The Chromium Authors",
-  "zh" : "Copyright (c) The Chromium Authors",
+  "zh" : "版权所有 (c) Chromium 开发者",
   "zh_HANS" : ""
 }, {
   "en" : "Your IP is [n]",
-  "cmn" : "",
   "de" : "Deine IP ist [n]",
-  "fr" : "",
+  "fr" : "Votre adresse IP est [n]",
   "id" : "IP Anda adalah [n]",
   "it" : "Il tuo indirizzo IP è [n]",
   "ja" : "Your IP is [n]",
@@ -1243,9 +1130,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "You already have a wallet open. <br> Please make sure your current wallet <br> is backed up before proceeding!",
-  "cmn" : "",
   "de" : "Du hast bereits ein Wallet geöffnet. <br> Bitte stelle sicher, dass dein aktuelles Wallet <br> gesichert ist, bevor du weiter machst!",
-  "fr" : "",
+  "fr" : "You already have a wallet open. <br> Please make sure your current wallet <br> is backed up before proceeding!",
   "id" : "Dompet Anda sudah terbuka. < br > Harap pastikan dompet Anda saat ini < br > telah dicadangkan sebelum melanjutkan!",
   "it" : "Hai già un wallet aperto. <br> Assicurati che il tuo portafoglio attuale <br> sia stato sottoposto a backup prima di procedere!",
   "ja" : "You already have a wallet open. <br> Please make sure your current wallet <br> is backed up before proceeding!",
@@ -1254,9 +1140,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "You can't request more than [n] KAS.",
-  "cmn" : "",
   "de" : "Du kannst nicht mehr als [n] KAS anfordern.",
-  "fr" : "",
+  "fr" : "You can't request more than [n] KAS.",
   "id" : "Anda tidak dapat meminta lebih dari [n] KAS.",
   "it" : "Non puoi richiedere più di [n] KAS.",
   "ja" : "You can't request more than [n] KAS.",
@@ -1265,20 +1150,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "10th",
-  "cmn" : "",
   "de" : "10.",
-  "fr" : "",
+  "fr" : "10ème",
   "id" : "Kesepuluh",
   "it" : "decima",
   "ja" : "10th",
   "ko" : "10th",
-  "zh" : "10th",
+  "zh" : "第10个",
   "zh_HANS" : ""
 }, {
   "en" : "Configuration editor allows you to customize KDX environment. KDX configuration is represented in JSON by a list of application/service configuration objects. Each service configuration object is used to start the corresponding service.",
-  "cmn" : "",
   "de" : "In der Konfiguration können Sie die KDX-Umgebung anpassen. Die KDX-Konfiguration ist eine JSON-Datei, welche eine Liste der Konfigurationen resp. Applikationseinstellungen enthält. Jede Servicekonfiguration wird dazu verwendet, den jeweiligen Service zu starten.",
-  "fr" : "",
+  "fr" : "L'éditeur de configuration vous permet de personnaliser l'environnement KDX. Une configuration KDX est une liste d'objets application/service au format JSON. Chaque objet de configuration de service permet de démarrer le service associé.",
   "id" : "Editor konfigurasi memungkinkan Anda menyesuaikan lingkungan KDX. Konfigurasi KDX direpresentasikan dalam JSON oleh daftar objek konfigurasi aplikasi/layanan. Setiap objek konfigurasi layanan digunakan untuk memulai layanan terkait.",
   "it" : "L'editor di configurazione consente di personalizzare l'ambiente KDX. La configurazione di KDX è rappresentata in JSON da un elenco di oggetti per configurare l'applicazione e i servizi. Ciascun oggetto di configurazione del servizio viene utilizzato per avviare il servizio corrispondente.",
   "ja" : "設定エディターを使用すると、KDX環境をカスタマイズできます。 KDXの設定は、アプリケーション/サービス構成オブジェクトのリストによってJSONで表示されます。各サービス設定は、それぞれに対応するサービスを開始するために使用されます。",
@@ -1287,9 +1170,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Enable Mining",
-  "cmn" : "",
   "de" : "Mining aktivieren",
-  "fr" : "",
+  "fr" : "Activer le minage",
   "id" : "Aktifkan Penambangan",
   "it" : "Abilita mining",
   "ja" : "マイニングを有効にする",
@@ -1298,9 +1180,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "kvd0",
-  "cmn" : "",
   "de" : "kvd0",
-  "fr" : "",
+  "fr" : "kvd0",
   "id" : "kvd0",
   "it" : "kvd0",
   "ja" : "kvd0",
@@ -1309,9 +1190,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "DAG SYNC",
-  "cmn" : "",
   "de" : "DAG-SYNCHRONISATION",
-  "fr" : "",
+  "fr" : "SYNCHRONISATION DAG",
   "id" : "SINKRONISASI DAG",
   "it" : "SINCRONIZZAZIONE DAG",
   "ja" : "同期の進行状況",
@@ -1320,9 +1200,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "GitHub",
-  "cmn" : "",
   "de" : "GitHub",
-  "fr" : "",
+  "fr" : "GitHub",
   "id" : "GitHub",
   "it" : "GitHub",
   "ja" : "GitHub",
@@ -1331,9 +1210,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Great Success!",
-  "cmn" : "",
   "de" : "Toller Erfolg!",
-  "fr" : "",
+  "fr" : "Réussi!",
   "id" : "Sukses Besar!",
   "it" : "Ottimo lavoro!",
   "ja" : "Great Success!",
@@ -1342,9 +1220,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Amount in KAS",
-  "cmn" : "",
   "de" : "Menge in KAS",
-  "fr" : "",
+  "fr" : "Montant en KAS",
   "id" : "Jumlah dalam KAS",
   "it" : "Importo in KAS",
   "ja" : "KASでの金額",
@@ -1353,9 +1230,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Background Execution",
-  "cmn" : "",
   "de" : "Ausführung im Hintergrund",
-  "fr" : "",
+  "fr" : "Exécution en tache de fond",
   "id" : "Eksekusi di Latar Belakang",
   "it" : "Esecuzione in Background",
   "ja" : "バックグラウンド実行",
@@ -1364,31 +1240,28 @@
   "zh_HANS" : ""
 }, {
   "en" : "When Autocompound enabled, KDX compound UTXOs when there will be compoundable count of unspent transaction outputs (UTXOs).'Use latest Change address' will compund UTXOs using current/latest change address instead of first change address.",
-  "cmn" : "",
   "de" : "Wenn das automatische Zusammenführen aktiviert ist, wird KDX die UTXOs zusammenführen, sobald eine entsprechende Anzahl UTXOs vorhanden ist. Die Funktion 'Letzte Wechselgeld-Adresse verwenden' wird UTXOs unter Verwendung der aktuellen bzw. letzten anstelle der ersten Wechselgeld-Adresse zusammenführen.",
-  "fr" : "",
+  "fr" : "When Autocompound enabled, KDX compound UTXOs when there will be compoundable count of unspent transaction outputs (UTXOs).'Use latest Change address' will compund UTXOs using current/latest change address instead of first change address.",
   "id" : "Ketika Autocompound diaktifkan, KDX menggabungkan UTXO ketika akan ada jumlah output transaksi yang tidak digunakan (UTXO) yang dapat digabungkan. 'Gunakan Ubah alamat terbaru' akan menggabungkan UTXO menggunakan alamat perubahan saat ini/terbaru alih-alih alamat perubahan pertama.",
   "it" : "Quando il raggruppamento automatico è abilitato, KDX raggruppa gli UTXO, se ci sono più Output di transazione non spesi (UTXO) disponibili. 'Utilizza ultimo indirizzo di resto' raggrupperà gli UTXO nell'indirizzo di resto attuale/più recente, anziché nell'indirizzo di resto iniziale.",
   "ja" : "When Autocompound enabled, KDX compound UTXOs when there will be compoundable count of unspent transaction outputs (UTXOs).'Use latest Change address' will compund UTXOs using current/latest change address instead of first change address.",
   "ko" : "When Autocompound enabled, KDX compound UTXOs when there will be compoundable count of unspent transaction outputs (UTXOs).'Use latest Change address' will compund UTXOs using current/latest change address instead of first change address.",
-  "zh" : "When Autocompound enabled, KDX compound UTXOs when there will be compoundable count of unspent transaction outputs (UTXOs).'Use latest Change address' will compund UTXOs using current/latest change address instead of first change address.",
+  "zh" : "如果启用 '自动合并' 功能， 并有可以合并的未使用的交易输出 (UTXO)， KDX 会同时合并 UTXO。'使用最新的零钱地址' 功能会合并 UTXO，并使用当前 / 最新零钱地址，而不是第一个零钱地址。",
   "zh_HANS" : ""
 }, {
   "en" : "Kaspad Archival Node + Miner",
-  "cmn" : "",
   "de" : "Kaspad-Archiv-Knoten und Miner",
-  "fr" : "",
+  "fr" : "Kaspad Archival Node + Miner",
   "id" : "Kaspad Archival Node + Miner",
   "it" : "Nodo archivio Kaspad + Miner",
   "ja" : "Kaspad Archival Node + Miner",
   "ko" : "Kaspad Archival Node + Miner",
-  "zh" : "Kaspad Archival Node + Miner",
+  "zh" : "Kaspad 存档节点 + 矿工软件",
   "zh_HANS" : ""
 }, {
   "en" : "Reindex UTXO",
-  "cmn" : "",
   "de" : "UTXO neu indexieren",
-  "fr" : "",
+  "fr" : "Reindex UTXO",
   "id" : "Indeks ulang UTXO",
   "it" : "Reindicizza UTXO",
   "ja" : "Reindex UTXO",
@@ -1397,9 +1270,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Cool fact: there are more 12-word phrase combinations than nanoseconds since the big bang!",
-  "cmn" : "",
   "de" : "Cooler Fakt: Es gibt mehr Kombinationen von 12-Wörter Phrasen als die Summe aller Nanosekunden seit dem Urknall!",
-  "fr" : "",
+  "fr" : "Fait intéressant: il y a plus de combinaison de phrase de 12 mots que de nanosecondes depuis le big bang!",
   "id" : "Fakta keren: ada lebih banyak kombinasi frase 12 kata daripada nanodetik sejak big bang!",
   "it" : "Curiosità: ci sono più combinazioni di frasi di 12 parole che nanosecondi dal big bang!",
   "ja" : "Cool fact: there are more 12-word phrase combinations than nanoseconds since the big bang!",
@@ -1408,9 +1280,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "NEXT",
-  "cmn" : "",
   "de" : "WEITER",
-  "fr" : "",
+  "fr" : "SUIVANT",
   "id" : "BERIKUTNYA",
   "it" : "AVANTI",
   "ja" : "NEXT",
@@ -1419,9 +1290,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Import Wallet Seed File (KPK)",
-  "cmn" : "",
   "de" : "Wallet Seed Datei importieren (KPK)",
-  "fr" : "",
+  "fr" : "Importer la seed du portefeuille (KPK)",
   "id" : "Impor Seed File Dompet (KPK)",
   "it" : "Importa il file contenente il seed del wallet (KPK)",
   "ja" : "Import Wallet Seed File (KPK)",
@@ -1430,9 +1300,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Wallet Status:",
-  "cmn" : "",
   "de" : "Wallet-Status:",
-  "fr" : "",
+  "fr" : "Wallet Status:",
   "id" : "Status Dompet:",
   "it" : "Stato del wallet:",
   "ja" : "Wallet Status:",
@@ -1441,20 +1310,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Compound Transactions",
-  "cmn" : "",
   "de" : "Transaktionen zusammenführen",
-  "fr" : "",
+  "fr" : "Compound Transactions",
   "id" : "Gabungan Transaksi",
   "it" : "Raggruppa Transazioni",
   "ja" : "複合トランザクション",
   "ko" : "복합 거래",
-  "zh" : "合并交易 (化零为整)",
+  "zh" : "合并交易 <br /> ( 化零为整，仍在同一钱包的不同地址 )",
   "zh_HANS" : ""
 }, {
   "en" : "Create New Wallet",
-  "cmn" : "",
   "de" : "Neues Wallet erstellen",
-  "fr" : "",
+  "fr" : "Créer un nouveau portefeuille",
   "id" : "Buat Dompet Baru",
   "it" : "Crea nuovo wallet",
   "ja" : "新しいウォレットを作成する",
@@ -1463,9 +1330,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "PGSQL",
-  "cmn" : "",
   "de" : "PQSQL",
-  "fr" : "",
+  "fr" : "PGSQL",
   "id" : "PGSQL",
   "it" : "PGSQL",
   "ja" : "PGSQL",
@@ -1474,9 +1340,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Password",
-  "cmn" : "",
   "de" : "Passwort",
-  "fr" : "",
+  "fr" : "Mot de passe",
   "id" : "Kata Sandi",
   "it" : "Password",
   "ja" : "パスワード",
@@ -1485,9 +1350,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Applications",
-  "cmn" : "",
   "de" : "Applikationen",
-  "fr" : "",
+  "fr" : "Applications",
   "id" : "Aplikasi",
   "it" : "Applicazioni",
   "ja" : "用途",
@@ -1496,9 +1360,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "DAG Sync",
-  "cmn" : "",
   "de" : "DAG-Synchronisation",
-  "fr" : "",
+  "fr" : "Synchronisation DAG",
   "id" : "Sinkronisasi DAG",
   "it" : "Sincronizzazione DAG",
   "ja" : "同期の進行状況",
@@ -1507,9 +1370,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "7th",
-  "cmn" : "",
   "de" : "7.",
-  "fr" : "",
+  "fr" : "7ème",
   "id" : "Ketujuh",
   "it" : "settima",
   "ja" : "7th",
@@ -1518,9 +1380,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Make sure you wrote the phrase down correctly by answering this quick checkup.",
-  "cmn" : "",
   "de" : "Indem Sie diesen schnellen Check absolvieren, können Sie sicherstellen, dass Sie die Phrase korrekt abgeschrieben haben.",
-  "fr" : "",
+  "fr" : "Vérifiez que vous ayez correctement écrit la phrase en répondant à cette vérification.",
   "id" : "Pastikan Anda menuliskan kalimat dengan benar dengan menjawab pemeriksaan singkat ini.",
   "it" : "Assicurati di aver scritto correttamente la seed phrase rispondendo a questo rapido controllo.",
   "ja" : "Make sure you wrote the phrase down correctly by answering this quick checkup.",
@@ -1529,9 +1390,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "NWJS",
-  "cmn" : "",
   "de" : "NWJS",
-  "fr" : "",
+  "fr" : "NWJS",
   "id" : "NWJS",
   "it" : "NWJS",
   "ja" : "NWJS",
@@ -1540,9 +1400,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "APPLY",
-  "cmn" : "",
   "de" : "ANWENDEN",
-  "fr" : "",
+  "fr" : "CONFIRMER",
   "id" : "TERIMA",
   "it" : "APPLICA",
   "ja" : "申し込み",
@@ -1551,9 +1410,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Confirm password",
-  "cmn" : "",
   "de" : "Passwort bestätigen",
-  "fr" : "",
+  "fr" : "Confirmer le mot de passe",
   "id" : "Konfirmasi Kata Sandi",
   "it" : "Conferma password",
   "ja" : "パスワードを認証する",
@@ -1562,9 +1420,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Select cameras",
-  "cmn" : "",
   "de" : "Kameras wählen",
-  "fr" : "",
+  "fr" : "Select cameras",
   "id" : "Pilih kamera",
   "it" : "Seleziona la fotocamera",
   "ja" : "Select cameras",
@@ -1573,9 +1430,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "KVSD0",
-  "cmn" : "",
   "de" : "KVSD0",
-  "fr" : "",
+  "fr" : "KVSD0",
   "id" : "KVSD0",
   "it" : "KVSD0",
   "ja" : "KVSD0",
@@ -1584,9 +1440,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "HOME",
-  "cmn" : "",
   "de" : "HOME",
-  "fr" : "",
+  "fr" : "ACCUEIL",
   "id" : "BERANDA",
   "it" : "HOME",
   "ja" : "ホーム",
@@ -1595,9 +1450,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "KASPAROVSYNCD",
-  "cmn" : "",
   "de" : "KASPAROVSYNCD",
-  "fr" : "",
+  "fr" : "KASPAROVSYNCD",
   "id" : "KASPAROVSYNCD",
   "it" : "KASPAROVSYNCD",
   "ja" : "KASPAROVSYNCD",
@@ -1606,20 +1460,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Use latest Change address",
-  "cmn" : "",
   "de" : "Letzte Wechselgeld-Adresse verwenden",
-  "fr" : "",
+  "fr" : "Use latest Change address",
   "id" : "Gunakan alamat pengubahan terbaru",
   "it" : "Utilizza ultimo indirizzo di resto",
   "ja" : "Use latest Change address",
   "ko" : "Use latest Change address",
-  "zh" : "Use latest Change address",
+  "zh" : "使用最新的零钱地址",
   "zh_HANS" : ""
 }, {
   "en" : "Invert Terminal Color",
-  "cmn" : "",
   "de" : "Terminal Farben umkehren",
-  "fr" : "",
+  "fr" : "Inverser les couleurs du terminal",
   "id" : "Balikkan Warna Terminal",
   "it" : "Inverti il colore del Terminale",
   "ja" : "端子を反転",
@@ -1628,9 +1480,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "MQTT",
-  "cmn" : "",
   "de" : "MQTT",
-  "fr" : "",
+  "fr" : "MQTT",
   "id" : "MQTT",
   "it" : "MQTT",
   "ja" : "MQTT",
@@ -1639,31 +1490,28 @@
   "zh_HANS" : ""
 }, {
   "en" : "Address",
-  "cmn" : "",
   "de" : "Adresse",
-  "fr" : "",
+  "fr" : "L'ADRESSE",
   "id" : "Alamat",
   "it" : "Indirizzo",
   "ja" : "Address",
   "ko" : "Address",
-  "zh" : "Address",
+  "zh" : "地址",
   "zh_HANS" : ""
 }, {
   "en" : "Compound UTXOs",
-  "cmn" : "",
   "de" : "Zusammengeführte UTXOs",
-  "fr" : "",
+  "fr" : "Compound UTXOs",
   "id" : "UTXO Majemuk",
   "it" : "Raggruppa UTXO",
   "ja" : "Compound UTXOs",
   "ko" : "Compound UTXOs",
-  "zh" : "Compound UTXOs",
+  "zh" : "合并 UTXO",
   "zh_HANS" : ""
 }, {
   "en" : "You can stream KDX metrics to your own StatsD-compatible server.",
-  "cmn" : "",
   "de" : "Du kannst KDX Statistiken zu deinem eigenen StatsD-kompatiblen Server schicken",
-  "fr" : "",
+  "fr" : "You can stream KDX metrics to your own StatsD-compatible server.",
   "id" : "Anda dapat mengalirkan metrik KDX ke server Anda sendiri yang kompatibel dengan StatsD.",
   "it" : "È possibile trasmettere le metriche KDX al proprio server compatibile con StatsD.",
   "ja" : "KDXメトリックを独自のStatsD互換サーバーにストリーミングできます。",
@@ -1672,9 +1520,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "OPEN WALLET",
-  "cmn" : "",
   "de" : "WALLET ÖFFNEN",
-  "fr" : "",
+  "fr" : "OUVRIR LE PORTEFEUILLE",
   "id" : "BUKA DOMPET",
   "it" : "APRI WALLET",
   "ja" : "オープンウォレット",
@@ -1683,9 +1530,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Recover Wallet",
-  "cmn" : "",
   "de" : "Wallet wiederherstellen",
-  "fr" : "",
+  "fr" : "Recover Wallet",
   "id" : "Pulihkan Dompet",
   "it" : "Ripristina wallet",
   "ja" : "Recover Wallet",
@@ -1694,20 +1540,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
-  "cmn" : "",
   "de" : "Copyright (c) 2007, Eclipse Foundation, Inc. und ihren Lizenzgebern",
-  "fr" : "",
+  "fr" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
   "id" : "Hak Cipta (c) 2007, Eclipse Foundation, Inc. dan pemberi lisensinya.",
   "it" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
   "ja" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
   "ko" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
-  "zh" : "Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.",
+  "zh" : "版权所有 (c) 2007, Eclipse 基金会和证书颁布者",
   "zh_HANS" : ""
 }, {
   "en" : "MQ0",
-  "cmn" : "",
   "de" : "MQ0",
-  "fr" : "",
+  "fr" : "MQ0",
   "id" : "MQ0",
   "it" : "MQ0",
   "ja" : "MQ0",
@@ -1716,9 +1560,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "mq0",
-  "cmn" : "",
   "de" : "mq0",
-  "fr" : "",
+  "fr" : "mq0",
   "id" : "mq0",
   "it" : "mq0",
   "ja" : "mq0",
@@ -1727,9 +1570,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "KM0",
-  "cmn" : "",
   "de" : "KM0",
-  "fr" : "",
+  "fr" : "KM0",
   "id" : "KM0",
   "it" : "KM0",
   "ja" : "KM0",
@@ -1738,9 +1580,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "AMOUNT",
-  "cmn" : "",
   "de" : "MENGE",
-  "fr" : "",
+  "fr" : "MONTANT",
   "id" : "JUMLAH",
   "it" : "QUANTITÀ",
   "ja" : "AMOUNT",
@@ -1749,9 +1590,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Kaspa UX:",
-  "cmn" : "",
   "de" : "Kaspa-UX:",
-  "fr" : "",
+  "fr" : "Kaspa UX:",
   "id" : "Kaspa UX",
   "it" : "Kaspa UX:",
   "ja" : "Kaspa UX:",
@@ -1760,9 +1600,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Unlock the wallet with your password:",
-  "cmn" : "",
   "de" : "Wallet mit Passwort öffnen",
-  "fr" : "",
+  "fr" : "Unlock the wallet with your password:",
   "id" : "Buka kunci dompet dengan kata sandi Anda:",
   "it" : "Sblocca il wallet con la tua password",
   "ja" : "Unlock the wallet with your password:",
@@ -1771,9 +1610,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Network",
-  "cmn" : "",
   "de" : "Netzwerk",
-  "fr" : "",
+  "fr" : "Réseau",
   "id" : "Jaringan",
   "it" : "Network",
   "ja" : "Network",
@@ -1782,9 +1620,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "mqtt",
-  "cmn" : "",
   "de" : "mqtt",
-  "fr" : "",
+  "fr" : "mqtt",
   "id" : "mqtt",
   "it" : "mqtt",
   "ja" : "mqtt",
@@ -1793,9 +1630,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Available",
-  "cmn" : "",
   "de" : "Verfügbar",
-  "fr" : "",
+  "fr" : "Disponible",
   "id" : "Tersedia",
   "it" : "Disponibile",
   "ja" : "額",
@@ -1804,9 +1640,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Mempool Size",
-  "cmn" : "",
   "de" : "Grösse des Speicherpools",
-  "fr" : "",
+  "fr" : "Taille du pool",
   "id" : "Ukuran Mempool",
   "it" : "Dimensioni Mempool",
   "ja" : "Mempool Size",
@@ -1815,31 +1650,28 @@
   "zh_HANS" : ""
 }, {
   "en" : "Auto compound",
-  "cmn" : "",
   "de" : "Automatisches Zusammenführen",
-  "fr" : "",
+  "fr" : "Auto compound",
   "id" : "Otomatis menggabungkan",
   "it" : "Raggruppa automaticamente",
   "ja" : "Auto compound",
   "ko" : "Auto compound",
-  "zh" : "Auto compound",
+  "zh" : "自动合并",
   "zh_HANS" : ""
 }, {
   "en" : "When enabled, KDX runs itself and it's services hidden in the background and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).",
-  "cmn" : "",
   "de" : "Wenn aktiviert, läuft KDX selbst und dessen Services im Hintergrund. KDX bleibt erreichbar über die Menüleiste (OSX & Linux) oder über das Taskleistenmenü (Windows).",
-  "fr" : "",
+  "fr" : "When enabled, KDX runs itself and it's services hidden in the background and becomes accessible via the menu bar (OSX &amp; Linux) or system tray menu (on Windows).",
   "id" : "Saat diaktifkan, KDX berjalan sendiri dan layanannya tersembunyi di latar belakang dan dapat diakses melalui bilah menu (OSX &amp; Linux) atau menu baki sistem (pada Windows).",
   "it" : "Quando abilitato, KDX esegue se stesso e i suoi servizi in background e diventa accessibile tramite la barra dei menu (OSX &amp; Linux) o il menu della barra delle applicazioni (Windows).",
   "ja" : "KDXを有効にするとKDXは自動で起動しサービスはバックグラウンドで非表示となり実行され、メニューバー（OSXおよびLinux）またはシステムトレイメニュー（Windows）からアクセスできるようになります。",
   "ko" : "KDX를 활성화하면 KDX가 자동으로 시작되고 서비스가 백그라운드에서 실행되며, 메뉴 모음(OSX 및 Linux의 경우) 또는 시스템 트레이 메뉴(Windows의 경우)에서 액세스할 수 있습니다.",
-  "zh" : "当你启用KDX时，它会自动启动，隐藏在后台并运行服务，你可以通过菜单栏(OSX和Linux)或系统菜单(Windows)访问。",
+  "zh" : "当启用 KDX 时，它会自动启动，隐藏在后台并运行服务，你可以通过菜单栏 (OSX和Linux) 或系统菜单 (Windows) 访问。",
   "zh_HANS" : ""
 }, {
   "en" : "Exit",
-  "cmn" : "",
   "de" : "Beenden",
-  "fr" : "",
+  "fr" : "Quitter",
   "id" : "Keluar",
   "it" : "Esci",
   "ja" : "出口",
@@ -1848,9 +1680,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Mosquitto",
-  "cmn" : "",
   "de" : "Mosquitto",
-  "fr" : "",
+  "fr" : "Mosquitto",
   "id" : "Nyamuk",
   "it" : "Mosquitto",
   "ja" : "Mosquitto",
@@ -1859,20 +1690,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Copyright (c) 2021 Kaspa Developers",
-  "cmn" : "",
   "de" : "Copyright (c) 2021 Kaspa Developers",
-  "fr" : "",
+  "fr" : "Copyright (c) 2021 Kaspa Developers",
   "id" : "Hak Cipta (c) 2021 Kaspa Developers.",
   "it" : "Copyright (c) 2021 Kaspa Developers",
   "ja" : "Copyright (c) 2021 Kaspa Developers",
   "ko" : "Copyright (c) 2021 Kaspa Developers",
-  "zh" : "Copyright (c) 2021 Kaspa Developers",
+  "zh" : "版权所有 (c) 2021 Kaspa 开发者",
   "zh_HANS" : ""
 }, {
   "en" : "BACK TO THE WORDS",
-  "cmn" : "",
   "de" : "ZURÜCK ZU DEN WÖRTERN",
-  "fr" : "",
+  "fr" : "RETOURNER AUX MOTS",
   "id" : "KEMBALI KE KATA-KATA",
   "it" : "RITORNA ALLE PAROLE",
   "ja" : "BACK TO THE WORDS",
@@ -1881,9 +1710,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Offline",
-  "cmn" : "",
   "de" : "Offline",
-  "fr" : "",
+  "fr" : "Hors ligne",
   "id" : "Luring",
   "it" : "Disconnesso",
   "ja" : "オフライン",
@@ -1892,20 +1720,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "6th",
-  "cmn" : "",
   "de" : "6.",
-  "fr" : "",
+  "fr" : "6ème",
   "id" : "Keenam",
   "it" : "sesta",
   "ja" : "6th",
   "ko" : "6th",
-  "zh" : "6th",
+  "zh" : "第6个",
   "zh_HANS" : ""
 }, {
   "en" : "Include fee in the amount",
-  "cmn" : "",
   "de" : "Gebühr im Betrag inkludieren",
-  "fr" : "",
+  "fr" : "Inclure les frais dans le montant de la transaction",
   "id" : "Sertakan biaya dalam jumlah",
   "it" : "Includi le commissioni di rete (fee) nell'importo",
   "ja" : "振込金額に手数料を含める",
@@ -1914,9 +1740,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Scan QR code",
-  "cmn" : "",
   "de" : "QR Code scannen",
-  "fr" : "",
+  "fr" : "Scan QR code",
   "id" : "Pindai kode QR",
   "it" : "Scansiona QR code",
   "ja" : "QRスキャン",
@@ -1925,20 +1750,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "if you wish to further the development of the kaspa ecosystem, we accept kaspa donations at the following addresses:",
-  "cmn" : "",
   "de" : "Für die Weiterentwicklung des Kaspa-Ökosystems können Kaspa-Spenden an die folgenden Adressen gesendet werden:",
-  "fr" : "",
+  "fr" : "Si vous souhaitez contribuer à l'écosystème Kaspa, nous acceptons les donations à l'adresse suivante:",
   "id" : "jika Anda ingin lebih mengembangkan ekosistem kaspa , kami menerima donasi kaspa di alamat berikut:",
   "it" : "Se desiderate contribuire allo sviluppo dell'ecosistema Kaspa, accettiamo donazioni Kaspa ai seguenti indirizzi:",
   "ja" : "if you wish to further the development of the kaspa ecosystem, we accept kaspa donations at the following addresses:",
   "ko" : "if you wish to further the development of the kaspa ecosystem, we accept kaspa donations at the following addresses:",
-  "zh" : "if you wish to further the development of the kaspa ecosystem, we accept kaspa donations at the following addresses:",
+  "zh" : "如果您希望支持 Kaspa 生态的开发，我们通过以下地址接受捐赠:",
   "zh_HANS" : ""
 }, {
   "en" : "It is recommended to keep several copies of your secret seed hidden away in different places.",
-  "cmn" : "",
   "de" : "Es wird empfohlen, mehrere Kopien Ihres geheimen Seeds an unterschiedlichen Plätzen zu verstecken.",
-  "fr" : "",
+  "fr" : "Il est fortement recommandé de garder plusieurs copies de votre seed, et de les cacher dans des endroits différents.",
   "id" : "Direkomendasikan untuk menyembunyikan beberapa salinan benih rahasia Anda di tempat yang berbeda.",
   "it" : "Si consiglia di conservare diverse copie della seed phrase segreta, nascoste in luoghi diversi.",
   "ja" : "It is recommended to keep several copies of your secret seed hidden away in different places.",
@@ -1947,9 +1770,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Recent Transactions",
-  "cmn" : "",
   "de" : "Letzte Transaktionen",
-  "fr" : "",
+  "fr" : "Recent Transactions",
   "id" : "Transaksi Terbaru",
   "it" : "Transazioni recenti",
   "ja" : "Recent Transactions",
@@ -1958,9 +1780,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Transactions",
-  "cmn" : "",
   "de" : "Transaktionen",
-  "fr" : "",
+  "fr" : "Transactions",
   "id" : "Transaksi",
   "it" : "Transazioni",
   "ja" : "Transactions",
@@ -1969,9 +1790,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "KVD0",
-  "cmn" : "",
   "de" : "KVD0",
-  "fr" : "",
+  "fr" : "KVD0",
   "id" : "KVD0",
   "it" : "KVD0",
   "ja" : "KVD0",
@@ -1980,9 +1800,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Delete data directory and resync",
-  "cmn" : "",
   "de" : "Datenverzeichnis löschen und neu synchronisieren",
-  "fr" : "",
+  "fr" : "Supprimer les données et synchroniser à nouveau",
   "id" : "Hapus direktori data dan sinkronisasi ulang",
   "it" : "Elimina la directory dei dati e risincronizza",
   "ja" : "Delete data directory and resync",
@@ -1991,20 +1810,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Compounding UTXOs",
-  "cmn" : "",
   "de" : "Führe UTXOs zusammen",
-  "fr" : "",
+  "fr" : "Compounding UTXOs",
   "id" : "Menggabungkan UTXO",
   "it" : "Raggruppamento UTXO",
   "ja" : "Compounding UTXOs",
   "ko" : "Compounding UTXOs",
-  "zh" : "Compounding UTXOs",
+  "zh" : "合并 UTXO 中",
   "zh_HANS" : ""
 }, {
   "en" : "Next",
-  "cmn" : "",
   "de" : "Weiter",
-  "fr" : "",
+  "fr" : "Suivant",
   "id" : "Selanjutnya",
   "it" : "Avanti",
   "ja" : "次のステップ",
@@ -2013,20 +1830,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Median Time UTC",
-  "cmn" : "",
   "de" : "Mittlere UTC-Zeit",
-  "fr" : "",
+  "fr" : "Temps médian UTC",
   "id" : "Waktu Median UTC",
   "it" : "Orario medio UTC",
   "ja" : "Median Time UTC",
   "ko" : "Median Time UTC",
-  "zh" : "Median Time UTC",
+  "zh" : "中值时间 UTC",
   "zh_HANS" : ""
 }, {
   "en" : "Reset Data Folder",
-  "cmn" : "",
   "de" : "Daten-Ordner zurücksetzen",
-  "fr" : "",
+  "fr" : "Reset Data Folder",
   "id" : "Atur Ulang Folder Data",
   "it" : "Reset della cartella dati",
   "ja" : "Reset Data Folder",
@@ -2035,9 +1850,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "are you sure?",
-  "cmn" : "",
   "de" : "sind Sie sicher?",
-  "fr" : "",
+  "fr" : "êtes-vous sûr ?",
   "id" : "Apakah Anda yakin?",
   "it" : "vuoi procedere?",
   "ja" : "本気ですか？",
@@ -2046,9 +1860,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "COUNT",
-  "cmn" : "",
   "de" : "ANZAHL",
-  "fr" : "",
+  "fr" : "COMPTER",
   "id" : "JUMLAH",
   "it" : "QUANTITÀ",
   "ja" : "量",
@@ -2057,9 +1870,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Request Funds from Faucet",
-  "cmn" : "",
   "de" : "Mittel vom Faucet anfordern",
-  "fr" : "",
+  "fr" : "Request Funds from Faucet",
   "id" : "Minta Dana dari Faucet",
   "it" : "Richiedi fondi dal Faucet",
   "ja" : "Request Funds from Faucet",
@@ -2068,9 +1880,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Good job! Two more checks to go",
-  "cmn" : "",
   "de" : "Gut gemacht! Noch zwei weitere Häckchen!",
-  "fr" : "",
+  "fr" : "Bien joué! Plus que 2 vérifications à effectuer",
   "id" : "Kerja bagus! Dua cek lagi untuk pergi",
   "it" : "Bene! Mancano solo altri due controlli",
   "ja" : "Good job! Two more checks to go",
@@ -2079,9 +1890,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Advanced",
-  "cmn" : "",
   "de" : "Erweitert",
-  "fr" : "",
+  "fr" : "Avancé",
   "id" : "Lanjutan",
   "it" : "Avanzato",
   "ja" : "高度な",
@@ -2090,9 +1900,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Data Folder location is used for storage by all KDX modules. In default configuration this includes Kaspad blockchain data and Kasparov API database. This location also contains process log files.",
-  "cmn" : "",
   "de" : "Das Datenverzeichnis wird von allen KDX Modulen als Speicherort genutzt. In der Standardkonfiguration enthält es die Kaspa Blockchain Daten und die Kasparov API Datenbank. Dieser Speicherort enthält auch Logs/Protokolle.",
-  "fr" : "",
+  "fr" : "Le dossier de configuration contient tous les modules KDX. La configuration par défaut contient les données de la blockchain Kaspad et la base de donnée de l'API Kasparov. Cette localisation peut également contenir des fichiers de logs.",
   "id" : "Lokasi Folder Data digunakan untuk penyimpanan oleh semua modul KDX. Dalam konfigurasi default, ini mencakup data blockchain Kaspad dan basis data API Kasparov. Lokasi ini juga berisi file log proses.",
   "it" : "Il percorso della cartella dati viene utilizzata da tutti i moduli KDX per l'archiviazione. Nella configurazione predefinita, sono inclusi i dati della blockchain di Kaspad e il database dell'API Kasparov. Questa cartella contiene anche i file di log del processo.",
   "ja" : "データフォルダーの場所は、すべてのKDXモジュールによるストレージに使用されます。 デフォルトの構成では、これにはKaspadブロックチェーンデータとKasparov APIデータベースが含まれます。 この場所には、プロセスログファイルも含まれます。",
@@ -2101,9 +1910,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Cancel",
-  "cmn" : "",
   "de" : "Abbrechen",
-  "fr" : "",
+  "fr" : "Annuler",
   "id" : "Batal",
   "it" : "Annulla",
   "ja" : "キャンセル",
@@ -2112,9 +1920,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "MAX",
-  "cmn" : "",
   "de" : "MAXIMUM",
-  "fr" : "",
+  "fr" : "MAX",
   "id" : "MAKS",
   "it" : "MASSIMO",
   "ja" : "MAX",
@@ -2123,9 +1930,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "BLOCKS RATE (AVG)",
-  "cmn" : "",
   "de" : "BLOCK RATE (DURCHSCHNITT)",
-  "fr" : "",
+  "fr" : "RATIO DE BLOCS (MOYENNE)",
   "id" : "TINGKAT BLOK (RERATA)",
   "it" : "FREQUENZA DEI BLOCCHI (MEDIA)",
   "ja" : "BLOCKS RATE (AVG)",
@@ -2134,9 +1940,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Start the kaspad node without enabling the '--utxoindex' parameter until the synchronization is complete, re-enable this parameter. (Can be used to fix inaccurate balance display)",
-  "cmn" : "",
   "de" : "Starte das Kaspar Node ohne '--utxoindex' Parameter zu aktivieren bis die Synchronisierung abgeschlossen ist. Danach diese Einstellungen aktivieren. (Kann ungenaue Kontostände / Anzeigen reparieren",
-  "fr" : "",
+  "fr" : "Start the kaspad node without enabling the '--utxoindex' parameter until the synchronization is complete, re-enable this parameter. (Can be used to fix inaccurate balance display)",
   "id" : "Mulai simpul kaspad tanpa mengaktifkan parameter '-- utxoindex ' hingga sinkronisasi selesai, aktifkan kembali parameter ini. (Dapat digunakan untuk memperbaiki tampilan saldo yang tidak akurat)",
   "it" : "Avvia il nodo kaspad senza abilitare il parametro '--utxoindex', fino al completamento della sincronizzazione; poi riabilita il parametro (Può essere utilizzato per correggere la visualizzazione imprecisa del saldo).",
   "ja" : "Start the kaspad node without enabling the '--utxoindex' parameter until the synchronization is complete, re-enable this parameter. (Can be used to fix inaccurate balance display)",
@@ -2145,20 +1950,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Update transaction times",
-  "cmn" : "",
   "de" : "Transaktionszeiten aktualisieren",
-  "fr" : "",
+  "fr" : "Update transaction times",
   "id" : "Perbarui waktu transaksinya",
   "it" : "Aggiorna orario delle transazioni",
   "ja" : "Update transaction times",
   "ko" : "Update transaction times",
-  "zh" : "Update transaction times",
+  "zh" : "更新交易时间",
   "zh_HANS" : ""
 }, {
   "en" : "I have wallet",
-  "cmn" : "",
   "de" : "Ich habe ein Wallet",
-  "fr" : "",
+  "fr" : "J'ai un portefeuille",
   "id" : "Saya punya dompet",
   "it" : "Ho un wallet",
   "ja" : "I have wallet",
@@ -2167,20 +1970,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br> All Rights Reserved.",
-  "cmn" : "",
   "de" : "KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br> All Rights Reserved.",
-  "fr" : "",
+  "fr" : "KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br> All Rights Reserved.",
   "id" : "KDX &amp; Kaspa Hak Cipta (c) 2021 Kaspa Developers< br > Hak Cipta Dilindungi Undang-Undang.",
   "it" : "KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br> All Rights Reserved.",
   "ja" : "KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br> All Rights Reserved.",
   "ko" : "KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br> All Rights Reserved.",
-  "zh" : "KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br> All Rights Reserved.",
+  "zh" : "KDX &amp; Kaspa 版权所有 (c) 2021 Kaspa 开发者 1 保留所有权利。",
   "zh_HANS" : ""
 }, {
   "en" : "Create a password for your new wallet",
-  "cmn" : "",
   "de" : "Ein Passwort für Ihr neues Wallet erstellen",
-  "fr" : "",
+  "fr" : "Définir un mot de passe pour votre nouveau portefeuille",
   "id" : "Buat kata sandi untuk dompet baru Anda",
   "it" : "Crea una password per il tuo nuovo wallet",
   "ja" : "新しいウォレットのパスワードを設定します",
@@ -2189,9 +1990,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "BLOCK RATE",
-  "cmn" : "",
   "de" : "BLOCK RATE",
-  "fr" : "",
+  "fr" : "RATIO DE BLOCS",
   "id" : "TINGKAT BLOK",
   "it" : "FREQUENZA DEI BLOCCHI",
   "ja" : "BLOCK RATE",
@@ -2200,9 +2000,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Receive Address",
-  "cmn" : "",
   "de" : "Empfänger Adresse",
-  "fr" : "",
+  "fr" : "Receive Address",
   "id" : "Alamat Penerima",
   "it" : "Indirizzo di ricezione",
   "ja" : "受信アドレス",
@@ -2211,9 +2010,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Reset Configuration",
-  "cmn" : "",
   "de" : "Konfiguration zurücksetzen",
-  "fr" : "",
+  "fr" : "Reset Configuration",
   "id" : "Konfigurasi Setel ulang",
   "it" : "Reset della configurazione",
   "ja" : "構成のリセット",
@@ -2222,9 +2020,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Scan result",
-  "cmn" : "",
   "de" : "Scan Resultat",
-  "fr" : "",
+  "fr" : "Scan result",
   "id" : "Hasil pemindaian",
   "it" : "Risultato della scansione",
   "ja" : "Scan result",
@@ -2233,20 +2030,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "HEADERS",
-  "cmn" : "",
   "de" : "HEADERS",
-  "fr" : "",
+  "fr" : "EN-TÊTE",
   "id" : "HEADERS",
   "it" : "HEADERS",
   "ja" : "HEADERS",
   "ko" : "헤더",
-  "zh" : "HEADERS",
+  "zh" : "头",
   "zh_HANS" : ""
 }, {
   "en" : "TPS",
-  "cmn" : "",
   "de" : "TPS",
-  "fr" : "",
+  "fr" : "TPS",
   "id" : "TPS",
   "it" : "TPS",
   "ja" : "TPS",
@@ -2255,9 +2050,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "EDL-V10 EPL-V10",
-  "cmn" : "",
   "de" : "EDL-V10 EPL-V10",
-  "fr" : "",
+  "fr" : "EDL-V10 EPL-V10",
   "id" : "EDL-V10 EPL-V10",
   "it" : "EDL-V10 EPL-V10",
   "ja" : "EDL-V10 EPL-V10",
@@ -2266,9 +2060,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "VIRTUAL MEMORY",
-  "cmn" : "",
   "de" : "VIRTUELLER SPEICHER",
-  "fr" : "",
+  "fr" : "VIRTUAL MEMORY",
   "id" : "MEMORY VIRTUAL",
   "it" : "MEMORIA VIRTUALE",
   "ja" : "VIRTUAL MEMORY",
@@ -2277,9 +2070,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Blocks",
-  "cmn" : "",
   "de" : "Blöcke",
-  "fr" : "",
+  "fr" : "Blocs",
   "id" : "Blok",
   "it" : "Blocchi",
   "ja" : "Blocks",
@@ -2288,9 +2080,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Receive Address:",
-  "cmn" : "",
   "de" : "Empfänger Adresse:",
-  "fr" : "",
+  "fr" : "Receive Address:",
   "id" : "Alamat Penerima:",
   "it" : "Indirizzo di ricezione",
   "ja" : "Receive Address:",
@@ -2299,20 +2090,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "2nd",
-  "cmn" : "",
   "de" : "2.",
-  "fr" : "",
+  "fr" : "2ème",
   "id" : "Kedua",
   "it" : "seconda",
   "ja" : "2nd",
   "ko" : "2nd",
-  "zh" : "2nd",
+  "zh" : "第2个",
   "zh_HANS" : ""
 }, {
   "en" : "KASPA RESOURCES",
-  "cmn" : "",
   "de" : "KASPA-RESOURCEN",
-  "fr" : "",
+  "fr" : "KASPA RESOURCES",
   "id" : "SUMBER DAYA KASPA",
   "it" : "RISORSE KASPA",
   "ja" : "カスパ・リソース",
@@ -2321,20 +2110,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "5th",
-  "cmn" : "",
   "de" : "5.",
-  "fr" : "",
+  "fr" : "5ème",
   "id" : "Kelima",
   "it" : "quinta",
   "ja" : "5th",
   "ko" : "5th",
-  "zh" : "5th",
+  "zh" : "第5个",
   "zh_HANS" : ""
 }, {
   "en" : "Default",
-  "cmn" : "",
   "de" : "Standard",
-  "fr" : "",
+  "fr" : "Par défaut",
   "id" : "Bawaan",
   "it" : "Default",
   "ja" : "デフォルト",
@@ -2343,9 +2130,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "ONLINE",
-  "cmn" : "",
   "de" : "ONLINE",
-  "fr" : "",
+  "fr" : "EN LIGNE",
   "id" : "DARING",
   "it" : "CONNESSO",
   "ja" : "オンライン",
@@ -2354,20 +2140,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "'utxoindex' flag is missing from KASPAD config.<br /> Please inform the wallet administrator.<br />",
-  "cmn" : "",
   "de" : "'utxoindex'-Setting fehlt in der KASPAD-Konfiguration<br />Bitte den Wallet-Administrator informieren.<br />",
-  "fr" : "",
+  "fr" : "Le paramètre 'utxoindex' est manquant dans la configuration du KASPAD.<br /> Merci de contacter l'administrateur du portefeuille.<br />",
   "id" : "tanda 'utxoindex' hilang dari konfigurasi KASPAD.< br /> Harap beri tahu administrator dompetnya.< br />",
   "it" : "Nella configurazione di KASPAD manca il flag 'utxoindex'.<br /> Si prega di informare l'amministratore del wallet.<br /> ",
   "ja" : "'utxoindex' flag is missing from KASPAD config.<br /> Please inform the wallet administrator.<br />",
   "ko" : "'utxoindex' flag is missing from KASPAD config.<br /> Please inform the wallet administrator.<br />",
-  "zh" : "'utxoindex' flag is missing from KASPAD config.<br /> Please inform the wallet administrator.<br />",
+  "zh" : "Kaspad 配置中丢失 ’utxoindex‘ 参数。请通知钱包管理员。",
   "zh_HANS" : ""
 }, {
   "en" : "MAINNET",
-  "cmn" : "",
   "de" : "MAINNET",
-  "fr" : "",
+  "fr" : "MAINNET",
   "id" : "MAINNET",
   "it" : "MAINNET",
   "ja" : "MAINNET",
@@ -2376,9 +2160,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "DB0",
-  "cmn" : "",
   "de" : "DB0",
-  "fr" : "",
+  "fr" : "DB0",
   "id" : "DB0",
   "it" : "DB0",
   "ja" : "DB0",
@@ -2387,9 +2170,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "db0",
-  "cmn" : "",
   "de" : "db0",
-  "fr" : "",
+  "fr" : "db0",
   "id" : "db0",
   "it" : "db0",
   "ja" : "db0",
@@ -2398,9 +2180,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "BLOCKS",
-  "cmn" : "",
   "de" : "BLÖCKE",
-  "fr" : "",
+  "fr" : "BLOCS",
   "id" : "BLOK",
   "it" : "BLOCCHI",
   "ja" : "ブロック",
@@ -2409,9 +2190,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Delete Data Folder",
-  "cmn" : "",
   "de" : "Datenverzeichnis löschen",
-  "fr" : "",
+  "fr" : "Supprimer le dossier de configuration",
   "id" : "Hapus Folder Data",
   "it" : "Elimina cartella dati",
   "ja" : "Delete Data Folder",
@@ -2420,9 +2200,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "DONATIONS",
-  "cmn" : "",
   "de" : "SPENDEN",
-  "fr" : "",
+  "fr" : "DONS",
   "id" : "DONASI",
   "it" : "DONAZIONI",
   "ja" : "DONATIONS",
@@ -2431,9 +2210,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Online",
-  "cmn" : "",
   "de" : "Online",
-  "fr" : "",
+  "fr" : "En ligne",
   "id" : "Daring",
   "it" : "Connesso",
   "ja" : "オンライン",
@@ -2442,9 +2220,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Your wallet is accessible by a seed phrase. The seed phrase is an ordered 12-word secret phrase.",
-  "cmn" : "",
   "de" : "Deine Wallet ist mit einer Seed Phrase (Sicherheitscode) zugänglich. Dieser Sicherheitscode ist eine geordnete geheime Phrase mit 12 Wörtern.",
-  "fr" : "",
+  "fr" : "Your wallet is accessible by a seed phrase. The seed phrase is an ordered 12-word secret phrase.",
   "id" : "Dompet Anda dapat diakses dengan frase awal. Frasa awal adalah frase rahasia 12 kata yang diurutkan.",
   "it" : "Il wallet è accessibile tramite una seed phrase. La seed phrase è una frase segreta ordinata di 12 parole.",
   "ja" : "Your wallet is accessible by a seed phrase. The seed phrase is an ordered 12-word secret phrase.",
@@ -2453,9 +2230,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Turn ON/OFF advanced settings and process control",
-  "cmn" : "",
   "de" : "Fortgeschrittene Einstellungen und Prozesskontrolle aktivieren/deaktivieren",
-  "fr" : "",
+  "fr" : "Turn ON/OFF advanced settings and process control",
   "id" : "HIDUPKAN/MATIKAN pengaturan lanjutan dan kontrol proses",
   "it" : "Attivare / disattivare le impostazioni avanzate e il controllo del processo",
   "ja" : "詳細設定とプロセス制御のオン/オフ",
@@ -2464,9 +2240,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Advanced mode allows you to manually configure, interact with and monitor KDX services.",
-  "cmn" : "",
   "de" : "Der erweiterte Modus ermöglicht das manuelle konfigurieren, interagieren und überwachen der KDX Services.",
-  "fr" : "",
+  "fr" : "Le mode avancé vous permet de configurer manuellement, d’interagir et monitorer les services KDX.",
   "id" : "Mode lanjutan memungkinkan Anda mengonfigurasi, berinteraksi dengan, dan memantau layanan KDX secara manual.",
   "it" : "La modalità avanzata consente di configurare, interagire e monitorare manualmente i servizi KDX.",
   "ja" : "アドバンスドモードでは、KDXサービスを手動で設定、操作、および監視できます。",
@@ -2475,9 +2250,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Invalid password",
-  "cmn" : "",
   "de" : "Ungültiges Passwort",
-  "fr" : "",
+  "fr" : "Mot de passe incorrect",
   "id" : "Kata sandi tidak sah",
   "it" : "Password non valida",
   "ja" : "無効なパスワード",
@@ -2486,20 +2260,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Median Latency",
-  "cmn" : "",
   "de" : "Durchschnittliche Verzögerung",
-  "fr" : "",
+  "fr" : "Latence médiane",
   "id" : "Latensi Median",
   "it" : "Latenza media",
   "ja" : "Median Latency",
   "ko" : "Median Latency",
-  "zh" : "Median Latency",
+  "zh" : "中值延迟",
   "zh_HANS" : ""
 }, {
   "en" : "CPU",
-  "cmn" : "",
   "de" : "CPU",
-  "fr" : "",
+  "fr" : "CPU",
   "id" : "CPU",
   "it" : "CPU",
   "ja" : "CPU",
@@ -2508,20 +2280,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Export transactions as CSV",
-  "cmn" : "",
   "de" : "Transaktionen als CSV exportieren",
-  "fr" : "",
+  "fr" : "Exporter les transactions au format CSV",
   "id" : "Ekspor transaksi sebagai CSV",
   "it" : "Esporta transazioni in formato CSV",
   "ja" : "Export transactions as CSV",
   "ko" : "Export transactions as CSV",
-  "zh" : "Export transactions as CSV",
+  "zh" : "导出交易为 CSV 格式",
   "zh_HANS" : ""
 }, {
   "en" : "kaspaminer",
-  "cmn" : "",
   "de" : "kaspaminer",
-  "fr" : "",
+  "fr" : "kaspaminer",
   "id" : "kaspaminer",
   "it" : "kaspaminer",
   "ja" : "kaspaminer",
@@ -2530,9 +2300,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "STORAGE USED",
-  "cmn" : "",
   "de" : "VERBRAUCHTER SPEICHER",
-  "fr" : "",
+  "fr" : "STORAGE USED",
   "id" : "PENYIMPANAN DIGUNAKAN",
   "it" : "SPAZIO DISCO UTILIZZATO",
   "ja" : "STORAGE USED",
@@ -2541,9 +2310,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "RESET",
-  "cmn" : "",
   "de" : "ZURÜCKSETZEN",
-  "fr" : "",
+  "fr" : "RESET",
   "id" : "PULIHKAN",
   "it" : "RESET",
   "ja" : "RESET",
@@ -2552,9 +2320,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Update",
-  "cmn" : "",
   "de" : "Aktualisieren",
-  "fr" : "",
+  "fr" : "Update",
   "id" : "Perbarui",
   "it" : "Aggiorna",
   "ja" : "Update",
@@ -2563,9 +2330,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Preparing transaction for [n] KAS ....",
-  "cmn" : "",
   "de" : "Transaktion für [n] KAS wird vorbereitet...",
-  "fr" : "",
+  "fr" : "Preparing transaction for [n] KAS ....",
   "id" : "Menyiapkan transaksi untuk [n] KAS....",
   "it" : "Transazione per [n] KAS in preparazione....",
   "ja" : "Preparing transaction for [n] KAS ....",
@@ -2574,9 +2340,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Priority Fee",
-  "cmn" : "",
   "de" : "Prioritätsgebühr",
-  "fr" : "",
+  "fr" : "Priority Fee",
   "id" : "Biaya Prioritas",
   "it" : "Commissione di rete (fee) prioritaria",
   "ja" : "Priority Fee",
@@ -2585,42 +2350,38 @@
   "zh_HANS" : ""
 }, {
   "en" : "Final index",
-  "cmn" : "",
   "de" : "Finaler Index",
-  "fr" : "",
+  "fr" : "Index final",
   "id" : "Indeks akhir",
   "it" : "Indice finale",
   "ja" : "Final index",
   "ko" : "Final index",
-  "zh" : "Final index",
+  "zh" : "最终索引",
   "zh_HANS" : ""
 }, {
   "en" : "Force transaction times update",
-  "cmn" : "",
   "de" : "Transaktionszeit-Update forcieren",
-  "fr" : "",
+  "fr" : "Forcer la mise à jour des heures de transaction",
   "id" : "Paksakan pembaruan waktu transaksi",
   "it" : "Aggiorna orario delle transazioni",
   "ja" : "Force transaction times update",
   "ko" : "Force transaction times update",
-  "zh" : "Force transaction times update",
+  "zh" : "强制更新交易时间",
   "zh_HANS" : ""
 }, {
   "en" : "Kaspad Node",
-  "cmn" : "",
   "de" : "Kaspad Knoten",
-  "fr" : "",
+  "fr" : "Nœud Kaspad",
   "id" : "Node Kaspad",
   "it" : "Nodo Kaspad",
   "ja" : "Kaspad Node",
   "ko" : "Kaspad Node",
-  "zh" : "Kaspad Node",
+  "zh" : "Kaspad 节点",
   "zh_HANS" : ""
 }, {
   "en" : "STATUS",
-  "cmn" : "",
   "de" : "STATUS",
-  "fr" : "",
+  "fr" : "STATUS",
   "id" : "STATUS",
   "it" : "STATO",
   "ja" : "STATUS",
@@ -2629,9 +2390,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Export Wallet Seed File (KPK)",
-  "cmn" : "",
   "de" : "Wallet Seed Datei exportieren (KPK)",
-  "fr" : "",
+  "fr" : "Exporter la seed du portefeuille (KPK)",
   "id" : "Ekspor Berkas Benih Dompet (KPK)",
   "it" : "Esporta il file contenente il seed del Wallet (KPK)",
   "ja" : "KPKウォレットファイルをエクスポートする",
@@ -2640,9 +2400,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Incorrect password.",
-  "cmn" : "",
   "de" : "Falsches Passwort.",
-  "fr" : "",
+  "fr" : "Mot de passe incorrect.",
   "id" : "Kata sandi salah.",
   "it" : "Password non corretta.",
   "ja" : "間違ったパスワード",
@@ -2651,9 +2410,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Reset",
-  "cmn" : "",
   "de" : "Zurücksetzen",
-  "fr" : "",
+  "fr" : "Reset",
   "id" : "Setel ulang",
   "it" : "Reset",
   "ja" : "リセット",
@@ -2662,9 +2420,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "DAA score:",
-  "cmn" : "",
   "de" : "DAA Wert",
-  "fr" : "",
+  "fr" : "Score DAA:",
   "id" : "Skor DAA:",
   "it" : "DAA score:",
   "ja" : "DAA score:",
@@ -2673,9 +2430,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Release Notes",
-  "cmn" : "",
   "de" : "Versionshinweise",
-  "fr" : "",
+  "fr" : "Release Notes",
   "id" : "Catatan Rilis",
   "it" : "Note di rilascio",
   "ja" : "Release Notes",
@@ -2684,9 +2440,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "DONE",
-  "cmn" : "",
   "de" : "FERTIG",
-  "fr" : "",
+  "fr" : "OK",
   "id" : "SELESAI",
   "it" : "FATTO",
   "ja" : "終了",
@@ -2695,9 +2450,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "CONNECTING...",
-  "cmn" : "",
   "de" : "VERBINDEN...",
-  "fr" : "",
+  "fr" : "CONNEXION EN COURS...",
   "id" : "MENGHUBUNGKAN...",
   "it" : "CONNESSIONE...",
   "ja" : "CONNECTING...",
@@ -2706,9 +2460,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Configuration templates allow you to load pre-made KDX configurations.",
-  "cmn" : "",
   "de" : "Konfigurationsvorlagen ermöglichen es Ihnen, vorgefertigte KDX Konfigurationen zu laden.",
-  "fr" : "",
+  "fr" : "Les modèles de configuration permettent de charger automatiquement des configurations KDX.",
   "id" : "Templat konfigurasi memungkinkan Anda memuat konfigurasi KDX yang telah dibuat sebelumnya.",
   "it" : "I modelli di configurazione ti consentono di caricare configurazioni KDX predefinite.",
   "ja" : "Configuration templates allow you to load pre-made KDX configurations.",
@@ -2717,9 +2470,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Enter your 12-word seed phrase to recover your wallet (words are not case sensitive)",
-  "cmn" : "",
   "de" : "Geben Sie Ihre 12-Wörter Seed Phrase ein, um das Wallet wiederherzustellen (Groß- und Kleinschreibung wird NICHT beachtet)",
-  "fr" : "",
+  "fr" : "Entrer les 12 mots qui composent votre seed pour restaurer votre portefeuille (les mots ne sont pas sensibles à la casse)",
   "id" : "Masukkan seed frase 12 kata Anda untuk memulihkan dompet Anda (kata-kata tidak peka huruf besar/kecil)",
   "it" : "Inserisci la tua seed phrase di 12 parole per recuperare il wallet (lettere maiuscole o minuscole non fanno differenza)",
   "ja" : "Enter your 12-word seed phrase to recover your wallet (words are not case sensitive)",
@@ -2728,20 +2480,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "3rd",
-  "cmn" : "",
   "de" : "3.",
-  "fr" : "",
+  "fr" : "3ème",
   "id" : "Ketiga",
   "it" : "terza",
   "ja" : "3rd",
   "ko" : "3rd",
-  "zh" : "3rd",
+  "zh" : "第3个",
   "zh_HANS" : ""
 }, {
   "en" : "Peers",
-  "cmn" : "",
   "de" : "Peers",
-  "fr" : "",
+  "fr" : "Pairs",
   "id" : "Peers",
   "it" : "Peers",
   "ja" : "Peers",
@@ -2750,9 +2500,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "4th",
-  "cmn" : "",
   "de" : "4.",
-  "fr" : "",
+  "fr" : "4ème",
   "id" : "Keempat",
   "it" : "4th",
   "ja" : "4th",
@@ -2761,9 +2510,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "TESTNET",
-  "cmn" : "",
   "de" : "TESTNET",
-  "fr" : "",
+  "fr" : "TESTNET",
   "id" : "TESTNET",
   "it" : "TESTNET",
   "ja" : "TESTNET",
@@ -2772,9 +2520,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Wallet Status",
-  "cmn" : "",
   "de" : "Wallet-Status",
-  "fr" : "",
+  "fr" : "Wallet Status",
   "id" : "Status Dompet",
   "it" : "Stato del wallet",
   "ja" : "ウォレットのステータス",
@@ -2783,9 +2530,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "SEND",
-  "cmn" : "",
   "de" : "SENDEN",
-  "fr" : "",
+  "fr" : "SEND",
   "id" : "KIRIM",
   "it" : "INVIA",
   "ja" : "送信",
@@ -2794,9 +2540,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Automatically calculate network fee",
-  "cmn" : "",
   "de" : "Automatisch Netzwerkgebühr berechnen",
-  "fr" : "",
+  "fr" : "Calculer automatiquement les frais de transaction",
   "id" : "Menghitung biaya jaringan secara otomatis",
   "it" : "Calcola automaticamente la commissione di rete (fee)",
   "ja" : "ネットワーク料金を自動的に計算する",
@@ -2805,20 +2550,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Copyright (c) ASPECTRON Inc.",
-  "cmn" : "",
   "de" : "Copyright (c) ASPECTRON Inc.",
-  "fr" : "",
+  "fr" : "Copyright (c) ASPECTRON Inc.",
   "id" : "Hak Cipta (c) ASPECTRON Inc.",
   "it" : "Copyright (c) ASPECTRON Inc.",
   "ja" : "Copyright (c) ASPECTRON Inc.",
   "ko" : "Copyright (c) ASPECTRON Inc.",
-  "zh" : "Copyright (c) ASPECTRON Inc.",
+  "zh" : "版权所有 (c) ASPECTRON 公司.",
   "zh_HANS" : ""
 }, {
   "en" : "Open Wallet",
-  "cmn" : "",
   "de" : "Wallet öffnen",
-  "fr" : "",
+  "fr" : "Ouvrir le portefeuille",
   "id" : "Buka Dompet",
   "it" : "Apri Wallet",
   "ja" : "オープンウォレット",
@@ -2827,9 +2570,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "kaspad",
-  "cmn" : "",
   "de" : "kaspad",
-  "fr" : "",
+  "fr" : "kaspad",
   "id" : "kaspad",
   "it" : "kaspad",
   "ja" : "kaspad",
@@ -2838,9 +2580,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "PEERS",
-  "cmn" : "",
   "de" : "PEERS",
-  "fr" : "",
+  "fr" : "PAIRS",
   "id" : "PEERS",
   "it" : "PEERS",
   "ja" : "PEERS",
@@ -2849,9 +2590,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Recovery Seed",
-  "cmn" : "",
   "de" : "Wiederherstellungscode (Seed)",
-  "fr" : "",
+  "fr" : "Recovery Seed",
   "id" : "Benih Pemulihan",
   "it" : "Esegui backup della seed phrase",
   "ja" : "Recovery Seed",
@@ -2860,9 +2600,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "What is the [x] word?",
-  "cmn" : "",
   "de" : "Was ist das [x] Wort?",
-  "fr" : "",
+  "fr" : "What is the [x] word?",
   "id" : "Apa kata [x] itu?",
   "it" : "Qual è la [x] parola?",
   "ja" : "What is the [x] word?",
@@ -2871,9 +2610,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Are you sure?",
-  "cmn" : "",
   "de" : "Sind Sie sicher?",
-  "fr" : "",
+  "fr" : "Êtes-vous sûr ?",
   "id" : "Apakah Anda yakin?",
   "it" : "Vuoi procedere?",
   "ja" : "本気ですか？",
@@ -2882,9 +2620,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "OFFLINE",
-  "cmn" : "",
   "de" : "OFFLINE",
-  "fr" : "",
+  "fr" : "HORS LIGNE",
   "id" : "LURING",
   "it" : "DISCONNESSO",
   "ja" : "オフライン",
@@ -2893,9 +2630,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Dark Theme",
-  "cmn" : "",
   "de" : "Dunkles Theme",
-  "fr" : "",
+  "fr" : "Thème sombre",
   "id" : "Tema Gelap",
   "it" : "Tema scuro",
   "ja" : "ダーク",
@@ -2904,9 +2640,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "I have a wallet",
-  "cmn" : "",
   "de" : "Ich habe ein Wallet",
-  "fr" : "",
+  "fr" : "J'ai un portefeuille",
   "id" : "Saya punya sebuah dompet",
   "it" : "Ho un wallet",
   "ja" : "I have a wallet",
@@ -2915,31 +2650,28 @@
   "zh_HANS" : ""
 }, {
   "en" : "The Enable Mining option starts / stops all configured Kaspaminer instances.",
-  "cmn" : "",
   "de" : "Die Miningoption startet / stoppt alle konfigurierten Kaspaminer-Instanzen",
-  "fr" : "",
+  "fr" : "The Enable Mining option starts / stops all configured Kaspaminer instances.",
   "id" : "Opsi Aktifkan Penambangan memulai/menghentikan semua instans Kaspaminer yang dikonfigurasi.",
   "it" : "L'opzione 'Abilita mining' avvia / arresta tutte le istanze di Kaspaminer configurate.",
   "ja" : "[マイニングを有効にする]オプションは、構成されているすべてのKaspaminerインスタンスを開始/停止します。",
   "ko" : "Enable Mining 옵션은 구성된 모든 Kaspaminer 인스턴스를 시작 또는 중지합니다.",
-  "zh" : "[启用挖掘] 选项启动/停止所有已配置的Kaspaminer实例。",
+  "zh" : "启动挖矿选项 选项启动 / 停止所有已配置的 Kaspa Miner 实例。",
   "zh_HANS" : ""
 }, {
   "en" : "Headers",
-  "cmn" : "",
   "de" : "HEADERS",
-  "fr" : "",
+  "fr" : "En-tête",
   "id" : "HEADERS",
   "it" : "Headers",
   "ja" : "Headers",
   "ko" : "헤더",
-  "zh" : "Headers",
+  "zh" : "头",
   "zh_HANS" : ""
 }, {
   "en" : "Scan More Addresses",
-  "cmn" : "",
   "de" : "Mehr Adressen scannen",
-  "fr" : "",
+  "fr" : "Scan More Addresses",
   "id" : "Pindai Lebih Banyak Alamat",
   "it" : "Scansiona altri indirizzi",
   "ja" : "Scan More Addresses",
@@ -2948,9 +2680,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Flow-UX Framework",
-  "cmn" : "",
   "de" : "Flow-UX Framework",
-  "fr" : "",
+  "fr" : "Flow-UX Framework",
   "id" : "Flow-UX Framework",
   "it" : "Flow-UX Framework",
   "ja" : "Flow-UX Framework",
@@ -2959,9 +2690,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Network:",
-  "cmn" : "",
   "de" : "Netzwerk:",
-  "fr" : "",
+  "fr" : "Réseau:",
   "id" : "Jaringan:",
   "it" : "Network:",
   "ja" : "Network:",
@@ -2970,20 +2700,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
-  "cmn" : "",
   "de" : "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
-  "fr" : "",
+  "fr" : "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
   "id" : "Hak Cipta Bagian © 1996-2020, Grup Pengembangan Global PostgreSQL< br >Hak Cipta Bagian © 1994, Bupati Universitas California",
   "it" : "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
   "ja" : "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
   "ko" : "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
-  "zh" : "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
+  "zh" : "Portions 版权所有 © 1996-2020, PostgreSQL 全球开发组 <br /> Portions 版权所有© 1994, 加州大学校董会",
   "zh_HANS" : ""
 }, {
   "en" : "Awesome, one more to go!",
-  "cmn" : "",
   "de" : "Super, noch einer!",
-  "fr" : "",
+  "fr" : "Génial, plus qu'un!",
   "id" : "Luar biasa, satu lagi lagi!",
   "it" : "Fantastico, ne manca ancora uno!",
   "ja" : "Awesome, one more to go!",
@@ -2992,9 +2720,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "TRANSACTIONS",
-  "cmn" : "",
   "de" : "TRANSAKTIONEN",
-  "fr" : "",
+  "fr" : "TRANSACTIONS",
   "id" : "TRANSAKSI",
   "it" : "TRANSAZIONI",
   "ja" : "トランザクション",
@@ -3003,9 +2730,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "DEVELOPER INFO",
-  "cmn" : "",
   "de" : "ENTWICKLER INFORMATION",
-  "fr" : "",
+  "fr" : "INFO DEVELOPPEURS",
   "id" : "INFO PENGEMBANG",
   "it" : "INFORMAZIONI PER SVILUPPATORI",
   "ja" : "DEVELOPER INFO",
@@ -3014,9 +2740,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "NEW WALLET",
-  "cmn" : "",
   "de" : "NEUES WALLET",
-  "fr" : "",
+  "fr" : "NOUVEAU PORTEFEUILLE",
   "id" : "DOMPET BARU",
   "it" : "NUOVO WALLET",
   "ja" : "NEW WALLET",
@@ -3025,9 +2750,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "WALLET",
-  "cmn" : "",
   "de" : "WALLET",
-  "fr" : "",
+  "fr" : "WALLET",
   "id" : "DOMPET",
   "it" : "WALLET",
   "ja" : "財布",
@@ -3036,9 +2760,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Data Folder",
-  "cmn" : "",
   "de" : "Datenverzeichnis",
-  "fr" : "",
+  "fr" : "Dossier de configuration",
   "id" : "Folder Data",
   "it" : "Cartella dati",
   "ja" : "データフォルダ",
@@ -3047,9 +2770,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Debug",
-  "cmn" : "",
   "de" : "Fehlersuche",
-  "fr" : "",
+  "fr" : "Débug",
   "id" : "Debug",
   "it" : "Debug",
   "ja" : "Debug",
@@ -3058,20 +2780,18 @@
   "zh_HANS" : ""
 }, {
   "en" : "DAGVIZ",
-  "cmn" : "",
   "de" : "DAGVIZ",
-  "fr" : "",
+  "fr" : "DAGVIZ",
   "id" : "DAGVIZ",
   "it" : "DAGVIZ",
   "ja" : "DAGVIZ",
   "ko" : "DAGVIZ",
-  "zh" : "DAGVIZ",
+  "zh" : "DAG可视化",
   "zh_HANS" : ""
 }, {
   "en" : "simulator",
-  "cmn" : "",
   "de" : "Simulator",
-  "fr" : "",
+  "fr" : "simulator",
   "id" : "simulator",
   "it" : "simulatore",
   "ja" : "simulator",
@@ -3080,9 +2800,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Yes stop and reindex.",
-  "cmn" : "",
   "de" : "Ja, stoppen und neu indexieren",
-  "fr" : "",
+  "fr" : "Yes stop and reindex.",
   "id" : "Ya hentikan dan indeks ulang.",
   "it" : "Sì, interrompi e reindicizza.",
   "ja" : "Yes stop and reindex.",
@@ -3091,9 +2810,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Wallet",
-  "cmn" : "",
   "de" : "Wallet",
-  "fr" : "",
+  "fr" : "Wallet",
   "id" : "Dompet",
   "it" : "Wallet",
   "ja" : "財布",
@@ -3102,9 +2820,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Error",
-  "cmn" : "",
   "de" : "Fehler",
-  "fr" : "",
+  "fr" : "Erreur",
   "id" : "Kesalahan",
   "it" : "Errore",
   "ja" : "間違い",
@@ -3113,9 +2830,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Passwords do not match",
-  "cmn" : "",
   "de" : "Passwörter stimmen nicht überein",
-  "fr" : "",
+  "fr" : "Les mots de passe de correspondent pas",
   "id" : "Kata sandi tidak cocok",
   "it" : "Le password non corrispondono",
   "ja" : "Passwords do not match",
@@ -3124,9 +2840,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "DEBUG",
-  "cmn" : "",
   "de" : "DEBUG",
-  "fr" : "",
+  "fr" : "DEBUG",
   "id" : "DEBUG",
   "it" : "DEBUG",
   "ja" : "DEBUG",
@@ -3135,31 +2850,28 @@
   "zh_HANS" : ""
 }, {
   "en" : "Kaspad Archival Node",
-  "cmn" : "",
   "de" : "Kaspad-Archiv-Knoten",
-  "fr" : "",
+  "fr" : "Kaspad Archival Node",
   "id" : "Node Arsip Kaspad",
   "it" : "Nodo archivio Kaspad",
   "ja" : "Kaspad Archival Node",
   "ko" : "Kaspad Archival Node",
-  "zh" : "Kaspad Archival Node",
+  "zh" : "Kaspad 存档节点",
   "zh_HANS" : ""
 }, {
   "en" : "Started from",
-  "cmn" : "",
   "de" : "Gestartet am",
-  "fr" : "",
+  "fr" : "Started from",
   "id" : "Dimulai dari",
   "it" : "Inizia da",
   "ja" : "Started from",
   "ko" : "Started from",
-  "zh" : "Started from",
+  "zh" : "开始自",
   "zh_HANS" : ""
 }, {
   "en" : "KD0",
-  "cmn" : "",
   "de" : "KD0",
-  "fr" : "",
+  "fr" : "KD0",
   "id" : "KD0",
   "it" : "KD0",
   "ja" : "KD0",
@@ -3168,9 +2880,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "kd0",
-  "cmn" : "",
   "de" : "kd0",
-  "fr" : "",
+  "fr" : "kd0",
   "id" : "kd0",
   "it" : "kd0",
   "ja" : "kd0",
@@ -3179,9 +2890,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Chromium",
-  "cmn" : "",
   "de" : "Chromium",
-  "fr" : "",
+  "fr" : "Chromium",
   "id" : "Chromium",
   "it" : "Chromium",
   "ja" : "Chromium",
@@ -3190,31 +2900,28 @@
   "zh_HANS" : ""
 }, {
   "en" : "Kaspa Core:",
-  "cmn" : "",
   "de" : "Kaspa-Kern:",
-  "fr" : "",
+  "fr" : "Kaspa Core:",
   "id" : "Kaspa Core",
   "it" : "Kaspa Core:",
   "ja" : "Kaspa Core:",
   "ko" : "Kaspa Core:",
-  "zh" : "Kaspa Core:",
+  "zh" : "Kaspa 核心:",
   "zh_HANS" : ""
 }, {
   "en" : "Updating transaction times may take time if you have a lot of transactions,",
-  "cmn" : "",
   "de" : "Das Aktualisieren der Transaktionszeiten kann bei vielen Transaktionen lange dauern.",
-  "fr" : "",
+  "fr" : "Updating transaction times may take time if you have a lot of transactions,",
   "id" : "Memperbarui waktu transaksi mungkin memakan waktu lama jika Anda memiliki banyak transaksi,",
   "it" : "L'aggiornamento dell'orario delle transazioni può richiedere tempo se le transazioni sono numerose,",
   "ja" : "Updating transaction times may take time if you have a lot of transactions,",
   "ko" : "Updating transaction times may take time if you have a lot of transactions,",
-  "zh" : "Updating transaction times may take time if you have a lot of transactions,",
+  "zh" : "如果交易众多，更新交易时间会需要更多时间。",
   "zh_HANS" : ""
 }, {
   "en" : "KD1",
-  "cmn" : "",
   "de" : "KD1",
-  "fr" : "",
+  "fr" : "KD1",
   "id" : "KD1",
   "it" : "KD1",
   "ja" : "KD1",
@@ -3223,9 +2930,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "kd1",
-  "cmn" : "",
   "de" : "kd1",
-  "fr" : "",
+  "fr" : "kd1",
   "id" : "kd1",
   "it" : "kd1",
   "ja" : "kd1",
@@ -3234,9 +2940,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "No Transactions",
-  "cmn" : "",
   "de" : "Keine Transaktionen",
-  "fr" : "",
+  "fr" : "Pas de transactions",
   "id" : "Tidak Ada Transaksi",
   "it" : "Nessuna transazione",
   "ja" : "No Transactions",
@@ -3245,9 +2950,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "Pending",
-  "cmn" : "",
   "de" : "Ausstehend",
-  "fr" : "",
+  "fr" : "En cours",
   "id" : "Tertunda",
   "it" : "In attesa",
   "ja" : "保留中",
@@ -3256,9 +2960,8 @@
   "zh_HANS" : ""
 }, {
   "en" : "RAM",
-  "cmn" : "",
   "de" : "Arbeitsspeicher",
-  "fr" : "",
+  "fr" : "RAM",
   "id" : "RAM",
   "it" : "RAM",
   "ja" : "RAM",
