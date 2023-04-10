@@ -1,13 +1,13 @@
-bin
+bin/
 bin.*
 ___bin
-build
-node_modules
+build/
+node_modules/
 node_modules__
-logs
+logs/
 config.json
 __info.txt
-setup
+setup/
 build/.build
 i18n.entries
 .DS_Store
@@ -22,3 +22,4 @@ i18n-sorted.entries
 i18n-merge.data
 *.code-workspace
 target
+*.iml

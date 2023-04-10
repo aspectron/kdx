@@ -263,7 +263,9 @@ class KDXApp extends FlowApp{
 							<div class="menu-item" value="simnet">${T('SIMNET')}</div>
 						</flow-selector>
 					</div>
-					<flow-btn id="load-config" class="load-config" primary warning><flow-i18n>RESET</flow-i18n></flow-btn>
+					<div row>
+						<flow-btn id="load-config" class="load-config" primary warning i18n>RESET</flow-btn>
+					</div>
 				</div>
 				<h4 slot="info" class="title"><flow-i18n>Configuration Templates</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
@@ -399,7 +401,7 @@ class KDXApp extends FlowApp{
 		//console.log("entries", entries)
 		//let ce = new CustomEvent("flow-i18n-entries", {detail:{entries}})
 		//window.dispatchEvent(ce)
-		i18n.setActiveLanguages(['en', 'ja', 'zh_HANS', 'ko', 'de', 'it', 'id']);
+		i18n.setActiveLanguages(['en', 'de', 'fr', 'id', 'it', 'pt_BR', 'ja', 'ko', 'zh']);
 		i18n.setEntries(entries);
 		this.post("set-app-i18n-entries", {entries:i18n.getEntries()})
 		//i18n.setTesting(true);
