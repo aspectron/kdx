@@ -263,7 +263,9 @@ class KDXApp extends FlowApp{
 							<div class="menu-item" value="simnet">${T('SIMNET')}</div>
 						</flow-selector>
 					</div>
-					<flow-btn id="load-config" class="load-config" primary warning><flow-i18n>RESET</flow-i18n></flow-btn>
+					<div row>
+						<flow-btn id="load-config" class="load-config" primary warning i18n>RESET</flow-btn>
+					</div>
 				</div>
 				<h4 slot="info" class="title"><flow-i18n>Configuration Templates</flow-i18n></h4>
 				<p slot="info" is="i18n-p">
