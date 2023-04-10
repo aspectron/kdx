@@ -2300,7 +2300,7 @@
   "zh_HANS" : ""
 }, {
   "en" : "STORAGE USED",
-  "de" : "VERBRAUCHTER SPEICHER",
+  "de" : "FESTPLATTENSPEICHER",
   "fr" : "STORAGE USED",
   "id" : "PENYIMPANAN DIGUNAKAN",
   "it" : "SPAZIO DISCO UTILIZZATO",
@@ -2490,7 +2490,7 @@
   "zh_HANS" : ""
 }, {
   "en" : "Peers",
-  "de" : "Peers",
+  "de" : "Verbindungen",
   "fr" : "Pairs",
   "id" : "Peers",
   "it" : "Peers",
@@ -2580,7 +2580,7 @@
   "zh_HANS" : ""
 }, {
   "en" : "PEERS",
-  "de" : "PEERS",
+  "de" : "VERBINDUNGEN",
   "fr" : "PAIRS",
   "id" : "PEERS",
   "it" : "PEERS",
