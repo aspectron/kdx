@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.12.2] - 2023-04-11
+This release of KDX includes Kaspa build `v0.12.13`
+- ECDSA address support 
+- Added new languages: Français, Indonesian, Italiano, Português (Brazil) 
+
 ## [2.12.1] - 2022-12-01
 This release of KDX includes Kaspa build `v0.12.11`
 - Fix Date and text escaping issue in transactions export as CSV
