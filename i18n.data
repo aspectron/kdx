@@ -105,7 +105,7 @@
   "it" : "Importa il file contenente il seed del wallet (KPK)",
   "ja" : "KPKウォレットファイルをインポートする",
   "ko" : "시드 파일(KPK)을 불러오세요",
-  "pt_BR" : "Importar Arquivo de Semente de Carteira (KPK)",
+  "pt_BR" : "Importar Arquivo de Seed de Carteira (KPK)",
   "zh" : "导入钱包备份文件(KPK)",
   "zh_HANS" : ""
 }, {
@@ -127,7 +127,7 @@
   "it" : "Assicurati che nessuno stia guardando, perché chiunque abbia la tua seed phrase può accedere al tuo wallet e ai tuoi fondi. Scrivitela e tienila al sicuro.",
   "ja" : "Make sure no one is looking, as anyone with your seed phrase can access your wallet your funds. Write it down and keep it safe.",
   "ko" : "시드 구문을 가진 사람은 지갑에 액세스할 수 있습니다. 아무도 보고 있지 않은지 확인하시고, 적어서 안전하게 보관하세요.",
-  "pt_BR" : "Certifique-se de que ninguém esteja olhando, pois qualquer pessoa que tenha sua frase mnemônica pode acessar sua carteira e seus fundos. Anote e mantenha a frase em segurança.",
+  "pt_BR" : "Certifique-se de que ninguém esteja olhando, qualquer pessoa que tenha sua frase 'seed' pode acessar sua carteira e seus fundos. Anote e mantenha a frase em segurança.",
   "zh" : "确保无人窥视，因为任何人通过你的助记词都可以访问你的钱包。小心记录并安全保存。",
   "zh_HANS" : ""
 }, {
@@ -464,11 +464,11 @@
   "en" : "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
   "de" : "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
   "fr" : "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
-  "id" : "KDX &amp; Kaspa Hak Cipta (c) 2020 Kaspa Developers< br > Hak Cipta Dilindungi Undang-Undang.",
+  "id" : "KDX &amp; Kaspa Hak Cipta (c) 2020 Kaspa Developers<br> Hak Cipta Dilindungi Undang-Undang.",
   "it" : "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
   "ja" : "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
   "ko" : "KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br> All Rights Reserved.",
-  "pt_BR" : "KDX & Kaspa Copyright (c) 2020 Kaspa Developers Todos os direitos reservados",
+  "pt_BR" : "KDX & Kaspa Copyright (c) 2020 Kaspa Developers <br> Todos os direitos reservados",
   "zh" : "KDX &amp; Kaspa 版权所有 (c) 2020 Kaspa 开发者 <br> 保留所有权利。",
   "zh_HANS" : ""
 }, {
@@ -563,11 +563,11 @@
   "en" : "Additional funds will be<br/>available in [n]",
   "de" : "Zusätzliche Mittel werden<br/>in [n] verfügbar",
   "fr" : "Des fonds additionnels seront <br/>disponibles dans [n]",
-  "id" : "Dana tambahan akan< br />tersedia di [n]",
+  "id" : "Dana tambahan akan<br/>tersedia di [n]",
   "it" : "Ulteriori fondi saranno<br/> disponibili in [n]",
   "ja" : "Additional funds will be<br/>available in [n]",
   "ko" : "Additional funds will be<br/>available in [n]",
-  "pt_BR" : "Fundos adicionais estarão disponíveis em [n]",
+  "pt_BR" : "Fundos adicionais estarão<br/>disponíveis em [n]",
   "zh" : "更多资金将会在<br/> [n] 可用",
   "zh_HANS" : ""
 }, {
@@ -600,7 +600,7 @@
   "it" : "Hai <b>[n] KAS</b> disponibili.",
   "ja" : "You have <b>[n] KAS</b> available.",
   "ko" : "<b>[n] KAS</b>를 가지고 있습니다",
-  "pt_BR" : "Você tem [n] KAS disponíveis.",
+  "pt_BR" : "Você tem <b>[n] KAS</b> disponíveis.",
   "zh" : "可用余额 <b>[n] KAS</b> .",
   "zh_HANS" : ""
 }, {
@@ -666,7 +666,7 @@
   "it" : "/ SEC",
   "ja" : "/ SEC",
   "ko" : "/ SEC",
-  "pt_BR" : "/SEC",
+  "pt_BR" : "/SEG",
   "zh" : "/ 秒",
   "zh_HANS" : ""
 }, {
@@ -706,11 +706,11 @@
   "en" : "Remember...<br> Anyone with this 12-word phrase can access your wallet your funds. Keep it safe!",
   "de" : "Beachte...<br> Jeder mit Ihrem 12 Wörter Seed hat Zugang zu Ihrem Wallet und Ihren Mitteln. Schützen Sie sie!",
   "fr" : "Remember...<br> Anyone with this 12-word phrase can access your wallet your funds. Keep it safe!",
-  "id" : "Ingat...< br > Siapa pun dengan frasa 12 kata ini dapat mengakses dompet Anda dana Anda. Tetap aman!",
+  "id" : "Ingat...<br> Siapa pun dengan frasa 12 kata ini dapat mengakses dompet Anda dana Anda. Tetap aman!",
   "it" : "Ricorda...<br> Chiunque può accedere al tuo wallet e ai tuoi fondi con questa seed phrase di 12 parole. Tienila al sicuro!",
   "ja" : "Remember...<br> Anyone with this 12-word phrase can access your wallet your funds. Keep it safe!",
   "ko" : "주의하세요...<br> 이 12 단어 구문을 가진 사람은 누구나 지갑에 액세스할 수 있습니다. 안전하게 보관하세요!",
-  "pt_BR" : "Lembre-se... Qualquer pessoa que tenha acesso a esta frase pode acessar sua carteira e seus fundos. Mantenha em segurança!",
+  "pt_BR" : "Lembre-se... <br> Qualquer pessoa que tenha acesso a esta frase-seed pode acessar sua carteira e seus fundos. Mantenha em segurança!",
   "zh" : "谨记...<br> 任何人都可以通过这组 12 个词条访问你的钱包。一定安全保存！",
   "zh_HANS" : ""
 }, {
@@ -842,7 +842,7 @@
   "it" : "Ripristina da seed phrase",
   "ja" : "シードからの回復",
   "ko" : "시드로부터 복구",
-  "pt_BR" : "Recuperar Pela Frase",
+  "pt_BR" : "Recuperar Pela Seed",
   "zh" : "从助记词恢复",
   "zh_HANS" : ""
 }, {
@@ -974,7 +974,7 @@
   "it" : "KASPAMINER",
   "ja" : "KASPAMINER",
   "ko" : "KASPAMINER",
-  "pt_BR" : "MINERAÇÃO KASPA",
+  "pt_BR" : "KASPAMINER",
   "zh" : "KASPAMINER",
   "zh_HANS" : ""
 }, {
@@ -1029,7 +1029,7 @@
   "it" : "WALLET KASPA",
   "ja" : "KASPA WALLET",
   "ko" : "KASPA 지갑",
-  "pt_BR" : "CARTEIRA DA KASPA",
+  "pt_BR" : "CARTEIRA KASPA",
   "zh" : "KASPA 钱包",
   "zh_HANS" : ""
 }, {
@@ -1073,7 +1073,7 @@
   "it" : "Esporta il file contenente il seed del wallet (KPK)",
   "ja" : "KPKウォレットファイルをエクスポートする",
   "ko" : "지갑 시드 파일 내보내기 (KPK)",
-  "pt_BR" : "Exportar arquivo da semente da carteira (KPK)",
+  "pt_BR" : "Exportar arquivo da seed da carteira (KPK)",
   "zh" : "导出KPK钱包文件(KPK)",
   "zh_HANS" : ""
 }, {
@@ -1095,7 +1095,7 @@
   "it" : "Seed non valido",
   "ja" : "Invalid seed",
   "ko" : "잘못된 시드",
-  "pt_BR" : "Semente inválida",
+  "pt_BR" : "Seed inválida",
   "zh" : "无效的种子",
   "zh_HANS" : ""
 }, {
@@ -1128,7 +1128,7 @@
   "it" : "Ripristina da seed phrase",
   "ja" : "Recover from Seed",
   "ko" : "시드로부터 복구",
-  "pt_BR" : "Recuperar pela Frase",
+  "pt_BR" : "Recuperar pela seed",
   "zh" : "从助记词恢复",
   "zh_HANS" : ""
 }, {
@@ -1245,11 +1245,11 @@
   "en" : "You already have a wallet open. <br> Please make sure your current wallet <br> is backed up before proceeding!",
   "de" : "Du hast bereits ein Wallet geöffnet. <br> Bitte stelle sicher, dass dein aktuelles Wallet <br> gesichert ist, bevor du weiter machst!",
   "fr" : "You already have a wallet open. <br> Please make sure your current wallet <br> is backed up before proceeding!",
-  "id" : "Dompet Anda sudah terbuka. < br > Harap pastikan dompet Anda saat ini < br > telah dicadangkan sebelum melanjutkan!",
+  "id" : "Dompet Anda sudah terbuka. <br> Harap pastikan dompet Anda saat ini <br> telah dicadangkan sebelum melanjutkan!",
   "it" : "Hai già un wallet aperto. <br> Assicurati che il tuo portafoglio attuale <br> sia stato sottoposto a backup prima di procedere!",
   "ja" : "You already have a wallet open. <br> Please make sure your current wallet <br> is backed up before proceeding!",
   "ko" : "이미 지갑이 열려 있습니다. <br> 진행하기 전에 현재 지갑이 <br> 백업되어 있는지 확인하십시오!",
-  "pt_BR" : "Você já tem uma carteira aberta. Por favor, certifique-se de que sua carteira atual esteja salva antes de continuar!",
+  "pt_BR" : "Você já tem uma carteira aberta. <br> Por favor, certifique-se de que sua carteira atual <br> esteja salva antes de continuar!",
   "zh" : "你已经打开了一个钱包。<br> 在继续之前，请确保您当前的钱包 <br> 已备份！",
   "zh_HANS" : ""
 }, {
@@ -1425,7 +1425,7 @@
   "it" : "Importa il file contenente il seed del wallet (KPK)",
   "ja" : "Import Wallet Seed File (KPK)",
   "ko" : "시드 파일(KPK)을 불러오세요",
-  "pt_BR" : "Importar Arquivo de Semente de Carteira (KPK)",
+  "pt_BR" : "Importar Arquivo de Seed de Carteira (KPK)",
   "zh" : "导入钱包备份文件 (KPK)",
   "zh_HANS" : ""
 }, {
@@ -1557,7 +1557,7 @@
   "it" : "Conferma password",
   "ja" : "パスワードを認証する",
   "ko" : "비밀번호 확인",
-  "pt_BR" : "Confirme sua senha\n",
+  "pt_BR" : "Confirme sua senha",
   "zh" : "确认密码",
   "zh_HANS" : ""
 }, {
@@ -1711,7 +1711,7 @@
   "it" : "MQ0",
   "ja" : "MQ0",
   "ko" : "MQ0",
-  "pt_BR" : "MQO",
+  "pt_BR" : "MQ0",
   "zh" : "MQ0",
   "zh_HANS" : ""
 }, {
@@ -1733,7 +1733,7 @@
   "it" : "KM0",
   "ja" : "KM0",
   "ko" : "KM0",
-  "pt_BR" : "KMO",
+  "pt_BR" : "KM0",
   "zh" : "KM0",
   "zh_HANS" : ""
 }, {
@@ -1865,7 +1865,7 @@
   "it" : "Copyright (c) 2021 Kaspa Developers",
   "ja" : "Copyright (c) 2021 Kaspa Developers",
   "ko" : "Copyright (c) 2021 Kaspa Developers",
-  "pt_BR" : "Direitos autorais (c) 2020 Kaspa Developers.",
+  "pt_BR" : "Direitos autorais (c) 2021 Kaspa Developers.",
   "zh" : "版权所有 (c) 2021 Kaspa 开发者",
   "zh_HANS" : ""
 }, {
@@ -1942,7 +1942,7 @@
   "it" : "Si consiglia di conservare diverse copie della seed phrase segreta, nascoste in luoghi diversi.",
   "ja" : "It is recommended to keep several copies of your secret seed hidden away in different places.",
   "ko" : "시드 구문의 사본 여러개를 다른 장소에 보관하는 것이 좋습니다.",
-  "pt_BR" : "É recomendado manter várias cópias da sua frase-semente secreta guardadas em locais diferentes.",
+  "pt_BR" : "É recomendado manter várias cópias da sua seed secreta guardadas em locais diferentes.",
   "zh" : "建议在不同地方多存几份助记词，并藏好。",
   "zh_HANS" : ""
 }, {
@@ -2096,7 +2096,7 @@
   "it" : "Il percorso della cartella dati viene utilizzata da tutti i moduli KDX per l'archiviazione. Nella configurazione predefinita, sono inclusi i dati della blockchain di Kaspad e il database dell'API Kasparov. Questa cartella contiene anche i file di log del processo.",
   "ja" : "データフォルダーの場所は、すべてのKDXモジュールによるストレージに使用されます。 デフォルトの構成では、これにはKaspadブロックチェーンデータとKasparov APIデータベースが含まれます。 この場所には、プロセスログファイルも含まれます。",
   "ko" : "데이터 폴더는 모든 KDX 모듈스토리지에 사용됩니다. 기본 구성에서는 Kaspad 블록체인 데이터와 Kasparov API 데이터베이스가 포함됩니다. 이 위치에는 프로세스 로그 파일도 포함됩니다.",
-  "pt_BR" : "A localização da Pasta de Dados é usada para armazenamento por todos os módulos KDX. Na configuração padrão, isso inclui os dados da blockchain do Kaspad e o banco de dados da API do Kasparov. Essa localização também contém arquivos de log de processos.",
+  "pt_BR" : "A localização da Pasta de Dados é usada para armazenamento por todos os módulos KDX. Por padrão, isso inclui os dados da blockchain do Kaspad e o banco de dados da API do Kasparov. Essa pasta também contém arquivos de log.",
   "zh" : "数据文件夹位置用于存储所有的KDX模块。在默认配置中，这包括Kaspad区块链数据和Kasparov API数据库。此位置还包含进程日志文件。",
   "zh_HANS" : ""
 }, {
@@ -2129,7 +2129,7 @@
   "it" : "FREQUENZA DEI BLOCCHI (MEDIA)",
   "ja" : "BLOCKS RATE (AVG)",
   "ko" : "블록 레이트(평균)",
-  "pt_BR" : "TAXA DE BLOCOS (MEDIA)",
+  "pt_BR" : "TAXA DE BLOCOS (MÉDIA)",
   "zh" : "出块速率(平均)",
   "zh_HANS" : ""
 }, {
@@ -2169,11 +2169,11 @@
   "en" : "KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br> All Rights Reserved.",
   "de" : "KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br> All Rights Reserved.",
   "fr" : "KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br> All Rights Reserved.",
-  "id" : "KDX &amp; Kaspa Hak Cipta (c) 2021 Kaspa Developers< br > Hak Cipta Dilindungi Undang-Undang.",
+  "id" : "KDX &amp; Kaspa Hak Cipta (c) 2021 Kaspa Developers<br> Hak Cipta Dilindungi Undang-Undang.",
   "it" : "KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br> All Rights Reserved.",
   "ja" : "KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br> All Rights Reserved.",
   "ko" : "KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br> All Rights Reserved.",
-  "pt_BR" : "KDX & Kaspa Copyright (c) 2021 Kaspa Developers Todos os direitos reservados",
+  "pt_BR" : "KDX & Kaspa Copyright (c) 2021 Kaspa Developers <br> Todos os direitos reservados",
   "zh" : "KDX &amp; Kaspa 版权所有 (c) 2021 Kaspa 开发者 1 保留所有权利。",
   "zh_HANS" : ""
 }, {
@@ -2316,7 +2316,7 @@
   "it" : "RISORSE KASPA",
   "ja" : "カスパ・リソース",
   "ko" : "KASPA 리소스",
-  "pt_BR" : "RECURSOS DA KASPA",
+  "pt_BR" : "RECURSOS KASPA",
   "zh" : "KASPA 资源",
   "zh_HANS" : ""
 }, {
@@ -2356,11 +2356,11 @@
   "en" : "'utxoindex' flag is missing from KASPAD config.<br /> Please inform the wallet administrator.<br />",
   "de" : "'utxoindex'-Setting fehlt in der KASPAD-Konfiguration<br />Bitte den Wallet-Administrator informieren.<br />",
   "fr" : "Le paramètre 'utxoindex' est manquant dans la configuration du KASPAD.<br /> Merci de contacter l'administrateur du portefeuille.<br />",
-  "id" : "tanda 'utxoindex' hilang dari konfigurasi KASPAD.< br /> Harap beri tahu administrator dompetnya.< br />",
+  "id" : "tanda 'utxoindex' hilang dari konfigurasi KASPAD.<br /> Harap beri tahu administrator dompetnya.<br />",
   "it" : "Nella configurazione di KASPAD manca il flag 'utxoindex'.<br /> Si prega di informare l'amministratore del wallet.<br /> ",
   "ja" : "'utxoindex' flag is missing from KASPAD config.<br /> Please inform the wallet administrator.<br />",
   "ko" : "'utxoindex' flag is missing from KASPAD config.<br /> Please inform the wallet administrator.<br />",
-  "pt_BR" : "A indicador de 'utxoindex' está faltando na configuração do KASPAD. Por favor, informe o administrador da carteira.",
+  "pt_BR" : "A indicador de 'utxoindex' está faltando na configuração do KASPAD. <br /> Por favor, informe o administrador da carteira.<br />",
   "zh" : "Kaspad 配置中丢失 ’utxoindex‘ 参数。请通知钱包管理员。",
   "zh_HANS" : ""
 }, {
@@ -2382,7 +2382,7 @@
   "it" : "DB0",
   "ja" : "DB0",
   "ko" : "DB0",
-  "pt_BR" : "DBO",
+  "pt_BR" : "DB0",
   "zh" : "DB0",
   "zh_HANS" : ""
 }, {
@@ -2448,7 +2448,7 @@
   "it" : "Il wallet è accessibile tramite una seed phrase. La seed phrase è una frase segreta ordinata di 12 parole.",
   "ja" : "Your wallet is accessible by a seed phrase. The seed phrase is an ordered 12-word secret phrase.",
   "ko" : "당신은 시드 구문으로 지갑에 액세스가 가능합니다. 시드 구문은 12개의 단어로 구성되어 있습니다",
-  "pt_BR" : "Sua carteira é acessível por meio de uma frase-semente. A frase-semente é uma sequência ordenada de 12 palavras secretas.",
+  "pt_BR" : "Sua carteira é acessível por meio de uma frase-seed. A frase-seed é uma sequência ordenada de 12 palavras secretas.",
   "zh" : "你的钱包可通过助记词访问。助记词是一个有序的 12 个秘密单词。",
   "zh_HANS" : ""
 }, {
@@ -2635,7 +2635,7 @@
   "it" : "Esporta il file contenente il seed del Wallet (KPK)",
   "ja" : "KPKウォレットファイルをエクスポートする",
   "ko" : "지갑 시드 파일 내보내기 (KPK)",
-  "pt_BR" : "Exportar arquivo da semente da carteira (KPK)",
+  "pt_BR" : "Exportar arquivo da seed da carteira (KPK)",
   "zh" : "导出你的钱包备份 (KPK)",
   "zh_HANS" : ""
 }, {
@@ -2723,7 +2723,7 @@
   "it" : "Inserisci la tua seed phrase di 12 parole per recuperare il wallet (lettere maiuscole o minuscole non fanno differenza)",
   "ja" : "Enter your 12-word seed phrase to recover your wallet (words are not case sensitive)",
   "ko" : "지갑 복구를 위해 12개의 시드 구문을 입력하세요(대소문자 구별 하지 않음)",
-  "pt_BR" : "Digite sua frase-semente de 12 palavras para recuperar sua carteira (as palavras não diferenciam maiúsculas de minúsculas)",
+  "pt_BR" : "Digite sua seed de 12 palavras para recuperar sua carteira (as palavras não diferenciam maiúsculas de minúsculas)",
   "zh" : "输入您的 12 个助记词以恢复您的钱包（单词不区分大小写）",
   "zh_HANS" : ""
 }, {
@@ -2855,7 +2855,7 @@
   "it" : "Esegui backup della seed phrase",
   "ja" : "Recovery Seed",
   "ko" : "시드 복구",
-  "pt_BR" : "Frase de Recuperação",
+  "pt_BR" : "Seed de Recuperação",
   "zh" : "恢复助记词",
   "zh_HANS" : ""
 }, {
@@ -2972,11 +2972,11 @@
   "en" : "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
   "de" : "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
   "fr" : "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
-  "id" : "Hak Cipta Bagian © 1996-2020, Grup Pengembangan Global PostgreSQL< br >Hak Cipta Bagian © 1994, Bupati Universitas California",
+  "id" : "Hak Cipta Bagian © 1996-2020, Grup Pengembangan Global PostgreSQL<br>Hak Cipta Bagian © 1994, Bupati Universitas California",
   "it" : "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
   "ja" : "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
   "ko" : "Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br>Portions Copyright © 1994, The Regents of the University of California",
-  "pt_BR" : "Partes com Direitos Autorais © 1996-2020, o Grupo de Desenvolvimento Global do PostgreSQL. Partes com Direitos Autorais © 1994, os Regentes da Universidade da Califórnia",
+  "pt_BR" : "Partes com Direitos Autorais © 1996-2020, o Grupo de Desenvolvimento Global do PostgreSQL <br> Partes com Direitos Autorais © 1994, os Regentes da Universidade da Califórnia",
   "zh" : "Portions 版权所有 © 1996-2020, PostgreSQL 全球开发组 <br /> Portions 版权所有© 1994, 加州大学校董会",
   "zh_HANS" : ""
 }, {
@@ -3009,7 +3009,7 @@
   "it" : "INFORMAZIONI PER SVILUPPATORI",
   "ja" : "DEVELOPER INFO",
   "ko" : "개발자 정보",
-  "pt_BR" : "INFORMAÇÃO DO DESENVOLVEDOR",
+  "pt_BR" : "INFO. DO DESENVOLVEDOR",
   "zh" : "开发信息",
   "zh_HANS" : ""
 }, {
@@ -3163,7 +3163,7 @@
   "it" : "KD0",
   "ja" : "KD0",
   "ko" : "KD0",
-  "pt_BR" : "KDO",
+  "pt_BR" : "KD0",
   "zh" : "KD0",
   "zh_HANS" : ""
 }, {
