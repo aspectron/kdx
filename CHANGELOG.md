@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.12.3] - 2023-04-15
+This is a maintenance release. Due to an issue with GitHub some translations did not propagate
+into the previous `2.12.2` release (this affected Windows builds only). 
+
 ## [2.12.2] - 2023-04-11
 This release of KDX includes Kaspa build `v0.12.13`
 - ECDSA address support 
