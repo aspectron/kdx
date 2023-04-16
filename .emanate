@@ -26,14 +26,14 @@ const E = new Emanator(__dirname, {
 
     manifest : (manifest) => {
         if(E.flags['with-perfmon'] && !E.flags['no-perfmon']) {
-            if(E.PLATFORM != 'darwin') {
+            if(E.PLATFORM != 'macos') {
                 Object.assign(manifest.dependencies,{
                     "@aspectron/process-list": "*",
                 })
             }
         }
 
-//        if(E.PLATFORM == 'darwin')
+//        if(E.PLATFORM == 'macos')
 //            manifest.files.push('apps');
 
         return manifest;
@@ -169,7 +169,7 @@ const miner = E.task('miner', ['origin'], async () => {
         p:['kaspa-miner']
     }
 
-    if(E.PLATFORM != 'darwin'){
+    if(E.PLATFORM != 'macos'){
         args.p.push('kaspacuda', 'kaspaopencl');
         if(E.flags['miner-overclock'])
             args.features = "default,kaspacuda/overclock";
