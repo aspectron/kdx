@@ -1,13 +1,13 @@
 [ {
-  "en" : "PostreSQL",
+  "en" : "PostgreSQL",
   "de" : "PostgreSQL",
-  "fr" : "PostreSQL",
-  "id" : "PostreSQL",
-  "it" : "PostreSQL",
-  "ja" : "PostreSQL",
-  "ko" : "PostreSQL",
-  "pt_BR" : "PostreSQL",
-  "zh" : "PostreSQL",
+  "fr" : "PostgreSQL",
+  "id" : "PostgreSQL",
+  "it" : "PostgreSQL",
+  "ja" : "PostgreSQL",
+  "ko" : "PostgreSQL",
+  "pt_BR" : "PostgreSQL",
+  "zh" : "PostgreSQL",
   "zh_HANS" : ""
 }, {
   "en" : "KASPAROVD",
@@ -725,12 +725,12 @@
   "zh" : "第9个",
   "zh_HANS" : ""
 }, {
-  "en" : "Password to encryt the wallet",
+  "en" : "Password to encrypt the wallet",
   "de" : "Passwort um das Wallet zu verschlüsseln",
   "fr" : "Mot de passe pour chiffrer le portefeuille",
   "id" : "Kata Sandi untuk mengenkripsi dompet",
   "it" : "Password per proteggere il wallet",
-  "ja" : "Password to encryt the wallet",
+  "ja" : "Password to encrypt the wallet",
   "ko" : "지갑을 암호화하는 비밀번호",
   "pt_BR" : "Senha para encriptar a carteira",
   "zh" : "给钱包加上密码",
