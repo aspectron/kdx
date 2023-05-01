@@ -404,12 +404,22 @@ class KDXApp extends FlowApp{
 		i18n.setActiveLanguages([
 			'en',
 			'de',
+			'es',
+			'fa',
+			'fi',
 			'fr',
+			'hi',
+			'hu',
 			'id',
 			'it',
-			'pt_BR',
 			'ja',
 			'ko',
+			'nl',
+			'pl',
+			'pt_BR',
+			'ru',
+			'uk',
+			'ur',
 			'zh'
 		]);
 		i18n.setEntries(entries);
