@@ -418,6 +418,7 @@ class KDXApp extends FlowApp{
 			'pl',
 			'pt_BR',
 			'ru',
+			'sq',
 			'uk',
 			'ur',
 			'zh'
