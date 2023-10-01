@@ -37,6 +37,7 @@
     "@kaspa/grpc-node": ">=1.0.8",
     "@kaspa/ux": "github:aspectron/kaspa-ux",
     "@kaspa/wallet-worker": ">=1.1.21",
+    "@runonflux/nat-upnp": "1.0.2",
     "@webcomponents/webcomponentsjs": "2.6.0",
     "bs58": "4.0.1",
     "colors": "1.4.0",

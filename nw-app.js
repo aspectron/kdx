@@ -164,11 +164,11 @@ class NWApp extends App{
 		});
 
 		rpc.on("set-app-data-dir", async (args, callback)=>{
-			let {dataDir, restartDelay, defaults, network } = args;
+			let {dataDir, restartDelay, defaults, network, upnpEnabled } = args;
 			//return callback({error: "Invalid directory"});
 
 			if(defaults && network) {
-				this.setModulesConfigTemplate(defaults,network);
+				this.setModulesConfigTemplate(defaults, network, upnpEnabled);
 			}
 
 			if(dataDir === ""){
