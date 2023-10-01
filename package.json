@@ -52,7 +52,7 @@
     "node-pty": "0.10.1",
     "node-statsd": "0.1.1",
     "protobufjs": "7.0.0",
-    "semver": "7.3.4",
+    "semver": "7.5.2",
     "underscore": "1.13.0",
     "ws": "7.5.9"
   },
