@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.12.5] - 2023-10-02
+Big localization update, many thanks to our translators!
+
 ## [2.12.4] - 2023-09-30
 Updated Kaspa node to v0.12.14.
 
