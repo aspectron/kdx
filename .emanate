@@ -169,11 +169,11 @@ const miner = E.task('miner', ['origin'], async () => {
         p:['kaspa-miner']
     }
 
-    if(E.PLATFORM != 'macos'){
-        args.p.push('kaspacuda', 'kaspaopencl');
-        if(E.flags['miner-overclock'])
-            args.features = "default,kaspacuda/overclock";
-    }
+//    if(E.PLATFORM != 'macos'){
+//        args.p.push('kaspacuda', 'kaspaopencl');
+//        if(E.flags['miner-overclock'])
+//            args.features = "default,kaspacuda/overclock";
+//    }
 
     await cargo.build(minerDest, args);
     
@@ -189,13 +189,13 @@ const miner = E.task('miner', ['origin'], async () => {
     let files = new Map();
     files.set(file, rename)
 
-    if(E.PLATFORM == 'windows'){
-        files.set('kaspacuda.dll', 0)
-        files.set('kaspaopencl.dll', 0)
-    }else if(E.PLATFORM == 'linux'){
-        files.set('kaspacuda.so', 0)
-        files.set('kaspaopencl.so', 0)
-    }
+//    if(E.PLATFORM == 'windows'){
+//        files.set('kaspacuda.dll', 0)
+//        files.set('kaspaopencl.dll', 0)
+//    }else if(E.PLATFORM == 'linux'){
+//        files.set('kaspacuda.so', 0)
+//        files.set('kaspaopencl.so', 0)
+//    }
 
     files.forEach((destName, srcName)=>{
         if(!destName)

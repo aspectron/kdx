@@ -1,5 +1,8 @@
 # Changelog
 
+## [2.12.4] - 2023-09-30
+Updated Kaspa node to v0.12.14.
+
 ## [2.12.3] - 2023-04-15
 This is a maintenance release. Due to an issue with GitHub some translations did not propagate
 into the previous `2.12.2` release (this affected Windows builds only). 
