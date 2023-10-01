@@ -23,6 +23,9 @@ class Initializer{
 		$folderInput.on("changed", (e)=>{
 			console.log(e.detail.value, folderInput.value);
 		});
+		let $upnp = $("#settings-enable-upnp");
+		let upnp = $upnp[0];
+		upnp.value = true;
 
 		$("flow-btn.reset-data-dir").on("click", ()=>{
 			folderInput.setValue(originalValue);
@@ -38,9 +41,10 @@ class Initializer{
 			const defaults = this.templates[this.tpl_template];
 			defaults.ident = this.tpl_template;
 			const network = this.tpl_network;
+			const upnpEnabled = upnp.value;
 
 			this.setUiDisabled(true);
-			let err = await this.get("set-app-data-dir", {dataDir:value, defaults, network });
+			let err = await this.get("set-app-data-dir", {dataDir:value, defaults, network, upnpEnabled });
 			FlowDialog.show("Error", err.error || err)
 			console.log("err:", err)
 			this.setUiDisabled(false);
@@ -68,7 +72,7 @@ class Initializer{
 
 //		this.tpl_network = 'testnet';
 		this.tpl_network = 'mainnet';
-		this.tpl_template = 'kaspad-mining';
+		this.tpl_template = 'kaspad-node-only';
 
 		try {
 			this.templates = JSON.parse(fs.readFileSync(path.join(this.appFolder,'.templates'))+'');

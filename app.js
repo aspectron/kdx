@@ -273,13 +273,20 @@ class App extends FlowApp{
 		this.setConfig(this.config);
 	}
 
-	setModulesConfigTemplate(defaults, network) {
+	setModulesConfigTemplate(defaults, network, upnpEnabled) {
 		let prev = this.config;
 		if(prev) {
 			delete prev.modules;
 		}
 		this.config = Object.assign({},defaults,prev||{});
 		this.config.network = network;
+		this.config.upnpEnabled = upnpEnabled;
+
+		Object.keys(this.config.modules).forEach((k) =>{
+			if (k.startsWith('kaspad:')) {
+				this.config.modules[k].upnpEnabled = upnpEnabled;
+			};
+		});
 
 		if(network != 'mainnet') {
 			Object.keys(this.config.modules).forEach((k) =>{

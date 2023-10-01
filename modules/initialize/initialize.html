@@ -76,6 +76,7 @@
 		<flow-i18n caption>Kaspa Configuration</flow-i18n>
 		<div slot="input" style="margin-top:16px;">
 			<flow-selector style="margin-right:32px;"id="template-list" label="Select Configuration Template" 
+				selected="kaspad-node-only"
 				mergeattributes="value" 
 				mergeinnerhtml class="template-list"></flow-selector>
 			<flow-selector id="network-list" label="Network" selected="mainnet" 
@@ -85,6 +86,12 @@
 				<div class="menu-item" value="devnet">DEVNET</div>
 				<div class="menu-item" value="simnet">SIMNET</div>
 			</flow-selector>
+		</div>
+		<div slot="input" style="margin-top: 0;">
+			<flow-checkbox id="settings-enable-upnp" class="block">
+				<flow-i18n>Enable UPNP (recommended)</flow-i18n>
+			</flow-checkbox>
+			<p>Use UPNP to make your node public and participate in strengthening the Kaspa network.</p>
 		</div>
 		<h4 slot="info" class="title"><flow-i18n>Kaspa Stack Configuration</flow-i18n></h4>
 		<p slot="info" is="i18n-p">
