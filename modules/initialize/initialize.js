@@ -23,9 +23,8 @@ class Initializer{
 		$folderInput.on("changed", (e)=>{
 			console.log(e.detail.value, folderInput.value);
 		});
-		let $upnp = $("#settings-enable-upnp");
+		let $upnp = $("#settings-disable-upnp");
 		let upnp = $upnp[0];
-		upnp.value = true;
 
 		$("flow-btn.reset-data-dir").on("click", ()=>{
 			folderInput.setValue(originalValue);
@@ -41,7 +40,7 @@ class Initializer{
 			const defaults = this.templates[this.tpl_template];
 			defaults.ident = this.tpl_template;
 			const network = this.tpl_network;
-			const upnpEnabled = upnp.value;
+			const upnpEnabled = !upnp.value;
 
 			this.setUiDisabled(true);
 			let err = await this.get("set-app-data-dir", {dataDir:value, defaults, network, upnpEnabled });
