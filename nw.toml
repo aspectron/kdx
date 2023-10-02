@@ -78,7 +78,7 @@ copy = [
     # { file = "target/release/kaspa-miner$EXE", to = "bin/$PLATFORM-$ARCH/gpuminer$EXE" },
 ]
 
-[node-webkit]
+[nwjs]
 version = "0.55.0"
 ffmpeg = false
 
