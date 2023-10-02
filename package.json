@@ -44,7 +44,6 @@
     "commander": "7.2.0",
     "decimal.js": "10.4.0",
     "du": "1.0.0",
-    "emanator": "file:../emanator",
     "fs-extra": "10.1.0",
     "is-docker": "2.2.1",
     "mkdirp": "1.0.4",
