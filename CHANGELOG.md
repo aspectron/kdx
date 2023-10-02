@@ -2,10 +2,11 @@
 
 ## [2.12.6] - 2023-10-03
 - Fix for a rare condition resulting in "invalid derivation path" error when trying to send funds.
+- UPNP support. It can be disabled in Settings -> Advanced -> Service Configuration.
 
 ## [2.12.5] - 2023-10-02
 Big localization update, many thanks to our translators!
-- UPNP support
+- UPNP support (initial)
 
 ## [2.12.4] - 2023-09-30
 Updated Kaspa node to v0.12.14.
