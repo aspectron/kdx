@@ -1,4 +1,4 @@
-false && chrome.developerPrivate.openDevTools({
+true && chrome.developerPrivate.openDevTools({
 	renderViewId: -1,
 	renderProcessId: -1,
 	extensionId: chrome.runtime.id,

@@ -52,6 +52,7 @@ class App extends FlowApp{
 		await super.initConfig();
 		await this.initDataFolder();
 		await this.initCerts();
+		this.setUpnpIfMissing(true);
 	}
 
 	/**
@@ -281,12 +282,7 @@ class App extends FlowApp{
 		this.config = Object.assign({},defaults,prev||{});
 		this.config.network = network;
 		this.config.upnpEnabled = upnpEnabled;
-
-		Object.keys(this.config.modules).forEach((k) =>{
-			if (k.startsWith('kaspad:')) {
-				this.config.modules[k].upnpEnabled = upnpEnabled;
-			};
-		});
+		this.setUpnpIfMissing(upnpEnabled);
 
 		if(network != 'mainnet') {
 			Object.keys(this.config.modules).forEach((k) =>{
@@ -298,6 +294,17 @@ class App extends FlowApp{
 
 		this.setConfig(this.config);
 		// TODO - apply network settings
+	}
+
+	setUpnpIfMissing(upnpEnabled) {
+		if (this.config?.modules) {
+			Object.keys(this.config.modules).forEach((k) =>{
+				if (k.startsWith('kaspad:') && !('upnpEnabled' in this.config.modules[k])) {
+					console.info(`${upnpEnabled ? 'Enabling' : 'Disabling'} UPNP for ${k}`);
+					this.config.modules[k].upnpEnabled = upnpEnabled;
+				};
+			});
+		}
 	}
 }
 
