@@ -40,7 +40,7 @@ class KDXApp extends FlowApp{
 	render(){
 		let walletMeta = {"generator":"KDX"}
 		let list = [
-			['Kaspa','MIT','Copyright (c) 2021 Kaspa Developers'],
+			['Kaspa','MIT','Copyright (c) 2023 Kaspa Developers'],
 //			['PostgreSQL','PostgreSQL','Portions Copyright © 1996-2020, The PostgreSQL Global Development Group<br/>Portions Copyright © 1994, The Regents of the University of California'],
 //			['Mosquitto','EDL-V10 EPL-V10','Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors'],
 			['Flow-UX Framework','MIT', 'Copyright (c) ASPECTRON Inc.'],
@@ -105,7 +105,7 @@ class KDXApp extends FlowApp{
 				}
 			</flow-expandable>
 			<flow-form-control icon="fal:copyright">
-				<flow-i18n>KDX &amp; Kaspa Copyright (c) 2021 Kaspa Developers<br/>
+				<flow-i18n>KDX &amp; Kaspa Copyright (c) 2023 Kaspa Developers<br/>
 				All Rights Reserved.</flow-i18n><br/>
 			</flow-form-control>
 			<div id='license-info'>
