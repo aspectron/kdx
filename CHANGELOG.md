@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.12.7] - 2023-10-06
+- UPNP bugfixes and improvements.
+- Add user agent string to identify as KDX to other nodes.
+
 ## [2.12.6] - 2023-10-03
 - Fix for a rare condition resulting in "invalid derivation path" error when trying to send funds.
 - UPNP support. It can be disabled in Settings -> Advanced -> Service Configuration.
