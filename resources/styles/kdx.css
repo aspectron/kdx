@@ -163,6 +163,10 @@ body.ui-loading{
 	src: url("../../resources/extern/fonts/IBMPlexSansCondensed/IBMPlexSansCondensed-Regular.ttf") format('truetype');
 }
 
+body.welcome {
+	overflow-y: auto;
+}
+
 kdx-app{flex:1;display:flex;flex-direction:column;overflow:hidden;}
 
 tab-content::-webkit-scrollbar-track{
