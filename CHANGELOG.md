@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.12.8] - 2023-10-14
+- UPNP: Support for public node on non-standard port.
+- Fixed welcome screen on low-resolution displays.
+
 ## [2.12.7] - 2023-10-06
 - UPNP bugfixes and improvements.
 - Add user agent string to identify as KDX to other nodes.
