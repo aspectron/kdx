@@ -105,7 +105,7 @@ class KDXApp extends FlowApp{
 				}
 			</flow-expandable>
 			<flow-form-control icon="fal:copyright">
-				<flow-i18n>KDX &amp; Kaspa Copyright (c) 2023 Kaspa Developers<br/>
+				<flow-i18n>KDX &amp; Kaspa Copyright (c) 2020 Kaspa Developers<br/>
 				All Rights Reserved.</flow-i18n><br/>
 			</flow-form-control>
 			<div id='license-info'>
