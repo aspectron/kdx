@@ -66,7 +66,7 @@
 		
 		<h4 slot="info" class="title"><flow-i18n>Data Folder</flow-i18n></h4>
 			<p slot="info" is="i18n-p">
-				Is used for storage by all KDX modules.
+				Data Folder location is used for storage by all KDX modules.
 				In default configuration this includes Kaspad blockchain data and Kasparov API database.
 				This location also contains process log files.
 			</p>
@@ -100,9 +100,10 @@
 	</flow-form-control>
 
 	<flow-form-control icon="fal:plug">
-		<flow-i18n caption>WARNING - BATTERY POWER</flow-i18n>
 		<p class='battery-warning'>
-			If you are on a laptop, please plug in before proceeding.
+			<h3>WARNING - BATTERY POWER</h3>
+			<br/>
+			If you intend to mine using a laptop and are running on a laptop battery power, please make sure you are plugged in before proceeding.
 		</p>
 		<div slot="input" class="slot-block">
 			<flow-btn class="save-config" primary>PROCEED</flow-btn>
