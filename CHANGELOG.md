@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.12.9] - 2023-12-16
+- Updated Kaspa node to v0.12.15.
+- Updated Romanian translation! Thanks!
+- Fixed a couple of broken translations.
+
 ## [2.12.8] - 2023-10-14
 - UPNP: Support for public node on non-standard port.
 - Fixed welcome screen on low-resolution displays.
