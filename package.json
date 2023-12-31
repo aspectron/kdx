@@ -42,6 +42,7 @@
     "bs58": "4.0.1",
     "colors": "1.4.0",
     "commander": "7.2.0",
+    "crypto-js": "4.1.1",
     "decimal.js": "10.4.0",
     "du": "1.0.0",
     "fs-extra": "10.1.0",
