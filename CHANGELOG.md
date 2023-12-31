@@ -1,6 +1,13 @@
 # Changelog
 
+## [2.12.10] - 2023-12-16
+- v2.12.8 password compatibility, v2.12.9 users must restore from seed!
+- Updated Kaspa node to v0.12.15.
+- Updated Romanian translation! Thanks!
+- Fixed a couple of broken translations.
+
 ## [2.12.9] - 2023-12-16
+- NB: Withdrawn due to v2.12.8 password incompatibility.
 - Updated Kaspa node to v0.12.15.
 - Updated Romanian translation! Thanks!
 - Fixed a couple of broken translations.
