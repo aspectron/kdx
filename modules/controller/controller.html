@@ -4,6 +4,8 @@
 	<title>KDX</title>
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+	<!-- Unify the BroadcastChannel/MessageEvent realm before flow-rpc/flow-ux/controller load. -->
+	<script type="text/javascript" src="/resources/realm-preload.js"></script>
 	<link rel="stylesheet" type="text/css" href="/resources/extern/fonts/fontawesome/css/all.min.css" />
 	<link rel="stylesheet" type="text/css" href="/node_modules/@aspectron/flow-ux/flow-ux.css" />
 	<link rel="stylesheet" type="text/css" href="/node_modules/@kaspa/ux/kaspa-ux.css">
@@ -66,6 +68,8 @@
 	<script type="module" src="./kaspa-wallet.js"></script>
 	<script type="text/javascript" src="/resources/rpc.js"></script>
 	<script type="module" src="/modules/controller/controller.js"></script>
+	<!-- Custom edge/corner resize grips for the frameless controller window. -->
+	<script type="module" src="/modules/controller/kdx-window-resizer.js"></script>
 </head>
 <body class="ui-loading">
 	<kdx-app></kdx-app>

@@ -79,7 +79,7 @@ copy = [
 ]
 
 [nwjs]
-version = "0.55.0"
+version = "0.112.0"
 ffmpeg = false
 
 [macos-disk-image]

@@ -8,10 +8,65 @@ const fs = require("fs");
 const path = require("path");
 const { dpc } = require("@aspectron/flow-async");
 
+// Poll interval and ceiling while awaiting the node-disabled rpc-host iframe to
+// load and bind the main process's flow-rpc transport onto its live channel.
+const RPC_HOST_BIND_POLL_MS = 25;
+const RPC_HOST_BIND_TIMEOUT_MS = 10000;
+
 class NWApp extends App{
 
 	constructor(options){
 		super(options)
+	}
+
+	// super.initRPC() builds the flow-rpc instance inside the background page
+	// NWJS synthesizes for a JS main; that page never navigates to a live
+	// document, so the BroadcastChannel built there is off the live delivery
+	// router and main<->renderer RPC times out. Bind the transport on a
+	// node-disabled iframe instead: a live document realm whose channel joins
+	// the delivery router, that does not join the CommonJS loader (so it cannot
+	// repoint the renderer require base) yet shares the V8 isolate (so the rpc
+	// object is usable). Done before the controller window opens and sends its
+	// first request.
+	async initRPC(){
+		const result = await super.initRPC();
+		await this.bindRpcOnHostFrame();
+		return result;
+	}
+
+	bindRpcOnHostFrame(){
+		return new Promise((resolve) => {
+			let host;
+			try {
+				host = document.createElement('iframe');
+			} catch(e) {
+				console.error('KDX::rpc-host frame requires a background-page DOM', e);
+				return resolve();
+			}
+			host.setAttribute('nwdisable', '');
+			host.style.display = 'none';
+			host.src = 'resources/rpc-host.html';
+			host.addEventListener('load', () => {
+				const frameWindow = host.contentWindow;
+				if(frameWindow && typeof frameWindow.__bindMainTransport === 'function')
+					frameWindow.__bindMainTransport(this.rpc);
+				else
+					console.error('KDX::rpc-host frame did not expose __bindMainTransport');
+			});
+			(document.body || document.documentElement).appendChild(host);
+			const startedAt = Date.now();
+			const awaitBind = () => {
+				const frameWindow = host.contentWindow;
+				if(frameWindow && frameWindow.__kdxRpcHostBound)
+					return resolve();
+				if(Date.now() - startedAt > RPC_HOST_BIND_TIMEOUT_MS){
+					console.error('KDX::rpc-host did not bind the main flow-rpc transport within the timeout');
+					return resolve();
+				}
+				dpc(RPC_HOST_BIND_POLL_MS, awaitBind);
+			};
+			awaitBind();
+		});
 	}
 
 	/**
@@ -29,11 +84,15 @@ class NWApp extends App{
 				title: 'KaspaDX',
 				width: 1027,
 				height: 768,
+				// Floor for the custom resize grips (kdx-window-resizer.js) so no
+				// drag path can collapse the frameless window.
+				min_width: 640,
+				min_height: 480,
 				resizable: true,
 				frame: false,
 				transparent: false,
 				show: true,
-				icon: 'resources/images/kdx-icon.png'
+				icon: 'resources/setup/Icon.png'
 				// http://docs.nwjs.io/en/latest/References/Manifest%20Format/#window-subfields
 			}, (win) => {
 				console.log("win", win)
@@ -57,7 +116,7 @@ class NWApp extends App{
 			frame: true,
 			transparent: false,
 			show: true,
-			icon: 'resources/images/kdx-icon.png'
+			icon: 'resources/setup/Icon.png'
 			// http://docs.nwjs.io/en/latest/References/Manifest%20Format/#window-subfields
 		}, (win) => {
 

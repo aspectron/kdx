@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>KDX rpc-host</title>
+	<!-- Loaded as a node-DISABLED iframe (<iframe nwdisable>) inside the main
+	     process's background page. Rationale: the app keeps "main": "kdx.js" so
+	     the renderer windows retain NWJS node-app module semantics (per-module
+	     require base + __dirname). The background page NWJS synthesizes for a JS
+	     main never navigates to a live document, so a BroadcastChannel built
+	     there is off the live delivery router and main<->renderer flow-rpc never
+	     delivers. A second node-context PAGE would join the CommonJS loader and
+	     repoint the shared require base, breaking the renderers. A node-DISABLED
+	     iframe avoids both: it is a live document realm (its BroadcastChannel
+	     joins the live router) and it is OUT of the CommonJS loader (cannot
+	     repoint the require base), yet it shares the V8 isolate with the node
+	     context, so the main App's rpc object (passed in by the background page)
+	     is usable here. This frame constructs the live-realm channel; the
+	     background page wires the main flow-rpc instance to it via
+	     __bindMainTransport. -->
+	<script type="text/javascript">
+		(() => {
+			// Fixed flow-rpc BroadcastChannel name for the KDX app; matches the
+			// app ident ("kdx") that flow-app derives rpc.options.bcastChannel
+			// from. Kept as a literal (not a URL query parameter) because a
+			// node-disabled iframe loaded from a query-string URL trips an NWJS
+			// referrer_script_info base-URL assertion. Construct the channel in
+			// this live realm now, so it is on the delivery router by the time
+			// the background page wires the transport.
+			const KDX_RPC_CHANNEL_NAME = 'kdx';
+			const channel = new BroadcastChannel(KDX_RPC_CHANNEL_NAME);
+			// Called by the background page (node side) with the main flow-rpc
+			// instance. Runs in this node-disabled live realm; only the rpc
+			// object and serializable message payloads cross the boundary.
+			window.__bindMainTransport = (rpc) => {
+				channel.onmessage = (event) => rpc._processRemoteMsg(event.data);
+				rpc._send = (message) => channel.postMessage(message);
+				window.__kdxRpcHostBound = true;
+			};
+		})();
+	</script>
+</head>
+<body></body>
+</html>
