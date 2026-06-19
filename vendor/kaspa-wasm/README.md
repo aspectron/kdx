@@ -26,9 +26,9 @@ types will not be constrained by TypeScript type definitions.
 
 The SDK is currently separated into the following top-level categories:
 
-- **RPC API** — RPC API for the Kaspa node using WebSockets.
-- **Wallet SDK** — Bindings for primitives related to key management and transactions.
-- **Wallet API** — API for the Rusty Kaspa Wallet framework.
+- **RPC API** - RPC API for the Kaspa node using WebSockets.
+- **Wallet SDK** - Bindings for primitives related to key management and transactions.
+- **Wallet API** - API for the Rusty Kaspa Wallet framework.
 
 ## WASM32 SDK release packages
 

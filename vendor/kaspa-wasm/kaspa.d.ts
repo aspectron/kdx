@@ -50,8 +50,8 @@ export function payToScriptHashSignatureScript(redeem_script: HexString | Uint8A
  * compatible plain object: `{ transactionId: HexString, index: number }`.
  *
  * `auth_outputs` is a JS array of objects, each with:
- * - `index: number` — position of this output in the transaction's output array
- * - `output: TransactionOutput | ITransactionOutput` — the authorized output
+ * - `index: number` - position of this output in the transaction's output array
+ * - `output: TransactionOutput | ITransactionOutput` - the authorized output
  *
  * @category Consensus
  */
