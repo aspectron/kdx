@@ -38,6 +38,10 @@ class Initializer{
 				value = '';
 
 			const defaults = this.templates[this.tpl_template];
+			if(!defaults){
+				FlowDialog.show("Error", `Configuration template "${this.tpl_template}" is not available. Please reinstall KDX or report this issue.`);
+				return;
+			}
 			defaults.ident = this.tpl_template;
 			const network = this.tpl_network;
 			const upnpEnabled = !upnp.value;
@@ -69,9 +73,8 @@ class Initializer{
 
 	initTemplates() {
 
-//		this.tpl_network = 'testnet';
 		this.tpl_network = 'mainnet';
-		this.tpl_template = 'kaspad-node-only';
+		this.tpl_template = 'kaspad-mainnet';
 
 		try {
 			this.templates = JSON.parse(fs.readFileSync(path.join(this.appFolder,'.templates'))+'');

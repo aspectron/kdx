@@ -1,12 +1,14 @@
 # Changelog
 
 ## [2.20.0] - 2026-06-19
-- Revived KDX on the modern Kaspa stack: bundled rusty-kaspa node (Toccata, v1.1.1-toc.1) with testnet-12 support.
-- Node network + binary are configurable (config.json: binary + netsuffix); defaults to testnet-12.
+- Revived KDX on the modern Kaspa stack: bundles the official rusty-kaspa node (kaspad v2.0.1) and defaults to MAINNET.
+- Node network and binary are configurable: the bundled node runs mainnet, while testnet or a custom build run by dropping your own binary into ~/.kdx/bin/<platform>-<arch> and selecting it by name via the Custom Node template.
+- Clean configuration templates - Mainnet (default), Testnet, Custom Node, and Mainnet + CPU Miner; applying a template switches the network without disturbing other node instances or their synced data.
 - Wallet rebuilt on the official Kaspa Rust WASM SDK; existing 12-word wallets open unchanged.
 - CPU mining via kaspanet/cpuminer; live hashrate + block-rate in the dashboard.
-- Restored window resizing.
-- Updated desktop runtime (NWJS 0.112); native .deb + AppImage installers with desktop integration.
+- User-space data layout under ~/.kdx (config, node data, user binaries); each node's captured log is kept separate per network.
+- Packaged as a portable AppImage and a system .deb (app installs read-only to /opt/kdx); the launcher forces the X11 backend for reliable window resizing and dock-icon integration.
+- Updated desktop runtime (NWJS 0.112).
 
 ## [2.12.10] - 2023-12-16
 - v2.12.8 password compatibility, v2.12.9 users must restore from seed!

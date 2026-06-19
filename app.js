@@ -23,32 +23,6 @@ class App extends FlowApp{
 	}
 
 	async initConfig(){
-		// change of this argument results in the reset of the user data folder
-		// const currentNetworkType = 'testnet5c';
-		const currentNetworkType = 'mainnet1a';
-
-		const networkTagFile = path.join(this.getConfigFolderPath(), '.network-type');
-		let reset = false;
-		if(!fs.existsSync(networkTagFile)) {
-			reset = true;
-		}
-		else
-		if(fs.existsSync(networkTagFile)) {
-			let networkType = fs.readFileSync(networkTagFile,'utf8');
-			if(!networkType.includes(currentNetworkType))
-				reset = true;
-		}
-
-		if(reset) {
-			try {
-				await fse.remove(this.getConfigFolderPath());
-			} catch(ex) {
-				alert('Error resetting KDX data folder: '+ex);
-			}
-			await fse.ensureDir(this.getConfigFolderPath());
-			fs.writeFileSync(networkTagFile, currentNetworkType, { encoding : 'utf8'});
-		}
-
 		await super.initConfig();
 		await this.initDataFolder();
 		await this.initCerts();
@@ -275,25 +249,35 @@ class App extends FlowApp{
 	}
 
 	setModulesConfigTemplate(defaults, network, upnpEnabled) {
-		let prev = this.config;
-		if(prev) {
-			delete prev.modules;
-		}
-		this.config = Object.assign({},defaults,prev||{});
+		let prev = this.config || {};
+		let prevModules = prev.modules || {};
+		let templateModules = defaults.modules || {};
+		// Non-destructive apply. The selected template takes effect: each module
+		// the template defines (e.g. kaspad:kd0) is set to the template's args --
+		// ports, borsh, and the selected network -- so switching networks is not
+		// a no-op. Non-destructive means the on-disk data survives the switch
+		// (kaspad isolates per network under kaspad-kd<N>/kaspa-<network>/, so a
+		// synced data dir is never removed by a config change) and that unrelated
+		// state is preserved: any module the template does not define (a second
+		// instance such as kaspad:kd1) and all non-module config keys are kept.
+		let modules = Object.assign({}, prevModules, templateModules);
+		this.config = Object.assign({}, defaults, prev);
+		this.config.modules = modules;
 		this.config.network = network;
 		this.config.upnpEnabled = upnpEnabled;
 		this.setUpnpIfMissing(upnpEnabled);
 
 		if(network != 'mainnet') {
-			Object.keys(this.config.modules).forEach((k) =>{
-				const [type,ident] = k.split(':');
+			Object.keys(templateModules).forEach((k) =>{
+				const [type] = k.split(':');
+				// Flag the selected network on the modules this template applies;
+				// modules the template does not touch keep their own network.
 				if(/^(kaspa)/.test(type))
-					this.config.modules[k].args[network] = true;
+					modules[k].args[network] = true;
 			})
 		}
 
 		this.setConfig(this.config);
-		// TODO - apply network settings
 	}
 
 	setUpnpIfMissing(upnpEnabled) {
