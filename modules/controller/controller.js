@@ -14,7 +14,7 @@ const Console = require("../../lib/console.js")
 const StatsD = require('node-statsd');
 const semver = require('semver');
 
-const {RPC} = require('@kaspa/grpc-node');
+const { loadKaspaSdk, setKaspaSdk, readWasmBytes } = require('../../lib/kaspa-wasm-loader');
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
 import {
@@ -35,6 +35,12 @@ window.PWA_MODULES["@kaspa/grpc-web"] = "N/A";
 window.PWA_MODULES["@kaspa/wallet"] = "N/A";
 window.PWA_MODULES["@kaspa/grpc"] = "N/A";
 window.PWA_MODULES["@kaspa/core-lib"] = "N/A";
+
+// Legacy default testnet suffix, used when the kaspad daemon config carries no
+// explicit `netsuffix`. Mirrors lib/interfaces/kaspad.js so the wallet network
+// id is derived from the same single source (the daemon `args.netsuffix`) the
+// node launches with.
+const DEFAULT_TESTNET_SUFFIX = 10;
 
 class KDXApp extends FlowApp{
 	render(){
@@ -354,6 +360,15 @@ class KDXApp extends FlowApp{
 		if(await this.checkForUpdates())
 			return;
 
+		// Load the WASM SDK from this page-module realm (valid web base, so no
+		// referrer_script_info FATAL), instantiate it from the node-read wasm
+		// bytes, and hand it to the shared kaspa-wasm-loader cache. Both
+		// consumers -- this wallet RPC builder and the renderer-side kaspad
+		// monitor -- then resolve the same instance through loadKaspaSdk().
+		const kaspaSdkModule = await import('/vendor/kaspa-wasm/kaspa.js');
+		await kaspaSdkModule.default({ module_or_path: readWasmBytes() });
+		setKaspaSdk(kaspaSdkModule);
+
 		await this.initSettings();
 		await this.initWallet();
 		await this.initManager();
@@ -566,11 +581,13 @@ class KDXApp extends FlowApp{
 		})
 		let settings = await this.get_default_local_kaspad_settings();
 		let verbose = localStorage.rpcverbose == 1;
+		const kaspa = await loadKaspaSdk();
 		this.wallet.setRPCBuilder(()=>{
-			const { network, port } = settings;
+			const { networkId } = settings;
+			const borshPort = kaspa.RpcClient.defaultPort(kaspa.Encoding.Borsh, networkId);
 			return {
-				rpc: new RPC({ clientConfig:{ host : `127.0.0.1:${port}` } }),
-				network
+				rpc: new kaspa.RpcClient({ url : `ws://127.0.0.1:${borshPort}`, encoding : kaspa.Encoding.Borsh }),
+				network: networkId
 			}
 		});
 		
@@ -580,7 +597,7 @@ class KDXApp extends FlowApp{
 		
 		let {config:daemons} = await this.get("get-modules-config");
 		console.log("############### DAEMONS", daemons);
-		let kaspad = Object.entries(daemons).map(([k,v]) => { 
+		let kaspad = Object.entries(daemons || {}).map(([k,v]) => {
 			const { args } = v;
 			const [type, ident] = k.split(':');
 			return { type, ident, args};
@@ -597,9 +614,16 @@ class KDXApp extends FlowApp{
 			devnet : 'kaspadev',
 			simnet : 'kaspasim'
 		}[networkType];
+		const testnetSuffix = args.netsuffix ?? DEFAULT_TESTNET_SUFFIX;
+		let networkId = {
+			mainnet : 'mainnet',
+			testnet : `testnet-${testnetSuffix}`,
+			devnet : 'devnet',
+			simnet : 'simnet'
+		}[networkType];
 		let { rpclisten } = args;
 		let port = parseInt(rpclisten.split(':').pop());
-		return { network, port };
+		return { network, networkId, port };
 	}
 	async initConsole() {
 		let terminal = this.qS('#kdx-console');
@@ -853,7 +877,7 @@ class KDXApp extends FlowApp{
 		if(!this.configEditor)
 			return
 		this.disableConfigUpdates = true;
-		this.configEditor.session.setValue(JSON.stringify(modules, null, "\t"));
+		this.configEditor.session.setValue(JSON.stringify(modules || {}, null, "\t"));
 		this.disableConfigUpdates = false;
 	}
 
@@ -1514,7 +1538,7 @@ ${changelogContent}`;
 		let appList = qS("#application-list");
 
 
-		let cfgApps = Object.entries(daemons).map(([ident,v]) => {
+		let cfgApps = Object.entries(daemons || {}).map(([ident,v]) => {
 			if(/^app:/i.test(ident) && !v.disable) {
 				return { ident, ...v };
 			} else

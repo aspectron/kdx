@@ -1,12 +1,15 @@
 {
-	"enableMining" : false,
-	"modules":{
-		"kaspad:kd0" : {
-			"reset-peers" : false,
-			"args":{
-				"rpclisten" : "0.0.0.0:16110",
-				"listen": "0.0.0.0:16111",
-				"profile": 7000
+	"enableMining": false,
+	"modules": {
+		"kaspad:kd0": {
+			"reset-peers": false,
+			"binary": "kaspad-tn12",
+			"args": {
+				"testnet": true,
+				"netsuffix": 12,
+				"rpclisten": "0.0.0.0:16210",
+				"listen": "0.0.0.0:16211",
+				"rpclisten-borsh": "0.0.0.0:17210"
 			}
 		}
 	}
