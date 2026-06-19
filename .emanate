@@ -4,7 +4,9 @@
 const KASPAD_REPO_ACCOUNT = 'demisrael';
 const KASPAD_REPO_NAME = 'rusty-kaspa';
 const KASPA_DEFAULT_BRANCH = 'master';
-const MINER_DEFAULT_BRANCH = 'main';
+const MINER_REPO_ACCOUNT = 'kaspanet';
+const MINER_REPO_NAME = 'cpuminer';
+const MINER_PINNED_TAG = 'v0.2.7';
 
 const E = new Emanator(__dirname, {
     type : argv.includes('build') || flags.innosetup ? 'NODE+NWJS' : 'UTIL',
@@ -111,19 +113,19 @@ const miner = E.task('miner', ['origin'], async () => {
         process.env.PATH = ['C:\\TDM-GCC-64\\bin', ...process.env.PATH.split(';')].join(';');
     }
 
-    let account = 'aspectron';//'tmrlvi';
+    const account = MINER_REPO_ACCOUNT;
 
     let dest = path.join(cargo.SRCGITHUB, account);
     if((E.flags.reset || E.flags.clean) && fs.existsSync(dest))
         await E.emptyDir(dest);
 
-    const branch = E.flags['miner-branch'] || MINER_DEFAULT_BRANCH || 'main';
+    const branch = E.flags['miner-branch'] || MINER_PINNED_TAG;
     
     console.log('miner branch:', branch);
     console.log('miner dest:', dest);
     
     //const repos = { };
-    const repos = [`kaspa-miner:${branch}`];
+    const repos = [`${MINER_REPO_NAME}:${branch}`];
     console.log("REPOS:".brightMagenta,repos);
 
     for(const repo of repos) {
@@ -132,7 +134,7 @@ const miner = E.task('miner', ['origin'], async () => {
         await git.clone(`https://github.com/${account}/${name}`, dest, {branch : git_branch || 'master'});
     }
 
-    let minerDest = path.join(dest, "kaspa-miner");
+    let minerDest = path.join(dest, MINER_REPO_NAME);
     console.log('Starting miner build processing...')
 
     let release = !E.flags['miner-debug'];
@@ -156,7 +158,7 @@ const miner = E.task('miner', ['origin'], async () => {
     
 
     file += E.PLATFORM_BINARY_EXTENSION;
-    let rename = "gpuminer"+E.PLATFORM_BINARY_EXTENSION;
+    let rename = file;
 
     let files = new Map();
     files.set(file, rename)
