@@ -15,7 +15,7 @@ const { installMaximizeFix } = require("./kdx-window-maximize.js");
 const StatsD = require('node-statsd');
 const semver = require('semver');
 
-const { loadKaspaSdk, setKaspaSdk, readWasmBytes } = require('../../lib/kaspa-wasm-loader');
+const { loadKaspaSdk, setKaspaSdk, readWasmBytes, buildKaspaResolver } = require('../../lib/kaspa-wasm-loader');
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
 import {
@@ -585,6 +585,17 @@ class KDXApp extends FlowApp{
 		const kaspa = await loadKaspaSdk();
 		this.wallet.setRPCBuilder(()=>{
 			const { networkId } = settings;
+			// Public Node (connect-only): the wallet rides the resolver-selected
+			// remote node (utxoindex + synced) for this network; keys stay local,
+			// RPC is remote -- no loopback url. networkId is required with a
+			// resolver and the url property is ignored, so it is omitted.
+			if(settings.connectOnly) {
+				const resolver = buildKaspaResolver(kaspa, settings.resolver);
+				return {
+					rpc: new kaspa.RpcClient({ resolver, networkId, encoding : kaspa.Encoding.Borsh }),
+					network: networkId
+				}
+			}
 			const borshPort = kaspa.RpcClient.defaultPort(kaspa.Encoding.Borsh, networkId);
 			return {
 				rpc: new kaspa.RpcClient({ url : `ws://127.0.0.1:${borshPort}`, encoding : kaspa.Encoding.Borsh }),
@@ -601,13 +612,13 @@ class KDXApp extends FlowApp{
 		let kaspad = Object.entries(daemons || {}).map(([k,v]) => {
 			const { args } = v;
 			const [type, ident] = k.split(':');
-			return { type, ident, args};
+			return { type, ident, args : args || {}, conf : v };
 		}).filter(o=>o.type=='kaspad').shift();
 
 		if(!kaspad)
 			return null;//{network:"kaspa", port:16110};//{network:"kaspatest", port:16110};
 
-		const { args } = kaspad;
+		const { args, conf } = kaspad;
 		let networkType = ['testnet','devnet','simnet'].filter(v=>args[v] !== undefined).shift() || 'mainnet';
 		let network = {
 			mainnet : 'kaspa',
@@ -622,6 +633,10 @@ class KDXApp extends FlowApp{
 			devnet : 'devnet',
 			simnet : 'simnet'
 		}[networkType];
+		// Public Node (connect-only): no local kaspad to dial -- the wallet rides
+		// the resolver-selected remote node for this network. No loopback port.
+		if(conf.connectOnly)
+			return { network, networkId, connectOnly : true, resolver : conf.resolver };
 		let { rpclisten } = args;
 		let port = parseInt(rpclisten.split(':').pop());
 		return { network, networkId, port };
@@ -1146,7 +1161,7 @@ class KDXApp extends FlowApp{
 		let {modules={}} = config;
 		let address = "";
 		Object.keys(modules).find(key=>{
-			if(key.includes("gpuminer:")){
+			if(key.includes("gpuminer:") || key.includes("kaspaminer:")){
 				modules[key].args = modules[key].args||{};
 				address = modules[key].args["mining-address"];
 				return !!address
