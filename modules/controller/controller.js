@@ -11,6 +11,7 @@ const utils = require('@aspectron/flow-utils');
 const util = require('../../lib/utils.js');
 const Manager = require("../../lib/manager.js");
 const Console = require("../../lib/console.js")
+const { installMaximizeFix } = require("./kdx-window-maximize.js");
 const StatsD = require('node-statsd');
 const semver = require('semver');
 
@@ -754,6 +755,7 @@ class KDXApp extends FlowApp{
 		console.log("caption", caption)
 		this.caption = caption;
 		this.caption.close = this.closeWin;
+		installMaximizeFix(this.caption);
 		this.caption.logo = `/resources/images/kaspa-logo-${this.theme||"light"}-bg.png`;
 
 		caption.version = pkg.version;
@@ -1459,13 +1461,21 @@ ${changelogContent}`;
 			dpc(500, ()=>{
 
 				window.onbeforeunload = null;
-				win.close(true);
 
+				// Tear down the auxiliary windows before the main window so
+				// Chromium reaps every child process before the last window
+				// closes and nw exits. Closing the main window first quits the
+				// app with the auxiliary windows still live; on the AppImage the
+				// squashfs unmount then races their still-mapped libnw.so pages
+				// and faults SIGBUS on teardown. Closing them first keeps the
+				// FUSE backing valid until the whole window tree is down.
 				if(window.flow && window.flow['flow-window-link'].windows) {
-					window.flow['flow-window-link'].windows.forEach((win)=>{
-						try { win.close(); } catch(ex) {}
+					window.flow['flow-window-link'].windows.forEach((auxWin)=>{
+						try { auxWin.close(true); } catch(ex) {}
 					});
 				}
+
+				win.close(true);
 
 			})
 		}
