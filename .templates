@@ -1,9 +1,20 @@
 {
-    "kaspad-mainnet" : {
-        "description" : "Mainnet Node (default)",
+    "kaspad-public" : {
+        "description" : "Public Node (default)",
         "modules":{
             "kaspad:kd0" : {
                 "reset-peers" : false,
+                "connectOnly" : true,
+                "resolver" : null
+            }
+        }
+    },
+    "kaspad-local" : {
+        "description" : "Local Node",
+        "modules":{
+            "kaspad:kd0" : {
+                "reset-peers" : false,
+                "binary" : "kaspad",
                 "args":{
                     "rpclisten" : "0.0.0.0:16110",
                     "listen": "0.0.0.0:16111",
@@ -12,39 +23,12 @@
             }
         }
     },
-    "kaspad-testnet" : {
-        "description" : "Testnet Node",
+    "kaspad-local-miner" : {
+        "description" : "Local Node + Miner",
         "modules":{
             "kaspad:kd0" : {
                 "reset-peers" : false,
-                "args":{
-                    "testnet": true,
-                    "rpclisten" : "0.0.0.0:16210",
-                    "listen": "0.0.0.0:16211",
-                    "rpclisten-borsh": "0.0.0.0:17210"
-                }
-            }
-        }
-    },
-    "kaspad-custom" : {
-        "description" : "Custom Node (user binary in ~/.kdx/bin)",
-        "modules":{
-            "kaspad:kd0" : {
-                "reset-peers" : false,
-                "binary": "kaspad",
-                "args":{
-                    "rpclisten" : "0.0.0.0:16110",
-                    "listen": "0.0.0.0:16111",
-                    "rpclisten-borsh": "0.0.0.0:17110"
-                }
-            }
-        }
-    },
-    "kaspad-mainnet-mining" : {
-        "description" : "Mainnet Node + CPU Miner",
-        "modules":{
-            "kaspad:kd0" : {
-                "reset-peers" : false,
+                "binary" : "kaspad",
                 "args":{
                     "rpclisten" : "0.0.0.0:16110",
                     "listen": "0.0.0.0:16111",
@@ -52,6 +36,7 @@
                 }
             },
             "kaspaminer:km0" : {
+                "binary" : "kaspa-miner",
                 "args":{}
             }
         }

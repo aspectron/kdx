@@ -9,6 +9,26 @@ const fse = require('fs-extra');
 const os = require('os');
 const path = require('path');
 
+// Standard rusty-kaspad listener ports per network. The network selector -- not
+// the template identity -- is authoritative for which network a local node
+// binds, so the selected network's listener set is applied to the template's
+// kaspad entry at apply time rather than duplicated across per-network
+// templates. testnet implies the standard public testnet suffix 10 (no
+// netsuffix needed), which resolveNetworkId derives as testnet-10.
+const KASPAD_NETWORK_LISTENERS = {
+	'mainnet' : {
+		'rpclisten' : '0.0.0.0:16110',
+		'listen' : '0.0.0.0:16111',
+		'rpclisten-borsh' : '0.0.0.0:17110'
+	},
+	'testnet-10' : {
+		'testnet' : true,
+		'rpclisten' : '0.0.0.0:16210',
+		'listen' : '0.0.0.0:16211',
+		'rpclisten-borsh' : '0.0.0.0:17210'
+	}
+};
+
 
 class App extends FlowApp{
 	constructor(options={}){
@@ -204,7 +224,7 @@ class App extends FlowApp{
 		this.setConfig(this.config);
 	}
 	setMiningAddress(address){
-		this.setModuleArgs("gpuminer:", {"mining-address": address})
+		this.setModuleArgs("kaspaminer:", {"mining-address": address})
 	}
 	setModuleArgs(search, args={}, params={}){
 		let modules = this.getModulesConfig();
@@ -241,7 +261,7 @@ class App extends FlowApp{
 		let {modules={}} = config||this.config;
 		let address = "";
 		Object.keys(modules).find(key=>{
-			if(key.includes("gpuminer:")){
+			if(key.includes("gpuminer:") || key.includes("kaspaminer:")){
 				modules[key].args = modules[key].args||{};
 				address = modules[key].args["mining-address"];
 				return !!address
@@ -281,31 +301,59 @@ class App extends FlowApp{
 		let prevModules = prev.modules || {};
 		let templateModules = defaults.modules || {};
 		// Non-destructive apply. The selected template takes effect: each module
-		// the template defines (e.g. kaspad:kd0) is set to the template's args --
-		// ports, borsh, and the selected network -- so switching networks is not
-		// a no-op. Non-destructive means the on-disk data survives the switch
-		// (kaspad isolates per network under kaspad-kd<N>/kaspa-<network>/, so a
-		// synced data dir is never removed by a config change) and that unrelated
-		// state is preserved: any module the template does not define (a second
-		// instance such as kaspad:kd1) and all non-module config keys are kept.
+		// the template defines (e.g. kaspad:kd0) replaces its previous entry, and
+		// the network selector -- not the template identity -- drives the kaspad
+		// daemon args (ports + testnet flag). Non-destructive means the on-disk
+		// data survives the switch (kaspad isolates per network under
+		// kaspad-kd<N>/kaspa-<network>/, so a synced data dir is never removed by
+		// a config change) and that unrelated modules (a second instance such as
+		// kaspad:kd1) and all non-module config keys are kept.
 		let modules = Object.assign({}, prevModules, templateModules);
+
+		// The template defines the node model. A miner-less template (Public Node,
+		// Local Node) must actually stop mining, so any stale miner module a prior
+		// template left behind is dropped; the kaspad data dir is untouched.
+		const templateHasMiner = Object.keys(templateModules).some(k => /^(kaspa|gpu)miner:/.test(k));
+		if(!templateHasMiner) {
+			Object.keys(modules).forEach(k => {
+				if(/^(kaspa|gpu)miner:/.test(k))
+					delete modules[k];
+			});
+		}
+
+		this.applyNetworkToKaspadModules(modules, templateModules, network);
+
 		this.config = Object.assign({}, defaults, prev);
 		this.config.modules = modules;
 		this.config.network = network;
 		this.config.upnpEnabled = upnpEnabled;
 		this.setUpnpIfMissing(upnpEnabled);
 
-		if(network != 'mainnet') {
-			Object.keys(templateModules).forEach((k) =>{
-				const [type] = k.split(':');
-				// Flag the selected network on the modules this template applies;
-				// modules the template does not touch keep their own network.
-				if(/^(kaspa)/.test(type))
-					modules[k].args[network] = true;
-			})
-		}
-
 		this.setConfig(this.config);
+	}
+
+	// Apply the selected network to the kaspad entries the template defines. A
+	// local kaspad gets the network's full listener set (ports + testnet flag); a
+	// connect-only (Public Node) kaspad gets only the network flag, which
+	// resolveNetworkId reads to pick the resolver's network -- it binds nothing.
+	applyNetworkToKaspadModules(modules, templateModules, network) {
+		const listeners = KASPAD_NETWORK_LISTENERS[network] || KASPAD_NETWORK_LISTENERS['mainnet'];
+		Object.keys(templateModules).forEach((k) => {
+			const [type] = k.split(':');
+			if(type != 'kaspad' || !modules[k])
+				return;
+			let args = Object.assign({}, modules[k].args || {});
+			// Clear the prior network flag first so re-applying a network is not
+			// additive (switching testnet-10 -> mainnet must drop the testnet flag).
+			delete args.testnet;
+			if(modules[k].connectOnly) {
+				if(listeners.testnet)
+					args.testnet = true;
+			} else {
+				Object.assign(args, listeners);
+			}
+			modules[k] = Object.assign({}, modules[k], { args });
+		});
 	}
 
 	setUpnpIfMissing(upnpEnabled) {

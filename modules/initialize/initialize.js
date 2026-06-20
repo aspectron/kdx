@@ -74,7 +74,7 @@ class Initializer{
 	initTemplates() {
 
 		this.tpl_network = 'mainnet';
-		this.tpl_template = 'kaspad-mainnet';
+		this.tpl_template = 'kaspad-public';
 
 		try {
 			this.templates = JSON.parse(fs.readFileSync(path.join(this.appFolder,'.templates'))+'');
