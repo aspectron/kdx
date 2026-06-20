@@ -122,6 +122,34 @@ class App extends FlowApp{
 		return path.join(this.appFolder, 'bin', util.platform);
 	}
 
+	/**
+	* @param {String} name i18n file name
+	* @return {String} path to an i18n file. The runtime-writable i18n files
+	* (the harvested entries and their lock) are redirected to the user-data
+	* root so they stay writable when the app payload is installed read-only;
+	* the bundled translations (i18n.data) stay in the read-only app folder
+	* and are still read through the inherited path.
+	*/
+	getI18nFilePath(name){
+		if(name == 'i18n.entries' || name == 'i18n.lock')
+			return path.join(this.getConfigFolderPath(), name);
+		return super.getI18nFilePath(name);
+	}
+
+	/**
+	* Persist i18n entries, guarded so a write failure can never throw out of
+	* the fire-and-forget RPC hook. The redirect above keeps the file in a
+	* writable directory; this guard covers any remaining filesystem error.
+	* @param {Array} entries i18n entries
+	*/
+	saveI18nEntries(entries){
+		try {
+			super.saveI18nEntries(entries);
+		} catch(err) {
+			console.error('saveI18nEntries: failed to persist i18n entries:', err);
+		}
+	}
+
 	randomBytes() {
 		let bytes = crypto.randomBytes(32);
 		let text = bs58.encode(bytes).split('');
