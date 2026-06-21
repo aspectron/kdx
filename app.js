@@ -9,12 +9,15 @@ const fse = require('fs-extra');
 const os = require('os');
 const path = require('path');
 
-// Standard rusty-kaspad listener ports per network. The network selector -- not
-// the template identity -- is authoritative for which network a local node
-// binds, so the selected network's listener set is applied to the template's
-// kaspad entry at apply time rather than duplicated across per-network
-// templates. testnet implies the standard public testnet suffix 10 (no
-// netsuffix needed), which resolveNetworkId derives as testnet-10.
+// Standard rusty-kaspad listener ports per network, keyed by the canonical
+// suffixed network id the network selector emits (mainnet / testnet-10). The
+// network selector -- not the template identity -- is authoritative for which
+// network a local node binds, so the selected id keys this listener set and the
+// set is applied to the template's kaspad entry at apply time rather than
+// duplicated across per-network templates. The testnet-10 set carries the
+// kaspad `testnet` flag; the SDK's default testnet suffix is 10, so a local
+// testnet node resolves to testnet-10 and a connect-only entry takes the
+// selected id verbatim as its networkId.
 const KASPAD_NETWORK_LISTENERS = {
 	'mainnet' : {
 		'rpclisten' : '0.0.0.0:16110',
@@ -298,28 +301,20 @@ class App extends FlowApp{
 
 	setModulesConfigTemplate(defaults, network, upnpEnabled) {
 		let prev = this.config || {};
-		let prevModules = prev.modules || {};
 		let templateModules = defaults.modules || {};
-		// Non-destructive apply. The selected template takes effect: each module
-		// the template defines (e.g. kaspad:kd0) replaces its previous entry, and
-		// the network selector -- not the template identity -- drives the kaspad
-		// daemon args (ports + testnet flag). Non-destructive means the on-disk
-		// data survives the switch (kaspad isolates per network under
-		// kaspad-kd<N>/kaspa-<network>/, so a synced data dir is never removed by
-		// a config change) and that unrelated modules (a second instance such as
-		// kaspad:kd1) and all non-module config keys are kept.
-		let modules = Object.assign({}, prevModules, templateModules);
-
-		// The template defines the node model. A miner-less template (Public Node,
-		// Local Node) must actually stop mining, so any stale miner module a prior
-		// template left behind is dropped; the kaspad data dir is untouched.
-		const templateHasMiner = Object.keys(templateModules).some(k => /^(kaspa|gpu)miner:/.test(k));
-		if(!templateHasMiner) {
-			Object.keys(modules).forEach(k => {
-				if(/^(kaspa|gpu)miner:/.test(k))
-					delete modules[k];
-			});
-		}
+		// RESET-replace apply. Activating the warning-styled RESET control replaces
+		// the active node model with exactly the selected template's module set --
+		// the previous template's modules are NOT merged in, so selecting Public
+		// Node then Local Node yields the Local Node module set alone, never an
+		// accumulated {kaspad:public, kaspad:kd0, ...}. The replace still preserves
+		// every non-module config key (theme, compounding, metrics, UPnP, ...) --
+		// prev wins in the merge below -- and never touches on-disk data: kaspad
+		// isolates per network under kaspad-kd<N>/kaspa-<network>/, so a node synced
+		// before a RESET resumes without re-IBD when its template is re-selected
+		// (deleting a data dir is the separate, explicitly confirm-gated
+		// remove-datadir reset). The network selector -- not the template identity
+		// -- drives the kaspad daemon args (ports + testnet flag), applied next.
+		let modules = Object.assign({}, templateModules);
 
 		this.applyNetworkToKaspadModules(modules, templateModules, network);
 
@@ -327,6 +322,12 @@ class App extends FlowApp{
 		this.config.modules = modules;
 		this.config.network = network;
 		this.config.upnpEnabled = upnpEnabled;
+		// Record the applied template key so the Settings selector reflects the
+		// active template after a RESET rather than the previously-stored ident.
+		// The initializer sets defaults.ident on first run; the settings apply path
+		// passes it the same way, but prev wins the merge above, so set it here.
+		if(defaults.ident)
+			this.config.ident = defaults.ident;
 		this.setUpnpIfMissing(upnpEnabled);
 
 		this.setConfig(this.config);
