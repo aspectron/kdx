@@ -15,6 +15,10 @@ const { installMaximizeFix } = require("./kdx-window-maximize.js");
 const StatsD = require('node-statsd');
 const semver = require('semver');
 
+// Settle delay after stopping the prior daemons before (re)starting on apply,
+// giving the OS a brief window to release a datadir LOCK after process exit.
+const DAEMON_RESTART_SETTLE_MS = 1000;
+
 const { loadKaspaSdk, setKaspaSdk, readWasmBytes, buildKaspaResolver } = require('../../lib/kaspa-wasm-loader');
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
@@ -248,9 +252,19 @@ class KDXApp extends FlowApp{
 					Configuration editor allows you to customize KDX environment.
 					KDX configuration is represented in JSON
 					by a list of application/service configuration objects.
-					Each service configuration object is used 
+					Each service configuration object is used
 					to start the corresponding service.
 				</p>
+				<h4 slot="info" class="title"><flow-i18n>Add a service</flow-i18n></h4>
+				<p slot="info" is="i18n-p">
+					Applying a template (RESET) replaces the whole service set, so run
+					an extra local node or a miner alongside the active template by
+					adding a service block to the editor above and clicking APPLY. A
+					second local node needs its own ports. Example service blocks to
+					add inside the JSON object:
+				</p>
+				<pre slot="info" class="add-service-example">"kaspad:kd1": { "binary": "kaspad", "args": { "rpclisten": "0.0.0.0:16120", "listen": "0.0.0.0:16121", "rpclisten-borsh": "0.0.0.0:17120" } }
+"kaspaminer:km0": { "binary": "kaspa-miner", "args": {} }</pre>
 			</flow-form-control>
 
 			<flow-form-control id="settings-templates" icon="fal:file-alt"
@@ -265,9 +279,7 @@ class KDXApp extends FlowApp{
 							mergeattributes="value" mergeinnerhtml
 							selected="mainnet" class="network-list">
 							<div class="menu-item" value="mainnet">${T('MAINNET')}</div>
-							<div class="menu-item" value="testnet">${T('TESTNET')}</div>
-							<div class="menu-item" value="devnet">${T('DEVNET')}</div>
-							<div class="menu-item" value="simnet">${T('SIMNET')}</div>
+							<div class="menu-item" value="testnet-10">${T('TESTNET-10')}</div>
 						</flow-selector>
 					</div>
 					<div row>
@@ -854,14 +866,28 @@ class KDXApp extends FlowApp{
 
 		const blockgenEl = qS("#block-generation");
 
+		const config = this.initData?.config || {};
 		if(!this.tpl_template) {
-			let {config} = this.initData;
 			this.tpl_template = config.ident;
 			this.tpl_network = config.network;
 
 			let miner = Object.keys(config.modules).filter(v=>/^(kaspa|gpu)miner/.test(v));
 			if(!miner.length)
 				$(blockgenEl).addClass('no-mining');
+		}
+
+		// Orphan-ident reconcile (upgrade path): a config whose ident matches no
+		// current template key points the selector at a non-existent option and
+		// renders it blank. Reconcile to the template whose module set matches the
+		// active config, else surface a clear (custom) option, so the selector
+		// always shows the active model rather than a blank.
+		if(this.tpl_template && !this.templates[this.tpl_template]) {
+			const matched = this.matchTemplateKeyByShape(config.modules);
+			if(matched) {
+				this.tpl_template = matched;
+			} else {
+				tplEl.innerHTML += `<div class="menu-item" value="${this.tpl_template}">${i18n.t('(custom)')}</div>`;
+			}
 		}
 
 		tplEl.setAttribute('selected',this.tpl_template);
@@ -883,9 +909,13 @@ class KDXApp extends FlowApp{
 		})
 
 		const loadConfigBtn = qS("#load-config");
-		loadConfigBtn.addEventListener('click', async (e) => {	
+		loadConfigBtn.addEventListener('click', async (e) => {
 
-			let config = this.templates[this.tpl_template];
+			// Tag the applied template with its key so the persisted config.ident
+			// reflects the active template (the Settings selector reads it back),
+			// mirroring the initializer's defaults.ident. Copy so the in-memory
+			// template cache is not mutated.
+			let config = Object.assign({}, this.templates[this.tpl_template], { ident : this.tpl_template });
 			let network = this.tpl_network;
 
 			//this.saveModulesConfig(config);
@@ -898,6 +928,17 @@ class KDXApp extends FlowApp{
 			else
 				$(blockgenEl).addClass('no-mining');
 		});
+	}
+
+	// Find the template key whose daemon module set (kaspad/miner keys) matches
+	// the active config, used to reconcile an orphan ident to a known template.
+	matchTemplateKeyByShape(modules = {}) {
+		const signature = (m) => Object.keys(m || {})
+			.filter(k => /^(kaspad|kaspaminer|gpuminer):/.test(k))
+			.sort()
+			.join(',');
+		const target = signature(modules);
+		return Object.keys(this.templates).find(key => signature(this.templates[key].modules) === target) || null;
 	}
 
 	setModuleConfigEditorValue(modules){
@@ -1370,22 +1411,25 @@ ${changelogContent}`;
 			console.log("restartDaemons - module config:", daemons);
 		}
 
+		// Daemon lifecycle on apply: stop the previously-running daemons and wait
+		// for each managed process to exit -- which releases its datadir LOCK --
+		// BEFORE (re)starting, so two kaspad processes never contend for the same
+		// kaspad-kd<N>/kaspa-<network>/.../LOCK. manager.stop() resolves only once
+		// every managed task has emitted 'exit' (daemon.stop() escalates through
+		// SIGINT/SIGTERM to SIGKILL, so a wedged node cannot hold the LOCK
+		// indefinitely). Start once, after the stop settles -- never restart while
+		// a prior process may still hold the lock.
 		try{
 			await this.manager.stop();
-			console.log("initDaemons....")
-			dpc(1000, async()=>{
-				if(beforeStartCB)
-					await beforeStartCB();
-				this.initDaemons(daemons);
-			});
 		}catch(e){
-			console.log("restartDaemons:error", e)
-			dpc(1000, async()=>{
-				if(beforeStartCB)
-					await beforeStartCB();
-				this.initDaemons(daemons);
-			});
+			console.log("restartDaemons:stop error", e)
 		}
+		console.log("initDaemons....")
+		dpc(DAEMON_RESTART_SETTLE_MS, async()=>{
+			if(beforeStartCB)
+				await beforeStartCB();
+			this.initDaemons(daemons);
+		});
 	}
 	async stopDaemons(){
 		if(!this.manager)
