@@ -609,16 +609,30 @@ class KDXApp extends FlowApp{
 		
 		let {config:daemons} = await this.get("get-modules-config");
 		console.log("############### DAEMONS", daemons);
-		let kaspad = Object.entries(daemons || {}).map(([k,v]) => {
+		let kaspads = Object.entries(daemons || {}).map(([k,v]) => {
 			const { args } = v;
 			const [type, ident] = k.split(':');
 			return { type, ident, args : args || {}, conf : v };
-		}).filter(o=>o.type=='kaspad').shift();
+		}).filter(o=>o.type=='kaspad');
+		// Prefer the public (connect-only) entry as the wallet backend -- it is a
+		// synced, utxoindex-enabled remote node (no local IBD wait) and coexists
+		// with local nodes; fall back to the first local kaspad otherwise.
+		let kaspad = kaspads.find(o => o.conf.connectOnly) || kaspads[0];
 
 		if(!kaspad)
 			return null;//{network:"kaspa", port:16110};//{network:"kaspatest", port:16110};
 
 		const { args, conf } = kaspad;
+
+		// Public Node (connect-only): the network is the explicit networkId field
+		// (not derived from local args). The wallet rides the resolver-selected
+		// remote node for it; keys stay local, no loopback port.
+		if(conf.connectOnly) {
+			let networkId = conf.networkId || 'mainnet';
+			let network = networkId.startsWith('testnet') ? 'kaspatest' : (networkId == 'mainnet' ? 'kaspa' : networkId);
+			return { network, networkId, connectOnly : true, resolver : conf.resolver };
+		}
+
 		let networkType = ['testnet','devnet','simnet'].filter(v=>args[v] !== undefined).shift() || 'mainnet';
 		let network = {
 			mainnet : 'kaspa',
@@ -633,10 +647,6 @@ class KDXApp extends FlowApp{
 			devnet : 'devnet',
 			simnet : 'simnet'
 		}[networkType];
-		// Public Node (connect-only): no local kaspad to dial -- the wallet rides
-		// the resolver-selected remote node for this network. No loopback port.
-		if(conf.connectOnly)
-			return { network, networkId, connectOnly : true, resolver : conf.resolver };
 		let { rpclisten } = args;
 		let port = parseInt(rpclisten.split(':').pop());
 		return { network, networkId, port };
