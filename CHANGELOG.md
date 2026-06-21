@@ -2,10 +2,10 @@
 
 ## [2.20.0] - 2026-06-19
 - Revived KDX on the modern Kaspa stack: bundles the official rusty-kaspa node (kaspad v2.0.1) and defaults to MAINNET.
-- Node network and binary are configurable: the bundled node runs mainnet, while testnet or a custom build run by dropping your own binary into ~/.kdx/bin/<platform>-<arch> and selecting it by name via the Custom Node template.
-- Clean configuration templates - Mainnet (default), Testnet, Custom Node, and Mainnet + CPU Miner; applying a template switches the network without disturbing other node instances or their synced data.
+- Node network and binary are configurable: the bundled node runs mainnet or testnet-10, and a custom build runs by dropping your own binary into ~/.kdx/bin/<platform>-<arch> and selecting it by name on a local template's binary field.
+- Three configuration templates - Public Node (default), Local Node, and Local Node + Miner; applying a template (RESET) replaces the active service set, while non-module settings and synced node data are preserved.
 - Wallet rebuilt on the official Kaspa Rust WASM SDK; existing 12-word wallets open unchanged.
-- CPU mining via kaspanet/cpuminer; live hashrate + block-rate in the dashboard.
+- CPU mining via kaspanet/cpuminer (tag v0.2.7; the bundled kaspa-miner reports version 0.2.6); live hashrate + block-rate in the dashboard.
 - User-space data layout under ~/.kdx (config, node data, user binaries); each node's captured log is kept separate per network.
 - Packaged as a portable AppImage and a system .deb (app installs read-only to /opt/kdx); the launcher forces the X11 backend for reliable window resizing and dock-icon integration.
 - Updated desktop runtime (NWJS 0.112).

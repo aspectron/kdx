@@ -32,6 +32,11 @@ const KASPAD_NETWORK_LISTENERS = {
 	}
 };
 
+// The standard public testnet suffix the SDK requires; a bare `testnet` network
+// id resolves to `testnet-10`. Used by the on-load upgrade migration to
+// normalize a stored bare id to its canonical suffixed form.
+const DEFAULT_TESTNET_SUFFIX = 10;
+
 
 class App extends FlowApp{
 	constructor(options={}){
@@ -50,6 +55,40 @@ class App extends FlowApp{
 		await this.initDataFolder();
 		await this.initCerts();
 		this.setUpnpIfMissing(true);
+	}
+
+	// On-load upgrade migration: normalize any stored bare network id (e.g.
+	// `testnet`) to its canonical suffixed form (`testnet-10`) before any module
+	// is spawned or the monitor/wallet builds an RpcClient, then persist via the
+	// base loadConfig -> setConfig. A config carried over from a pre-canonical
+	// build then satisfies the canonical-network-id contract with no manual
+	// re-apply, and the Settings selector matches a current option (no blank).
+	async loadConfig(config){
+		this.migrateBareNetworkIds(config);
+		return super.loadConfig(config);
+	}
+
+	// Map a bare network id to its canonical suffixed form (mainnet stays
+	// mainnet; bare testnet becomes testnet-10; an already-suffixed id is left
+	// unchanged). Mutates config in place; returns whether anything changed.
+	migrateBareNetworkIds(config){
+		if(!config || typeof config != 'object')
+			return false;
+		const canonical = (id) => id == 'testnet' ? `testnet-${DEFAULT_TESTNET_SUFFIX}` : id;
+		let changed = false;
+		if(typeof config.network == 'string' && canonical(config.network) != config.network) {
+			config.network = canonical(config.network);
+			changed = true;
+		}
+		const modules = config.modules || {};
+		Object.keys(modules).forEach((k) => {
+			const m = modules[k];
+			if(m && typeof m.networkId == 'string' && canonical(m.networkId) != m.networkId) {
+				m.networkId = canonical(m.networkId);
+				changed = true;
+			}
+		});
+		return changed;
 	}
 
 	/**
@@ -322,12 +361,15 @@ class App extends FlowApp{
 		this.config.modules = modules;
 		this.config.network = network;
 		this.config.upnpEnabled = upnpEnabled;
-		// Record the applied template key so the Settings selector reflects the
-		// active template after a RESET rather than the previously-stored ident.
-		// The initializer sets defaults.ident on first run; the settings apply path
-		// passes it the same way, but prev wins the merge above, so set it here.
+		// Record the applied template key + description so the Settings selector
+		// and the service description reflect the active template after a RESET
+		// rather than the previously-stored ones. The initializer sets these on
+		// defaults at first run; the settings apply path passes them the same way,
+		// but prev wins the merge above, so set them here.
 		if(defaults.ident)
 			this.config.ident = defaults.ident;
+		if(defaults.description)
+			this.config.description = defaults.description;
 		this.setUpnpIfMissing(upnpEnabled);
 
 		this.setConfig(this.config);
