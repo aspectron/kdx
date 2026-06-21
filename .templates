@@ -2,9 +2,9 @@
     "kaspad-public" : {
         "description" : "Public Node (default)",
         "modules":{
-            "kaspad:kd0" : {
-                "reset-peers" : false,
+            "kaspad:public" : {
                 "connectOnly" : true,
+                "networkId" : "mainnet",
                 "resolver" : null
             }
         }

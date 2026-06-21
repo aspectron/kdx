@@ -334,24 +334,23 @@ class App extends FlowApp{
 
 	// Apply the selected network to the kaspad entries the template defines. A
 	// local kaspad gets the network's full listener set (ports + testnet flag); a
-	// connect-only (Public Node) kaspad gets only the network flag, which
-	// resolveNetworkId reads to pick the resolver's network -- it binds nothing.
+	// connect-only (Public Node) kaspad carries the network as an explicit
+	// networkId field -- it binds nothing, so it has no listeners.
 	applyNetworkToKaspadModules(modules, templateModules, network) {
 		const listeners = KASPAD_NETWORK_LISTENERS[network] || KASPAD_NETWORK_LISTENERS['mainnet'];
 		Object.keys(templateModules).forEach((k) => {
 			const [type] = k.split(':');
 			if(type != 'kaspad' || !modules[k])
 				return;
+			if(modules[k].connectOnly) {
+				modules[k] = Object.assign({}, modules[k], { networkId : network });
+				return;
+			}
 			let args = Object.assign({}, modules[k].args || {});
 			// Clear the prior network flag first so re-applying a network is not
 			// additive (switching testnet-10 -> mainnet must drop the testnet flag).
 			delete args.testnet;
-			if(modules[k].connectOnly) {
-				if(listeners.testnet)
-					args.testnet = true;
-			} else {
-				Object.assign(args, listeners);
-			}
+			Object.assign(args, listeners);
 			modules[k] = Object.assign({}, modules[k], { args });
 		});
 	}
