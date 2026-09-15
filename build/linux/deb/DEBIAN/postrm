@@ -1,0 +1,16 @@
+#!/bin/sh
+# Debian post-removal script: refresh the desktop caches after the entry and
+# icons are gone, so the application stops appearing in the menu and dock.
+# Usage: run by dpkg after removal; acts only on the remove and purge actions
+# and ignores the upgrade paths, where the files are about to be reinstalled.
+# Missing refresh tools are tolerated for the same reason as on install.
+set -e
+if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
+    if command -v gtk-update-icon-cache >/dev/null 2>&1; then
+        gtk-update-icon-cache -f -t /usr/share/icons/hicolor >/dev/null 2>&1 || true
+    fi
+    if command -v update-desktop-database >/dev/null 2>&1; then
+        update-desktop-database -q /usr/share/applications >/dev/null 2>&1 || true
+    fi
+fi
+exit 0

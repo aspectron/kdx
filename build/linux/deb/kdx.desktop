@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=KDX
+Comment=Kaspa desktop node + wallet manager
+Exec=/opt/kdx/kdx %U
+Icon=kdx
+StartupWMClass=kdx
+Categories=Network;Finance;
+Terminal=false

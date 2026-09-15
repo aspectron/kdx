@@ -1,0 +1,11 @@
+#!/bin/sh
+# KDX AppImage entry point: run the bundled NWJS runtime against the bundled
+# app directory, both resolved relative to the read-only mount.
+# Usage: executed by the AppImage runtime; takes no arguments of its own and
+# forwards any it is given to the app.
+# --ozone-platform=x11 forces the X11 Ozone backend, which the frameless
+# window's resize grips need and without which there is no WM_CLASS at all;
+# --class=kdx sets that WM_CLASS, which is what binds the running window to
+# the installed kdx.desktop and so to its dock icon.
+HERE="$(dirname "$(readlink -f "$0")")"
+exec "$HERE/opt/kdx/runtime/nw" "$HERE/opt/kdx/app" --ozone-platform=x11 --class=kdx "$@"

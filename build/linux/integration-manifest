@@ -1,0 +1,88 @@
+# KDX Linux artifact -- integration manifest
+#
+# The shipping artifact is an assembly: no single branch reproduces it. This
+# file pins what the assembly is made of, so a rebuild resolves every file
+# the same way instead of re-deriving it. Every entry below was produced by
+# hashing the shipped payload against each branch's blob, not by inspection.
+#
+# Columns: <payload sha256, first 12> <path>
+# Only files that differ between branches are listed; every other tracked
+# file is identical across all branches and needs no resolution.
+
+baseline        master                 c9bf916
+
+assembly base   kas-kdx-app            c106247
+overlay         kas-kdx-kaspad-rpc     c13adbb
+overlay         kas-kdx-wallet-engine  bb509fb
+
+[kas-kdx-app] -- from kas-kdx-app (assembly base wins)
+  4049a64f152e  .emanate
+  6dc808ff9d7f  .templates
+  a4cedd818a17  CHANGELOG.md
+  a2ba67c3f5a6  app.js
+  da5be5c3dd48  lib/interfaces/kaspaminer.js
+  3667aae8715d  modules/controller/controller.html
+  4a964d6056df  modules/controller/kdx-window-maximize.js
+  d4c9e0eb418f  modules/controller/kdx-window-resizer.js
+  bb5eec223b59  modules/initialize/initialize.html
+  c0838889cfb2  modules/initialize/initialize.js
+  622c899da8e5  modules/procmon/procmon.js
+  68b606baef0d  modules/procmon/ps-list.js
+  4e6c9dc6fffd  nw-app.js
+  a5a0b3fe9af3  nw.toml
+  38a1739cdd5c  package-lock.json
+  34b9043961c9  package.json
+  85dafbeb69c4  resources/realm-preload.js
+  b3e8550338e7  resources/rpc-host.html
+
+[kas-kdx-kaspad-rpc] -- from kas-kdx-kaspad-rpc
+  68e109884708  .defaults
+  5ea44da0d33a  lib/daemon.js
+  426e1a930fe9  lib/interfaces/kaspad.js
+  43aafb870e9b  lib/kaspa-wasm-loader.js
+  fd120e3cfb0c  rpc.js
+  742558ce19d9  vendor/kaspa-wasm/README.md
+  1ba8fb2e454d  vendor/kaspa-wasm/kaspa.d.ts
+  072482ebb9a6  vendor/kaspa-wasm/kaspa.js
+
+[kas-kdx-wallet-engine] -- from kas-kdx-wallet-engine
+  e91dd81a6100  modules/controller/kaspa-core-lib-module.js
+  0845e34a7c61  modules/controller/kaspa-wallet-module.js
+  96e961ed4658  modules/controller/kaspa-wallet-worker-module.js
+  fc7d3d829ad6  modules/controller/wallet-worker-core.js
+  c0476f08c3f0  modules/controller/wasm-wallet/event-emitter.js
+  cfbabaab0936  modules/controller/wasm-wallet/index.js
+  61031620a58b  modules/controller/wasm-wallet/lib.js
+  5a065fe7d8ea  modules/controller/wasm-wallet/package.json
+  14a304d9d55f  modules/controller/wasm-wallet/wallet-wrapper.js
+  d61d13ce6ff4  modules/controller/wasm-wallet/worker-core.js
+
+[identical on kas-kdx-app + kas-kdx-kaspad-rpc] -- no resolution needed
+  5efc7d696edc  lib/manager.js
+
+[identical on kas-kdx-kaspad-rpc + kas-kdx-wallet-engine] -- no resolution needed
+  fb06b99a835c  vendor/kaspa-wasm/LICENSE
+  71ea21ee2d28  vendor/kaspa-wasm/kaspa_bg.wasm
+  1161e365b910  vendor/kaspa-wasm/kaspa_bg.wasm.d.ts
+  5edd2e0a6973  vendor/kaspa-wasm/package.json
+
+[PENDING -- not reproducible from any branch yet]
+  ff94237f50d1  modules/controller/controller.js
+  1d0f8fb9d174  resources/styles/kdx.css
+
+  These two files are validated working-tree edits that are not committed on
+  any branch. Until they land, the artifact cannot be rebuilt from committed
+  source alone, and this manifest is incomplete by exactly these two rows.
+
+[assembly invariant] -- identical on every branch, pinned to keep the parser honest
+  13c03e22a633  resources/extern/fonts/Open Sans.ttf
+
+  This row needs no branch resolution; it is here because it is the only
+  tracked path containing a space, and a checker that splits paths on
+  whitespace reports it MISSING on a correct tree. Keeping it pinned means
+  that defect fails the gate instead of hiding in it.
+
+[inputs outside version control]
+  the NWJS runtime directory
+  bin/<platform>-<arch>/ node and miner binaries, built by the sibling tracks
+  node_modules/, installed from the assembly base's dependency manifest

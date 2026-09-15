@@ -1,0 +1,12 @@
+Package: kdx
+Version: @VERSION@
+Architecture: amd64
+Maintainer: KDX Packaging <demisrael@gmail.com>
+Installed-Size: @INSTALLED_SIZE@
+Depends: libc6, libgtk-3-0t64, libnss3, libnspr4, libatk1.0-0t64, libatk-bridge2.0-0t64, libcups2t64, libdrm2, libgbm1, libasound2t64, libxkbcommon0, libxcomposite1, libxdamage1, libxrandr2, libxfixes3, libpango-1.0-0, libcairo2, libx11-6, libxcb1, libglib2.0-0t64, libxext6, libxi6
+Section: net
+Priority: optional
+Description: KDX - Kaspa Desktop eXperience
+ Desktop node and wallet manager for the Kaspa network. Bundles the NWJS
+ 0.112 runtime, the kaspad (v2.0.1) node binary, and the kaspa-miner CPU
+ miner. Defaults to the Kaspa mainnet.
