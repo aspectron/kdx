@@ -190,6 +190,12 @@ flow-expandable [slot="info"]{
 }
 flow-form-control h4[slot="info"].title,
 flow-expandable h4[slot="info"].title{margin-bottom:10px;}
+.add-service-example{
+	white-space:pre-wrap;
+	overflow-wrap:anywhere;
+	max-width:100%;
+	overflow-x:auto;
+}
 /*flow-expandable:not([opened]) [slot="info"]{display:none;}*/
 .tabs{margin-top:32px;width:100%;}
 flow-tabs flow-tab{margin-left: -20px;margin-right: -20px;}
@@ -325,8 +331,9 @@ flow-selector .menu-item{padding:2px 4px;}
 .h-box-stretched-group{
 	display:flex;flex-direction:column;align-items:stretch;
 }
-[row]{display:flex;flex-direction:row;max-width: 350px;justify-content: space-between;margin-bottom: 15px;}
+[row]{display:flex;flex-direction:row;flex-wrap:wrap;justify-content: flex-start;margin-bottom: 15px;}
 .h-box-stretched-group>flow-selector{margin:0px 5px 0px 0px}
+.h-box-stretched-group [row] flow-selector{margin:16px 5px 16px 0px;flex:0 0 auto;}
 .h-box-stretched-group>flow-btn{margin-top:7px;max-width:60px;padding:7px 2px;}
 .h-box-stretched-group>flow-selector .menu-item{padding:4px;}
 .no-mining {

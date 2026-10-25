@@ -1538,7 +1538,7 @@ ${changelogContent}`;
 				// squashfs unmount then races their still-mapped libnw.so pages
 				// and faults SIGBUS on teardown. Closing them first keeps the
 				// FUSE backing valid until the whole window tree is down.
-				if(window.flow && window.flow['flow-window-link'].windows) {
+				if(window.flow?.['flow-window-link']?.windows) {
 					window.flow['flow-window-link'].windows.forEach((auxWin)=>{
 						try { auxWin.close(true); } catch(ex) {}
 					});
