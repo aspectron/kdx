@@ -11,14 +11,14 @@
 
 baseline        master                 c9bf916
 
-assembly base   kas-kdx-app            a2cd17f
+assembly base   kas-kdx-app            4181567
 overlay         kas-kdx-kaspad-rpc     be2fc03
 overlay         kas-kdx-wallet-engine  bb509fb
 
 [kas-kdx-app] -- from kas-kdx-app (assembly base wins)
   4049a64f152e  .emanate
   6dc808ff9d7f  .templates
-  acd96757d9ae  CHANGELOG.md
+  38f0fc39cbd8  CHANGELOG.md
   2bc14bbd436b  app.js
   da5be5c3dd48  lib/interfaces/kaspaminer.js
   3667aae8715d  modules/controller/controller.html
