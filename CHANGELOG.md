@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.21.0] - 2026-10-25
+- Updated the bundled Kaspa node to the official rusty-kaspa (Rust) kaspad v2.1.0.
+- Wallet updated to the Kaspa Rust WASM SDK v2.1.0; existing 12-word wallets open unchanged.
+- The settings pane stays readable at any window size: long examples wrap and the template and network selectors reflow instead of being clipped.
+- Closing KDX now exits cleanly instead of sometimes leaving the application running in the background.
+
 ## [2.20.0] - 2026-06-19
 - Revived KDX on the modern Kaspa stack: bundles the official rusty-kaspa node (kaspad v2.0.1) and defaults to MAINNET.
 - Node network and binary are configurable: the bundled node runs mainnet or testnet-10, and a custom build runs by dropping your own binary into ~/.kdx/bin/<platform>-<arch> and selecting it by name on a local template's binary field.
