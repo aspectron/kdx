@@ -8,5 +8,5 @@ Section: net
 Priority: optional
 Description: KDX - Kaspa Desktop eXperience
  Desktop node and wallet manager for the Kaspa network. Bundles the NWJS
- 0.112 runtime, the kaspad (v2.0.1) node binary, and the kaspa-miner CPU
- miner. Defaults to the Kaspa mainnet.
+ runtime, the kaspad node binary, and the kaspa-miner CPU miner. Defaults
+ to the Kaspa mainnet.

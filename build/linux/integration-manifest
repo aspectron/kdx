@@ -12,7 +12,7 @@
 baseline        master                 c9bf916
 
 assembly base   kas-kdx-app            c106247
-overlay         kas-kdx-kaspad-rpc     c13adbb
+overlay         kas-kdx-kaspad-rpc     b757b21
 overlay         kas-kdx-wallet-engine  bb509fb
 
 [kas-kdx-app] -- from kas-kdx-app (assembly base wins)
@@ -40,10 +40,15 @@ overlay         kas-kdx-wallet-engine  bb509fb
   5ea44da0d33a  lib/daemon.js
   426e1a930fe9  lib/interfaces/kaspad.js
   43aafb870e9b  lib/kaspa-wasm-loader.js
+  ff94237f50d1  modules/controller/controller.js
+  1d0f8fb9d174  resources/styles/kdx.css
   fd120e3cfb0c  rpc.js
   742558ce19d9  vendor/kaspa-wasm/README.md
-  1ba8fb2e454d  vendor/kaspa-wasm/kaspa.d.ts
-  072482ebb9a6  vendor/kaspa-wasm/kaspa.js
+  c8ca62a70926  vendor/kaspa-wasm/kaspa.d.ts
+  fd8e764f39f1  vendor/kaspa-wasm/kaspa.js
+  277453918431  vendor/kaspa-wasm/kaspa_bg.wasm
+  227758705abd  vendor/kaspa-wasm/kaspa_bg.wasm.d.ts
+  8d1f0f475a59  vendor/kaspa-wasm/package.json
 
 [kas-kdx-wallet-engine] -- from kas-kdx-wallet-engine
   e91dd81a6100  modules/controller/kaspa-core-lib-module.js
@@ -62,17 +67,6 @@ overlay         kas-kdx-wallet-engine  bb509fb
 
 [identical on kas-kdx-kaspad-rpc + kas-kdx-wallet-engine] -- no resolution needed
   fb06b99a835c  vendor/kaspa-wasm/LICENSE
-  71ea21ee2d28  vendor/kaspa-wasm/kaspa_bg.wasm
-  1161e365b910  vendor/kaspa-wasm/kaspa_bg.wasm.d.ts
-  5edd2e0a6973  vendor/kaspa-wasm/package.json
-
-[PENDING -- not reproducible from any branch yet]
-  ff94237f50d1  modules/controller/controller.js
-  1d0f8fb9d174  resources/styles/kdx.css
-
-  These two files are validated working-tree edits that are not committed on
-  any branch. Until they land, the artifact cannot be rebuilt from committed
-  source alone, and this manifest is incomplete by exactly these two rows.
 
 [assembly invariant] -- identical on every branch, pinned to keep the parser honest
   13c03e22a633  resources/extern/fonts/Open Sans.ttf
