@@ -11,14 +11,14 @@
 
 baseline        master                 c9bf916
 
-assembly base   kas-kdx-app            c106247
-overlay         kas-kdx-kaspad-rpc     b757b21
+assembly base   kas-kdx-app            e11e5f4
+overlay         kas-kdx-kaspad-rpc     cb5d321
 overlay         kas-kdx-wallet-engine  bb509fb
 
 [kas-kdx-app] -- from kas-kdx-app (assembly base wins)
   4049a64f152e  .emanate
   6dc808ff9d7f  .templates
-  a4cedd818a17  CHANGELOG.md
+  acd96757d9ae  CHANGELOG.md
   a2ba67c3f5a6  app.js
   da5be5c3dd48  lib/interfaces/kaspaminer.js
   3667aae8715d  modules/controller/controller.html
@@ -30,8 +30,8 @@ overlay         kas-kdx-wallet-engine  bb509fb
   68b606baef0d  modules/procmon/ps-list.js
   4e6c9dc6fffd  nw-app.js
   a5a0b3fe9af3  nw.toml
-  38a1739cdd5c  package-lock.json
-  34b9043961c9  package.json
+  c98f91b4e355  package-lock.json
+  bcb9d8c0cc46  package.json
   85dafbeb69c4  resources/realm-preload.js
   b3e8550338e7  resources/rpc-host.html
 
