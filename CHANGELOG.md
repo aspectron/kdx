@@ -5,6 +5,9 @@
 - Wallet updated to the Kaspa Rust WASM SDK v2.1.0; existing 12-word wallets open unchanged.
 - The settings pane stays readable at any window size: long examples wrap and the template and network selectors reflow instead of being clipped.
 - Closing KDX now exits cleanly instead of sometimes leaving the application running in the background.
+- The Public Node dashboard no longer shows a negative DAG sync percentage right after connecting.
+- A fresh install starts in Public Node mode without launching a local node.
+- Upgrading from an earlier .deb package repairs the install folder permissions, so the app starts for every user.
 
 ## [2.20.0] - 2026-06-19
 - Revived KDX on the modern Kaspa stack: bundles the official rusty-kaspa node (kaspad v2.0.1) and defaults to MAINNET.
