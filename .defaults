@@ -1,13 +1,10 @@
 {
 	"enableMining": false,
 	"modules": {
-		"kaspad:kd0": {
-			"reset-peers": false,
-			"args": {
-				"rpclisten": "0.0.0.0:16110",
-				"listen": "0.0.0.0:16111",
-				"rpclisten-borsh": "0.0.0.0:17110"
-			}
+		"kaspad:public": {
+			"connectOnly": true,
+			"networkId": "mainnet",
+			"resolver": null
 		}
 	}
 }
