@@ -203,6 +203,7 @@ export class WorkerCore extends EventEmitter {
 
   async openWallet(msg) {
     const { seedPhrase, networkOptions = {}, options = {} } = msg;
+    await this.closeWallet();
     this.networkId = resolveNetworkId(networkOptions.network);
     if (options.logLevel) {
       workerLog.setLevel(options.logLevel);
@@ -299,8 +300,34 @@ export class WorkerCore extends EventEmitter {
     }
   }
 
+  // A wallet opened again -- another wallet, or the same one on another node --
+  // replaces the open one, which must stop reporting and stop dialing its node.
+  async closeWallet() {
+    const wallet = this.wallet;
+    if (!wallet) {
+      return;
+    }
+    this.wallet = undefined;
+    wallet.removeEventListener(this.walletListener);
+    await wallet.stop().catch((error) => {
+      workerLog.debug('stopping the previous wallet failed:', String(error));
+    });
+    await wallet.disconnect().catch((error) => {
+      workerLog.debug('disconnecting the previous wallet failed:', String(error));
+    });
+    this.receiveAddress = '';
+    this.changeAddress = '';
+    this.balance = { available: 0, pending: 0, total: 0 };
+    this.confirmedUtxosCount = 0;
+    this.daaScore = 0;
+    this.synced = false;
+    this._syncReady = helper.Deferred();
+    // The wallet that replaces it shows as offline until it connects itself.
+    this.sendWalletEvent('api-disconnect', {});
+  }
+
   registerWalletEvents() {
-    this.wallet.addEventListener((event) => {
+    this.walletListener = (event) => {
       const { type, data } = event || {};
       switch (type) {
         case 'connect':
@@ -356,7 +383,8 @@ export class WorkerCore extends EventEmitter {
         default:
           break;
       }
-    });
+    };
+    this.wallet.addEventListener(this.walletListener);
   }
 
   // Project a wallet-core transaction record onto the fields the UI
