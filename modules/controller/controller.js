@@ -1495,10 +1495,15 @@ ${changelogContent}`;
 	
 	async restartDaemons(daemons, beforeStartCB){
 
-		if(!daemons) {
+		// Only the latest apply starts services: an earlier apply still waiting
+		// for its stopped processes leaves the start to the newer one.
+		const apply = this.applyCount = (this.applyCount || 0) + 1;
+		// Without an applied module map the restart keeps the active one.
+		let modules = daemons;
+		if(!modules) {
 			let {config} = await this.get("get-modules-config");
-			daemons = config.daemons;
-			console.log("restartDaemons - module config:", daemons);
+			modules = config;
+			console.log("restartDaemons - module config:", modules);
 		}
 
 		// Daemon lifecycle on apply: stop the previously-running daemons and wait
@@ -1508,26 +1513,31 @@ ${changelogContent}`;
 		// every managed task has emitted 'exit' (daemon.stop() escalates through
 		// SIGINT/SIGTERM to SIGKILL, so a wedged node cannot hold the LOCK
 		// indefinitely). Start once, after the stop settles -- never restart while
-		// a prior process may still hold the lock.
-		try{
-			await this.manager.stop();
-		}catch(e){
+		// a prior process may still hold the lock, including one that an earlier
+		// apply stopped and that has not exited yet.
+		const stopping = this.manager.stop().catch(e=>{
 			console.log("restartDaemons:stop error", e)
-		}
-		// The stopped services' panels and tabs go now; each service the applied
-		// config starts creates its own. The miner's address is resolved again
-		// from the applied config, and the wallet moves to the applied node before
-		// the miner asks it for one.
-		this.removeServiceViews();
+		});
+		const stopped = this.servicesStopped = Promise.all([this.servicesStopped, stopping]);
+		// The stop takes the old instances out of the manager's set at once, so
+		// nothing below waits on them: the panels and tabs of the services the
+		// applied config drops go now, and the wallet moves to the applied node
+		// while the old processes exit. The miner's address is resolved again
+		// from the applied config, after the move.
+		this.removeServiceViews(this.serviceKeys(modules));
 		this.miningAddress = "";
 		this.miningAddressFromWallet = false;
-		try{
-			await this.updateWalletNode();
-		}catch(e){
+		const walletMoved = this.updateWalletNode().catch(e=>{
 			console.log("restartDaemons:wallet node error", e)
-		}
+		});
+		await stopped;
+		await walletMoved;
+		if(apply != this.applyCount)
+			return;
 		console.log("initDaemons....")
 		dpc(DAEMON_RESTART_SETTLE_MS, async()=>{
+			if(apply != this.applyCount)
+				return;
 			if(beforeStartCB)
 				await beforeStartCB();
 			this.initDaemons(daemons);
@@ -1589,9 +1599,24 @@ ${changelogContent}`;
 	isCurrentService(daemon){
 		return !!this.manager?.tasks.some(task=>task.impl === daemon);
 	}
-	removeServiceViews(){
-		Object.keys(this.taskTabs).forEach(key=>this.removeTaskTab({key}));
-		this._taskInfo = {};
+	// The task keys of the services the manager starts for a module map: each
+	// entry not marked disable, whose type is not __-prefixed and has a service
+	// interface, and -- for an app -- that carries args.
+	serviceKeys(modules){
+		const {ctors} = this.manager;
+		return new Set(Object.entries(modules || {}).filter(([name, conf])=>{
+			const [type] = name.split(':');
+			return !conf?.disable && !/^__/.test(type) && !!ctors[type]
+				&& (type != 'app' || !!conf?.args);
+		}).map(([name])=>name.replace(':', '-')));
+	}
+	// Drops the panel and the tab of every service whose key is not in `kept`;
+	// a kept service's views stay, and its new instance takes them over.
+	removeServiceViews(kept){
+		Object.keys(this.taskTabs).filter(key=>!kept.has(key))
+			.forEach(key=>this.removeTaskTab({key}));
+		this._taskInfo = Object.fromEntries(Object.entries(this._taskInfo || {})
+			.filter(([key])=>kept.has(key)));
 		this.renderModuleInfoList();
 	}
 	exit(){
