@@ -30,6 +30,13 @@ const TRANSACTION_HISTORY_PAGE = 100;
 // wallet-core transaction-record data types that represent inbound value.
 const INBOUND_TX_TYPES = ['incoming', 'external', 'transfer-incoming', 'stasis'];
 
+// Ends a wallet open that a newer open replaced while it waited.
+const REPLACED_OPEN = new Error('replaced by a newer wallet open');
+
+// Wallets whose open went on to start them. A wallet that was never started
+// has nothing to stop, and stopping it does not settle.
+const startedWallets = new WeakSet();
+
 // Resolve the network the controller supplies to a wallet-core network id. The
 // controller passes the canonical id of the wallet's node -- "mainnet" or a
 // suffixed testnet id such as "testnet-10" -- taken from the public-node entry
@@ -62,6 +69,20 @@ function resolveNodeUrl(networkId) {
 // given, otherwise the SDK's default public list.
 function createResolver({ urls }) {
   return Array.isArray(urls) && urls.length ? new kaspa.Resolver({ urls }) : new kaspa.Resolver();
+}
+
+// Shut down a wallet that another one replaced: disconnecting ends its dialing
+// at once, even while it is still connecting.
+async function shutDownWallet(wallet) {
+  await wallet.disconnect().catch((error) => {
+    workerLog.debug('disconnecting the previous wallet failed:', String(error));
+  });
+  if (!startedWallets.has(wallet)) {
+    return;
+  }
+  await wallet.stop().catch((error) => {
+    workerLog.debug('stopping the previous wallet failed:', String(error));
+  });
 }
 
 // Convert a wallet-core balance (bigint sompi fields) into the {available,
@@ -176,6 +197,10 @@ export class WorkerCore extends EventEmitter {
 
     this.on('wallet-init', (msg) => {
       this.openWallet(msg).catch((error) => {
+        // A replaced open ends quietly: its failure is not the open wallet's.
+        if (error === REPLACED_OPEN) {
+          return;
+        }
         workerLog.error('wallet-init failed:', error);
         this.sendWalletEvent('api-disconnect', { error: String(error) });
       });
@@ -203,7 +228,7 @@ export class WorkerCore extends EventEmitter {
 
   async openWallet(msg) {
     const { seedPhrase, networkOptions = {}, options = {} } = msg;
-    await this.closeWallet();
+    this.closeWallet();
     this.networkId = resolveNetworkId(networkOptions.network);
     if (options.logLevel) {
       workerLog.setLevel(options.logLevel);
@@ -224,24 +249,36 @@ export class WorkerCore extends EventEmitter {
     if (networkOptions.resolver) {
       walletConfig.resolver = createResolver(networkOptions.resolver);
     }
-    this.wallet = new kaspa.Wallet(walletConfig);
+    const wallet = new kaspa.Wallet(walletConfig);
+    this.wallet = wallet;
 
     this.registerWalletEvents();
 
-    await this.wallet.walletCreate({ walletSecret: this.walletSecret });
-    const prv = await this.wallet.prvKeyDataCreate({
+    // Each step waits on wallet-core. An open that a newer open replaced while
+    // it waited stops at its next step, before it touches the worker's state.
+    const step = (pending) => pending.then((result) => {
+      if (this.wallet !== wallet) {
+        throw REPLACED_OPEN;
+      }
+      return result;
+    }, (error) => {
+      throw this.wallet === wallet ? error : REPLACED_OPEN;
+    });
+
+    await step(wallet.walletCreate({ walletSecret: this.walletSecret }));
+    const prv = await step(wallet.prvKeyDataCreate({
       walletSecret: this.walletSecret,
       kind: 'mnemonic',
       mnemonic: this.mnemonic
-    });
+    }));
     this.prvKeyDataId = prv.prvKeyDataId;
 
-    const created = await this.wallet.accountsCreate({
+    const created = await step(wallet.accountsCreate({
       walletSecret: this.walletSecret,
       type: LEGACY_ACCOUNT_TYPE,
       accountName: KDX_ACCOUNT_NAME,
       prvKeyDataId: this.prvKeyDataId
-    });
+    }));
     const descriptor = created.accountDescriptor || created;
     this.accountId = descriptor.accountId;
     this.receiveAddress = String(descriptor.receiveAddress || '');
@@ -262,9 +299,10 @@ export class WorkerCore extends EventEmitter {
     if (!networkOptions.resolver) {
       connectOptions.url = resolveNodeUrl(this.networkId);
     }
-    await this.wallet.connect(connectOptions);
-    await this.wallet.start();
-    await this.wallet.accountsActivate({ accountIds: [this.accountId] });
+    await step(wallet.connect(connectOptions));
+    startedWallets.add(wallet);
+    await step(wallet.start());
+    await step(wallet.accountsActivate({ accountIds: [this.accountId] }));
 
     // The UI open sequence completes only once it receives the node-capability
     // event. The wallet's node has the utxo index: the resolver's public nodes
@@ -281,16 +319,20 @@ export class WorkerCore extends EventEmitter {
   // only accumulate during the session, so the existing history is fetched
   // once and delivered as a bulk update.
   async backfillTransactions() {
-    if (!this.wallet || !this.accountId) {
+    const wallet = this.wallet;
+    if (!wallet || !this.accountId) {
       return;
     }
     try {
-      const response = await this.wallet.transactionsDataGet({
+      const response = await wallet.transactionsDataGet({
         accountId: this.accountId,
         networkId: this.networkId,
         start: 0n,
         end: BigInt(TRANSACTION_HISTORY_PAGE)
       });
+      if (this.wallet !== wallet) {
+        return;
+      }
       const records = (response && response.transactions) || [];
       if (records.length) {
         this.sendWalletEvent('transactions', records.map((r) => this.toUiTransaction(r)));
@@ -302,19 +344,15 @@ export class WorkerCore extends EventEmitter {
 
   // A wallet opened again -- another wallet, or the same one on another node --
   // replaces the open one, which must stop reporting and stop dialing its node.
-  async closeWallet() {
+  // It is detached at once and shuts down on its own, so a wallet still
+  // waiting for its node never holds up the one that replaces it.
+  closeWallet() {
     const wallet = this.wallet;
     if (!wallet) {
       return;
     }
     this.wallet = undefined;
     wallet.removeEventListener(this.walletListener);
-    await wallet.stop().catch((error) => {
-      workerLog.debug('stopping the previous wallet failed:', String(error));
-    });
-    await wallet.disconnect().catch((error) => {
-      workerLog.debug('disconnecting the previous wallet failed:', String(error));
-    });
     this.receiveAddress = '';
     this.changeAddress = '';
     this.balance = { available: 0, pending: 0, total: 0 };
@@ -322,6 +360,7 @@ export class WorkerCore extends EventEmitter {
     this.daaScore = 0;
     this.synced = false;
     this._syncReady = helper.Deferred();
+    shutDownWallet(wallet);
     // The wallet that replaces it shows as offline until it connects itself.
     this.sendWalletEvent('api-disconnect', {});
   }
