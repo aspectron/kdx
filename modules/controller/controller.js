@@ -640,7 +640,9 @@ class KDXApp extends FlowApp{
 	}
 	// An apply that moves the wallet's node to another network, or between a
 	// public and a local node, re-opens an open wallet there from its phrase, so
-	// its addresses and its RPC connection follow without a restart.
+	// its addresses and its RPC connection follow without a restart. Resolves
+	// once the moved wallet has its address on the new network, or failed to
+	// open, so nothing reads an address in between.
 	async updateWalletNode(){
 		let settings = await this.get_default_local_kaspad_settings();
 		if(walletNodeOf(settings) == walletNodeOf(this.walletSettings))
@@ -652,7 +654,22 @@ class KDXApp extends FlowApp{
 		let seedPhrase = await opened.mnemonic;
 		await this.wallet.initNetworkSettings();
 		let {network, rpc} = this.wallet;
-		this.wallet.setWallet(Wallet.fromMnemonic(seedPhrase, {network, rpc}));
+		let moved = Wallet.fromMnemonic(seedPhrase, {network, rpc});
+		let addressKnown = new Promise(resolve=>{
+			const settle = ()=>{
+				moved.off("api-disconnect", onDisconnect);
+				moved.off("new-address", settle);
+				resolve();
+			}
+			const onDisconnect = (detail)=>{
+				if(detail?.error)
+					settle();
+			}
+			moved.on("api-disconnect", onDisconnect);
+			moved.on("new-address", settle);
+		});
+		this.wallet.setWallet(moved);
+		await addressKnown;
 	}
 	async get_default_local_kaspad_settings() {
 		
