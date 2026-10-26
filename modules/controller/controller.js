@@ -709,7 +709,10 @@ class KDXApp extends FlowApp{
 		this.miningAddressFromWallet = false;
 		if(this.miningAddressInput)
 			this.miningAddressInput.value = address;
-		if(!dontRestartMinner)
+		// A miner waiting for a wallet's address takes this one and starts itself.
+		if(this.endWalletWait)
+			this.endWalletWait();
+		else if(!dontRestartMinner)
 			this.manager.restartMining();
 	}
 	setStatsdAddress(statsdAddress){
@@ -1208,6 +1211,8 @@ class KDXApp extends FlowApp{
 		console.log("getMiningAddress: useWalletForMining", this.useWalletForMining)
 		if(this.useWalletForMining && this.wallet){
 			let address = await this.getWalletMiningAddress(onWaitForWallet);
+			if(address === null)
+				return this.getMiningAddress(onWaitForWallet);
 			this.miningAddress = address;
 			console.log("getMiningAddress: useWalletForMining, address", this.useWalletForMining, address)
 			if(address)
@@ -1219,18 +1224,31 @@ class KDXApp extends FlowApp{
 		this.miningAddressFromWallet = false;
 		if(!address && this.wallet){
 			address = await this.getWalletMiningAddress(onWaitForWallet);
-			this.miningAddressFromWallet = !!address;
+			if(address === null)
+				return this.getMiningAddress(onWaitForWallet);
+			// An address configured while waiting outranks the wallet's.
+			let current = await this.get("get-modules-config");
+			let configured = this.getMiningAddressFromConfig({modules:current.config});
+			this.miningAddressFromWallet = !configured && !!address;
+			address = configured || address;
 		}
 		this.miningAddress = address;
 		console.log("getMiningAddress:miningAddress:", this.miningAddress)
 		return address;
 	}
 	// Resolves once a wallet is open, which has to be waited for until the user
-	// opens one.
+	// opens one. A mining address set in the meantime ends the wait with null.
 	async getWalletMiningAddress(onWaitForWallet){
 		if(!this.walletOpened)
 			onWaitForWallet?.();
-		return await this.wallet.getMiningAddress() || "";
+		try {
+			return await Promise.race([
+				this.wallet.getMiningAddress().then(address => address || ""),
+				new Promise(resolve => { this.endWalletWait = () => resolve(null); })
+			]);
+		} finally {
+			this.endWalletWait = null;
+		}
 	}
 	getMiningAddressFromConfig(config){
 		let {modules={}} = config;
