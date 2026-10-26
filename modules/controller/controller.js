@@ -22,6 +22,7 @@ const DAEMON_RESTART_SETTLE_MS = 1000;
 const { loadKaspaSdk, setKaspaSdk, readWasmBytes, buildKaspaResolver } = require('../../lib/kaspa-wasm-loader');
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
+import {Wallet} from '@kaspa/wallet-worker';
 import {
 	flow, FlowDialog, i18n, getLocalSetting, setLocalSetting, T, dpc,
 	FlowApp, setTheme, deferred
@@ -46,6 +47,15 @@ window.PWA_MODULES["@kaspa/core-lib"] = "N/A";
 // id is derived from the same single source (the daemon `args.netsuffix`) the
 // node launches with.
 const DEFAULT_TESTNET_SUFFIX = 10;
+
+// What decides the node a wallet connects to: the network, and the resolver for
+// a public node (a local node's endpoint follows from its network).
+const walletNodeOf = (settings)=>{
+	if(!settings)
+		return "";
+	const {networkId, connectOnly, resolver} = settings;
+	return JSON.stringify([networkId, !!connectOnly, connectOnly ? resolver || null : null]);
+}
 
 class KDXApp extends FlowApp{
 	render(){
@@ -477,12 +487,14 @@ class KDXApp extends FlowApp{
 
 		this.manager = manager;
 		manager.on("task-info", async (daemon)=>{
-			if(!daemon.renderModuleInfo)
+			if(!daemon.renderModuleInfo || !this.isCurrentService(daemon))
 				return
 
 			let {task} = daemon;
 
 			let info = await daemon.renderModuleInfo({html, i18n});
+			if(!this.isCurrentService(daemon))
+				return
 			let section = html`<div class="task-info">${info}</div>`;
 			this.renderModuleInfo(task, section);
 		})
@@ -499,9 +511,10 @@ class KDXApp extends FlowApp{
 			wallet.connectRPC();
 
 		});
+		// A service whose process exits keeps its tab: the output that tells why
+		// it stopped stays readable. Tabs go only when an apply drops the service.
 		manager.on("task-exit", (daemon)=>{
 			console.log("task-exit", daemon.task)
-			this.removeTaskTab(daemon.task);
 		})
 		manager.on("before-interrupt", ({daemon, interrupt})=>{
 			console.log("before-interrupt", daemon.task.type, daemon.task)
@@ -513,6 +526,8 @@ class KDXApp extends FlowApp{
 		})
 		manager.on("task-data", (daemon, data)=>{
 			//console.log("task-data", daemon.task, data)
+			if(!this.isCurrentService(daemon))
+				return
 			let terminal = this.taskTerminals[daemon.task.key];
 			if(!terminal || !terminal.term)
 				return
@@ -594,10 +609,14 @@ class KDXApp extends FlowApp{
 				this.manager?.restartMining();
 			}
 		})
-		let settings = await this.get_default_local_kaspad_settings();
+		this.walletSettings = await this.get_default_local_kaspad_settings();
 		let verbose = localStorage.rpcverbose == 1;
 		const kaspa = await loadKaspaSdk();
+		// Built on every wallet open, from the node the active config names.
 		this.wallet.setRPCBuilder(()=>{
+			const settings = this.walletSettings;
+			if(!settings)
+				return {};
 			const { networkId } = settings;
 			// Public Node (connect-only): the wallet rides the resolver-selected
 			// remote node (utxoindex + synced) for this network; keys stay local,
@@ -618,6 +637,22 @@ class KDXApp extends FlowApp{
 		});
 		
 		return Promise.resolve();
+	}
+	// An apply that moves the wallet's node to another network, or between a
+	// public and a local node, re-opens an open wallet there from its phrase, so
+	// its addresses and its RPC connection follow without a restart.
+	async updateWalletNode(){
+		let settings = await this.get_default_local_kaspad_settings();
+		if(walletNodeOf(settings) == walletNodeOf(this.walletSettings))
+			return;
+		this.walletSettings = settings;
+		let opened = this.wallet?.wallet;
+		if(!opened || !settings)
+			return;
+		let seedPhrase = await opened.mnemonic;
+		await this.wallet.initNetworkSettings();
+		let {network, rpc} = this.wallet;
+		this.wallet.setWallet(Wallet.fromMnemonic(seedPhrase, {network, rpc}));
 	}
 	async get_default_local_kaspad_settings() {
 		
@@ -1349,6 +1384,8 @@ ${changelogContent}`;
 		let tabContent = this.taskTabs[key];
 		if(tabContent && tabContent.parentNode)
 			tabContent.parentNode.removeChild(tabContent);
+		delete this.taskTabs[key];
+		delete this.taskTerminals[key];
 
 		if(newTabs.length == caption.tabs.length)
 			return;
@@ -1459,6 +1496,18 @@ ${changelogContent}`;
 		}catch(e){
 			console.log("restartDaemons:stop error", e)
 		}
+		// The stopped services' panels and tabs go now; each service the applied
+		// config starts creates its own. The miner's address is resolved again
+		// from the applied config, and the wallet moves to the applied node before
+		// the miner asks it for one.
+		this.removeServiceViews();
+		this.miningAddress = "";
+		this.miningAddressFromWallet = false;
+		try{
+			await this.updateWalletNode();
+		}catch(e){
+			console.log("restartDaemons:wallet node error", e)
+		}
 		console.log("initDaemons....")
 		dpc(DAEMON_RESTART_SETTLE_MS, async()=>{
 			if(beforeStartCB)
@@ -1506,12 +1555,26 @@ ${changelogContent}`;
 		this?.caption?.requestUpdate();
 	}
 	renderModuleInfo(task, info){
-		this._infoTable = this._infoTable || document.querySelector("#process-info-table");
 		this._taskInfo = this._taskInfo || {};
-		
 		this._taskInfo[task.key] = info;
-		let list = Object.entries(this._taskInfo);
+		this.renderModuleInfoList();
+	}
+	renderModuleInfoList(){
+		this._infoTable = this._infoTable || document.querySelector("#process-info-table");
+		let list = Object.entries(this._taskInfo || {});
 		render(repeat(list, ([k])=>k, ([k, info])=>info), this._infoTable);
+	}
+	// Whether the service is in the manager's current set, whatever its process
+	// state. An instance an apply stopped has left manager.tasks, so its late
+	// updates are dropped. A daemon keeps a copy of its task, so the match is
+	// on the instance.
+	isCurrentService(daemon){
+		return !!this.manager?.tasks.some(task=>task.impl === daemon);
+	}
+	removeServiceViews(){
+		Object.keys(this.taskTabs).forEach(key=>this.removeTaskTab({key}));
+		this._taskInfo = {};
+		this.renderModuleInfoList();
 	}
 	exit(){
 		this.runInBG = false;
