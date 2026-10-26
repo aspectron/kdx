@@ -16,7 +16,7 @@
 baseline        master                 c9bf916
 
 assembly base   kas-kdx-app            3da2eaf
-overlay         kas-kdx-kaspad-rpc     96eea57
+overlay         kas-kdx-kaspad-rpc     296ff5b
 overlay         kas-kdx-wallet-engine  e48f8b3
 
 [kas-kdx-app] -- from kas-kdx-app (assembly base wins)
@@ -44,7 +44,7 @@ overlay         kas-kdx-wallet-engine  e48f8b3
   5ea44da0d33a  lib/daemon.js
   3072ddb0c174  lib/interfaces/kaspad.js
   43aafb870e9b  lib/kaspa-wasm-loader.js
-  fb0c6f9ed323  modules/controller/controller.js
+  4427aaad324e  modules/controller/controller.js
   1d0f8fb9d174  resources/styles/kdx.css
   fd120e3cfb0c  rpc.js
   742558ce19d9  vendor/kaspa-wasm/README.md
