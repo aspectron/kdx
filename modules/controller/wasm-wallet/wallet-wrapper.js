@@ -98,6 +98,13 @@ export class WalletWrapper extends EventTargetImpl {
     // compatibility but not used for transport here.
     this.rpc = networkOptions.rpc;
     delete networkOptions.rpc;
+    // A resolver-backed client (the public node) cannot cross into the worker,
+    // so pass its resolver list instead; the worker then builds its own
+    // resolver-backed connection rather than dialing a local node.
+    const resolver = this.rpc && this.rpc.resolver;
+    if (resolver) {
+      networkOptions.resolver = { urls: resolver.urls || null };
+    }
 
     this.privKey = privKey || undefined;
     this.seedPhrase = seedPhrase || undefined;
@@ -144,7 +151,33 @@ export class WalletWrapper extends EventTargetImpl {
     if (name === 'balance-update') {
       this.balance = data;
     }
+    if (name === 'new-address') {
+      this.addresses = data;
+    }
+    if (name === 'grpc-flags') {
+      this.grpcFlags = data;
+    }
     this.emit(name, data);
+  }
+
+  // The UI asks for the node capability flags once it has subscribed to them;
+  // the worker reports them when the wallet opens, so re-deliver that report.
+  checkGRPCFlags() {
+    if (this.grpcFlags) {
+      this.emit('grpc-flags', this.grpcFlags);
+    }
+  }
+
+  // The worker opens the wallet as soon as the wrapper is constructed, so when
+  // a wallet is created its one-shot address event fires before the UI
+  // subscribes (the UI waits for the user to back up the phrase first). A late
+  // subscriber is handed the current addresses.
+  on(type, callback) {
+    super.on(type, callback);
+    if (type === 'new-address' && this.addresses) {
+      callback(this.addresses);
+    }
+    return this;
   }
 
   handleResponse(msg) {

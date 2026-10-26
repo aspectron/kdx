@@ -60,6 +60,12 @@ function resolveNodeUrl(networkId) {
   return `ws://127.0.0.1:${port}`;
 }
 
+// Resolver for a public-node wallet: the configured resolver list when one is
+// given, otherwise the SDK's default public list.
+function createResolver({ urls }) {
+  return Array.isArray(urls) && urls.length ? new kaspa.Resolver({ urls }) : new kaspa.Resolver();
+}
+
 // Convert a wallet-core balance (bigint sompi fields) into the {available,
 // pending, total} number shape the UI balance display consumes.
 function toUiBalance(balance) {
@@ -71,6 +77,26 @@ function toUiBalance(balance) {
     total: Number(mature + pending)
   };
 }
+
+// The worker runs with Node integration, so the SDK takes it for Node.js and
+// builds each wRPC socket with the Node `ws` options form, which the browser
+// WebSocket here never opens. Construct sockets from the URL alone, as
+// resources/realm-preload.js does for the page.
+function useBrowserWebSocket() {
+  const domWebSocket = self.WebSocket;
+  if (typeof domWebSocket !== 'function') {
+    return;
+  }
+  const browserWebSocket = function WebSocket(url) {
+    return new domWebSocket(url);
+  };
+  browserWebSocket.prototype = domWebSocket.prototype;
+  for (const state of ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED']) {
+    browserWebSocket[state] = domWebSocket[state];
+  }
+  self.WebSocket = browserWebSocket;
+}
+useBrowserWebSocket();
 
 let wasmReady = null;
 async function loadWasmBytes() {
@@ -191,11 +217,15 @@ export class WorkerCore extends EventEmitter {
     // Resident, in-memory wallet rebuilt from the mnemonic every session; the
     // wallet secret is ephemeral and never leaves this worker.
     this.walletSecret = helper.UID();
-    this.wallet = new kaspa.Wallet({
+    const walletConfig = {
       resident: true,
       networkId: this.networkId,
       encoding: kaspa.Encoding.Borsh
-    });
+    };
+    if (networkOptions.resolver) {
+      walletConfig.resolver = createResolver(networkOptions.resolver);
+    }
+    this.wallet = new kaspa.Wallet(walletConfig);
 
     this.registerWalletEvents();
 
@@ -223,13 +253,17 @@ export class WorkerCore extends EventEmitter {
       change: this.changeAddress
     });
 
-    const url = resolveNodeUrl(this.networkId);
-    await this.wallet.connect({
-      url,
+    // A resolver-backed wallet picks its public node itself; a url would
+    // override the resolver, so it is passed only for the local node.
+    const connectOptions = {
       networkId: this.networkId,
       blockAsyncConnect: false,
       strategy: 'retry'
-    });
+    };
+    if (!networkOptions.resolver) {
+      connectOptions.url = resolveNodeUrl(this.networkId);
+    }
+    await this.wallet.connect(connectOptions);
     await this.wallet.start();
     await this.wallet.accountsActivate({ accountIds: [this.accountId] });
 
