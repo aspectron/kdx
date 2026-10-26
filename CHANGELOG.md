@@ -15,6 +15,9 @@
 - The Public Node panel no longer shows a storage tile for a node that stores nothing locally.
 - Changing the network, or switching between a public and a local node, moves an open wallet to the new node without a restart; mining to the wallet's address then uses its address on the new network.
 - The dashboard and the service tabs follow the applied configuration: a service that a template or configuration change removes disappears right away, and a node that stops because of an error keeps its tab with the reason.
+- With a public node and a local node configured together, the miner mines on the local node; with no local node, mining stays off with a notice instead of restarting the miner over and over.
+- After a wallet moves to another node, its DAA score shows that node's score as soon as it connects.
+- Changing the network or the node while a wallet is still connecting to a public node moves the wallet to the new node right away instead of leaving it stuck.
 
 ## [2.20.0] - 2026-06-19
 - Revived KDX on the modern Kaspa stack: bundles the official rusty-kaspa node (kaspad v2.0.1) and defaults to MAINNET.
