@@ -1193,13 +1193,6 @@ class KDXApp extends FlowApp{
 		}
 		this.restartDaemons(false, beforeStartCB);
 	}
-	isMinerWaitingForWalletLogin(){
-		if(this.miningAddress){
-			return false
-		}
-
-		return (this.useWalletForMining && this.wallet);
-	}
 	// The reward address for the miner: the open wallet's address when the user
 	// chose it, else the configured address, else the open wallet's address.
 	// onWaitForWallet is called when the wallet's address has to be waited for.
