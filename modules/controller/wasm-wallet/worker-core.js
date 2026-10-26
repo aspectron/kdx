@@ -1,11 +1,10 @@
 // Worker-side wallet engine backed by the rusty-kaspa wallet-core WASM SDK.
 //
 // The WASM `Wallet` is a self-contained runtime that owns its own wRPC
-// `RpcClient`, so unlike the previous design (a main-thread RPC client plus a
-// worker-side engine that round-tripped every RPC call back to the main
-// thread) the engine here runs entirely inside the worker and connects
-// directly to the local node. The main-thread wrapper drives this core over
-// the same postMessage protocol the UI already speaks.
+// `RpcClient`, so the engine runs entirely inside the worker and connects to
+// its node itself: the local node KDX runs, or a public node picked by the
+// resolver. The main-thread wrapper drives this core over the same
+// postMessage protocol the UI already speaks.
 
 import init, * as kaspa from '../../../vendor/kaspa-wasm/kaspa.js';
 import { EventEmitter } from './event-emitter.js';
@@ -31,12 +30,11 @@ const TRANSACTION_HISTORY_PAGE = 100;
 // wallet-core transaction-record data types that represent inbound value.
 const INBOUND_TX_TYPES = ['incoming', 'external', 'transfer-incoming', 'stasis'];
 
-// Resolve the network selector the controller supplies to a wallet-core network
-// id. The testnet id arrives already suffixed (e.g. "testnet-12"), derived by
-// the controller from the single source -- the kaspad daemon `args.netsuffix` --
-// so the wallet builds transactions for the same network instance the node runs.
-// The wRPC Borsh port is network-type-keyed, so it is the same across testnet
-// suffixes.
+// Resolve the network the controller supplies to a wallet-core network id. The
+// controller passes the canonical id of the wallet's node -- "mainnet" or a
+// suffixed testnet id such as "testnet-10" -- taken from the public-node entry
+// or from the local kaspad entry's arguments, so the wallet builds transactions
+// for the network that node runs. Legacy network names map to their ids.
 function resolveNetworkId(network) {
   const value = String(network || 'mainnet').toLowerCase();
   if (value === 'kaspa' || value === 'mainnet') {
@@ -268,7 +266,9 @@ export class WorkerCore extends EventEmitter {
     await this.wallet.accountsActivate({ accountIds: [this.accountId] });
 
     // The UI open sequence completes only once it receives the node-capability
-    // event; under wRPC the node KDX spawns runs with the utxo index enabled.
+    // event. The wallet's node has the utxo index: the resolver's public nodes
+    // run with it, and KDX starts its local node with it unless the entry sets
+    // skip-utxoindex.
     this.sendWalletEvent('grpc-flags', { utxoIndex: true });
     this.sendWalletEvent('ready', { confirmedUtxosCount: this.confirmedUtxosCount });
 
