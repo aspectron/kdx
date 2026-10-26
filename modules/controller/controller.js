@@ -585,8 +585,10 @@ class KDXApp extends FlowApp{
 		let wallet = this.qS('kaspa-wallet');
 		this.wallet = wallet;
 		this.applyCompoundConfig();
+		// An address taken from the previous wallet does not belong to the new one.
 		wallet.addEventListener("new-wallet", ()=>{
-			if(this.useWalletForMining){
+			this.walletOpened = true;
+			if(this.useWalletForMining || this.miningAddressFromWallet){
 				//console.log("restartMining:::")
 				this.miningAddress = "";
 				this.manager?.restartMining();
@@ -704,6 +706,7 @@ class KDXApp extends FlowApp{
 		let {config} = await this.get("set-mining-address", {address});
 		this.setModuleConfigEditorValue(config);
 		this.miningAddress = address;
+		this.miningAddressFromWallet = false;
 		if(this.miningAddressInput)
 			this.miningAddressInput.value = address;
 		if(!dontRestartMinner)
@@ -1194,14 +1197,17 @@ class KDXApp extends FlowApp{
 
 		return (this.useWalletForMining && this.wallet);
 	}
-	async getMiningAddress(){
+	// The reward address for the miner: the open wallet's address when the user
+	// chose it, else the configured address, else the open wallet's address.
+	// onWaitForWallet is called when the wallet's address has to be waited for.
+	async getMiningAddress(onWaitForWallet){
 		if(this.miningAddress){
 			console.log("getMiningAddress: returning", this.miningAddress)
 			return this.miningAddress;
 		}
 		console.log("getMiningAddress: useWalletForMining", this.useWalletForMining)
 		if(this.useWalletForMining && this.wallet){
-			let address = await this.wallet.getMiningAddress();
+			let address = await this.getWalletMiningAddress(onWaitForWallet);
 			this.miningAddress = address;
 			console.log("getMiningAddress: useWalletForMining, address", this.useWalletForMining, address)
 			if(address)
@@ -1210,9 +1216,21 @@ class KDXApp extends FlowApp{
 		}
 		let {config} = await this.get("get-modules-config")
 		let address = this.getMiningAddressFromConfig({modules:config});
+		this.miningAddressFromWallet = false;
+		if(!address && this.wallet){
+			address = await this.getWalletMiningAddress(onWaitForWallet);
+			this.miningAddressFromWallet = !!address;
+		}
 		this.miningAddress = address;
 		console.log("getMiningAddress:miningAddress:", this.miningAddress)
 		return address;
+	}
+	// Resolves once a wallet is open, which has to be waited for until the user
+	// opens one.
+	async getWalletMiningAddress(onWaitForWallet){
+		if(!this.walletOpened)
+			onWaitForWallet?.();
+		return await this.wallet.getMiningAddress() || "";
 	}
 	getMiningAddressFromConfig(config){
 		let {modules={}} = config;
