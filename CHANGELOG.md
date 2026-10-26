@@ -8,6 +8,11 @@
 - The Public Node dashboard no longer shows a negative DAG sync percentage right after connecting.
 - A fresh install starts in Public Node mode without launching a local node.
 - Upgrading from an earlier .deb package repairs the install folder permissions, so the app starts for every user.
+- The wallet connects through the public node on the default configuration instead of staying offline.
+- A newly created wallet shows its receive address right away.
+- Enabling mining without a mining address no longer restarts the miner over and over; mining stays off with a notice until a wallet provides an address.
+- The settings page shows the active template and network on a fresh start.
+- The Public Node panel no longer shows a storage tile for a node that stores nothing locally.
 
 ## [2.20.0] - 2026-06-19
 - Revived KDX on the modern Kaspa stack: bundles the official rusty-kaspa node (kaspad v2.0.1) and defaults to MAINNET.
