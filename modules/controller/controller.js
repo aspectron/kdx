@@ -881,14 +881,20 @@ class KDXApp extends FlowApp{
 		// renders it blank. Reconcile to the template whose module set matches the
 		// active config, else surface a clear (custom) option, so the selector
 		// always shows the active model rather than a blank.
-		if(this.tpl_template && !this.templates[this.tpl_template]) {
+		// A config seeded without an ident (a fresh start that skipped the
+		// initializer) is reconciled the same way.
+		if(!this.templates[this.tpl_template]) {
 			const matched = this.matchTemplateKeyByShape(config.modules);
 			if(matched) {
 				this.tpl_template = matched;
-			} else {
+			} else if(this.tpl_template) {
 				tplEl.innerHTML += `<div class="menu-item" value="${this.tpl_template}">${i18n.t('(custom)')}</div>`;
 			}
 		}
+		// Likewise a config without a stored network takes it from the active
+		// node entry, so the network selector never renders blank.
+		if(!this.tpl_network)
+			this.tpl_network = (await this.get_default_local_kaspad_settings())?.networkId;
 
 		tplEl.setAttribute('selected',this.tpl_template);
 		netEl.setAttribute('selected',this.tpl_network);
