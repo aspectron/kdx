@@ -223,6 +223,15 @@ enforce_dir_mode() {
     find "$root" -type d -exec chmod "$DIR_MODE" {} +
 }
 
+# The payload is copied with the modes of the tree it came from, which a
+# group-writable checkout passes on to the installed files. Keep only whether
+# each file is executable.
+enforce_file_mode() {
+    local root="$1"
+    find "$root" -type f -perm /111 -exec chmod "$EXEC_MODE" {} +
+    find "$root" -type f ! -perm /111 -exec chmod "$DATA_MODE" {} +
+}
+
 installed_size_kb() {
     local root="$1"
     du -sk --exclude=DEBIAN "$root" | cut -f1
@@ -249,6 +258,7 @@ stage_deb() {
     install -m "$EXEC_MODE" "$ASSET_DIR/deb/DEBIAN/postrm" "$root/DEBIAN/postrm"
 
     enforce_dir_mode "$root$INSTALL_PREFIX"
+    enforce_file_mode "$root$INSTALL_PREFIX"
 }
 
 stage_appdir() {
@@ -267,6 +277,7 @@ stage_appdir() {
     ln -sfn "$PACKAGE_NAME.png" "$root/.DirIcon"
 
     enforce_dir_mode "$root$INSTALL_PREFIX"
+    enforce_file_mode "$root$INSTALL_PREFIX"
 }
 
 build_deb_artifact() {
