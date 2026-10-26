@@ -18,6 +18,7 @@
 - With a public node and a local node configured together, the miner mines on the local node; with no local node, mining stays off with a notice instead of restarting the miner over and over.
 - After a wallet moves to another node, its DAA score shows that node's score as soon as it connects.
 - Changing the network or the node while a wallet is still connecting to a public node moves the wallet to the new node right away instead of leaving it stuck.
+- The miner no longer starts with a mining address for a different network than its node: mining stays off and the miner console names both networks and how to fix it.
 
 ## [2.20.0] - 2026-06-19
 - Revived KDX on the modern Kaspa stack: bundles the official rusty-kaspa node (kaspad v2.0.1) and defaults to MAINNET.
