@@ -11,16 +11,16 @@
 
 baseline        master                 c9bf916
 
-assembly base   kas-kdx-app            66d595c
-overlay         kas-kdx-kaspad-rpc     88c4cd6
-overlay         kas-kdx-wallet-engine  78c02ee
+assembly base   kas-kdx-app            d537878
+overlay         kas-kdx-kaspad-rpc     b9e7b3a
+overlay         kas-kdx-wallet-engine  5165f4d
 
 [kas-kdx-app] -- from kas-kdx-app (assembly base wins)
   4049a64f152e  .emanate
   6dc808ff9d7f  .templates
-  e88c49485589  CHANGELOG.md
+  55798cb0ccfd  CHANGELOG.md
   2bc14bbd436b  app.js
-  dda6236922d4  lib/interfaces/kaspaminer.js
+  fe015e5b434f  lib/interfaces/kaspaminer.js
   3667aae8715d  modules/controller/controller.html
   4a964d6056df  modules/controller/kdx-window-maximize.js
   d4c9e0eb418f  modules/controller/kdx-window-resizer.js
@@ -40,7 +40,7 @@ overlay         kas-kdx-wallet-engine  78c02ee
   5ea44da0d33a  lib/daemon.js
   3072ddb0c174  lib/interfaces/kaspad.js
   43aafb870e9b  lib/kaspa-wasm-loader.js
-  afbd4d935ea6  modules/controller/controller.js
+  2b86b5584b5e  modules/controller/controller.js
   1d0f8fb9d174  resources/styles/kdx.css
   fd120e3cfb0c  rpc.js
   742558ce19d9  vendor/kaspa-wasm/README.md
@@ -60,7 +60,7 @@ overlay         kas-kdx-wallet-engine  78c02ee
   61031620a58b  modules/controller/wasm-wallet/lib.js
   5a065fe7d8ea  modules/controller/wasm-wallet/package.json
   109497082f1d  modules/controller/wasm-wallet/wallet-wrapper.js
-  74746d6c12a6  modules/controller/wasm-wallet/worker-core.js
+  de7606302bd0  modules/controller/wasm-wallet/worker-core.js
 
 [identical on kas-kdx-app + kas-kdx-kaspad-rpc] -- no resolution needed
   5efc7d696edc  lib/manager.js
