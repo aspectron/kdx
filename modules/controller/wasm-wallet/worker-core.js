@@ -366,11 +366,13 @@ export class WorkerCore extends EventEmitter {
   }
 
   registerWalletEvents() {
+    const wallet = this.wallet;
     this.walletListener = (event) => {
       const { type, data } = event || {};
       switch (type) {
         case 'connect':
           this.sendWalletEvent('api-connect', data || {});
+          this.reportNodeDaaScore(wallet);
           break;
         case 'disconnect':
           this.sendWalletEvent('api-disconnect', data || {});
@@ -424,6 +426,25 @@ export class WorkerCore extends EventEmitter {
       }
     };
     this.wallet.addEventListener(this.walletListener);
+  }
+
+  // wallet-core reports a DAA score only once its UTXO processor runs, which
+  // waits for the node to be synced, so a wallet moved to a syncing node would
+  // keep showing the previous node's score. Report the node's own score as
+  // soon as the wallet connects; a score already reported is never lowered.
+  async reportNodeDaaScore(wallet) {
+    try {
+      const { virtualDaaScore } = await wallet.rpc.getServerInfo();
+      const score = Number(virtualDaaScore);
+      const lowered = this.daaScore && score <= this.daaScore;
+      if (wallet !== this.wallet || !Number.isFinite(score) || lowered) {
+        return;
+      }
+      this.daaScore = score;
+      this.sendWalletEvent('blue-score-changed', { blueScore: score });
+    } catch (error) {
+      workerLog.debug('reading the node DAA score failed:', String(error));
+    }
   }
 
   // Project a wallet-core transaction record onto the fields the UI
