@@ -679,10 +679,11 @@ class KDXApp extends FlowApp{
 			const { args } = v;
 			const [type, ident] = k.split(':');
 			return { type, ident, args : args || {}, conf : v };
-		}).filter(o=>o.type=='kaspad');
+		}).filter(o=>o.type=='kaspad' && !o.conf.disable);
 		// Prefer the public (connect-only) entry as the wallet backend -- it is a
 		// synced, utxoindex-enabled remote node (no local IBD wait) and coexists
-		// with local nodes; fall back to the first local kaspad otherwise.
+		// with local nodes; fall back to the first local kaspad otherwise. A
+		// disabled entry runs no service, so it is never the wallet's node.
 		let kaspad = kaspads.find(o => o.conf.connectOnly) || kaspads[0];
 
 		if(!kaspad)
