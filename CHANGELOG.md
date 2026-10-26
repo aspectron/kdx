@@ -13,6 +13,8 @@
 - Enabling mining without a mining address no longer restarts the miner over and over: mining stays off with a notice until you open or create a wallet, then mines to that wallet's address. A mining address set in the settings is used instead unless Use Wallet Address for Mining is on.
 - The settings page shows the active template and network on a fresh start.
 - The Public Node panel no longer shows a storage tile for a node that stores nothing locally.
+- Changing the network, or switching between a public and a local node, moves an open wallet to the new node without a restart; mining to the wallet's address then uses its address on the new network.
+- The dashboard and the service tabs follow the applied configuration: a service that a template or configuration change removes disappears right away, and a node that stops because of an error keeps its tab with the reason.
 
 ## [2.20.0] - 2026-06-19
 - Revived KDX on the modern Kaspa stack: bundles the official rusty-kaspa node (kaspad v2.0.1) and defaults to MAINNET.
