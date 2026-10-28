@@ -15,19 +15,19 @@
 
 baseline        master                 c9bf916
 
-assembly base   kas-kdx-app            3da2eaf
+assembly base   kas-kdx-app            784d805
 overlay         kas-kdx-kaspad-rpc     296ff5b
 overlay         kas-kdx-wallet-engine  e48f8b3
 
 [kas-kdx-app] -- from kas-kdx-app (assembly base wins)
   4049a64f152e  .emanate
   6dc808ff9d7f  .templates
-  4e0c29f0194f  CHANGELOG.md
+  f0532050b287  CHANGELOG.md
   2bc14bbd436b  app.js
   13a73ecf6a85  lib/interfaces/kaspaminer.js
   3667aae8715d  modules/controller/controller.html
   4a964d6056df  modules/controller/kdx-window-maximize.js
-  d4c9e0eb418f  modules/controller/kdx-window-resizer.js
+  ef7c891b4701  modules/controller/kdx-window-resizer.js
   bb5eec223b59  modules/initialize/initialize.html
   c0838889cfb2  modules/initialize/initialize.js
   622c899da8e5  modules/procmon/procmon.js
