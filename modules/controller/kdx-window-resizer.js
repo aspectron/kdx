@@ -1,12 +1,19 @@
 // Custom edge/corner resize grips for the frameless KDX controller window.
 //
 // The controller window is frameless (nw-app.js frame:false) to preserve the
-// flow-caption-bar custom chrome, so the OS supplies no resize border. This
-// overlay restores edge/corner resizing with eight transparent grip regions
-// (4 edges + 4 corners) that drive nw.Window resizeTo/moveTo directly. The
-// caption bar keeps owning window move (-webkit-app-region: drag) and the
-// min/maximize/close buttons; the grips sit at the extreme border and are
+// flow-caption-bar custom chrome. The runtime keeps only a thin native resize
+// border on a frameless window, and that border works only through a window
+// manager. This overlay adds eight transparent grip regions (4 edges + 4
+// corners) that drive nw.Window resizeTo/moveTo directly, so resizing works
+// with or without a window manager. The caption bar keeps owning window move
+// (-webkit-app-region: drag) and the min/maximize/close buttons; the grips are
 // marked no-drag, so the two gestures never conflict.
+
+// The runtime claims the outermost pixels of a resizable frameless window as
+// that native border: a press there is handed to the window manager as a
+// move-resize request and never reaches the page. The grips start just inside
+// it, so every grip pixel receives pointer input.
+const NATIVE_RESIZE_BORDER_PX = 5;
 
 // Grip geometry (px): thin edge strips and slightly larger corner squares.
 const EDGE_THICKNESS_PX = 6;
@@ -33,11 +40,13 @@ const REGIONS = [
 	{ id: 'se', cursor: 'se-resize', bottom: true, right: true }
 ];
 
-// Position a grip element from its edge flags: corners are squares pinned to
-// two sides; edges are strips inset by a corner on each end so they do not
-// overlap the corner grips.
+// Position a grip element from its edge flags, inside the native resize border:
+// corners are squares pinned to two sides; edges are strips inset by a corner on
+// each end so they do not overlap the corner grips.
 function applyGripGeometry(el, region) {
 	const isCorner = (region.top || region.bottom) && (region.left || region.right);
+	const border = `${NATIVE_RESIZE_BORDER_PX}px`;
+	const pastCorner = `${NATIVE_RESIZE_BORDER_PX + CORNER_SIZE_PX}px`;
 	el.style.position = 'fixed';
 	el.style.zIndex = String(GRIP_Z_INDEX);
 	el.style.background = 'transparent';
@@ -48,27 +57,27 @@ function applyGripGeometry(el, region) {
 	if (isCorner) {
 		el.style.width = `${CORNER_SIZE_PX}px`;
 		el.style.height = `${CORNER_SIZE_PX}px`;
-		el.style.top = region.top ? '0' : '';
-		el.style.bottom = region.bottom ? '0' : '';
-		el.style.left = region.left ? '0' : '';
-		el.style.right = region.right ? '0' : '';
+		el.style.top = region.top ? border : '';
+		el.style.bottom = region.bottom ? border : '';
+		el.style.left = region.left ? border : '';
+		el.style.right = region.right ? border : '';
 		return;
 	}
 
 	if (region.top || region.bottom) {
 		// Horizontal edge strip across the top/bottom, inset by the corners.
 		el.style.height = `${EDGE_THICKNESS_PX}px`;
-		el.style.left = `${CORNER_SIZE_PX}px`;
-		el.style.right = `${CORNER_SIZE_PX}px`;
-		el.style.top = region.top ? '0' : '';
-		el.style.bottom = region.bottom ? '0' : '';
+		el.style.left = pastCorner;
+		el.style.right = pastCorner;
+		el.style.top = region.top ? border : '';
+		el.style.bottom = region.bottom ? border : '';
 	} else {
 		// Vertical edge strip down the left/right, inset by the corners.
 		el.style.width = `${EDGE_THICKNESS_PX}px`;
-		el.style.top = `${CORNER_SIZE_PX}px`;
-		el.style.bottom = `${CORNER_SIZE_PX}px`;
-		el.style.left = region.left ? '0' : '';
-		el.style.right = region.right ? '0' : '';
+		el.style.top = pastCorner;
+		el.style.bottom = pastCorner;
+		el.style.left = region.left ? border : '';
+		el.style.right = region.right ? border : '';
 	}
 }
 
