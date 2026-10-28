@@ -7,7 +7,9 @@
 // corners) that drive nw.Window resizeTo/moveTo directly, so resizing works
 // with or without a window manager. The caption bar keeps owning window move
 // (-webkit-app-region: drag) and the min/maximize/close buttons; the grips are
-// marked no-drag, so the two gestures never conflict.
+// marked no-drag, so the two gestures never conflict. The controls that sit
+// against the window edges are laid out clear of the grips, so a grip never
+// covers a control.
 
 // The runtime claims the outermost pixels of a resizable frameless window as
 // that native border: a press there is handed to the window manager as a
@@ -18,6 +20,16 @@ const NATIVE_RESIZE_BORDER_PX = 5;
 // Grip geometry (px): thin edge strips and slightly larger corner squares.
 const EDGE_THICKNESS_PX = 6;
 const CORNER_SIZE_PX = 14;
+
+// Depth of the resize band along each side (native border plus edge strip), and
+// how far a corner grip reaches from the window edge along each side.
+const RESIZE_BAND_PX = NATIVE_RESIZE_BORDER_PX + EDGE_THICKNESS_PX;
+const CORNER_EXTENT_PX = NATIVE_RESIZE_BORDER_PX + CORNER_SIZE_PX;
+
+// The wallet sizes its right column from the viewport height less a fixed
+// allowance for the window chrome above and below it: the default of
+// --kaspa-wallet-right-area-height in kaspa-wallet-desktop (@kaspa/ux).
+const WALLET_CHROME_ALLOWANCE_PX = 122;
 
 // Stacking order for the grips: just below the max int32 so they sit above all
 // app content while leaving the very top slot free for any true-topmost overlay.
@@ -46,7 +58,7 @@ const REGIONS = [
 function applyGripGeometry(el, region) {
 	const isCorner = (region.top || region.bottom) && (region.left || region.right);
 	const border = `${NATIVE_RESIZE_BORDER_PX}px`;
-	const pastCorner = `${NATIVE_RESIZE_BORDER_PX + CORNER_SIZE_PX}px`;
+	const pastCorner = `${CORNER_EXTENT_PX}px`;
 	el.style.position = 'fixed';
 	el.style.zIndex = String(GRIP_Z_INDEX);
 	el.style.background = 'transparent';
@@ -155,6 +167,34 @@ function attachGrip(win, el, region) {
 	el.addEventListener('pointercancel', end);
 }
 
+// Lay the edge-adjacent controls out clear of the grips. The caption bar starts
+// below the top resize band and ends before the top-right corner grip, so its
+// tabs and window buttons stay whole; its own width variables follow the padding
+// so it still spans the window. The tab pages keep a transparent border on the
+// left, right and bottom, so their content and scroll bars sit inboard of the
+// edge grips; the bottom border reaches past the bottom corner grips, where
+// the scroll bars end. The wallet's right column gives up the height that
+// the caption padding and the bottom border add, so the wallet page still
+// fits the window.
+function installControlClearance() {
+	const addedChromePx = RESIZE_BAND_PX + CORNER_EXTENT_PX;
+	const style = document.createElement('style');
+	style.id = 'kdx-window-resizer-clearance';
+	style.textContent = `
+flow-caption-bar {
+	padding-top: ${RESIZE_BAND_PX}px;
+	padding-right: ${CORNER_EXTENT_PX}px;
+	--flow-caption-bar-width: auto;
+	--flow-caption-bar-host-width: auto;
+}
+tab-content {
+	border: 0 solid transparent;
+	border-width: 0 ${RESIZE_BAND_PX}px ${CORNER_EXTENT_PX}px;
+	--kaspa-wallet-right-area-height: calc(100vh - ${WALLET_CHROME_ALLOWANCE_PX + addedChromePx}px);
+}`;
+	document.head.appendChild(style);
+}
+
 function installResizeGrips() {
 	// NWJS only; a plain browser context has no nw.Window to resize.
 	if (typeof nw === 'undefined' || !nw.Window || !nw.Window.get()) {
@@ -176,6 +216,7 @@ function installResizeGrips() {
 	});
 
 	document.body.appendChild(container);
+	installControlClearance();
 }
 
 if (document.readyState === 'loading') {
