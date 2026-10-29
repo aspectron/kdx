@@ -23,10 +23,6 @@ const KDX_ACCOUNT_NAME = 'KDX';
 // recomputation drift that makes exact-minimum estimates flaky.
 const PRIORITY_FEE_OVERSHOOT_SOMPI = SOMPI_PER_KAS;
 
-// Number of historical transaction records fetched on open for the initial
-// list. Live activity streams in afterwards via pending/maturity events.
-const TRANSACTION_HISTORY_PAGE = 100;
-
 // wallet-core transaction-record data types that represent inbound value.
 const INBOUND_TX_TYPES = ['incoming', 'external', 'transfer-incoming', 'stasis'];
 
@@ -152,7 +148,23 @@ export class WorkerCore extends EventEmitter {
     this.daaScore = 0;
     this.synced = false;
     this._syncReady = helper.Deferred();
+    this.resetAccountState();
     this.init();
+  }
+
+  // Per-open account state: whether the account was activated, whether the
+  // UTXO processor is connected, whether the last scan ran against a synced
+  // node, the queue that keeps scans from overlapping, the transaction ids
+  // already handed to the UI, and the outputs scans found for each of them.
+  resetAccountState() {
+    this.accountActive = false;
+    this.nodeConnected = false;
+    this.nodeSynced = false;
+    this.scanCoversSynced = false;
+    this.scanQueue = Promise.resolve();
+    this.addressScanRunning = false;
+    this.postedTxIds = new Set();
+    this.discoveredTxs = new Map();
   }
 
   async init() {
@@ -229,6 +241,7 @@ export class WorkerCore extends EventEmitter {
   async openWallet(msg) {
     const { seedPhrase, networkOptions = {}, options = {} } = msg;
     this.closeWallet();
+    this.resetAccountState();
     this.networkId = resolveNetworkId(networkOptions.network);
     if (options.logLevel) {
       workerLog.setLevel(options.logLevel);
@@ -299,10 +312,11 @@ export class WorkerCore extends EventEmitter {
     if (!networkOptions.resolver) {
       connectOptions.url = resolveNodeUrl(this.networkId);
     }
+    // The account is activated once the UTXO processor starts (see
+    // rescanAccount), not here: the connect returns before the socket opens.
     await step(wallet.connect(connectOptions));
     startedWallets.add(wallet);
     await step(wallet.start());
-    await step(wallet.accountsActivate({ accountIds: [this.accountId] }));
 
     // The UI open sequence completes only once it receives the node-capability
     // event. The wallet's node has the utxo index: the resolver's public nodes
@@ -310,36 +324,48 @@ export class WorkerCore extends EventEmitter {
     // skip-utxoindex.
     this.sendWalletEvent('grpc-flags', { utxoIndex: true });
     this.sendWalletEvent('ready', { confirmedUtxosCount: this.confirmedUtxosCount });
-
-    // History back-fill runs after the open events so it never gates them.
-    await this.backfillTransactions();
   }
 
-  // Populate the transaction list on open: the live pending/maturity events
-  // only accumulate during the session, so the existing history is fetched
-  // once and delivered as a bulk update.
-  async backfillTransactions() {
-    const wallet = this.wallet;
-    if (!wallet || !this.accountId) {
-      return;
-    }
-    try {
-      const response = await wallet.transactionsDataGet({
-        accountId: this.accountId,
-        networkId: this.networkId,
-        start: 0n,
-        end: BigInt(TRANSACTION_HISTORY_PAGE)
-      });
-      if (this.wallet !== wallet) {
+  // Scan the account's addresses and subscribe them for live UTXO changes.
+  // wallet-core does this when an account is activated, but only if its UTXO
+  // processor is connected at that moment, and it never repeats it on its own:
+  // a reconnect drops the address subscriptions, and an already active account
+  // is not scanned again. So the account is activated on the processor's first
+  // start, and every later scan restarts it through a wallet reload
+  // (accountsDeactivate cannot be used: it never returns). Scans run one at a
+  // time; the returned promise settles when this one has.
+  rescanAccount(wallet) {
+    this.scanCoversSynced = this.nodeSynced;
+    const scan = async () => {
+      if (wallet !== this.wallet || !this.accountId) {
         return;
       }
-      const records = (response && response.transactions) || [];
-      if (records.length) {
-        this.sendWalletEvent('transactions', records.map((r) => this.toUiTransaction(r)));
+      if (this.accountActive) {
+        await wallet.walletReload({ reactivate: true });
+      } else {
+        this.accountActive = true;
+        await wallet.accountsActivate({ accountIds: [this.accountId] });
       }
-    } catch (error) {
-      workerLog.debug('transaction history back-fill skipped:', String(error));
-    }
+    };
+    const run = this.scanQueue.then(scan);
+    // A scan that fails, or that ran before the node was synced, is repeated
+    // once the node reports it is synced.
+    this.scanQueue = run.catch(() => {
+      if (wallet === this.wallet) {
+        this.scanCoversSynced = false;
+      }
+    });
+    return run;
+  }
+
+  scheduleRescan(wallet) {
+    this.rescanAccount(wallet).catch((error) => {
+      if (wallet !== this.wallet) {
+        return;
+      }
+      workerLog.error('account scan failed:', String(error));
+      this.sendWalletEvent('debug-info', { error: String(error) });
+    });
   }
 
   // A wallet opened again -- another wallet, or the same one on another node --
@@ -370,10 +396,6 @@ export class WorkerCore extends EventEmitter {
     this.walletListener = (event) => {
       const { type, data } = event || {};
       switch (type) {
-        case 'connect':
-          this.sendWalletEvent('api-connect', data || {});
-          this.reportNodeDaaScore(wallet);
-          break;
         case 'disconnect':
           this.sendWalletEvent('api-disconnect', data || {});
           break;
@@ -400,21 +422,40 @@ export class WorkerCore extends EventEmitter {
           this.sendWalletEvent('blue-score-changed', { blueScore: this.daaScore });
           break;
         }
+        case 'server-status':
+          this.nodeSynced = !!(data && data.isSynced);
+          break;
         case 'sync-state': {
           const state = data && data.syncState;
           this.sendWalletEvent('sync-progress', state || {});
+          const synced = !!state && state.type === 'synced';
+          this.nodeSynced = synced;
+          if (synced && this.accountActive && !this.scanCoversSynced) {
+            this.scheduleRescan(wallet);
+          }
           break;
         }
+        // Every node connection starts the UTXO processor; a connection made
+        // while the wallet starts emits no connect event, so this is the one
+        // signal that the wallet is online.
         case 'utxo-proc-start':
+          this.nodeConnected = true;
           this.synced = true;
           this._syncReady.resolve();
+          this.sendWalletEvent('api-connect', {});
+          this.reportNodeDaaScore(wallet);
+          this.scheduleRescan(wallet);
+          break;
+        case 'utxo-proc-stop':
+          this.nodeConnected = false;
           break;
         case 'pending':
         case 'maturity':
-          this.sendWalletEvent('new-transaction', this.toUiTransaction(data));
+          this.postTransaction(data, 'new-transaction');
           break;
+        // Transactions found by an address scan are the wallet's history.
         case 'discovery':
-          this.sendWalletEvent('moved-transaction', this.toUiTransaction(data));
+          this.postTransaction(data, 'transactions');
           break;
         case 'error':
         case 'wallet-error':
@@ -450,20 +491,21 @@ export class WorkerCore extends EventEmitter {
   // Project a wallet-core transaction record onto the fields the UI
   // transaction list renders. Field names follow the wallet-core
   // ITransactionRecord shape: top-level id/value/unixtimeMsec/blockDaaScore/
-  // type, with the per-variant utxo entries under data.data.utxoEntries.
+  // type, with the per-variant utxo entries under data.utxoEntries.
   toUiTransaction(record) {
     if (!record) {
       return {};
     }
-    const type = record.type || (record.data && record.data.type);
-    const variant = record.data && record.data.data;
+    const type = record.type;
+    const variant = record.data;
     const utxo = variant && variant.utxoEntries && variant.utxoEntries[0];
     // The UI computes `new Date(tx.ts)`; supply a millisecond timestamp (the
     // record's acceptance time, falling back to now so the date never renders
     // as an invalid value).
     const ts = record.unixtimeMsec !== undefined ? Number(record.unixtimeMsec) : Date.now();
     return {
-      id: record.id,
+      // The record id is a WASM Hash object; the UI keys and links by its hex.
+      id: String(record.id),
       ts,
       amount: record.value !== undefined ? Number(record.value) : undefined,
       in: INBOUND_TX_TYPES.includes(type),
@@ -471,6 +513,62 @@ export class WorkerCore extends EventEmitter {
       isCoinbase: !!(utxo && utxo.isCoinbase) || type === 'stasis',
       address: utxo && utxo.address ? String(utxo.address) : undefined,
       note: record.note
+    };
+  }
+
+  // Hand a transaction to the UI list once: `event` adds it (a live one at the
+  // top, a discovered one in date order); a record seen again -- maturity
+  // after pending, or rediscovery by a later scan -- updates the listed entry.
+  postTransaction(record, event) {
+    const tx = this.toUiTransaction(record);
+    if (event === 'transactions') {
+      // A transaction listed from its live record keeps that entry: a scan
+      // sees only the outputs that pay this wallet, not the direction.
+      if (this.postedTxIds.has(tx.id) && !this.discoveredTxs.has(tx.id)) {
+        return;
+      }
+      this.mergeDiscoveredOutputs(tx, record);
+    }
+    if (this.postedTxIds.has(tx.id)) {
+      this.sendWalletEvent('update-transactions', [tx]);
+      return;
+    }
+    this.postedTxIds.add(tx.id);
+    this.sendWalletEvent(event, event === 'transactions' ? [tx] : tx);
+  }
+
+  // A scan reports a transaction once for each address chain it paid (receive
+  // and change), each record carrying only that chain's outputs, so the listed
+  // amount is the sum of the distinct outputs found so far, shown at the
+  // address first found.
+  mergeDiscoveredOutputs(tx, record) {
+    let found = this.discoveredTxs.get(tx.id);
+    if (!found) {
+      found = { address: tx.address, outputs: new Map() };
+      this.discoveredTxs.set(tx.id, found);
+    }
+    const variant = record.data;
+    for (const entry of (variant && variant.utxoEntries) || []) {
+      found.outputs.set(Number(entry.index), Number(entry.amount));
+    }
+    if (found.outputs.size) {
+      tx.amount = [...found.outputs.values()].reduce((sum, amount) => sum + amount, 0);
+    }
+    tx.address = found.address;
+  }
+
+  // Project a wallet-core UTXO entry onto the fields the UI UTXO list renders.
+  toUiUtxo(entry) {
+    const txId = String(entry.outpoint.transactionId);
+    const outputIndex = Number(entry.outpoint.index);
+    return {
+      id: `${txId}:${outputIndex}`,
+      txId,
+      outputIndex,
+      satoshis: Number(entry.amount),
+      address: entry.address ? String(entry.address) : undefined,
+      blockDaaScore: Number(entry.blockDaaScore),
+      isCoinbase: !!entry.isCoinbase
     };
   }
 
@@ -486,7 +584,7 @@ export class WorkerCore extends EventEmitter {
       compoundUTXOs: this.handleCompoundUTXOs,
       scanMoreAddresses: this.handleScanMoreAddresses,
       startUpdatingTransactions: this.handleNoop,
-      startUTXOsPolling: this.handleNoop,
+      startUTXOsPolling: this.handleStartUTXOsPolling,
       setLogLevel: this.handleSetLogLevel,
       restoreCache: this.handleNoop,
       clearUsedUTXOs: this.handleNoop
@@ -573,13 +671,65 @@ export class WorkerCore extends EventEmitter {
     return { txid: ids[ids.length - 1] || ids[0] };
   }
 
-  async handleScanMoreAddresses() {
-    if (!this.wallet || !this.accountId) {
-      return { code: 'WALLET_NOT_OPEN' };
+  // The UI's UTXO list subscribes to `utxo-sync` and then asks for the set,
+  // which is read once any scan in progress has finished.
+  async handleStartUTXOsPolling() {
+    const wallet = this.wallet;
+    if (!wallet || !this.accountId) {
+      throw new Error('Wallet is not open.');
     }
-    const created = await this.wallet.accountsCreateNewAddress({ accountId: this.accountId });
-    this.receiveAddress = String(created.address || this.receiveAddress);
-    return { code: 'ok' };
+    await this.scanQueue;
+    const { utxos = [] } = await wallet.accountsGetUtxos({ accountId: this.accountId });
+    if (wallet === this.wallet) {
+      this.sendWalletEvent('utxo-sync', { utxos: utxos.map((entry) => this.toUiUtxo(entry)) });
+    }
+    return true;
+  }
+
+  // Scan More Addresses: rescan the account's receive and change addresses
+  // from index 0 and report, in the shape the UI reads, the range now known to
+  // be scanned on each chain. wallet-core scans up to the account's current
+  // derivation index and on until a window of unused addresses; its scan
+  // depth is not settable from JS, so the UI's requested count and start
+  // indexes are not used. A failure rejects, which the UI shows as an alert.
+  async handleScanMoreAddresses() {
+    const wallet = this.wallet;
+    if (!wallet || !this.accountId) {
+      throw new Error('Wallet is not open.');
+    }
+    if (!this.nodeConnected) {
+      throw new Error('The wallet is not connected to a node.');
+    }
+    if (this.addressScanRunning) {
+      throw new Error('An address scan is already running.');
+    }
+    this.addressScanRunning = true;
+    this.sendWalletEvent('scan-more-addresses-started', { receiveStart: 0, changeStart: 0 });
+    try {
+      await this.rescanAccount(wallet);
+      // The enumerated descriptors carry the derivation indexes; the
+      // accountsGet response does not.
+      const { accountDescriptors } = await wallet.accountsEnumerate({});
+      const descriptor = accountDescriptors.find((d) => d.accountId === this.accountId);
+      const { receive, change } = descriptor.derivationIndexes;
+      for (const [addressType, final] of [['receive', receive], ['change', change]]) {
+        this.sendWalletEvent('sync-progress', { start: 0, end: final + 1, addressType });
+      }
+      this.sendWalletEvent('scan-more-addresses-ended', {
+        receiveFinal: receive,
+        changeFinal: change
+      });
+      return {
+        code: 'SUCCESS',
+        receive: { start: 0, end: receive + 1, final: receive },
+        change: { start: 0, end: change + 1, final: change }
+      };
+    } catch (error) {
+      this.sendWalletEvent('scan-more-addresses-ended', { error: String(error) });
+      throw error;
+    } finally {
+      this.addressScanRunning = false;
+    }
   }
 
   async handleSetLogLevel(level) {
@@ -588,8 +738,8 @@ export class WorkerCore extends EventEmitter {
   }
 
   async handleNoop() {
-    // The UTXO processor manages polling, transaction-time updates, and UTXO
-    // selection internally; these legacy entry points are retained as no-ops.
+    // The UTXO processor manages transaction-time updates and UTXO selection
+    // internally; these legacy entry points are retained as no-ops.
     return true;
   }
 }
