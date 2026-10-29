@@ -29,9 +29,20 @@ const INBOUND_TX_TYPES = ['incoming', 'external', 'transfer-incoming', 'stasis']
 // Ends a wallet open that a newer open replaced while it waited.
 const REPLACED_OPEN = new Error('replaced by a newer wallet open');
 
+// The wait before dialing a node again after its connection setup failed.
+const REDIAL_INITIAL_DELAY_MS = 1000;
+// Each further failed setup doubles that wait, up to this cap; a connection
+// that is set up resets it.
+const REDIAL_MAX_DELAY_MS = 30000;
+
 // Wallets whose open went on to start them. A wallet that was never started
 // has nothing to stop, and stopping it does not settle.
 const startedWallets = new WeakSet();
+
+// The connect call each wallet has in flight, settled either way. A connect
+// call first looks up its node; a disconnect made during that lookup does not
+// stop the socket the call opens afterwards.
+const pendingDials = new WeakMap();
 
 // Resolve the network the controller supplies to a wallet-core network id. The
 // controller passes the canonical id of the wallet's node -- "mainnet" or a
@@ -67,9 +78,10 @@ function createResolver({ urls }) {
   return Array.isArray(urls) && urls.length ? new kaspa.Resolver({ urls }) : new kaspa.Resolver();
 }
 
-// Shut down a wallet that another one replaced: disconnecting ends its dialing
-// at once, even while it is still connecting.
+// Shut down a wallet that another one replaced: once its connect call has
+// returned, disconnecting ends its dialing, even while it is still connecting.
 async function shutDownWallet(wallet) {
+  await pendingDials.get(wallet);
   await wallet.disconnect().catch((error) => {
     workerLog.debug('disconnecting the previous wallet failed:', String(error));
   });
@@ -152,19 +164,21 @@ export class WorkerCore extends EventEmitter {
     this.init();
   }
 
-  // Per-open account state: whether the account was activated, whether the
-  // UTXO processor is connected, whether the last scan ran against a synced
-  // node, the queue that keeps scans from overlapping, the transaction ids
-  // already handed to the UI, and the outputs scans found for each of them.
   resetAccountState() {
     this.accountActive = false;
     this.nodeConnected = false;
     this.nodeSynced = false;
+    // Whether the last scan ran against a synced node.
     this.scanCoversSynced = false;
+    // Chains the scans so that they never overlap.
     this.scanQueue = Promise.resolve();
     this.addressScanRunning = false;
     this.postedTxIds = new Set();
+    // The outputs that scans found, per listed transaction id.
     this.discoveredTxs = new Map();
+    this.connectOptions = undefined;
+    this.redialTimer = undefined;
+    this.redialDelayMs = REDIAL_INITIAL_DELAY_MS;
   }
 
   async init() {
@@ -312,9 +326,10 @@ export class WorkerCore extends EventEmitter {
     if (!networkOptions.resolver) {
       connectOptions.url = resolveNodeUrl(this.networkId);
     }
+    this.connectOptions = connectOptions;
     // The account is activated once the UTXO processor starts (see
     // rescanAccount), not here: the connect returns before the socket opens.
-    await step(wallet.connect(connectOptions));
+    await step(this.dial(wallet, connectOptions));
     startedWallets.add(wallet);
     await step(wallet.start());
 
@@ -368,6 +383,45 @@ export class WorkerCore extends EventEmitter {
     });
   }
 
+  // Dial the wallet's node. The dials of one wallet run one at a time; each
+  // settles once its connection attempts have started, not once connected.
+  dial(wallet, connectOptions) {
+    const previous = pendingDials.get(wallet) || Promise.resolve();
+    const dialing = previous.then(() => wallet.connect(connectOptions));
+    pendingDials.set(wallet, dialing.then(() => {}, () => {}));
+    return dialing;
+  }
+
+  // wallet-core gives up on a node connection whose setup fails: it reports
+  // utxo-proc-error and disconnects its client, which ends the client's own
+  // retries. Such a connection counts as lost and is dialed again with the
+  // same options, one pending redial at a time.
+  scheduleRedial(wallet) {
+    if (wallet !== this.wallet || this.redialTimer) {
+      return;
+    }
+    this.redialTimer = setTimeout(() => {
+      this.redialTimer = undefined;
+      this.redial(wallet);
+    }, this.redialDelayMs);
+  }
+
+  redial(wallet) {
+    // utxo-proc-error also reports a failed notification on a live
+    // connection, which the client keeps.
+    if (wallet !== this.wallet || wallet.rpc.isConnected) {
+      return;
+    }
+    this.redialDelayMs = Math.min(this.redialDelayMs * 2, REDIAL_MAX_DELAY_MS);
+    this.dial(wallet, this.connectOptions).catch((error) => {
+      if (wallet !== this.wallet) {
+        return;
+      }
+      workerLog.debug('dialing the node again failed:', String(error));
+      this.scheduleRedial(wallet);
+    });
+  }
+
   // A wallet opened again -- another wallet, or the same one on another node --
   // replaces the open one, which must stop reporting and stop dialing its node.
   // It is detached at once and shuts down on its own, so a wallet still
@@ -379,6 +433,8 @@ export class WorkerCore extends EventEmitter {
     }
     this.wallet = undefined;
     wallet.removeEventListener(this.walletListener);
+    clearTimeout(this.redialTimer);
+    this.redialTimer = undefined;
     this.receiveAddress = '';
     this.changeAddress = '';
     this.balance = { available: 0, pending: 0, total: 0 };
@@ -440,6 +496,7 @@ export class WorkerCore extends EventEmitter {
         // signal that the wallet is online.
         case 'utxo-proc-start':
           this.nodeConnected = true;
+          this.redialDelayMs = REDIAL_INITIAL_DELAY_MS;
           this.synced = true;
           this._syncReady.resolve();
           this.sendWalletEvent('api-connect', {});
@@ -461,6 +518,9 @@ export class WorkerCore extends EventEmitter {
         case 'wallet-error':
         case 'utxo-proc-error':
           this.sendWalletEvent('debug-info', { error: String((data && data.message) || data || '') });
+          if (type === 'utxo-proc-error') {
+            this.scheduleRedial(wallet);
+          }
           break;
         default:
           break;
