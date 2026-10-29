@@ -21,7 +21,7 @@
 - The miner no longer starts with a mining address for a different network than its node: mining stays off and the miner console names both networks and how to fix it.
 - Without a window manager, every window edge now resizes the window across its whole resize strip, as the corners do, instead of only along a one-pixel line; the window buttons, tabs and scroll bars stay clear of those strips and fully usable.
 - KDX no longer freezes for seconds at a time while connected to a node with a large mempool, so window resizing, clicks and typing stay responsive.
-- An opened wallet shows its balance, transaction history and UTXOs from the node, receives payments live and stays current after a reconnect; Scan More Addresses rescans the wallet instead of failing.
+- An opened wallet shows its balance and UTXOs from the node, receives payments live and stays current after a reconnect, also when the node drops the connection while it is being set up. Its transaction list shows the transactions that still hold the wallet's unspent funds, plus this session's payments and sends; after a restart, an earlier send appears as a receipt of what it left in the wallet. Scan More Addresses rescans the wallet instead of failing.
 
 ## [2.20.0] - 2026-06-19
 - Revived KDX on the modern Kaspa stack: bundles the official rusty-kaspa node (kaspad v2.0.1) and defaults to MAINNET.
