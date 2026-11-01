@@ -12,8 +12,9 @@
 #                                 [--appimagetool <path>] [--deb-only]
 #                                 [--appimage-only]
 #
-#          --app-src       prepared KDX app tree (sources plus node_modules,
-#                          vendor/ and bin/<platform>-<arch>/ binaries)
+#          --app-src       prepared KDX app tree: an export of this source
+#                          tree plus node_modules and the
+#                          bin/<platform>-<arch>/ binaries
 #          --runtime       NWJS runtime directory (the one holding the nw
 #                          executable)
 #          --out           directory to write the artifacts into
@@ -58,7 +59,11 @@ readonly ASSET_DIR="$SCRIPT_DIR/linux"
 # Dev-state that a working tree may carry and a shipped payload must not.
 # The runtime state is anchored to the tree root: dependencies legitimately
 # ship files of the same name, and an unanchored pattern silently drops them.
-readonly PAYLOAD_EXCLUDES=(".git" "/logs" "/config.json")
+# This packaging recipe is anchored the same way: it builds the artifacts and
+# is not part of the application.
+readonly PAYLOAD_EXCLUDES=(".git" "/logs" "/config.json"
+                           "/build/linux" "/build/package-linux.sh"
+                           "/build/verify-assembly.sh")
 
 app_src=""
 runtime_dir=""
