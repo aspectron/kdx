@@ -9,6 +9,34 @@ const fse = require('fs-extra');
 const os = require('os');
 const path = require('path');
 
+// Standard rusty-kaspad listener ports per network, keyed by the canonical
+// suffixed network id the network selector emits (mainnet / testnet-10). The
+// network selector -- not the template identity -- is authoritative for which
+// network a local node binds, so the selected id keys this listener set and the
+// set is applied to the template's kaspad entry at apply time rather than
+// duplicated across per-network templates. The testnet-10 set carries the
+// kaspad `testnet` flag; the SDK's default testnet suffix is 10, so a local
+// testnet node resolves to testnet-10 and a connect-only entry takes the
+// selected id verbatim as its networkId.
+const KASPAD_NETWORK_LISTENERS = {
+	'mainnet' : {
+		'rpclisten' : '0.0.0.0:16110',
+		'listen' : '0.0.0.0:16111',
+		'rpclisten-borsh' : '0.0.0.0:17110'
+	},
+	'testnet-10' : {
+		'testnet' : true,
+		'rpclisten' : '0.0.0.0:16210',
+		'listen' : '0.0.0.0:16211',
+		'rpclisten-borsh' : '0.0.0.0:17210'
+	}
+};
+
+// The standard public testnet suffix the SDK requires; a bare `testnet` network
+// id resolves to `testnet-10`. Used by the on-load upgrade migration to
+// normalize a stored bare id to its canonical suffixed form.
+const DEFAULT_TESTNET_SUFFIX = 10;
+
 
 class App extends FlowApp{
 	constructor(options={}){
@@ -23,36 +51,44 @@ class App extends FlowApp{
 	}
 
 	async initConfig(){
-		// change of this argument results in the reset of the user data folder
-		// const currentNetworkType = 'testnet5c';
-		const currentNetworkType = 'mainnet1a';
-
-		const networkTagFile = path.join(this.getConfigFolderPath(), '.network-type');
-		let reset = false;
-		if(!fs.existsSync(networkTagFile)) {
-			reset = true;
-		}
-		else
-		if(fs.existsSync(networkTagFile)) {
-			let networkType = fs.readFileSync(networkTagFile,'utf8');
-			if(!networkType.includes(currentNetworkType))
-				reset = true;
-		}
-
-		if(reset) {
-			try {
-				await fse.remove(this.getConfigFolderPath());
-			} catch(ex) {
-				alert('Error resetting KDX data folder: '+ex);
-			}
-			await fse.ensureDir(this.getConfigFolderPath());
-			fs.writeFileSync(networkTagFile, currentNetworkType, { encoding : 'utf8'});
-		}
-
 		await super.initConfig();
 		await this.initDataFolder();
 		await this.initCerts();
 		this.setUpnpIfMissing(true);
+	}
+
+	// On-load upgrade migration: normalize any stored bare network id (e.g.
+	// `testnet`) to its canonical suffixed form (`testnet-10`) before any module
+	// is spawned or the monitor/wallet builds an RpcClient, then persist via the
+	// base loadConfig -> setConfig. A config carried over from a pre-canonical
+	// build then satisfies the canonical-network-id contract with no manual
+	// re-apply, and the Settings selector matches a current option (no blank).
+	async loadConfig(config){
+		this.migrateBareNetworkIds(config);
+		return super.loadConfig(config);
+	}
+
+	// Map a bare network id to its canonical suffixed form (mainnet stays
+	// mainnet; bare testnet becomes testnet-10; an already-suffixed id is left
+	// unchanged). Mutates config in place; returns whether anything changed.
+	migrateBareNetworkIds(config){
+		if(!config || typeof config != 'object')
+			return false;
+		const canonical = (id) => id == 'testnet' ? `testnet-${DEFAULT_TESTNET_SUFFIX}` : id;
+		let changed = false;
+		if(typeof config.network == 'string' && canonical(config.network) != config.network) {
+			config.network = canonical(config.network);
+			changed = true;
+		}
+		const modules = config.modules || {};
+		Object.keys(modules).forEach((k) => {
+			const m = modules[k];
+			if(m && typeof m.networkId == 'string' && canonical(m.networkId) != m.networkId) {
+				m.networkId = canonical(m.networkId);
+				changed = true;
+			}
+		});
+		return changed;
 	}
 
 	/**
@@ -148,6 +184,34 @@ class App extends FlowApp{
 		return path.join(this.appFolder, 'bin', util.platform);
 	}
 
+	/**
+	* @param {String} name i18n file name
+	* @return {String} path to an i18n file. The runtime-writable i18n files
+	* (the harvested entries and their lock) are redirected to the user-data
+	* root so they stay writable when the app payload is installed read-only;
+	* the bundled translations (i18n.data) stay in the read-only app folder
+	* and are still read through the inherited path.
+	*/
+	getI18nFilePath(name){
+		if(name == 'i18n.entries' || name == 'i18n.lock')
+			return path.join(this.getConfigFolderPath(), name);
+		return super.getI18nFilePath(name);
+	}
+
+	/**
+	* Persist i18n entries, guarded so a write failure can never throw out of
+	* the fire-and-forget RPC hook. The redirect above keeps the file in a
+	* writable directory; this guard covers any remaining filesystem error.
+	* @param {Array} entries i18n entries
+	*/
+	saveI18nEntries(entries){
+		try {
+			super.saveI18nEntries(entries);
+		} catch(err) {
+			console.error('saveI18nEntries: failed to persist i18n entries:', err);
+		}
+	}
+
 	randomBytes() {
 		let bytes = crypto.randomBytes(32);
 		let text = bs58.encode(bytes).split('');
@@ -168,7 +232,8 @@ class App extends FlowApp{
 		let rpcpass = this.randomBytes();
 		Object.entries(config.modules).forEach(([k,v]) => {
 			const type = k.split(':').shift();
-			if(['kaspad','kasparovd','kasparovsyncd','kaspaminer'].includes(type)) {
+			// A connect-only entry runs no local process, so it has no args to carry credentials.
+			if(['kaspad','kasparovd','kasparovsyncd','kaspaminer'].includes(type) && v.args && !v.connectOnly) {
 				v.args.rpcuser = rpcuser;
 				v.args.rpcpass = rpcpass;
 			}
@@ -202,7 +267,7 @@ class App extends FlowApp{
 		this.setConfig(this.config);
 	}
 	setMiningAddress(address){
-		this.setModuleArgs("gpuminer:", {"mining-address": address})
+		this.setModuleArgs("kaspaminer:", {"mining-address": address})
 	}
 	setModuleArgs(search, args={}, params={}){
 		let modules = this.getModulesConfig();
@@ -239,7 +304,7 @@ class App extends FlowApp{
 		let {modules={}} = config||this.config;
 		let address = "";
 		Object.keys(modules).find(key=>{
-			if(key.includes("gpuminer:")){
+			if(key.includes("gpuminer:") || key.includes("kaspaminer:")){
 				modules[key].args = modules[key].args||{};
 				address = modules[key].args["mining-address"];
 				return !!address
@@ -275,25 +340,63 @@ class App extends FlowApp{
 	}
 
 	setModulesConfigTemplate(defaults, network, upnpEnabled) {
-		let prev = this.config;
-		if(prev) {
-			delete prev.modules;
-		}
-		this.config = Object.assign({},defaults,prev||{});
+		let prev = this.config || {};
+		let templateModules = defaults.modules || {};
+		// RESET-replace apply. Activating the warning-styled RESET control replaces
+		// the active node model with exactly the selected template's module set --
+		// the previous template's modules are NOT merged in, so selecting Public
+		// Node then Local Node yields the Local Node module set alone, never an
+		// accumulated {kaspad:public, kaspad:kd0, ...}. The replace still preserves
+		// every non-module config key (theme, compounding, metrics, UPnP, ...) --
+		// prev wins in the merge below -- and never touches on-disk data: kaspad
+		// isolates per network under kaspad-kd<N>/kaspa-<network>/, so a node synced
+		// before a RESET resumes without re-IBD when its template is re-selected
+		// (deleting a data dir is the separate, explicitly confirm-gated
+		// remove-datadir reset). The network selector -- not the template identity
+		// -- drives the kaspad daemon args (ports + testnet flag), applied next.
+		let modules = Object.assign({}, templateModules);
+
+		this.applyNetworkToKaspadModules(modules, templateModules, network);
+
+		this.config = Object.assign({}, defaults, prev);
+		this.config.modules = modules;
 		this.config.network = network;
 		this.config.upnpEnabled = upnpEnabled;
+		// Record the applied template key + description so the Settings selector
+		// and the service description reflect the active template after a RESET
+		// rather than the previously-stored ones. The initializer sets these on
+		// defaults at first run; the settings apply path passes them the same way,
+		// but prev wins the merge above, so set them here.
+		if(defaults.ident)
+			this.config.ident = defaults.ident;
+		if(defaults.description)
+			this.config.description = defaults.description;
 		this.setUpnpIfMissing(upnpEnabled);
 
-		if(network != 'mainnet') {
-			Object.keys(this.config.modules).forEach((k) =>{
-				const [type,ident] = k.split(':');
-				if(/^(kaspa)/.test(type))
-					this.config.modules[k].args[network] = true;
-			})
-		}
-
 		this.setConfig(this.config);
-		// TODO - apply network settings
+	}
+
+	// Apply the selected network to the kaspad entries the template defines. A
+	// local kaspad gets the network's full listener set (ports + testnet flag); a
+	// connect-only (Public Node) kaspad carries the network as an explicit
+	// networkId field -- it binds nothing, so it has no listeners.
+	applyNetworkToKaspadModules(modules, templateModules, network) {
+		const listeners = KASPAD_NETWORK_LISTENERS[network] || KASPAD_NETWORK_LISTENERS['mainnet'];
+		Object.keys(templateModules).forEach((k) => {
+			const [type] = k.split(':');
+			if(type != 'kaspad' || !modules[k])
+				return;
+			if(modules[k].connectOnly) {
+				modules[k] = Object.assign({}, modules[k], { networkId : network });
+				return;
+			}
+			let args = Object.assign({}, modules[k].args || {});
+			// Clear the prior network flag first so re-applying a network is not
+			// additive (switching testnet-10 -> mainnet must drop the testnet flag).
+			delete args.testnet;
+			Object.assign(args, listeners);
+			modules[k] = Object.assign({}, modules[k], { args });
+		});
 	}
 
 	setUpnpIfMissing(upnpEnabled) {

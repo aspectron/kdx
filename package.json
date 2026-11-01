@@ -1,7 +1,7 @@
 {
   "name": "kdx",
   "description": "Kaspa Desktop eXperience",
-  "version": "2.12.10",
+  "version": "2.21.0",
   "private": true,
   "main": "kdx.js",
   "files": [
@@ -15,12 +15,14 @@
     "CHANGELOG.md",
     "lib",
     "modules",
+    "vendor",
     "resources/extern",
     "resources/images",
     "resources/styles",
     "resources/setup",
     "resources/tpl",
     "resources/rpc.js",
+    "resources/realm-preload.js",
     "i18n.data",
     ".defaults",
     ".templates"
@@ -32,9 +34,6 @@
     "@aspectron/flow-rpc": "*",
     "@aspectron/flow-utils": ">=0.1.1",
     "@aspectron/flow-ux": "1.1.1",
-    "@grpc/grpc-js": "1.6.10",
-    "@grpc/proto-loader": "0.7.2",
-    "@kaspa/grpc-node": ">=1.0.8",
     "@kaspa/ux": "github:aspectron/kaspa-ux",
     "@kaspa/wallet-worker": ">=1.1.25",
     "@runonflux/nat-upnp": "1.0.2",
@@ -50,15 +49,15 @@
     "mkdirp": "1.0.4",
     "nats": "2.0.4",
     "node-fetch": "2.6.7",
-    "node-pty": "0.10.1",
+    "node-pty": "^1.0.0",
     "node-statsd": "0.1.1",
     "protobufjs": "7.2.4",
     "semver": "7.5.2",
     "underscore": "1.13.0",
-    "ws": "7.5.9"
+    "ws": "^8.0.0"
   },
   "engines": {
-    "node": ">=14.0.0",
+    "node": ">=18.0.0",
     "npm": "*"
   },
   "scripts": {
@@ -67,11 +66,12 @@
   "window": {
     "frame": true,
     "transparent": false,
-    "show": true
+    "show": true,
+    "icon": "resources/setup/Icon.png"
   },
   "node-remote": [
     "http://localhost"
   ],
   "chromium-args-v1": "--disable-gpu-compositing --force-cpu-draw --enable-logging --disable-pinch --enable-experimental-web-platform-features",
-  "chromium-args": "--disable-gpu --force-cpu-draw --enable-node-worker --enable-logging --disable-pinch --enable-experimental-web-platform-features --mixed-content"
+  "chromium-args": "--ozone-platform=x11 --class=kdx --disable-gpu --force-cpu-draw --enable-node-worker --enable-logging --disable-pinch --enable-experimental-web-platform-features --mixed-content --disable-features=OptimizationGuideOnDeviceModel"
 }

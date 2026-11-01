@@ -1,8 +1,9 @@
 const WebSocket = require('ws');
 const os = require('os');
+const POLL_INTERVAL_MS = 1500;
+
 const ifaces = {
     winCPU : null,
-    snapshot : null,
     pslist : null,
 }
 
@@ -13,57 +14,24 @@ if(platform == 'win32') {
         if(!ifaces.winCPU.isSupported())
             ifaces.winCPU = null;
     }
-    catch(ex) {
+    catch {
         ifaces.winCPU = null;
     }
 }
 
+// Pure-JS process listing on every platform (replaces the former native
+// @aspectron/process-list addon, whose ABI rebuild against current NW.js
+// is infeasible on a Python-3-only host). ps-list shells out to the
+// platform's own ps / PowerShell - no native addon, no nw-gyp build.
 try {
-    ifaces.snapshot = require('@aspectron/process-list').snapshot;
+    ifaces.pslist = require('./ps-list');
 } catch(ex) {
-    ifaces.snapshot = null;
-    console.log('snapshot: not available')
-}
-
-if(platform == 'darwin') {
-    try {
-        ifaces.pslist = require('./ps-list');
-    } catch(ex) {
-        ifaces.pslist = null;
-        console.log('pslist: not available')
-    }
+    ifaces.pslist = null;
+    console.log('ps-list: not available', ex.toString());
 }
 
 class ProcessMonitor {
     constructor() {
-        
-        this.SNAPSHOT_CAPTURE_PROPERTIES = [
-            //'name',
-            //'ppid',
-            //'path',
-            // 'owner', <-- BREAKS on Windows
-            // 'priority',
-            //'starttime',
-            // ---------------
-            'cmdline',
-            'pid',
-            'threads',
-            'vmem',
-            'pmem',
-            'cpu',
-            'utime',
-            'stime'
-        ];
-
-        // this.STATSD_POST_PROPERTIES = [
-        //     'threads',
-        //     'vmem',
-        //     'pmem',
-        //     'cpu',
-        //     'utime',
-        //     'stime'
-        // ];        
-
         this.websockets = [];
         this.wss = new WebSocket.Server({ port: 9119 });
         let sid_ = 0;
@@ -96,7 +64,7 @@ class ProcessMonitor {
     }
     
     system() {
-        return new Promise((resolve,reject) => {
+        return new Promise((resolve) => {
             let data = {
                 memory : {
                     total : os.totalmem(),
@@ -106,7 +74,7 @@ class ProcessMonitor {
 
             if(ifaces.winCPU) {
                 ifaces.winCPU.totalLoad().then((results) =>{
-                    let avg = _.reduce(results, function(m,n) { return m+n; }) / results.length;
+                    let avg = results.reduce((m, n) => m + n, 0) / results.length;
                     data.loadavg = {
                         '1m' : avg,
                         '5m' : avg,
@@ -137,31 +105,17 @@ class ProcessMonitor {
         })
     }
 
-    snapshot() {
-        if(!ifaces.snapshot)
-            return Promise.resolve();
-        return new Promise(async (resolve) => {
-    		let procs = undefined;
-    		try {
-                procs = await ifaces.snapshot(...this.SNAPSHOT_CAPTURE_PROPERTIES);
-                //console.log("procs:",procs.map(p=>p.cmdline).join('\n'));
-                console.log("procs:",procs);//.map(p=>p.cmdline).join('\n'));
-
-                procs = this.import_snapshot(procs);
-    		} catch(ex) { 
-                console.log(ex.toString());
-    		}
-            resolve(procs);
-        })
-    }
-
-    async pslist() {
+    async procs() {
         if(!ifaces.pslist)
-            return Promise.resolve();
-        let list = await ifaces.pslist();
-        return this.import_pslist(list);
+            return null;
+        try {
+            return await ifaces.pslist();
+        } catch(ex) {
+            console.log('ps-list error:', ex.toString());
+            return null;
+        }
     }
-    
+
     filter(list, prop) {
         list = list.filter(proc => {
             let t = proc[prop];
@@ -178,11 +132,9 @@ class ProcessMonitor {
     }
 
     import_snapshot(list) {
-        list = this.filter(list,'cmdline');
-        return list.map(({ pid, cmdline, pmem, vmem, threads, cpu}) => {
-            pmem = parseInt(pmem) || 0;
-            vmem = parseInt(vmem) || 0;
-            return { pid, cmd : cmdline, pmem, vmem, cpu };
+        list = this.filter(list,'cmd');
+        return list.map(({ pid, cmd, cpu, memory, pmem, vmem, threads}) => {
+            return { pid, cmd, cpu, memory, pmem, vmem, threads };
         })
     }
 
@@ -192,24 +144,22 @@ class ProcessMonitor {
     }
 
     async poll() {
-
-        let ts = Date.now();
-        //console.log('poll',ts);
-
         const system = await this.system();
-        const snapshot = await this.snapshot();
-        const pslist = await this.pslist();
+        const procs = await this.procs();
+        const snapshot = procs ? this.import_snapshot(procs) : undefined;
+        const pslist = procs ? this.import_pslist(procs) : undefined;
 
-        console.log('system',system?.length||0,'snapshot',snapshot?.length||0,'pslist',pslist?.length||0);
-        //console.log(system,snapshot,pslist);
-        //console.log(pslist.filter(v=>v.memory > 0))
+        console.log('system', system ? 1 : 0, 'snapshot', snapshot?.length||0, 'pslist', pslist?.length||0);
         this.bbcast({system, snapshot, pslist});
-        //console.log(`duration: ${Date.now()-ts} msec`);
         setTimeout(()=>{
             this.poll();
-        },1.5*1e3);
+        }, POLL_INTERVAL_MS);
     }
 }
 
-//const monitor = new ProcessMonitor();
-//monitor.main();
+// Entry point when spawned as a standalone process (`node procmon.js`),
+// which is how lib/manager.js launches the monitor daemon.
+if (require.main === module) {
+    const monitor = new ProcessMonitor();
+    monitor.main();
+}

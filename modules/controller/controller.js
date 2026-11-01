@@ -11,12 +11,18 @@ const utils = require('@aspectron/flow-utils');
 const util = require('../../lib/utils.js');
 const Manager = require("../../lib/manager.js");
 const Console = require("../../lib/console.js")
+const { installMaximizeFix } = require("./kdx-window-maximize.js");
 const StatsD = require('node-statsd');
 const semver = require('semver');
 
-const {RPC} = require('@kaspa/grpc-node');
+// Settle delay after stopping the prior daemons before (re)starting on apply,
+// giving the OS a brief window to release a datadir LOCK after process exit.
+const DAEMON_RESTART_SETTLE_MS = 1000;
+
+const { loadKaspaSdk, setKaspaSdk, readWasmBytes, buildKaspaResolver } = require('../../lib/kaspa-wasm-loader');
 import {html, render} from 'lit-html';
 import {repeat} from 'lit-html/directives/repeat.js';
+import {Wallet} from '@kaspa/wallet-worker';
 import {
 	flow, FlowDialog, i18n, getLocalSetting, setLocalSetting, T, dpc,
 	FlowApp, setTheme, deferred
@@ -35,6 +41,21 @@ window.PWA_MODULES["@kaspa/grpc-web"] = "N/A";
 window.PWA_MODULES["@kaspa/wallet"] = "N/A";
 window.PWA_MODULES["@kaspa/grpc"] = "N/A";
 window.PWA_MODULES["@kaspa/core-lib"] = "N/A";
+
+// Legacy default testnet suffix, used when the kaspad daemon config carries no
+// explicit `netsuffix`. Mirrors lib/interfaces/kaspad.js so the wallet network
+// id is derived from the same single source (the daemon `args.netsuffix`) the
+// node launches with.
+const DEFAULT_TESTNET_SUFFIX = 10;
+
+// What decides the node a wallet connects to: the network, and the resolver for
+// a public node (a local node's endpoint follows from its network).
+const walletNodeOf = (settings)=>{
+	if(!settings)
+		return "";
+	const {networkId, connectOnly, resolver} = settings;
+	return JSON.stringify([networkId, !!connectOnly, connectOnly ? resolver || null : null]);
+}
 
 class KDXApp extends FlowApp{
 	render(){
@@ -241,9 +262,19 @@ class KDXApp extends FlowApp{
 					Configuration editor allows you to customize KDX environment.
 					KDX configuration is represented in JSON
 					by a list of application/service configuration objects.
-					Each service configuration object is used 
+					Each service configuration object is used
 					to start the corresponding service.
 				</p>
+				<h4 slot="info" class="title"><flow-i18n>Add a service</flow-i18n></h4>
+				<p slot="info" is="i18n-p">
+					Applying a template (RESET) replaces the whole service set, so run
+					an extra local node or a miner alongside the active template by
+					adding a service block to the editor above and clicking APPLY. A
+					second local node needs its own ports. Example service blocks to
+					add inside the JSON object:
+				</p>
+				<pre slot="info" class="add-service-example">"kaspad:kd1": { "binary": "kaspad", "args": { "rpclisten": "0.0.0.0:16120", "listen": "0.0.0.0:16121", "rpclisten-borsh": "0.0.0.0:17120" } }
+"kaspaminer:km0": { "binary": "kaspa-miner", "args": {} }</pre>
 			</flow-form-control>
 
 			<flow-form-control id="settings-templates" icon="fal:file-alt"
@@ -258,9 +289,7 @@ class KDXApp extends FlowApp{
 							mergeattributes="value" mergeinnerhtml
 							selected="mainnet" class="network-list">
 							<div class="menu-item" value="mainnet">${T('MAINNET')}</div>
-							<div class="menu-item" value="testnet">${T('TESTNET')}</div>
-							<div class="menu-item" value="devnet">${T('DEVNET')}</div>
-							<div class="menu-item" value="simnet">${T('SIMNET')}</div>
+							<div class="menu-item" value="testnet-10">${T('TESTNET-10')}</div>
 						</flow-selector>
 					</div>
 					<div row>
@@ -353,6 +382,15 @@ class KDXApp extends FlowApp{
 
 		if(await this.checkForUpdates())
 			return;
+
+		// Load the WASM SDK from this page-module realm (valid web base, so no
+		// referrer_script_info FATAL), instantiate it from the node-read wasm
+		// bytes, and hand it to the shared kaspa-wasm-loader cache. Both
+		// consumers -- this wallet RPC builder and the renderer-side kaspad
+		// monitor -- then resolve the same instance through loadKaspaSdk().
+		const kaspaSdkModule = await import('/vendor/kaspa-wasm/kaspa.js');
+		await kaspaSdkModule.default({ module_or_path: readWasmBytes() });
+		setKaspaSdk(kaspaSdkModule);
 
 		await this.initSettings();
 		await this.initWallet();
@@ -449,12 +487,14 @@ class KDXApp extends FlowApp{
 
 		this.manager = manager;
 		manager.on("task-info", async (daemon)=>{
-			if(!daemon.renderModuleInfo)
+			if(!daemon.renderModuleInfo || !this.isCurrentService(daemon))
 				return
 
 			let {task} = daemon;
 
 			let info = await daemon.renderModuleInfo({html, i18n});
+			if(!this.isCurrentService(daemon))
+				return
 			let section = html`<div class="task-info">${info}</div>`;
 			this.renderModuleInfo(task, section);
 		})
@@ -471,9 +511,10 @@ class KDXApp extends FlowApp{
 			wallet.connectRPC();
 
 		});
+		// A service whose process exits keeps its tab: the output that tells why
+		// it stopped stays readable. Tabs go only when an apply drops the service.
 		manager.on("task-exit", (daemon)=>{
 			console.log("task-exit", daemon.task)
-			this.removeTaskTab(daemon.task);
 		})
 		manager.on("before-interrupt", ({daemon, interrupt})=>{
 			console.log("before-interrupt", daemon.task.type, daemon.task)
@@ -485,6 +526,8 @@ class KDXApp extends FlowApp{
 		})
 		manager.on("task-data", (daemon, data)=>{
 			//console.log("task-data", daemon.task, data)
+			if(!this.isCurrentService(daemon))
+				return
 			let terminal = this.taskTerminals[daemon.task.key];
 			if(!terminal || !terminal.term)
 				return
@@ -557,39 +600,106 @@ class KDXApp extends FlowApp{
 		let wallet = this.qS('kaspa-wallet');
 		this.wallet = wallet;
 		this.applyCompoundConfig();
+		// An address taken from the previous wallet does not belong to the new one.
 		wallet.addEventListener("new-wallet", ()=>{
-			if(this.useWalletForMining){
+			this.walletOpened = true;
+			if(this.useWalletForMining || this.miningAddressFromWallet){
 				//console.log("restartMining:::")
 				this.miningAddress = "";
 				this.manager?.restartMining();
 			}
 		})
-		let settings = await this.get_default_local_kaspad_settings();
+		this.walletSettings = await this.get_default_local_kaspad_settings();
 		let verbose = localStorage.rpcverbose == 1;
+		const kaspa = await loadKaspaSdk();
+		// Built on every wallet open, from the node the active config names.
 		this.wallet.setRPCBuilder(()=>{
-			const { network, port } = settings;
+			const settings = this.walletSettings;
+			if(!settings)
+				return {};
+			const { networkId } = settings;
+			// Public Node (connect-only): the wallet rides the resolver-selected
+			// remote node (utxoindex + synced) for this network; keys stay local,
+			// RPC is remote -- no loopback url. networkId is required with a
+			// resolver and the url property is ignored, so it is omitted.
+			if(settings.connectOnly) {
+				const resolver = buildKaspaResolver(kaspa, settings.resolver);
+				return {
+					rpc: new kaspa.RpcClient({ resolver, networkId, encoding : kaspa.Encoding.Borsh }),
+					network: networkId
+				}
+			}
+			const borshPort = kaspa.RpcClient.defaultPort(kaspa.Encoding.Borsh, networkId);
 			return {
-				rpc: new RPC({ clientConfig:{ host : `127.0.0.1:${port}` } }),
-				network
+				rpc: new kaspa.RpcClient({ url : `ws://127.0.0.1:${borshPort}`, encoding : kaspa.Encoding.Borsh }),
+				network: networkId
 			}
 		});
 		
 		return Promise.resolve();
 	}
+	// An apply that moves the wallet's node to another network, or between a
+	// public and a local node, re-opens an open wallet there from its phrase, so
+	// its addresses and its RPC connection follow without a restart. Resolves
+	// once the moved wallet has its address on the new network, or failed to
+	// open, so nothing reads an address in between.
+	async updateWalletNode(){
+		let settings = await this.get_default_local_kaspad_settings();
+		if(walletNodeOf(settings) == walletNodeOf(this.walletSettings))
+			return;
+		this.walletSettings = settings;
+		let opened = this.wallet?.wallet;
+		if(!opened || !settings)
+			return;
+		let seedPhrase = await opened.mnemonic;
+		await this.wallet.initNetworkSettings();
+		let {network, rpc} = this.wallet;
+		let moved = Wallet.fromMnemonic(seedPhrase, {network, rpc});
+		let addressKnown = new Promise(resolve=>{
+			const settle = ()=>{
+				moved.off("api-disconnect", onDisconnect);
+				moved.off("new-address", settle);
+				resolve();
+			}
+			const onDisconnect = (detail)=>{
+				if(detail?.error)
+					settle();
+			}
+			moved.on("api-disconnect", onDisconnect);
+			moved.on("new-address", settle);
+		});
+		this.wallet.setWallet(moved);
+		await addressKnown;
+	}
 	async get_default_local_kaspad_settings() {
 		
 		let {config:daemons} = await this.get("get-modules-config");
 		console.log("############### DAEMONS", daemons);
-		let kaspad = Object.entries(daemons).map(([k,v]) => { 
+		let kaspads = Object.entries(daemons || {}).map(([k,v]) => {
 			const { args } = v;
 			const [type, ident] = k.split(':');
-			return { type, ident, args};
-		}).filter(o=>o.type=='kaspad').shift();
+			return { type, ident, args : args || {}, conf : v };
+		}).filter(o=>o.type=='kaspad' && !o.conf.disable);
+		// Prefer the public (connect-only) entry as the wallet backend -- it is a
+		// synced, utxoindex-enabled remote node (no local IBD wait) and coexists
+		// with local nodes; fall back to the first local kaspad otherwise. A
+		// disabled entry runs no service, so it is never the wallet's node.
+		let kaspad = kaspads.find(o => o.conf.connectOnly) || kaspads[0];
 
 		if(!kaspad)
 			return null;//{network:"kaspa", port:16110};//{network:"kaspatest", port:16110};
 
-		const { args } = kaspad;
+		const { args, conf } = kaspad;
+
+		// Public Node (connect-only): the network is the explicit networkId field
+		// (not derived from local args). The wallet rides the resolver-selected
+		// remote node for it; keys stay local, no loopback port.
+		if(conf.connectOnly) {
+			let networkId = conf.networkId || 'mainnet';
+			let network = networkId.startsWith('testnet') ? 'kaspatest' : (networkId == 'mainnet' ? 'kaspa' : networkId);
+			return { network, networkId, connectOnly : true, resolver : conf.resolver };
+		}
+
 		let networkType = ['testnet','devnet','simnet'].filter(v=>args[v] !== undefined).shift() || 'mainnet';
 		let network = {
 			mainnet : 'kaspa',
@@ -597,9 +707,16 @@ class KDXApp extends FlowApp{
 			devnet : 'kaspadev',
 			simnet : 'kaspasim'
 		}[networkType];
+		const testnetSuffix = args.netsuffix ?? DEFAULT_TESTNET_SUFFIX;
+		let networkId = {
+			mainnet : 'mainnet',
+			testnet : `testnet-${testnetSuffix}`,
+			devnet : 'devnet',
+			simnet : 'simnet'
+		}[networkType];
 		let { rpclisten } = args;
 		let port = parseInt(rpclisten.split(':').pop());
-		return { network, port };
+		return { network, networkId, port };
 	}
 	async initConsole() {
 		let terminal = this.qS('#kdx-console');
@@ -642,9 +759,13 @@ class KDXApp extends FlowApp{
 		let {config} = await this.get("set-mining-address", {address});
 		this.setModuleConfigEditorValue(config);
 		this.miningAddress = address;
+		this.miningAddressFromWallet = false;
 		if(this.miningAddressInput)
 			this.miningAddressInput.value = address;
-		if(!dontRestartMinner)
+		// A miner waiting for a wallet's address takes this one and starts itself.
+		if(this.endWalletWait)
+			this.endWalletWait();
+		else if(!dontRestartMinner)
 			this.manager.restartMining();
 	}
 	setStatsdAddress(statsdAddress){
@@ -730,6 +851,7 @@ class KDXApp extends FlowApp{
 		console.log("caption", caption)
 		this.caption = caption;
 		this.caption.close = this.closeWin;
+		installMaximizeFix(this.caption);
 		this.caption.logo = `/resources/images/kaspa-logo-${this.theme||"light"}-bg.png`;
 
 		caption.version = pkg.version;
@@ -803,8 +925,8 @@ class KDXApp extends FlowApp{
 
 		const blockgenEl = qS("#block-generation");
 
+		const config = this.initData?.config || {};
 		if(!this.tpl_template) {
-			let {config} = this.initData;
 			this.tpl_template = config.ident;
 			this.tpl_network = config.network;
 
@@ -812,6 +934,26 @@ class KDXApp extends FlowApp{
 			if(!miner.length)
 				$(blockgenEl).addClass('no-mining');
 		}
+
+		// Orphan-ident reconcile (upgrade path): a config whose ident matches no
+		// current template key points the selector at a non-existent option and
+		// renders it blank. Reconcile to the template whose module set matches the
+		// active config, else surface a clear (custom) option, so the selector
+		// always shows the active model rather than a blank.
+		// A config seeded without an ident (a fresh start that skipped the
+		// initializer) is reconciled the same way.
+		if(!this.templates[this.tpl_template]) {
+			const matched = this.matchTemplateKeyByShape(config.modules);
+			if(matched) {
+				this.tpl_template = matched;
+			} else if(this.tpl_template) {
+				tplEl.innerHTML += `<div class="menu-item" value="${this.tpl_template}">${i18n.t('(custom)')}</div>`;
+			}
+		}
+		// Likewise a config without a stored network takes it from the active
+		// node entry, so the network selector never renders blank.
+		if(!this.tpl_network)
+			this.tpl_network = (await this.get_default_local_kaspad_settings())?.networkId;
 
 		tplEl.setAttribute('selected',this.tpl_template);
 		netEl.setAttribute('selected',this.tpl_network);
@@ -832,9 +974,13 @@ class KDXApp extends FlowApp{
 		})
 
 		const loadConfigBtn = qS("#load-config");
-		loadConfigBtn.addEventListener('click', async (e) => {	
+		loadConfigBtn.addEventListener('click', async (e) => {
 
-			let config = this.templates[this.tpl_template];
+			// Tag the applied template with its key so the persisted config.ident
+			// reflects the active template (the Settings selector reads it back),
+			// mirroring the initializer's defaults.ident. Copy so the in-memory
+			// template cache is not mutated.
+			let config = Object.assign({}, this.templates[this.tpl_template], { ident : this.tpl_template });
 			let network = this.tpl_network;
 
 			//this.saveModulesConfig(config);
@@ -849,11 +995,22 @@ class KDXApp extends FlowApp{
 		});
 	}
 
+	// Find the template key whose daemon module set (kaspad/miner keys) matches
+	// the active config, used to reconcile an orphan ident to a known template.
+	matchTemplateKeyByShape(modules = {}) {
+		const signature = (m) => Object.keys(m || {})
+			.filter(k => /^(kaspad|kaspaminer|gpuminer):/.test(k))
+			.sort()
+			.join(',');
+		const target = signature(modules);
+		return Object.keys(this.templates).find(key => signature(this.templates[key].modules) === target) || null;
+	}
+
 	setModuleConfigEditorValue(modules){
 		if(!this.configEditor)
 			return
 		this.disableConfigUpdates = true;
-		this.configEditor.session.setValue(JSON.stringify(modules, null, "\t"));
+		this.configEditor.session.setValue(JSON.stringify(modules || {}, null, "\t"));
 		this.disableConfigUpdates = false;
 	}
 
@@ -1089,21 +1246,19 @@ class KDXApp extends FlowApp{
 		}
 		this.restartDaemons(false, beforeStartCB);
 	}
-	isMinerWaitingForWalletLogin(){
-		if(this.miningAddress){
-			return false
-		}
-
-		return (this.useWalletForMining && this.wallet);
-	}
-	async getMiningAddress(){
+	// The reward address for the miner: the open wallet's address when the user
+	// chose it, else the configured address, else the open wallet's address.
+	// onWaitForWallet is called when the wallet's address has to be waited for.
+	async getMiningAddress(onWaitForWallet){
 		if(this.miningAddress){
 			console.log("getMiningAddress: returning", this.miningAddress)
 			return this.miningAddress;
 		}
 		console.log("getMiningAddress: useWalletForMining", this.useWalletForMining)
 		if(this.useWalletForMining && this.wallet){
-			let address = await this.wallet.getMiningAddress();
+			let address = await this.getWalletMiningAddress(onWaitForWallet);
+			if(address === null)
+				return this.getMiningAddress(onWaitForWallet);
 			this.miningAddress = address;
 			console.log("getMiningAddress: useWalletForMining, address", this.useWalletForMining, address)
 			if(address)
@@ -1112,15 +1267,40 @@ class KDXApp extends FlowApp{
 		}
 		let {config} = await this.get("get-modules-config")
 		let address = this.getMiningAddressFromConfig({modules:config});
+		this.miningAddressFromWallet = false;
+		if(!address && this.wallet){
+			address = await this.getWalletMiningAddress(onWaitForWallet);
+			if(address === null)
+				return this.getMiningAddress(onWaitForWallet);
+			// An address configured while waiting outranks the wallet's.
+			let current = await this.get("get-modules-config");
+			let configured = this.getMiningAddressFromConfig({modules:current.config});
+			this.miningAddressFromWallet = !configured && !!address;
+			address = configured || address;
+		}
 		this.miningAddress = address;
 		console.log("getMiningAddress:miningAddress:", this.miningAddress)
 		return address;
+	}
+	// Resolves once a wallet is open, which has to be waited for until the user
+	// opens one. A mining address set in the meantime ends the wait with null.
+	async getWalletMiningAddress(onWaitForWallet){
+		if(!this.walletOpened)
+			onWaitForWallet?.();
+		try {
+			return await Promise.race([
+				this.wallet.getMiningAddress().then(address => address || ""),
+				new Promise(resolve => { this.endWalletWait = () => resolve(null); })
+			]);
+		} finally {
+			this.endWalletWait = null;
+		}
 	}
 	getMiningAddressFromConfig(config){
 		let {modules={}} = config;
 		let address = "";
 		Object.keys(modules).find(key=>{
-			if(key.includes("gpuminer:")){
+			if(key.includes("gpuminer:") || key.includes("kaspaminer:")){
 				modules[key].args = modules[key].args||{};
 				address = modules[key].args["mining-address"];
 				return !!address
@@ -1222,6 +1402,8 @@ ${changelogContent}`;
 		let tabContent = this.taskTabs[key];
 		if(tabContent && tabContent.parentNode)
 			tabContent.parentNode.removeChild(tabContent);
+		delete this.taskTabs[key];
+		delete this.taskTerminals[key];
 
 		if(newTabs.length == caption.tabs.length)
 			return;
@@ -1313,28 +1495,53 @@ ${changelogContent}`;
 	
 	async restartDaemons(daemons, beforeStartCB){
 
-		if(!daemons) {
+		// Only the latest apply starts services: an earlier apply still waiting
+		// for its stopped processes leaves the start to the newer one.
+		const apply = this.applyCount = (this.applyCount || 0) + 1;
+		// Without an applied module map the restart keeps the active one.
+		let modules = daemons;
+		if(!modules) {
 			let {config} = await this.get("get-modules-config");
-			daemons = config.daemons;
-			console.log("restartDaemons - module config:", daemons);
+			modules = config;
+			console.log("restartDaemons - module config:", modules);
 		}
 
-		try{
-			await this.manager.stop();
-			console.log("initDaemons....")
-			dpc(1000, async()=>{
-				if(beforeStartCB)
-					await beforeStartCB();
-				this.initDaemons(daemons);
-			});
-		}catch(e){
-			console.log("restartDaemons:error", e)
-			dpc(1000, async()=>{
-				if(beforeStartCB)
-					await beforeStartCB();
-				this.initDaemons(daemons);
-			});
-		}
+		// Daemon lifecycle on apply: stop the previously-running daemons and wait
+		// for each managed process to exit -- which releases its datadir LOCK --
+		// BEFORE (re)starting, so two kaspad processes never contend for the same
+		// kaspad-kd<N>/kaspa-<network>/.../LOCK. manager.stop() resolves only once
+		// every managed task has emitted 'exit' (daemon.stop() escalates through
+		// SIGINT/SIGTERM to SIGKILL, so a wedged node cannot hold the LOCK
+		// indefinitely). Start once, after the stop settles -- never restart while
+		// a prior process may still hold the lock, including one that an earlier
+		// apply stopped and that has not exited yet.
+		const stopping = this.manager.stop().catch(e=>{
+			console.log("restartDaemons:stop error", e)
+		});
+		const stopped = this.servicesStopped = Promise.all([this.servicesStopped, stopping]);
+		// The stop takes the old instances out of the manager's set at once, so
+		// nothing below waits on them: the panels and tabs of the services the
+		// applied config drops go now, and the wallet moves to the applied node
+		// while the old processes exit. The miner's address is resolved again
+		// from the applied config, after the move.
+		this.removeServiceViews(this.serviceKeys(modules));
+		this.miningAddress = "";
+		this.miningAddressFromWallet = false;
+		const walletMoved = this.updateWalletNode().catch(e=>{
+			console.log("restartDaemons:wallet node error", e)
+		});
+		await stopped;
+		await walletMoved;
+		if(apply != this.applyCount)
+			return;
+		console.log("initDaemons....")
+		dpc(DAEMON_RESTART_SETTLE_MS, async()=>{
+			if(apply != this.applyCount)
+				return;
+			if(beforeStartCB)
+				await beforeStartCB();
+			this.initDaemons(daemons);
+		});
 	}
 	async stopDaemons(){
 		if(!this.manager)
@@ -1376,12 +1583,41 @@ ${changelogContent}`;
 		this?.caption?.requestUpdate();
 	}
 	renderModuleInfo(task, info){
-		this._infoTable = this._infoTable || document.querySelector("#process-info-table");
 		this._taskInfo = this._taskInfo || {};
-		
 		this._taskInfo[task.key] = info;
-		let list = Object.entries(this._taskInfo);
+		this.renderModuleInfoList();
+	}
+	renderModuleInfoList(){
+		this._infoTable = this._infoTable || document.querySelector("#process-info-table");
+		let list = Object.entries(this._taskInfo || {});
 		render(repeat(list, ([k])=>k, ([k, info])=>info), this._infoTable);
+	}
+	// Whether the service is in the manager's current set, whatever its process
+	// state. An instance an apply stopped has left manager.tasks, so its late
+	// updates are dropped. A daemon keeps a copy of its task, so the match is
+	// on the instance.
+	isCurrentService(daemon){
+		return !!this.manager?.tasks.some(task=>task.impl === daemon);
+	}
+	// The task keys of the services the manager starts for a module map: each
+	// entry not marked disable, whose type is not __-prefixed and has a service
+	// interface, and -- for an app -- that carries args.
+	serviceKeys(modules){
+		const {ctors} = this.manager;
+		return new Set(Object.entries(modules || {}).filter(([name, conf])=>{
+			const [type] = name.split(':');
+			return !conf?.disable && !/^__/.test(type) && !!ctors[type]
+				&& (type != 'app' || !!conf?.args);
+		}).map(([name])=>name.replace(':', '-')));
+	}
+	// Drops the panel and the tab of every service whose key is not in `kept`;
+	// a kept service's views stay, and its new instance takes them over.
+	removeServiceViews(kept){
+		Object.keys(this.taskTabs).filter(key=>!kept.has(key))
+			.forEach(key=>this.removeTaskTab({key}));
+		this._taskInfo = Object.fromEntries(Object.entries(this._taskInfo || {})
+			.filter(([key])=>kept.has(key)));
+		this.renderModuleInfoList();
 	}
 	exit(){
 		this.runInBG = false;
@@ -1435,13 +1671,21 @@ ${changelogContent}`;
 			dpc(500, ()=>{
 
 				window.onbeforeunload = null;
-				win.close(true);
 
-				if(window.flow && window.flow['flow-window-link'].windows) {
-					window.flow['flow-window-link'].windows.forEach((win)=>{
-						try { win.close(); } catch(ex) {}
+				// Tear down the auxiliary windows before the main window so
+				// Chromium reaps every child process before the last window
+				// closes and nw exits. Closing the main window first quits the
+				// app with the auxiliary windows still live; on the AppImage the
+				// squashfs unmount then races their still-mapped libnw.so pages
+				// and faults SIGBUS on teardown. Closing them first keeps the
+				// FUSE backing valid until the whole window tree is down.
+				if(window.flow?.['flow-window-link']?.windows) {
+					window.flow['flow-window-link'].windows.forEach((auxWin)=>{
+						try { auxWin.close(true); } catch(ex) {}
 					});
 				}
+
+				win.close(true);
 
 			})
 		}
@@ -1514,7 +1758,7 @@ ${changelogContent}`;
 		let appList = qS("#application-list");
 
 
-		let cfgApps = Object.entries(daemons).map(([ident,v]) => {
+		let cfgApps = Object.entries(daemons || {}).map(([ident,v]) => {
 			if(/^app:/i.test(ident) && !v.disable) {
 				return { ident, ...v };
 			} else

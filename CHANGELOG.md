@@ -1,5 +1,38 @@
 # Changelog
 
+## [2.21.0] - 2026-10-25
+- Updated the bundled Kaspa node to the official rusty-kaspa (Rust) kaspad v2.1.0.
+- Wallet updated to the Kaspa Rust WASM SDK v2.1.0; existing 12-word wallets open unchanged.
+- The settings pane stays readable at any window size: long examples wrap and the template and network selectors reflow instead of being clipped.
+- Closing KDX now exits cleanly instead of sometimes leaving the application running in the background.
+- The Public Node dashboard no longer shows a negative DAG sync percentage right after connecting.
+- A fresh install starts in Public Node mode without launching a local node.
+- Upgrading from an earlier .deb package repairs the install folder permissions, so the app starts for every user.
+- The wallet connects through the public node on the default configuration instead of staying offline.
+- A newly created wallet shows its receive address right away.
+- Enabling mining without a mining address no longer restarts the miner over and over: mining stays off with a notice until you open or create a wallet, then mines to that wallet's address. A mining address set in the settings is used instead unless Use Wallet Address for Mining is on.
+- The settings page shows the active template and network on a fresh start.
+- The Public Node panel no longer shows a storage tile for a node that stores nothing locally.
+- Changing the network, or switching between a public and a local node, moves an open wallet to the new node without a restart; mining to the wallet's address then uses its address on the new network.
+- The dashboard and the service tabs follow the applied configuration: a service that a template or configuration change removes disappears right away, and a node that stops because of an error keeps its tab with the reason.
+- With a public node and a local node configured together, the miner mines on the local node; with no local node, mining stays off with a notice instead of restarting the miner over and over.
+- After a wallet moves to another node, its DAA score shows that node's score as soon as it connects.
+- Changing the network or the node while a wallet is still connecting to a public node moves the wallet to the new node right away instead of leaving it stuck.
+- The miner no longer starts with a mining address for a different network than its node: mining stays off and the miner console names both networks and how to fix it.
+- Without a window manager, every window edge now resizes the window across its whole resize strip, as the corners do, instead of only along a one-pixel line; the window buttons, tabs and scroll bars stay clear of those strips and fully usable.
+- KDX no longer freezes for seconds at a time while connected to a node with a large mempool, so window resizing, clicks and typing stay responsive.
+- An opened wallet shows its balance and UTXOs from the node, receives payments live and stays current after a reconnect, also when the node drops the connection while it is being set up. Its transaction list shows the transactions that still hold the wallet's unspent funds, plus this session's payments and sends; after a restart, an earlier send appears as a receipt of what it left in the wallet. Scan More Addresses rescans the wallet instead of failing.
+
+## [2.20.0] - 2026-06-19
+- Revived KDX on the modern Kaspa stack: bundles the official rusty-kaspa node (kaspad v2.0.1) and defaults to MAINNET.
+- Node network and binary are configurable: the bundled node runs mainnet or testnet-10, and a custom build runs by dropping your own binary into ~/.kdx/bin/<platform>-<arch> and selecting it by name on a local template's binary field.
+- Three configuration templates - Public Node (default), Local Node, and Local Node + Miner; applying a template (RESET) replaces the active service set, while non-module settings and synced node data are preserved.
+- Wallet rebuilt on the official Kaspa Rust WASM SDK; existing 12-word wallets open unchanged.
+- CPU mining via kaspanet/cpuminer (tag v0.2.7; the bundled kaspa-miner reports version 0.2.6); live hashrate + block-rate in the dashboard.
+- User-space data layout under ~/.kdx (config, node data, user binaries); each node's captured log is kept separate per network.
+- Packaged as a portable AppImage and a system .deb (app installs read-only to /opt/kdx); the launcher forces the X11 backend for reliable window resizing and dock-icon integration.
+- Updated desktop runtime (NWJS 0.112).
+
 ## [2.12.10] - 2023-12-16
 - v2.12.8 password compatibility, v2.12.9 users must restore from seed!
 - Updated Kaspa node to v0.12.15.

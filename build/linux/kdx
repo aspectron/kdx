@@ -1,0 +1,7 @@
+#!/bin/sh
+# KDX launcher: run the bundled NWJS runtime against the KDX app directory.
+# --ozone-platform=x11 forces the X11 Ozone backend (reliable frameless resize
+# grips + a deterministic WM_CLASS for the dock icon); --class=kdx sets that
+# WM_CLASS so the running window binds to the installed kdx.desktop.
+HERE="$(dirname "$(readlink -f "$0")")"
+exec "$HERE/runtime/nw" "$HERE/app" --ozone-platform=x11 --class=kdx "$@"

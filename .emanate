@@ -1,9 +1,12 @@
 "use strict";
 //sudo emanate --miner --miner-debug
 
-//const KASPA_DEFAULT_BRANCH = 'v0.11.7-dev'; //'master';
+const KASPAD_REPO_ACCOUNT = 'demisrael';
+const KASPAD_REPO_NAME = 'rusty-kaspa';
 const KASPA_DEFAULT_BRANCH = 'master';
-const MINER_DEFAULT_BRANCH = 'main';
+const MINER_REPO_ACCOUNT = 'kaspanet';
+const MINER_REPO_NAME = 'cpuminer';
+const MINER_PINNED_TAG = 'v0.2.7';
 
 const E = new Emanator(__dirname, {
     type : argv.includes('build') || flags.innosetup ? 'NODE+NWJS' : 'UTIL',
@@ -21,17 +24,13 @@ const E = new Emanator(__dirname, {
     standalone : true,
     production: true,
     //DMG: true,
-    nwjs : { version : '0.55.0' },
+    nwjs : { version : '0.112.0' },
     resources : 'resources/setup',
 
     manifest : (manifest) => {
-        if(E.flags['with-perfmon'] && !E.flags['no-perfmon']) {
-            if(E.PLATFORM != 'macos') {
-                Object.assign(manifest.dependencies,{
-                    "@aspectron/process-list": "*",
-                })
-            }
-        }
+        // The process monitor uses the pure-JS modules/procmon/ps-list.js;
+        // the former native @aspectron/process-list addon is no longer
+        // injected (its nw-gyp/Python-2 ABI rebuild path was removed).
 
 //        if(E.PLATFORM == 'macos')
 //            manifest.files.push('apps');
@@ -39,8 +38,6 @@ const E = new Emanator(__dirname, {
         return manifest;
     },
 })
-
-E.flags['with-perfmon'] = true;
 
 if(E.flags.miner){
     E.flags.nonpm = true;
@@ -56,8 +53,7 @@ E.aux_dmg_files = async (root) => {
 
 
 
-const go = await E.modules.go('go1.16.0');
-const cargo = await E.modules.cargo('1.59.0');
+const cargo = await E.modules.cargo('1.93.0');
 const git = await E.modules.git();
 const gcc = await E.modules.gcc();
 const npm = await E.modules.npm({ production : true });
@@ -67,69 +63,47 @@ const npm = await E.modules.npm({ production : true });
 
 const kaspad = E.task('kaspad', ['origin'], async () => {
 
-    //return true;
     if(E.PLATFORM == 'windows') {
         process.env.PATH = ['C:\\TDM-GCC-64\\bin', ...process.env.PATH.split(';')].join(';');
     }
 
-    let dest = path.join(go.SRC,'github.com/kaspanet/');
+    const account = KASPAD_REPO_ACCOUNT;
+    let dest = path.join(cargo.SRCGITHUB, account);
     if((E.flags.reset || E.flags.clean) && fs.existsSync(dest))
         await E.emptyDir(dest);
 
     const branch = E.flags['branch'] || KASPA_DEFAULT_BRANCH || 'master';
-    
-    console.log('branch:',branch);
-    
-    //const repos = { };
-    const repos = [`kaspad:${branch}`];
-    if(E.flags['with-extras']) {
-        repos.push(`txgen:${branch}`,`kasparov:${KASPA_DEFAULT_BRANCH}`);
-    }
+    console.log('kaspad branch:', branch);
 
-    console.log("REPOS:".brightMagenta,repos);
+    const repos = [`${KASPAD_REPO_NAME}:${branch}`];
+    console.log("REPOS:".brightMagenta, repos);
 
     for(const repo of repos) {
         let [name, git_branch] = repo.split(':');
-        console.log(`git clone https://github.com/kaspanet/${name} branch: ${git_branch || 'master'}`.brightYellow);
-        await git.clone(`https://github.com/kaspanet/${name}`,dest, {branch : git_branch || 'master'});
+        console.log(`git clone https://github.com/${account}/${name} branch: ${git_branch || 'master'}`.brightYellow);
+        await git.clone(`https://github.com/${account}/${name}`, dest, {branch : git_branch || 'master'});
     }
 
-    let targets = [
-        'kaspad',
-        ...fs.readdirSync(path.join(dest,'kaspad/cmd')).map(f => `kaspad/cmd/${f}`),
-    ];
+    let kaspadSrc = path.join(dest, KASPAD_REPO_NAME);
+    console.log('Starting kaspad build...');
 
+    let release = !E.flags['kaspad-debug'];
+    await cargo.build(kaspadSrc, { release, p:['kaspad'] });
 
-    let rename = {}
-    console.log('Starting target processing...')
-    let folders = []
+    let targetFolder = path.join(kaspadSrc, 'target', release ? 'release' : 'debug');
 
-    for(let target of targets) {
-        let folder = path.join(dest,target);
-        console.log('builing',folder);
-        await go.build(folder);
-        console.log('done',folder);
-        folders.push(folder);
+    let file = 'kaspad' + E.PLATFORM_BINARY_EXTENSION;
+    let name = `${E.title} kaspad`;
+
+    let src = path.join(targetFolder, file);
+    if(!fs.existsSync(src)) {
+        console.log(`Unable to locate source file: ${src}`);
+        console.log(`...giving up`);
+        process.exit(1);
     }
-
-    folders.forEach((folder) => {
-        let file = path.basename(folder);
-        let name = `${E.title} ${file}`;
-        let dest = rename[file] || file;
-        file += E.PLATFORM_BINARY_EXTENSION;
-        dest += E.PLATFORM_BINARY_EXTENSION;
-
-        if(!fs.existsSync(path.join(folder,file))) {
-            console.log(`Unable to locate source file: ${path.join(folder,file)}`);
-            console.log(`...giving up`);
-            process.exit(1);
-        }
-        console.log("E.copy:", path.join(folder,file)," -> ",path.join(E.BIN,dest))
-        E.copy(path.join(folder,file),path.join(E.BIN,dest));
-        E.registerFirewallRule({ name, file : dest, binary : true });
-    })
-
-    //E.copy(path.join(dest,'kasparov','database','migrations'),path.join(E.BIN,'database','migrations'));
+    console.log("E.copy:", src, " -> ", path.join(E.BIN, file));
+    E.copy(src, path.join(E.BIN, file));
+    E.registerFirewallRule({ name, file, binary : true });
 });
 
 const miner = E.task('miner', ['origin'], async () => {
@@ -139,19 +113,19 @@ const miner = E.task('miner', ['origin'], async () => {
         process.env.PATH = ['C:\\TDM-GCC-64\\bin', ...process.env.PATH.split(';')].join(';');
     }
 
-    let account = 'aspectron';//'tmrlvi';
+    const account = MINER_REPO_ACCOUNT;
 
     let dest = path.join(cargo.SRCGITHUB, account);
     if((E.flags.reset || E.flags.clean) && fs.existsSync(dest))
         await E.emptyDir(dest);
 
-    const branch = E.flags['miner-branch'] || MINER_DEFAULT_BRANCH || 'main';
+    const branch = E.flags['miner-branch'] || MINER_PINNED_TAG;
     
     console.log('miner branch:', branch);
     console.log('miner dest:', dest);
     
     //const repos = { };
-    const repos = [`kaspa-miner:${branch}`];
+    const repos = [`${MINER_REPO_NAME}:${branch}`];
     console.log("REPOS:".brightMagenta,repos);
 
     for(const repo of repos) {
@@ -160,7 +134,7 @@ const miner = E.task('miner', ['origin'], async () => {
         await git.clone(`https://github.com/${account}/${name}`, dest, {branch : git_branch || 'master'});
     }
 
-    let minerDest = path.join(dest, "kaspa-miner");
+    let minerDest = path.join(dest, MINER_REPO_NAME);
     console.log('Starting miner build processing...')
 
     let release = !E.flags['miner-debug'];
@@ -184,7 +158,7 @@ const miner = E.task('miner', ['origin'], async () => {
     
 
     file += E.PLATFORM_BINARY_EXTENSION;
-    let rename = "gpuminer"+E.PLATFORM_BINARY_EXTENSION;
+    let rename = file;
 
     let files = new Map();
     files.set(file, rename)
